@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="Pragma" content="no-cache">
+        </meta>
+        <meta http-equiv="expires" content="0">
+        </meta>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Framework CSS -->
+        <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
+        </link>
+        <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+        <!-- Import fancy-type plugin for the sample page. -->
+        <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+        </link>
+
+        <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/tabs.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/card.css" type="text/css" media="screen, print"/>
+
+        <script type='text/javascript' src='/dwr/engine.js'></script>
+        <script type='text/javascript' src='/dwr/util.js'></script>
+
+        <!-- ExtJS -->
+        <link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+        <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+        <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+        <script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+        <script type='text/javascript' src='/dwr/interface/OptionProvider.js'></script>
+        <script type='text/javascript' src='/dwr/interface/UserService.js'></script>
+        <script type="text/javascript" src="js/ext/dwrproxy.js"></script>
+        <script type="text/javascript" src="js/ext/DwrTreeLoader.js"></script>
+        <script type="text/javascript" src="js/jsLoader.js"></script>
+
+        <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+        <script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+        <script type='text/javascript' src='/dwr/interface/ChildBirthService.js'></script>
+        <script type='text/javascript' src='/dwr/interface/PersonalInfoService.js'></script>
+        <script type='text/javascript' src='/dwr/interface/UserMenuTreeService.js'></script>
+        <script type='text/javascript' src='/dwr/interface/BirthCertificateMsgService.js'></script>
+
+        <script type="text/javascript" src="js/rx.js"></script>
+        <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+        <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+        <script type="text/javascript" src="js/jquery.printElement.min.js"></script>
+        <script type="text/javascript" src="js/rx.jQuery.js"></script>
+        <script type="text/javascript" src="js/controls.js"></script>
+        <script type="text/javascript" src="js/med.js"></script>
+        <script type="text/javascript" src="js/validate.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/in_birthChildRecords.js"></script>
+        <script language="javascript" src="js/LodopFuncs.js"></script>
+        <object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+        width=0 height=0>
+            <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0
+            pluginspage="install_lodop.exe"></embed>
+        </object>
+        <script language="javascript" src="js/printProtectPage.js"></script>
+        <script type="text/javascript" src="js/UrlParse.js"></script>
+        <script type="text/javascript" src="js/woman_print.js"></script>
+        <script type="text/javascript" src="js/print/printSetting.js"></script>
+
+    </head>
+    <body>
+        <div style="display: none;" class="isWomanRecord">
+            1
+        </div>
+        <div class="outerContainer">
+            <div class="showToolbar"></div>
+
+            <div class="container">
+                <button class="birthChildRecord_new img1 woman i_print"
+                style="display: none;">
+                    <img title="保健册打印" src="../image/print_positive_32_32.png" />保健册打印
+                </button>
+                <table class="form_tbl cover">
+                    <tr>
+                        <td rowspan="2"><span class="header">姓名</span><span id="mname" class="tf_inline"></span></td>
+                        <td colspan="2"><span class="header">编号</span><span id="districtNumber" class="tf_inline"></span><span id="fileNo" class="tf_inline"></span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><span class="header">条形码</span><span id="barCode"></span></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="header">分娩日期</td>
+                        <td><span id="childbirthYear"></span>年<span id="childbirthMonth"></span>月<span id="childbirthDay"></span>日</td>
+                        <td class="header">产后出血</td>
+                        <td><span id="flooding"></span>ml</td>
+                    </tr>
+                    <tr>
+                        <td class="header">分娩地点</td>
+                        <td id="childbirthAddress" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">分娩孕周</td>
+                        <td id="borthWeekly" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">分娩方式</td>
+                        <td id="childbirthWay" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td align="center">接生方式</td>
+                        <td id="deliverWay" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">会阴撕裂</td>
+                        <td id="lacerationOfPerineum" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">缝合情况</td>
+                        <td colspan="3">外缝<span id="outerFissure"></span>针，产后血压<span id="bloodPressure"></span>mmHg</td>
+                    </tr>
+                    <tr>
+                        <td class="header">产后处理</td>
+                        <td id="deal" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">产时合并症</td>
+                        <td colspan="3"><span id="comorbidity"></span><span id="comorbidityOther"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="header">危急孕产妇</td>
+                        <td id="criticalWoman" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">危急症状</td>
+                        <td id="criticalSymptom" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">新生儿性别</td>
+                        <td id="sex" colspan="3"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="header">新生儿体重</td>
+                        <td colspan="3"><span id="weight" ></span>克</td>
+                    </tr>
+                    <tr>
+                        <td class="header">新生儿存活情况</td>
+                        <td id="babySurvive" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">新生儿出生情况</td>
+                        <td colspan="3"><span id="babyBirth"></span><span id="babyBirthOther"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="header">新生儿并发症</td>
+                        <td colspan="3"><span id="babyComorbidity"></span><span id="babyComorbidityOther"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="header">开奶时间</td>
+                        <td id="nurseTime" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">产后诊断</td>
+                        <td id="diagnosis" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">接生单位</td>
+                        <td id="borthOrganization" colspan="3">${name}</td>
+                    </tr>
+                    <tr>
+                        <td class="header">接生人员</td>
+                        <td id="widwife" colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td class="header">出生证编号</td>
+                        <td colspan="3" id="certifiId"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="showToolbar toolbarHide"></div>
+            <br/>
+            <br/>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.net.tongfang.framework.security.vo.SamModule" table="sam_module">
+        <id name="id" type="java.lang.String">
+            <column name="id" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" length="100" not-null="true" />
+        </property>
+        <property name="categoryId" type="java.lang.String">
+            <column name="category_id" length="32" not-null="true" />
+        </property>
+        <property name="url" type="java.lang.String">
+            <column name="url" length="100" not-null="true" />
+        </property>
+        <property name="ordinal" type="java.lang.Integer">
+            <column name="ordinal" not-null="true" />
+        </property>
+        <property name="clsSetting" type="java.lang.String">
+            <column name="CLS" length="50" />
+        </property>
+        <property name="isNavigate" type="boolean">
+            <column name="IsNavigate"/>
+        </property>
+        <property name="inputPage" type="java.lang.String">
+            <column name="InputPage" />
+        </property>
+        <property name="type" type="java.lang.Integer">
+            <column name="Type" />
+        </property>
+         <many-to-one name="category" class="cn.net.tongfang.framework.security.vo.SamModuleCategory" 
+         	column="category_id"
+         	update="false"
+         	insert="false"
+         	not-found="ignore"
+         	/>
+    </class>
+</hibernate-mapping>

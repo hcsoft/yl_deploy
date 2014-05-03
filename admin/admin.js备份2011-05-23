@@ -1,0 +1,238 @@
+ModuleMgr = {};
+Ext.ns('App','App.mainframe');
+var tabPanel = new Ext.TabPanel( {
+  region : 'center',
+  deferredRender : false,
+  activeTab : 0,
+  frame : true,
+  autoScroll : true,
+  enableTabScroll: true,
+  plugins : new Ext.ux.TabCloseMenu(),
+  items : [ {
+    contentEl : 'center2',
+    title : '欢迎使用公共卫生管理平台',
+    closable : false,
+    autoScroll : true
+  } ]
+});
+
+/**
+ * 每次加载js模块时，调用这个函数，增加tab
+ */
+ModuleMgr.register = function(mod) {
+  //var newCmp = tabPanel.add(mod);
+  
+  newCmp.autoScroll = true,
+  tabPanel.doLayout();
+  
+  tabPanel.setActiveTab(newCmp);
+  return newCmp;
+}
+
+var taskCheckSession;
+
+function checkSession() {
+  UserService.getCurrentUser(
+    {
+      callback: function(data) {
+        if ( typeof data == 'undefined' || data == null ) {
+          Ext.Msg.alert('', '登录状态失效，请退出重新登录！', logout);
+        }
+      },
+      timeout: 120000,
+      errorHandler: function(msg) {
+        console.log(msg);
+        Ext.Msg.alert('', '通讯中断，请退出重新登录！', logout);
+      }
+    }
+  );
+};
+function stopTask() {
+  Ext.TaskMgr.stop(taskCheckSession);
+};
+function logout() {
+  stopTask();
+  window.location = "/j_spring_security_logout";
+}
+
+Ext.onReady(function() {
+  Ext.BLANK_IMAGE_URL = '/resources/images/default/s.gif';
+
+  var onGotMenuData = function(data) {
+    if (data != null && typeof data == 'object') {
+      // console.debug(data);
+      init(data);
+    } else {
+      alert("Loading user menu failed.");
+    }
+  }
+
+  UserMenuTreeService.genUserMenuTree(onGotMenuData);
+
+  var showUserInfo = function(data) {
+    console.log(data);
+    if ( ! data ) {
+      logout();
+      return;
+    } else {
+      Ext.tf.currentUser = data;
+      Ext.get('_user_info').dom.innerHTML = "用户：" + data.taxempname;
+    }
+  }
+  UserService.getCurrentUser(showUserInfo);
+
+  //定时与server通讯，保存永久session哈 :0)
+  taskCheckSession = {
+      run: checkSession,//执行任务时执行的函数
+      interval: 60*1000//任务间隔，毫秒为单位
+  }
+  Ext.TaskMgr.start(taskCheckSession);//初始化时就启动任务
+  
+});
+
+init = function(data) {
+
+  /* data的格式样例
+  var json = [ {
+    "text" : "登记信息管理",
+    "id" : 'regMgr',
+    "leaf" : false,
+    "cls" : "folder",
+    "children" : [ {
+      "text" : "个人预登记信息审核",
+      "id" : '/js/app/ireg.js',
+      "leaf" : true,
+      "cls" : "file"
+    }, {
+      "text" : "个人预登记信息查询",
+      "id" : 'individualQry.js',
+      "leaf" : true,
+      "cls" : "file"
+    } ]
+  } ];
+  */
+  var menu_tree = new Ext.tree.TreePanel( {
+    animate : true,
+    enableDD : false,
+    loader : new Ext.tree.TreeLoader(),
+    lines : true,
+    autoScroll : true,
+    border : false,
+    root : new Ext.tree.AsyncTreeNode( {
+      text : 'Autos',
+      draggable : false,
+      id : 'source',
+      children : data
+    }),
+    rootVisible : false
+  });
+
+  menu_tree.on( {
+    click : {
+      stopEvent : true,
+      fn : function(n, e) {
+        e.stopEvent();
+        if (n.isLeaf()) {
+          if (n.id.indexOf('.html') != -1) {
+            var iframeId = n.text + '_' + n.id;
+            if (!Ext.get(iframeId)) {
+              var newFrame = tabPanel.add( {
+                xtype : 'iframepanel',
+                id : iframeId,
+                title : n.text,
+                loadMask : true,
+                // frameConfig: {{autoCreate:{id: 'frame1'}}, //optional, give
+                // the frame your own id and name
+                defaultSrc : n.id,
+                listeners : {
+                  domready : function(frame) { // only raised for "same-origin"
+                                                // documents
+                    // Set the tab Title to the Document Title
+                    var doc = frame.getDocument();
+                    if (doc) {
+                      frame.ownerCt.setTitle(doc.title);
+                    }
+                  }
+                }
+              });
+              tabPanel.doLayout(); // if TabPanel is already rendered
+              tabPanel.setActiveTab(newFrame);
+            }
+
+          } else {
+            console.log("loading " + n.id);
+            var tab = null;
+            var items = tabPanel.find('url', n.id);
+            if (items.length > 0) {
+              tab = items[0];
+            }
+            if (tab) {
+              tabPanel.setActiveTab(tab);
+            } else {
+            	//alert(n.id);
+            	//var proxy = new Ext.data.ScriptTagProxy({url:n.id});
+            	
+            	/*
+              new Ext.ux.JSLoader( {
+                url : n.id,
+                onError : function(options, e) {
+                  console.log(e);
+                  alert(e.description);
+                  alert('模块加载失败[' + n.id + ']');
+                }
+              });
+              */
+							tab = new Ext.TabPanel({								id : n.id,
+								autoLoad : {url : "/autoload.jsp?jsurl="+n.id,scripts : true,nocache : true},
+								title : n.text,
+								autoScroll : true,
+								closable : true,
+								//layout : "column",
+								border : false
+							});
+							var p = tabPanel.add(tab);
+							tabPanel.tabid = n.id;
+						  tab.jscript="mod.js";
+			       	tabPanel.activate(p);
+
+            }
+          }
+        }
+      }
+    }
+  });
+
+  Ext.QuickTips.init();
+
+  Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+
+  var viewport = new Ext.Viewport( {
+    layout : 'border',
+    items : [ new Ext.BoxComponent( { // raw
+      region : 'north',
+      el : 'north',
+      height : 32
+    }), {
+      region : 'west',
+      id : 'west-panel',
+      title : '菜单',
+      split : true,
+      width : 200,
+      minSize : 175,
+      maxSize : 400,
+      collapsible : true,
+      margins : '0 0 0 5',
+      layout : 'accordion',
+      layoutConfig : {
+        animate : true
+      },
+      items : [ {
+        title : '功能模块',
+        autoScroll : true,
+        border : false,
+        iconCls : 'settings',
+        items : menu_tree
+      } ]
+    }, tabPanel ]
+  });
+}

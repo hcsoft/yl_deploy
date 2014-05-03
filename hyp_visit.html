@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/HypertensionVisitService.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_hyp_visit.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+
+<!-- 导行流程图 -->
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type="text/javascript" src="js/nextOpt.js"></script>
+<link type="text/css" href="css/nextOpt.css" media="screen"
+	rel="stylesheet" />
+<script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+<link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+	rel="stylesheet" />
+<link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+
+
+</head>
+<body>
+	<div style="display: none;" class="isWomanRecord">2</div>
+	<div class="outerContainer">
+		<div class="showToolbar"></div>
+		<div class="container">
+			<table class="form_tbl">
+				<tr>
+					<td colspan="2" rowspan="2"><span class="tf_inline">姓名：</span>
+						<span id="name" class="tf_inline"></span></td>
+					<td><span class="tf_inline">编号：</span> <span
+						id="districtNumber" class="tf_inline"></span><span id="fileNo"
+						class="tf_inline"></span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><span class="tf_inline">条形码：</span> <span id="barCode"></span>
+					</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="header">随访日期</td>
+					<td colspan="2"><span id="visitDate"></span></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="header">随访方式</td>
+					<td colspan="2"><span id="visitKind"></span></td>
+				</tr>
+
+
+
+				<tr>
+					<td class="header">症状</td>
+					<td colspan="3"><span id="hypertensionSymptom"></span><span
+						id="symptomOther"></span></td>
+				</tr>
+
+
+				<tr>
+					<td class="header" rowspan="5">体征</td>
+					<td class="header">血压（mmHg）</td>
+					<td colspan="2"><span id="diastolicPressure"></span>/<span
+						id="systolicPressure"></span></td>
+				</tr>
+				<tr>
+					<td class="header">体重 （kg）</td>
+					<td colspan="2"><span id="weight"></span></td>
+				</tr>
+				<tr>
+					<td class="header">体质指数</td>
+					<td colspan="2"><span id="habitus"></span></td>
+				</tr>
+				<tr>
+					<td class="header">心 率</td>
+					<td colspan="2"><span id="heartRate"></span>次/分</td>
+				</tr>
+				<tr>
+					<td class="header">其 他</td>
+					<td colspan="2"><span id="other"></span></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="6">生活方式指导</td>
+					<td class="header">日吸烟量（支）</td>
+					<td colspan="2"><span id="smoke"></span></td>
+				</tr>
+				<tr>
+					<td class="header">日饮酒量（两）</td>
+					<td colspan="2"><span id="drink"></span></td>
+				</tr>
+				<tr>
+					<td class="header">运 动</td>
+					<td colspan="2"><span id="sportTimes"></span> 次/周 <span
+						id="sportDuration"></span> 分钟/次</td>
+				</tr>
+				<tr>
+					<td class="header">摄盐情况<br />（咸淡）
+					</td>
+					<td colspan="2" id="salt"></td>
+				</tr>
+				<tr>
+					<td class="header">心理调整</td>
+					<td colspan="2" id="mindStatus"></td>
+				</tr>
+				<tr>
+					<td class="header">遵医行为</td>
+					<td colspan="2"><span id="action"></span></td>
+				</tr>
+				<tr>
+					<td class="header">辅助检查*</td>
+					<td colspan="3"><span id="assistantExam"></span></td>
+				</tr>
+				<tr>
+					<td class="header">服药依从性</td>
+					<td colspan="3"><span id="compliance"></span></td>
+				</tr>
+				<tr>
+					<td class="header">药物不良反应</td>
+					<td colspan="3"><span id="adr"></span><span id="adrother"></span></td>
+				</tr>
+				<tr>
+					<td class="header">此次随访分类</td>
+					<td colspan="3"><span id="visitType"></span></td>
+				</tr>
+				<tr>
+					<td class="header">用药情况</td>
+					<td colspan="3" id="hypertensionMedications"></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="2">转 诊</td>
+					<td><span id="transReason"></span></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr>
+					<td>机构及科别</td>
+					<td colspan="2"><span id="transUnit"></span></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="header">下次随访日期</td>
+					<td colspan="2" id="nextVistDate"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="header">随访医生签名</td>
+					<td colspan="2" id="visitDoctor"></td>
+				</tr>
+			</table>
+
+
+		</div>
+		<div class="showToolbar toolbarHide"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+</body>
+</html>

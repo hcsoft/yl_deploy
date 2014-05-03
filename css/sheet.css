@@ -1,0 +1,37 @@
+input.thin , span.thin{
+    border-top : 0;
+    border-left : 0;
+    border-right : 0;
+    background-color : transparent;
+}
+
+span.thin {
+    margin-right : 5px;
+    font-weight : bold;
+}
+
+div.sheet {
+    border-top : dashed 1px black; 
+    border-bottom : dashed 1px black; 
+    padding-top : 5px;
+    padding-bottom : 5px;
+    margin-bottom : 5px;
+}
+
+table.sheet {
+    width : 100%;
+}
+table.sheet td {
+    text-align : right;
+}
+
+table.tgrid td {
+    margin-left : 5px;
+    margin-right : 5px;
+}
+
+table.tgrid button {
+    height : 20px;
+    width : 80px;
+}
+

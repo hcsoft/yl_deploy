@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>条形码初始化</title>
+	<link rel="stylesheet" type="text/css" href="js/ext-3.3.0/resources/css/ext-all.css" />
+    <script type="text/javascript" src="js/ext-3.3.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext-3.3.0/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type="text/javascript" src="js/barCodeInit.js"></script>
+	<script type="text/javascript" src="js/certificate-pulbic-method.js"></script>  
+	<!-- Jquery引入包 -->
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+   	<script type='text/javascript' src='/dwr/interface/BirthCertificateMsgService.js'></script>
+   	<script type="text/javascript" src="js/certificate-pulbic-method.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/certificate.css" />
+</head>
+<body>
+	<table id="barCodeInit" class="certificateInitClass" cellpadding="0" cellspacing="0">
+		<tbody>
+			<tr>
+				<td>行政区划编码：</td>
+				<td><input type="text" id="distriNo" value="530100" class="otherCertificateCondotion"/><font color="red">*</font></td>
+			</tr>
+			<tr>
+				<td>年份：</td>
+				<td>
+					<select id="years" class="otherCertificateCondotion">
+					</select><font color="red">*</font></td>
+			</tr>
+			<tr>
+				<td>流水号范围：</td>
+				<td><input type="text" id="minVal" class="condition"/>至<input type="text" id="maxVal" class="endConditions"/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">提示：<br />1、行政区划编码为所在地的行政区划编码。<br />
+					2、带*为必填项。
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><div id="showResultInfo" style="width:350px;height:200px;word-break:break-all;overflow: scroll;"></div></td>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE hibernate-mapping PUBLIC "hibernate-mapping" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class table="NccmSick" name="cn.net.tongfang.framework.security.vo.NccmsickVO">
+    <composite-id name="primaryKey" class="cn.net.tongfang.framework.security.vo.NccmsickPK">
+      <key-property name="SickCode" column="SickCode" type="java.lang.String" length="20"/>
+      <key-property name="MediType" column="MediType" type="java.lang.Integer" />
+    </composite-id>
+    <property not-null = "false"  type="java.lang.String" column="SickName" name="SickName" />
+    <property not-null = "false"  type="java.lang.String" column="FeeCode" name="FeeCode" />
+    <property not-null = "false"  type="java.lang.String" column="MemoCode" name="MemoCode" />
+    <property not-null = "false"  type="java.lang.String" column="FeeType" name="FeeType" />
+    <property not-null = "false"  type="java.lang.String" column="SpecialSick" name="SpecialSick" />
+  </class>
+</hibernate-mapping>

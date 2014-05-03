@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+	
+	<!-- Framework CSS -->
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection"></link>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+    <!-- Import fancy-type plugin for the sample page. -->
+    <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection"></link>
+ 
+    <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/tabs.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/card.css" type="text/css" media="screen, print"/>
+    
+    <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type='text/javascript' src='/dwr/util.js'></script> 	
+    
+    <!-- ExtJS -->
+    <link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+    <script type='text/javascript' src='/dwr/interface/OptionProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/UserService.js'></script>
+    <script type="text/javascript" src="js/ext/dwrproxy.js"></script>
+    <script type="text/javascript" src="js/ext/DwrTreeLoader.js"></script>
+    <script type="text/javascript" src="js/jsLoader.js"></script>
+    
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+    <script type='text/javascript' src='/dwr/interface/ChildBirthService.js'></script>
+    <script type='text/javascript' src='/dwr/interface/PersonalInfoService.js'></script>
+    <script type='text/javascript' src='/dwr/interface/UserMenuTreeService.js'></script>
+    <script type='text/javascript' src='/dwr/interface/BirthCertificateMsgService.js'></script>
+    
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/jquery.printElement.min.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/in_birthCertificateInfo_supply.js"></script>
+    
+    <!-- 打印控件 -->
+    <script language="javascript" src="js/LodopFuncs.js"></script>
+	<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+		<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop.exe"></embed>
+	</object>
+    <script type="text/javascript" src="js/printProtectPage.js"></script>
+   	<script type="text/javascript" src="js/printBirthCertifi.js"></script>
+
+	<!-- 下一步操作引入  -->
+	<script type="text/javascript" src="js/nextOpt.js"></script>
+	<script type="text/javascript" src="js/personalInfoDropdown.js"></script>
+	<script type="text/javascript" src="js/addDoctors.js"></script>
+	<script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+	<link href="css/personalInfo.css" type="text/css" rel="stylesheet"/>
+	<link href="My97DatePicker/skin/WdatePicker.css" type="text/css" rel="stylesheet"/>
+	
+	<style type="text/css">
+		.del_btn{
+			background-image : url(image/delete.png) !important;
+			background-repeat : no-repeat;
+		}
+		.add_btn{
+			background-image : url(image/add.png) !important;
+			background-repeat : no-repeat;
+		}
+	</style>
+</head>
+<body>
+	<div class="outerContainer">
+  <div class="showToolbar"></div>
+ 	<div class="container">
+    	<table class="form_tbl">
+		   	<tr>
+		        <td class="header">新生儿姓名</td>
+		        <td id="name" colspan="2"></td>
+		         <td class="header">性别</td>
+		        <td id="sex"></td>
+		        <td class="header">出生日期</td>
+		        <td id="birthday" colspan="2"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">出生地</td>
+		        <td colspan="5">
+		        	<span id="province"></span>&nbsp;-
+		        	<span id="city"></span>&nbsp;-
+		        	<span id="county"></span>&nbsp;-
+		        	<span id="township"></span>乡
+		        </td>
+		        <td class="header">孕周</td>
+		        <td><span id="borthWeekly"></span>周</td>
+		    </tr>
+		    <tr>
+		        <td class="header">健康状况</td>
+		        <td id="healthStatus" colspan="3"></td>
+		        <td class="header">体重</td>
+		        <td><span id="weight"></span>克</td>
+		        <td class="header">身长</td>
+		        <td><span id="height"></span>cm</td>
+		    </tr>
+		    <tr>
+		        <td class="header">母亲姓名</td>
+		        <td id="motherName"></td>
+		        <td class="header">年龄</td>
+		        <td id="motherAge"></td>
+		        <td class="header">国籍</td>
+		        <td id="motherNationality">${name}</td>
+		        <td class="header">民族</td>
+		        <td id="motherNation"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">身份证号</td>
+		        <td colspan="7" id="motherIdCard"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">父亲姓名</td>
+		        <td id="fatherName"></td>
+		        <td class="header">年龄</td>
+		        <td id="fatherAge"></td>
+		        <td class="header">国籍</td>
+		        <td id="fatherNationality">${name}</td>
+		        <td class="header">民族</td>
+		        <td id="fatherNation"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">身份证号</td>
+		        <td colspan="7" id="fatherIdCard"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">出生地分类</td>
+		        <td colspan="7">
+		        	<span id="borthAddressCategory"></span>
+		        	<span id="otherBorthAddressCategory"></span>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td class="header">出生证编号</td>
+		        <td colspan="3" id="certifiId"></td>
+		        <td class="header">签发日期</td>
+		        <td colspan="3" id="issuingDate"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">签证机构</td>
+		        <td colspan="3" id="issuingOrganization">${name}</td>
+		        <td class="header">家庭住址</td>
+		        <td colspan="3" id="familyAddress"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">接生单位</td>
+		        <td colspan="3" id="borthOrganization"></td>
+		        <td class="header">接生人员</td>
+		        <td id="widwife" colspan="3"></td>
+		    </tr>
+		    <tr>
+		        <td class="header">所属行政区划编码</td>
+		        <td colspan="3"><span id="districtNum"></span>&nbsp;<font size=2 color="red" class="showDistrictName"></font></td>
+		        <td class="header">联系电话</td>
+		        <td id="linkmanTel" colspan="3"></td>
+		    </tr>
+	    </table>
+    </div>
+    <div class="showToolbar"></div>
+    	<br/>
+		<br/>
+    </div>
+</body>
+</html>

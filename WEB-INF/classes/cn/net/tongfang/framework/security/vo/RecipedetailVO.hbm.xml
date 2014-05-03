@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE hibernate-mapping PUBLIC "hibernate-mapping" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class table="RecipeDetail" name="cn.net.tongfang.framework.security.vo.RecipedetailVO">
+    <id type="java.lang.String" column="ID" name="ID" length="36">
+      <generator class="assigned"/>
+    </id>
+    <property not-null = "true"  type="java.lang.String" column="RecipeID" name="RecipeID" length="36"/>
+    <property not-null = "true"  type="java.lang.String" column="DrugID" name="DrugID" length="36"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="Amount" name="Amount" length="18"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="RetailPrice" name="RetailPrice" length="18"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="RetailMoney" name="RetailMoney" length="18"/>
+  </class>
+</hibernate-mapping>

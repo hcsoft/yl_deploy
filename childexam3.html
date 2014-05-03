@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/ChildrenMediExam3Service.js'></script>
+    <script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/in_childexam3.js"></script>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+    <!-- Import fancy-type plugin for the sample page. -->
+    <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection"/>
+ 
+    <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/tabs.css" type="text/css" media="screen" />
+
+    <!-- 导行流程图 -->
+	<script type='text/javascript' src='/dwr/interface/PersonalInfoService.js'></script>
+	<script type="text/javascript" src="js/nextOpt.js"></script>
+	<link href="css/nextOpt.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+    
+
+  </head>
+  <body>
+  <center>
+  <h2>3岁儿童健康检查记录表</h2>
+  <div class="container panes">
+    <div class="span-22 last">
+   <table class="form_tbl">
+   <tr>
+	       <td colspan="3" style="border:none;">
+	           <div>
+	             <span class="tf_inline">姓名：</span>
+	             <span id="name" class="tf_inline"></span>
+                 <span class="tf_inline" style="margin-left: 50px">编号：</span>
+                 <span id="districtNumber" class="tf_inline"></span><span id="fileNo" class="tf_inline"></span>
+	           </div>
+	       </td>
+    </tr>
+    <tr>
+        <td class="header">随访日期</td>
+        <td colspan="2" id="visitDate"></td>
+    </tr>
+    <tr>
+        <td class="header">体格发育</td>
+        <td><div>体重 <span id="weight"></span> g<span id="weightScore"></span></div></td>
+        <td><div>身长 <span id="height"></span> g<span id="heightScore"></span></div></td>
+    </tr>
+    <tr>
+        <td class="header">体格发育评价</td>
+        <td colspan="2" id="body"></td>
+    </tr>
+    <tr>
+        <td class="header" rowspan="3">体格检查</td>
+        <td>
+          <div>面色</div>
+          <span id="face" class="tf_inline"></span><span id="faceOther" class="tf_inline tf_left2"></span>
+        </td>
+        <td>
+          <div>步态</div>
+          <span id="walk" class="tf_inline"></span><span id="walkOther" class="tf_inline tf_left2"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+          <div>眼</div>
+          <span id="eyes" class="tf_inline"></span><span id="eyesOther" class="tf_inline tf_left2"></span>
+        </td>
+        <td>
+          <div>耳</div>
+          <span id="ears" class="tf_inline"></span><span id="earsOther" class="tf_inline tf_left2"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+          <div>心肺</div>
+          <span id="heart" class="tf_inline"></span><span id="heartOther" class="tf_inline tf_left2"></span>
+        </td>
+        <td>
+          <div>肝脾</div>
+          <span id="liver" class="tf_inline"></span><span id="liverOther" class="tf_inline tf_left2"></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="header">发育评估</td>
+        <td>
+          <div>行为</div>
+          <span id="behaiviour" class="tf_inline"></span><span id="behaiviourOther" class="tf_inline tf_left2"></span>
+        </td>
+        <td>
+          <div>社交</div>
+          <span id="sociality" class="tf_inline"></span><span id="socialityOther" class="tf_inline tf_left2"></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="header">幼儿期患病情况</td>
+				 <td colspan="2">
+					   <span id="checkSickness" class="tf_inline"></span>
+					   <span id="sicknessOther" class="tf_inline tf_left2"></span>
+				 </td>
+	  </tr>
+    
+    <tr>
+        <td class="header">过敏史</td>
+        <td colspan="2">
+            <span id="allergy" class="tf_inline"></span>
+            <span id="allergyOther" class="tf_inline tf_left2"></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="header">其他</td>
+        <td id="other" colspan="2"></td>
+    </tr>
+    <tr>
+        <td class="header">转诊</td>
+        <td colspan="2">
+           <span id="transfer"></span>
+           <span id="transReason"></span>
+           <span id="transUnit"></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="header">指导</td>
+        <td colspan="2">
+             <span id="checkDirect3"></span>
+               其他指导：<span id="directOther"></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="header">随访医生签名</td>
+        <td colspan="2" id="visitDoctor"></td>
+    </tr>
+    </table>
+    </div>
+</div>
+  </center>
+</body>
+</html>

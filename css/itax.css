@@ -1,0 +1,62 @@
+ .field-css {
+	padding:1px 3px;
+    background:none;
+    border:0;
+    font:normal 12px tahoma, arial, helvetica, sans-serif;
+}
+.btn3_mouseout
+{
+    border-right: #2C59AA 1px solid;
+    padding-right: 1px;
+    border-top: #2C59AA 1px solid;
+    padding-left: 1px;
+    font-size: 12px;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5);
+    border-left: #2C59AA 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 1px;
+    border-bottom: #2C59AA 1px solid;
+}
+.btn3_mouseover
+{
+    border-right: #2C59AA 1px solid;
+    padding-right: 1px;
+    border-top: #2C59AA 1px solid;
+    padding-left: 1px;
+    font-size: 12px;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#D7E7FA);
+    border-left: #2C59AA 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 1px;
+    border-bottom: #2C59AA 1px solid;
+}
+.btn3_mousedown
+{
+    border-right: #FFE400 1px solid;
+    padding-right: 1px;
+    border-top: #FFE400 1px solid;
+    padding-left: 1px;
+    font-size: 12px;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5);
+    border-left: #FFE400 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 1px;
+    border-bottom: #FFE400 1px solid;
+}
+.btn3_mouseup
+{
+    border-right: #2C59AA 1px solid;
+    padding-right: 1px;
+    border-top: #2C59AA 1px solid;
+    padding-left: 1px;
+    font-size: 12px;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5);
+    border-left: #2C59AA 1px solid;
+    cursor: hand;
+    color: black;
+    padding-top: 1px;
+    border-bottom: #2C59AA 1px solid;
+}

@@ -1,0 +1,308 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<table class="form_tbl">
+		<tr>
+			<td id="id_tabcount" ></td>
+		</tr>
+		<tr>
+			<td id="id_subtabcount"> 
+				<ul class='subtabs'>
+					<li><a href="#">一般检查</a></li>
+					<li><a href="#">查体</a></li>
+				</ul>
+			</td>
+		</tr>
+		<tr class='trtab'>
+			<td>
+				<table class="form_tbl">
+					<tr>
+						<td class="header">性别</td>
+						<td colspan="4" id="sex"></td>
+						<td class="header">出生日期</td>
+						<td colspan="5" id="birthday"></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">高危儿童</td>
+						<td colspan="3"><span id="highRisk"></span> <span
+							id="highRiskSearch"></span></td>
+						<td class="header">高危描述</td>
+						<td colspan="5"><span id="highRiskRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="3">身份证号码</td>
+						<td colspan="2" id="idcardNum"></td>
+						<td>家庭住址</td>
+						<td colspan="5" id="address"></td>
+					</tr>
+					<tr>
+						<td class="header">父亲</td>
+						<td class="header">姓名</td>
+						<td id="fname"></td>
+						<td class="header">职业</td>
+						<td id="foccupation"></td>
+						<td class="header">联系电话</td>
+						<td id="fphone"></td>
+						<td class="header">出生日期</td>
+						<td colspan='3' id="fbirthday">${residence}</td>
+					</tr>
+					<tr>
+						<td class="header">母亲</td>
+						<td class="header">姓名</td>
+						<td id="mname"></td>
+						<td class="header">职业</td>
+						<td id="moccupation"></td>
+						<td class="header">联系电话</td>
+						<td id="mphone"></td>
+						<td class="header">出生日期</td>
+						<td colspan='3' id="mbirthday"></td>
+					</tr>
+					<tr>
+						<td colspan="4"><span>出生孕周</span><span id="gestationalWeeks"></span>周</td>
+						<td colspan="2">母亲妊娠期<br />患病疾病情况
+						</td>
+						<td colspan="5"><div id="pregnantSick"></div>
+							<div>
+								<span id="pregnantSickOther"></span>
+							</div></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">助产机构名称</td>
+						<td colspan="9" id="hospitalName"></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">出生情况</td>
+						<td colspan="9"><span id="bornStatus"></span><span
+							id="bornStatusOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">新生儿窒息</td>
+						<td colspan="9"><span id="sleepy"></span><span
+							id="sleepyState"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">是否有畸形</td>
+						<td colspan="9"><span id="monster"></span><span
+							id="monsterOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">新生儿听力筛查</td>
+						<td colspan="9" id="exam01"></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">新生儿疾病筛查</td>
+						<td colspan="9"><div>
+								<span id="exam28"></span><span id="exam28Other"></span>
+							</div></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">新生儿出生体重</td>
+						<td><span id="exam02"></span>kg</td>
+						<td class="header">目前体重</td>
+						<td><span id="exam29"></span>kg</td>
+						<td class="header">出生身长</td>
+						<td colspan="5"><span id="exam03"></span>cm</td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">喂养方式</td>
+						<td id="exam04"></td>
+						<td class="header">吃奶量</td>
+						<td><span id="exam30"></span>ml/次</td>
+						<td class="header">吃奶次数</td>
+						<td colspan="5"><span id="exam31"></span>次/日</td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">呕吐</td>
+						<td id="exam32"></td>
+						<td class="header">大便</td>
+						<td id="exam33"></td>
+						<td class="header">大便次数</td>
+						<td colspan="5"><span id="exam34"></span>次/日</td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">体温</td>
+						<td><span id="exam05"></span>℃</td>
+						<td class="header">脉率</td>
+						<td><span id="exam07"></span>次/分</td>
+						<td class="header">呼吸频率</td>
+						<td colspan="5"><span id="exam06"></span>次/分</td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">面色</td>
+						<td colspan="3"><span id="faceColor"></span><span
+							id="faceColorOther"></span></td>
+						<td class="header">黄疸部位</td>
+						<td colspan="5" id="exam35"></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">前卤</td>
+						<td colspan="3"><span id="exam09"></span>cm x <span
+							id="exam10"></span>cm</td>
+						<td class="header">前卤形状</td>
+						<td colspan="5"><span id="exam11"></span><br />
+						<span id="frontSkullOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">眼</td>
+						<td colspan="3"><span id="exam12"></span><span
+							id="exam12other"></span></td>
+						<td class="header">四肢活动</td>
+						<td colspan="5"><span id="exam19"></span><span
+							id="exam19other"></span></td>
+					</tr>
+
+					<tr>
+						<td class="header" colspan="2">耳</td>
+						<td colspan="3"><span id="exam13"></span><span
+							id="exam13other"></span></td>
+						<td class="header">颈部包块</td>
+						<td colspan="5"><span id="exam20"></span><span
+							id="exam20other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">鼻</td>
+						<td colspan="3"><span id="exam14"></span><span
+							id="exam14other"></span></td>
+						<td class="header">皮肤</td>
+						<td colspan="5"><span id="babySkin"></span><span
+							id="babySkinsOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">口腔</td>
+						<td colspan="3"><span id="exam15"></span><span
+							id="exam15other"></span></td>
+						<td class="header">肛门</td>
+						<td colspan="5"><span id="exam22"></span><span
+							id="exam22other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">心肺</td>
+						<td colspan="3"><span id="exam16"></span><span
+							id="exam16other"></span></td>
+						<td class="header">外生殖器</td>
+						<td colspan="5"><span id="exam23"></span><span
+							id="exam23other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">腹部</td>
+						<td colspan="3"><span id="exam17"></span><span
+							id="exam17other"></span></td>
+						<td class="header">脊柱</td>
+						<td colspan="5"><span id="exam24"></span><span
+							id="exam24other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">脐带</td>
+						<td colspan="9"><span id="exam18"></span><span
+							id="exam18other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">转诊</td>
+						<td colspan="9"><span id="exam25"></span><span id="exam26"></span><span
+							id="exam27"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">指导</td>
+						<td colspan="9"><span id="babyDirect"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">本次访视日期</td>
+						<td colspan="2"><span id="visitDate"></span></td>
+						<td class="header" colspan="2">下次随访地点</td>
+						<td colspan="5"><span id="nextVisitPlace"></span></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">下次随访日期</td>
+						<td colspan="2"><span id="nextVisitDate"></span></td>
+						<td class="header" colspan="2">随访医生签名</td>
+						<td colspan="5"><span id="visitDoctor"></span></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr class='trtab'>
+			<td>
+				<table class="form_tbl">
+					<tr>
+						<td class="header">血压</td>
+						<td colspan="2"><span id="pressure"></span>mmHg</td>
+					</tr>
+					<tr>
+						<td class="header">胸廓</td>
+						<td colspan="2"><span id="pleura"></span><span id="pleuraRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">乳牙数</td>
+						<td id="mikTooth" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">龋齿</td>
+						<td id="decayedTooth" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">咽、扁</td>
+						<td colspan="2"><span id="throatFlat"></span><span id="throatFlatRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">左眼</td>
+						<td id="leftEyes" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">右眼</td>
+						<td id="rightEyes" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">全身浅表淋巴结</td>
+						<td colspan="2"><span id="lymphNode"></span><span
+							id="lymphNodeRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肺脏</td>
+						<td colspan="2"><span id="lung"></span><span id="lungOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">心脏</td>
+						<td colspan="2"><span id="heart"></span><span
+							id="heartChildOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肝脏</td>
+						<td colspan="2"><span id="liver"></span><span id="liverOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">脾脏</td>
+						<td colspan="2"><span id="spleen"></span><span
+							id="spleenOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">神经心理</td>
+						<td colspan="2"><span id="nerveMental"></span><span
+							id="nerveMentalOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">髋关节外展试验</td>
+						<td colspan="2"><span id="pelvis"></span><span
+							id="pelvisOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">现患疾病</td>
+						<td id="illness" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">综合评估</td>
+						<td id="evaluate" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">营养指导</td>
+						<td id="dietDirect" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">早教指导</td>
+						<td id="earlyDirect" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">预防接种指导</td>
+						<td id="protectDirect" colspan="2"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>

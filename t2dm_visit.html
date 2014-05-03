@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/DiabetesVisitService.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_t2dm_visit.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+
+<!-- 导行流程图 -->
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type="text/javascript" src="js/nextOpt.js"></script>
+<link type="text/css" href="css/nextOpt.css" media="screen"
+	rel="stylesheet" />
+<script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+<link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+	rel="stylesheet" />
+<link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+
+
+</head>
+<body>
+	<div style="display: none;" class="isWomanRecord">3</div>
+	<div class="outerContainer">
+		<div class="showToolbar"></div>
+		<div class="container">
+			<table class="form_tbl">
+				<tr>
+					<td rowspan="2"><span class="tf_inline">姓名：</span> <span
+						id="name" class="tf_inline"></span></td>
+					<td colspan="2"><span class="tf_inline">编号：</span> <span
+						id="districtNumber" class="tf_inline"></span><span id="fileNo"
+						class="tf_inline"></span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2"><span class="tf_inline">条形码：</span> <span
+						id="barCode"></span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="header">随访日期:</td>
+					<td colspan="4" id="visitDate"></td>
+				</tr>
+				<tr>
+					<td class="header">随访方式:</td>
+					<td colspan="4" id="visitKind"></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="2">症状:</td>
+					<td colspan="4"><div id="diabetesSymptom"></div>
+						<div id="symptomOther"></div></td>
+				</tr>
+					<tr>
+						<td class="header" rowspan="5">体征:</td>
+						<td class="header">血压（mmHg）:</td>
+						<td colspan="2"><span id="diastolicPressure"></span>/<span
+							id="systolicPressure"></span>mmHg</td>
+					</tr>
+					<tr>
+						<td class="header">体重（kg）:</td>
+						<td colspan="2" id="weight"></td>
+					</tr>
+					<tr>
+						<td class="header">体质指数:</td>
+						<td colspan="2" id="habitus"></td>
+					</tr>
+
+					<tr>
+						<td class="header">足背动脉搏动:</td>
+						<td colspan="2" id="exam06"></td>
+					</tr>
+					<tr>
+						<td class="header">其他:</td>
+						<td colspan="2" id="other"></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="6">生活方式指导:</td>
+						<td class="header">日吸烟量:</td>
+						<td colspan="2"><span id="smoke"></span>支</td>
+					</tr>
+					<tr>
+						<td class="header">日饮酒量:</td>
+						<td colspan="2"><span id="drink"></span>两</td>
+					</tr>
+					<tr>
+						<td class="header">运动:</td>
+						<td colspan="2"><span id="sportTimes"></span> 次/周<span
+							id="sportDuration"></span>分钟/次</td>
+					</tr>
+					<tr>
+						<td class="header">主食（克/天）:</td>
+						<td colspan="2"><span id="food"></span></td>
+					</tr>
+					<tr>
+						<td class="header">心理调整:</td>
+						<td colspan="2" id="mindStatus"></td>
+					</tr>
+					<tr>
+						<td class="header">遵医行为:</td>
+						<td colspan="2" id="action"></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2" id="assistantExam">辅助检查:</td>
+						<td class="header">空腹血糖值:</td>
+						<td colspan="2"><span id="exam01"></span> mmol/L(餐后)</td>
+					</tr>
+					<tr>
+						<td class="header">其他检查*:</td>
+						<td colspan="2">糖化血红蛋白<span id="exam02"></span>% <br />
+							检查日期：<span id="exam03"></span><br /> 其他:<span id="exam04"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="header">服药依从性:</td>
+						<td colspan="4" id="compliance"></td>
+					</tr>
+					<tr>
+						<td class="header">药物不良反应:</td>
+						<td colspan="4"><div id="adr"></div>
+							<div id="adrother"></div></td>
+					</tr>
+					<tr>
+						<td class="header">低血糖反应:</td>
+						<td colspan="4" id="exam05"></td>
+					</tr>
+					<tr>
+						<td class="header">此次随访分类:</td>
+						<td colspan="4" id="visitType"></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2">用药情况:</td>
+						<td colspan="4" id="diabetesMedications"></td>
+					</tr>
+						<tr>
+							<td class="header" rowspan="2" id="transfer">转诊:</td>
+							<td class="header">原因:</td>
+							<td colspan="2" id="transReason"></td>
+						</tr>
+						<tr>
+							<td class="header">机构及科别:</td>
+							<td colspan="2" id="transUnit"></td>
+						</tr>
+						<tr>
+							<td class="header">下次随访日期:</td>
+							<td colspan="4" id="nextVistDate"></td>
+						</tr>
+						<tr>
+							<td class="header">随访医生签名:</td>
+							<td colspan="4" id="visitDoctor"></td>
+						</tr>
+			</table>
+		</div>
+		<div class="showToolbar toolbarHide"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+</body>
+</html>

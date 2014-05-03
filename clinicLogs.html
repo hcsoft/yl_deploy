@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>门诊日志登记</title>
+	<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type='text/javascript' src='/dwr/interface/ClinicLogsService.js'></script>
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/jquery.printElement.min.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/in_clinicLogs.js"></script>
+    
+    <script type="text/javascript" src="js/clinicLogs.js"></script>
+
+	<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="css/clinicLogs.css"/>
+</head>
+<body>
+	<div class="container">
+		<div><h4>门诊登记表</h4></div>
+		<table class="container_table">
+			<tr>
+				<td class="header">档案编号</td>
+				<td>
+					<span id="fileNo"></span>
+					<button id="submit">查询</button>
+				</td>
+			</tr>			
+			<tr id="s_info">
+				<td colspan="2">
+					<table cellpadding="0" cellspacing="0" class="s_info_table">
+						<tbody>
+							<tr>
+								<td colspan="3"><label id="s_fileNo"></label></td>
+							</tr>
+							<tr>
+								<td><label id="s_name"></label></td>
+								<td><label id="s_sex"></label></td>
+								<td><label id="s_age"></label></td>
+							</tr>
+							<tr>
+								<td colspan="3"><label id="s_address"></label></td>
+							</tr>
+							<tr>
+								<td colspan="3"><label id="s_hypertensionVisit"></label></td>
+							</tr>
+							<tr>
+								<td colspan="3"><label id="s_diabetesVisit"></label></td>
+							</tr>
+							<tr>
+								<td colspan="3"><label id="s_furiousInfo"></label></td>
+							</tr>
+							<tr>
+								<td colspan="3"><label id="s_allergies"></label></td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="header">发病时间</td>
+				<td id="startIll"></td>
+			</tr>
+			<tr>
+				<td class="header" style="height:60px;">症状体征</td>
+				<td id="symptom"></td>
+			</tr>
+			<tr>
+				<td class="header">体温</td>
+				<td id="temperature"></td>
+			</tr>
+			<tr>
+				<td class="header">血压</td>
+				<td><span id="presure01"></span>/<span id="presure02"></span></td>
+			</tr>
+			<tr>
+				<td class="header" style="height:60px;">诊断</td>
+				<td id="diagnose"></td>
+			</tr>
+			<tr>
+				<td class="header" style="height:60px;">处理意见</td>
+				<td id="suggustion"></td>
+			</tr>
+			<tr>
+				<td class="header">接诊医生</td>
+				<td id="doctor"></td>
+			</tr>
+			<tr>
+				<td class="header">接诊时间</td>
+				<td id="recepTime"></td>
+			</tr>
+			<tr>
+				<td class="header" style="height:60px;">备注</td>
+				<td id="remark"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type='text/javascript' src='/dwr/engine.js'></script> 
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+    <script type='text/javascript' src='/dwr/interface/VaccinationService.js'></script>
+    <script type='text/javascript' src='/dwr/interface/PersonalInfoService.js'></script>
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/in_Vaccination.js"></script>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+    <!-- Import fancy-type plugin for the sample page. -->
+    <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection"/>
+ 
+    <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/tabs.css" type="text/css" media="screen" />
+
+    <style>
+    </style>
+
+  </head>
+ 
+  <body>
+    	<div class="outerContainer">
+  <div class="showToolbar"></div>
+   <div class="container ">
+		    <table style="margin:0;padding:0" cellspacing=0>
+		        <tr>
+		        <td style="margin:0;padding:0">
+		        <div class="span-19 last">
+		        <ul class="tabs">
+		            <li><a href="#">预防接种卡</a></li>
+		            <li><a href="#">疫苗</a></li>
+		        </ul>
+		        </div>
+		        </td>
+		        </tr>
+		    </table>
+		  </div>
+		   <div class="container panes">
+    <div class="cover span-22 last">
+     <table class="form_tbl">
+        <tr>
+	        <td colspan="2" rowspan="2">
+	             <span class="tf_inline">姓名：</span>
+	             <span id="name" class="tf_inline"></span>
+			</td><td  colspan="2">	             
+                 <span class="tf_inline">编号：</span>
+                 <span id="districtNumber" class="tf_inline"></span><span id="fileNo" class="tf_inline"></span>
+	        </td>
+	        <td  colspan="2"></td>
+        </tr>
+         <tr>
+	      <td colspan="2">
+	             <span class="tf_inline">条形码：</span>
+	             <span id="barCode"></span>
+	      </td>
+	      <td colspan="2"></td>
+	    </tr>
+		<tr>
+            <td class="header" >性别:</td>
+            <td colspan="2" id="sex"></td>
+            <td class="header">出生日期:</td>
+            <td colspan="2" id="birthday"></td>
+        </tr>
+				<tr>
+            <td class="header" >监护人姓名:</td>
+            <td id="guardian"></td>
+            <td class="header">与儿童关系:</td>
+            <td id="relation"></td>
+            <td class="header">联系电话:</td>
+            <td id="tel"></td>
+        </tr>
+        <tr>
+            <td class="header" >家庭现住址:</td>
+            <td colspan="5" id="address"></td>
+        </tr>
+        <tr>
+            <td class="header" >户籍地址:</td>
+            <td colspan="5" id="registerAddress"></td>
+        </tr>
+        <tr>
+            <td class="header" >迁入时间:</td>
+            <td id="inDate"></td>
+            <td class="header">迁出时间:</td>
+            <td id="outDate"></td>
+            <td class="header">迁出原因:</td>
+            <td id="outReason"></td>
+        </tr>
+        <tr>
+            <td class="header" >疫苗异常反应史:</td>
+            <td colspan="5" id="abnormalHistory"></td>
+        </tr>
+        <tr>
+            <td class="header" >接种禁忌:</td>
+            <td colspan="5" id="taboo"></td>
+        </tr>
+        <tr>
+            <td class="header" >传染病史:</td>
+            <td colspan="5" id="infectiousHistory"></td>
+        </tr>
+        <tr>
+            <td class="header" >建卡时间:</td>
+            <td colspan="2" id="buildDate"></td>
+            <td class="header">建卡人:</td>
+            <td colspan="2" id="doctor"></td>
+        </tr>
+         <tr>
+            
+        </tr>
+      </table>
+     </div>
+     <div class="span-22 last">
+    	<table class="form_tbl">
+    		<tr>
+    			<td colspan="6" id="vaccinationRec"></td>
+    		</tr>
+    	</table>
+    </div>
+     </div>
+     <div class="showToolbar"></div>
+    	<br/>
+		<br/>
+     </div>
+ </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/FuriousInfoService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_furious_info.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+<style>
+</style>
+
+</head>
+<body>
+	<div class="outerContainer">
+		<div class="showToolbar"></div>
+		<div class="container">
+			<table class="form_tbl">
+				<tr>
+					<td colspan="2" rowspan="2"><span class="tf_inline">姓名：</span>
+						<span id="name" class="tf_inline"></span></td>
+					<td colspan="2"><span class="tf_inline">编号：</span> <span
+						id="districtNumber" class="tf_inline"></span><span id="fileNo"
+						class="tf_inline"></span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2"><span class="tf_inline">条形码：</span> <span
+						id="barCode"></span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">监护人姓名:</td>
+					<td id="guardianName"></td>
+					<td class="header">与患者关系:</td>
+					<td id="relation"></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">监护人住址:</td>
+					<td id="guardianAddress"></td>
+					<td align="center">监护人电话:</td>
+					<td id="guardianTel"></td>
+				</tr>
+
+				<tr>
+					<td align="center" colspan="2">辖区村（居）委会联系人、电话:</td>
+					<td colspan="3" id="contact"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2" rowspan="2">知情同意</td>
+					<td colspan="3" id="agree"></td>
+				</tr>
+				<tr>
+					<td colspan="3">签字：<span id="agreeSign"></span><br /> 签字时间：<span
+						id="agreeSignDate"></span>
+					</td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">初次发病时间:</td>
+					<td colspan="3" id="firstOccur"></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">既往主要症状:</td>
+					<td colspan="3"><div id="furiousSymptom"></div>
+						<div id="symptomOther"></div></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="2">既往治疗情况:</td>
+					<td class="header">门诊:</td>
+					<td colspan="3"><span id="outpatient"></span> <br />首次抗精神病药治疗时间：<span
+						id="outpatientDate"></span></td>
+				</tr>
+				<tr>
+					<td class="header">住院:</td>
+					<td colspan="3">曾住精神专科医院、综合医院精神专科<span id="inpatientTimes"></span>次
+					</td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">最近诊断情况:</td>
+					<td colspan="3">诊断<span id="recentDiagnose"></span> 确诊医院<span
+						id="hospital"></span> 确诊日期<span id="confirmDate"></span></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">最近一次治疗效果:</td>
+					<td colspan="3" id="recentCure"></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">患病对家庭社会的影响:</td>
+					<td colspan="3">1 轻度滋事<span id="effect1"></span>次 2 肇事<span
+						id="effect2"></span>次 3 肇祸<span id="effect3"></span>次 <br /> 4 自伤<span
+						id="effect4"></span>次 5 自杀未遂<span id="effect5"></span>次
+					</td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">关锁情况:</td>
+					<td colspan="3" id="lockStatus"></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">经济状况:</td>
+					<td colspan="3" id="incomeStatus"></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">专科医生的意见(如果有请记录):</td>
+					<td colspan="3" id="doctorAdvice"></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">填表日期:</td>
+					<td id="inputDate"></td>
+					<td class="header">医生签字:</td>
+					<td id="doctor"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="showToolbar"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<link rel="stylesheet" type="text/css" href="../themes/sunny/easyui.css">
+<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<link rel="stylesheet" href="../css/Style.css" type="text/css" />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=10fd14046e11c2285e97009ff7cc6a0f"></script>
+<script type="text/javascript" src="BMapLib_AreaRestriction.js"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MapService.js'></script>
+
+
+<title>地图展示信息</title>  
+<style type="text/css">  
+html{height:100%}  
+body{height:100%;margin:0px;padding:0px}  
+#container{height:100%}  
+a.theforever_knight1:visited {color:orange;}
+#l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+</style>  
+
+<script type="text/javascript">
+
+
+
+$(function(){
+
+
+
+	var map = new BMap.Map("container");
+	map.enableScrollWheelZoom(); 			
+
+
+	MapService.getAreaRestrictConfig(function(d){
+		if(d == null){
+			alert("没有获取到登录人员的地图限制范围");
+			return;
+		}else{
+			map.centerAndZoom(new BMap.Point(parseFloat(d.centerPoint.split(",")[0]),parseFloat(d.centerPoint.split(",")[1])),d.zoomLevel);
+			parseFloat(d.sw.split(",")[0])
+			var b = new BMap.Bounds(new BMap.Point(parseFloat(d.sw.split(",")[0]),parseFloat(d.sw.split(",")[1])),new BMap.Point(parseFloat(d.ne.split(",")[0]),parseFloat(d.ne.split(",")[1]))); 
+			try { 
+				BMapLib.AreaRestriction.setBounds(map, b);
+			} catch (e) {
+				
+			}		
+
+		}
+
+	});
+
+
+	MapService.queryPointerByOrgId(function(data){
+		if(data == null){
+			alert("null");
+			return;
+		}else{
+
+			$.each(data, function(i, n){
+				var lng = parseFloat(n.id.split(",")[0]);
+				var lat = parseFloat(n.id.split(",")[1]);
+				var pt = new BMap.Point(lng,lat);
+				var maker = new BMap.Marker(pt);
+				map.addOverlay(maker);    
+
+				maker.addEventListener("click", function(){
+					var id = this.getPosition().lng + "," + this.getPosition().lat;
+					delcoordinates = id;
+					delmaker = this;
+					MapService.queryPointerById(id,function(data){
+						alert(data.organId);
+						//var mkr = evt.marker;
+						//maker.openInfoWindow(infoWin);
+						//document.getElementById("organId").value = data.organId;
+						//document.getElementById("organName").value = data.organName;
+
+						//alert(JSON.stringify(data));
+					});
+					
+				});
+
+			});
+
+
+		}
+
+	});
+
+	$('#organizationTree').tree({  
+		url: '/OrganizationTreeServlet?type=2&pid=0&levels=top',  
+		onClick:function(node){  
+		
+			MapService.getAreaRestrictConfigByDistrictId(node.id,function(d){
+				if(d == null){
+					alert("没有获取到登录人员的地图限制范围");
+					return;
+				}else{
+					map.centerAndZoom(new BMap.Point(parseFloat(d.centerPoint.split(",")[0]),parseFloat(d.centerPoint.split(",")[1])),d.zoomLevel);
+					parseFloat(d.sw.split(",")[0])
+					var b = new BMap.Bounds(new BMap.Point(parseFloat(d.sw.split(",")[0]),parseFloat(d.sw.split(",")[1])),new BMap.Point(parseFloat(d.ne.split(",")[0]),parseFloat(d.ne.split(",")[1]))); 
+					try { 
+						BMapLib.AreaRestriction.setBounds(map, b);
+					} catch (e) {
+						
+					}		
+
+				}
+
+			});
+
+			MapService.getOrganListByDistrictId(node.id,function(d){
+				//alert(JSON.stringify(d));
+				var json = '{"total":2,"rows":[{"id":"102.710388,25.055773","organId":"2","organName":"摆榔卫生院"},{"id":"102.715823,25.053687","organId":"3","organName":"甸阳卫生院"}]}';
+				$('#organGridId').datagrid('loadData',jQuery.parseJSON(d));
+			});
+
+
+
+		}  
+	});
+	
+			
+})
+</script>
+
+</head>  
+   
+<body style="overflow:hidden">  
+
+
+	<div class="easyui-layout" style="width:1300px;height:650px;">
+
+	
+		<div data-options="region:'west',iconCls:'icon-ok'" style="width:300px;border:1">
+
+			<div data-options="region:'north',iconCls:'icon-ok'" style="width:300px;height:400px;border:1">
+				<ul id="organizationTree" data-options="animate:true"></ul>
+			</div>
+
+
+			<div data-options="region:'center',iconCls:'icon-ok'" style="width:300px;border:1">
+				<table id="organGridId" class="easyui-datagrid" title="" style="width:300px;height:200px"
+						data-options="singleSelect:true,collapsible:true">
+					<thead>
+						<tr>
+							<th data-options="field:'organName',width:260">组织机构名称</th>
+							
+						</tr>
+					</thead>
+				</table>
+			</div>
+
+
+
+		</div>
+	
+
+		<div data-options="region:'center',iconCls:'icon-ok'" style="width:1000px;border:1">
+			<div id="container">
+
+			
+			</div>
+		</div>
+
+
+
+</div>
+
+
+
+
+<script>
+
+
+
+</script>
+
+
+</body>  
+
+</html>  

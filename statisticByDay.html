@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>日统计报表</title>
+	<link rel="stylesheet" type="text/css" href="js/ext-3.3.0/resources/css/ext-all.css" />
+    <script type="text/javascript" src="js/ext-3.3.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext-3.3.0/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type="text/javascript" src="js/statisticByDay.js"></script>
+	
+	<script type='text/javascript' src='/dwr/interface/ReportService.js'></script>  
+	<script type='text/javascript' src='/dwr/interface/DataExportService.js'></script>
+	<!-- Jquery引入包 -->
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="js/tf-statistic-publicMethod.js"></script>
+	<script src="js/jquery.printElement.min.js" type="text/javascript"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/report.css" />
+	
+	<!-- 打印控件 -->
+	<script language="javascript" src="js/LodopFuncs.js"></script>
+	<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+
+		<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop.exe"></embed>
+	</object>
+	<script language="javascript" src="js/printProtectPage.js"></script>
+</head>
+<body>
+	<div id="container" class="printContainer">
+		<table id="statisticByDay" cellpadding="0" cellspacing="0" width="98%" >
+			<thead>
+				<tr>
+					<td colspan="17"><span>昆明市电子建档日报表</span></td>
+				</tr>
+				<tr>
+					<td rowspan="2" width="150px">卫生院名称</td>
+					<td colspan="4">居民健康档案合计</td>
+					<td colspan="6">城镇居民建档情况</td>
+					<td colspan="6">乡村居民建档情况</td>
+				</tr>
+				<tr>
+					<td>常驻人口 <br/>(人)</td>
+					<td>累计建档<br/>(人)</td>
+					<td>建档率%</td>
+					<td>其中电子<br/>建档率%</td>
+					<td>城镇居民 <br/>(人)</td>
+					<td>累计建档<br/>（人）</td>
+					<td>建档率%</td>
+					<td>其中电子<br/>建档率%</td>
+					<td>当日建档<br/>（人）</td>
+					<td>当日电子<br/>建档（人）</td>
+					<td>农村居民 <br/>(人)</td>
+					<td>累计建档<br/>（人）</td>
+					<td>建档率%</td>
+					<td>其中电子<br/>建档率%</td>
+					<td>当日建档<br/>（人）</td>
+					<td>当日电子<br/>建档（人）</td>
+				</tr>
+			</thead>
+		</table>
+		
+	</div>
+</body>
+</html>

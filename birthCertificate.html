@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>出生医学证明初始化</title>
+	<link rel="stylesheet" type="text/css" href="js/ext-3.3.0/resources/css/ext-all.css" />
+    <script type="text/javascript" src="js/ext-3.3.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext-3.3.0/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type="text/javascript" src="js/birthCertificate.js"></script>
+	<script type="text/javascript" src="js/certificate-pulbic-method.js"></script>
+	<script type='text/javascript' src='/dwr/interface/BirthCertificateMsgService.js'></script>    
+	<!-- Jquery引入包 -->
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/certificate.css" />
+
+</head>
+<body>
+	<table id="certificateInit" class="certificateInitClass" cellpadding="0" cellspacing="0">
+		<tbody>
+			<tr>
+				<td>出生医学证明前缀：</td>
+				<td><input type="text" id="prefCertificateId" class="otherCertificateCondotion"/><font color="red">*</font></td>
+			</tr>
+			<tr>
+				<td>条件1：</td>
+				<td><input type="text" id="startCondition1" class="condition"/>至<input type="text" id="endCondition1" class="endConditions"/></td>
+			</tr>
+			<tr>
+				<td>其它：</td>
+				<td><input type="text" id="otherCondition" class="otherCertificateCondotion"/></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">提示：<br />1、出生医学证明前缀为出生证明编号前几位相同的字符。<br />
+					2、不同的条件为不同的出生证明编号段，如：1~100，<br />&nbsp;&nbsp;&nbsp;&nbsp;200~400等。<br />
+					3、其它输入框里输入单个出生证明编号，如：1;10;20;<br />&nbsp;&nbsp;&nbsp;&nbsp;30等。编号之间以英文的分号隔开（“;”）<br />
+					4、带*为必填项。
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><div id="showResultInfo" style="width:350px;height:200px;word-break:break-all;overflow: scroll;"></div></td>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+</html>

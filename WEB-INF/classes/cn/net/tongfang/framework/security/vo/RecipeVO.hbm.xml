@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE hibernate-mapping PUBLIC "hibernate-mapping" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class table="Recipe" name="cn.net.tongfang.framework.security.vo.RecipeVO">
+    <id type="java.lang.String" column="ID" name="ID" length="36">
+      <generator class="assigned"/>
+    </id>
+    <property not-null = "true"  type="java.lang.Integer" column="RecipeType" name="RecipeType" />
+    <property not-null = "false"  type="java.lang.String" column="RecipeNo" name="RecipeNo" />
+    <property not-null = "false"  type="java.lang.String" column="PayType" name="PayType" />
+    <property not-null = "false"  type="java.lang.String" column="CardNo" name="CardNo" />
+    <property not-null = "false"  type="java.lang.String" column="PersonalNo" name="PersonalNo" />
+    <property not-null = "false"  type="java.lang.String" column="SickName" name="SickName" />
+    <property not-null = "false"  type="java.lang.String" column="Sex" name="Sex" />
+    <property not-null = "false"  type="java.sql.Timestamp" column="Birthday" name="Birthday" />
+    <property not-null = "false"  type="java.lang.String" column="TreatmentType" name="TreatmentType" />
+    <property not-null = "false"  type="java.sql.Timestamp" column="InDate" name="InDate" />
+    <property not-null = "false"  type="java.lang.String" column="InIllnessCode" name="InIllnessCode" />
+    <property not-null = "false"  type="java.lang.String" column="InIllnessName" name="InIllnessName" />
+    <property not-null = "false"  type="java.sql.Timestamp" column="OutDate" name="OutDate" />
+    <property not-null = "false"  type="java.lang.String" column="OutIllnessCode" name="OutIllnessCode" />
+    <property not-null = "false"  type="java.lang.String" column="OutIllnessName" name="OutIllnessName" />
+    <property not-null = "false"  type="java.lang.String" column="OutReason" name="OutReason" />
+    <property not-null = "false"  type="java.lang.String" column="SectionName" name="SectionName" />
+    <property not-null = "false"  type="java.lang.String" column="DoctorName" name="DoctorName" />
+    <property not-null = "false"  type="java.lang.String" column="Operator" name="Operator" />
+    <property not-null = "false"  type="java.lang.String" column="TicketNo" name="TicketNo" />
+    <property not-null = "false"  type="java.lang.String" column="RegisterNo" name="RegisterNo" />
+    <property not-null = "false"  type="java.sql.Timestamp" column="SettleDate" name="SettleDate" />
+    <property not-null = "true"  type="java.math.BigDecimal" column="TotalFee" name="TotalFee" length="18"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="XJZF" name="XJZF" length="18"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="DEZF" name="DEZF" length="18"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="TCZF" name="TCZF" length="18"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="ZHZF" name="ZHZF" length="18"/>
+    <property not-null = "true"  type="java.lang.String" column="CenterBillNo" name="CenterBillNo" length="30"/>
+    <property not-null = "true"  type="java.lang.Integer" column="RecipeState" name="RecipeState" />
+  </class>
+</hibernate-mapping>

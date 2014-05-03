@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns="http://www.springframework.org/schema/security" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd                        
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd"
+>
+	
+	<beans:import resource="classpath:app-beans.xml"/>
+	<!-- Bean post-processor for activating any advisors -->
+	<beans:bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+	<beans:bean id="_saProvider"
+		class="cn.net.tongfang.framework.security.ServiceAuthorizationProviderImpl">
+		<beans:constructor-arg ref="securityService"/>
+	</beans:bean>
+
+	<beans:bean id="_methodDefinitionSource"
+		class="cn.net.tongfang.framework.security.DBMethodDefinitionSource">
+		<beans:property name="saProvider" ref="_saProvider" />
+	</beans:bean>
+
+	<beans:bean id="_methodDefinitionSourceAdvisor"
+		class="org.springframework.security.intercept.method.aopalliance.MethodDefinitionSourceAdvisor">
+		<beans:constructor-arg value="_methodSecurityInterceptor" />
+		<beans:constructor-arg ref="_methodDefinitionSource" />
+	</beans:bean>
+
+	<beans:bean id="_methodSecurityInterceptor"
+		class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+		<beans:property name="validateConfigAttributes" value="false" />
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="_accessManager" />
+		<beans:property name="objectDefinitionSource"
+			ref="_methodDefinitionSource" />
+	</beans:bean>
+
+	<beans:bean id="_accessManager"
+		class="org.springframework.security.vote.AffirmativeBased">
+		<beans:property name="allowIfAllAbstainDecisions"
+			value="false" />
+		<beans:property name="decisionVoters">
+			<beans:list>
+				<beans:bean class="org.springframework.security.vote.RoleVoter">
+					<beans:property name="rolePrefix" value="" />
+				</beans:bean>
+				<beans:bean class="org.springframework.security.vote.AuthenticatedVoter" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="controlVersion" class="cn.net.tongfang.framework.security.demo.service.ControlVersion"/>
+	<beans:bean id="myUserDetailsService" class="cn.net.tongfang.framework.security.demo.service.MyUserDetailsServiceImpl" >
+		<beans:property name="securityService" ref="securityService"/>
+		<beans:property name="controlVersion" ref="controlVersion"/>
+	</beans:bean>
+
+	
+</beans:beans>

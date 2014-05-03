@@ -1,0 +1,135 @@
+html {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	background-color: #f1f2fd;
+}
+
+body {
+	margin: 0 auto;
+	width: 950px;
+	border-left: 2px solid #adb4fe;
+	border-right: 2px solid #adb4fe;
+}
+
+.login {
+	margin: 0 auto;
+	width: 100%;
+	background-image: url('/image/loginbg02.png');
+	background-repeat: no-repeat;
+	vertical-align: top;
+	text-align: center;
+	padding-top: 180px;
+}
+
+.login_table {
+	text-align: center;
+	margin: 0 auto;
+	line-height: 60px;
+	width: 50%;
+	border: 1px solid #adb4fe;
+	border-collapse: collapse;
+}
+
+.login_table td {
+	border: 1px solid #adb4fe;
+}
+
+.login_title {
+	font-family: serif;
+	font-size: 25px;
+	font-weight: bolder;
+	text-align: center;
+	color: #e50012;
+}
+
+.login_header {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	width: 150px;
+}
+
+.login_div_input {
+	border: 1px solid #000;
+	border-radius: 8px;
+	-moz-border-radius: 8px; /* Firefox 3.6 and earlier */
+	background-color: #FFF;
+	width: 300px;
+	height: 30px;
+	margin-left: 10px;
+	font-size: 20px;
+	padding-left: 5px;
+}
+
+.login_div_code{
+	width: 150px;
+}
+
+.login_input_content{
+	text-align: left;
+	vertical-align: middle;
+}
+
+.copyright {
+	color: #000;
+	font-size: 14px;
+}
+
+.login_btn {
+	border: 1px solid #000;
+	border-radius: 6px;
+	-moz-border-radius: 6px; /* Firefox 3.6 and earlier */
+	width: 100px;
+	line-height: 30px;
+	margin: 5px 10px;
+	cursor: pointer;
+	font-size:15px;
+	font-weight: bold;
+	text-align: center;
+	background-image: url("/image/login_btn_bg.png");
+	background-repeat: repeat;
+}
+
+.valideCode{
+	border: 1px solid #e50012;
+	border-radius: 3px;
+	-moz-border-radius: 3px; /* Firefox 3.6 and earlier */
+	letter-spacing: 3px;
+	font-weight: bold;
+	border: 1px dashed #000;
+	line-height: 25px;
+	width: 80px;
+	font-size:18px;
+	text-align : center;
+}
+.valideCode:hover{
+	cursor: pointer;
+}
+
+.showDate{
+	font-size: 16px;
+	font-weight: bold;
+	color: #000;
+}
+
+.loginBtnContainer{
+	border: 0px;
+	border-collapse: collapse;
+	width : 100%;
+}
+.loginBtnContainer td{
+	width : 25%;
+	border: 0px;
+}
+
+.adviceContainer{
+	margin-top : 10px;
+	font-size: 14px;
+}
+.adviceContainer a{
+	color : #000;
+}
+.adviceContainer a:hover{
+	color : blue;
+}

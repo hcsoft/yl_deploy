@@ -1,0 +1,35 @@
+table {
+	margin : 0px;
+	padding : 0px;
+}
+.table_BusinessData,.table_BasicInfo{	
+	font-size: 12px;
+	width : 100%;
+	overflow: scroll;
+	border-right:  1px solid #d0d0d0;  
+	
+}
+.table_BusinessData thead td,.table_BasicInfo thead td{
+	text-align: center;
+	background: url(../image/grid3-hrow.gif) repeat-x bottom;
+	line-height: 24px;
+	border-left:  1px solid #d0d0d0;  
+	min-width: 80px;
+}
+
+.table_BusinessData tbody td{
+	line-height: 26px;
+	text-align: center;
+	border-left:  1px solid #d0d0d0;  
+	border-bottom:  1px solid #d0d0d0;  
+}
+.table_BusinessData tbody td:hover{
+	background-color: #d5edf9;
+	cursor: pointer;
+}
+.table_BasicInfo tbody td{
+	padding-left : 5px;
+	line-height: 26px;
+	border-left:  1px solid #d0d0d0;  
+	border-bottom:  1px solid #d0d0d0;  
+}

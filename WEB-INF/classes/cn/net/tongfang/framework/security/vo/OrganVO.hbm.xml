@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE hibernate-mapping PUBLIC "hibernate-mapping" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class table="Organ" name="cn.net.tongfang.framework.security.vo.OrganVO">
+    <id type="java.lang.String" column="ID" name="ID" length="36">
+      <generator class="assigned"/>
+    </id>
+    <property not-null = "false"  type="java.lang.String" column="Name" name="Name" />
+  </class>
+</hibernate-mapping>

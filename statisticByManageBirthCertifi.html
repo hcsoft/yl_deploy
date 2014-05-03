@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>出生医学证明年度统计表</title>
+	<link rel="stylesheet" type="text/css" href="js/ext-3.3.0/resources/css/ext-all.css" />
+    <script type="text/javascript" src="js/ext-3.3.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext-3.3.0/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type="text/javascript" src="js/statisticByManageBirthCertifi.js"></script>
+	<script type='text/javascript' src='/dwr/interface/ReportService.js'></script>  
+	<script type='text/javascript' src='/dwr/interface/DataExportService.js'></script>
+	<!-- Jquery引入包 -->
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/tf-statistic-publicMethod.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/report.css" /> 
+	<script type='text/javascript' src='/dwr/interface/UserMenuTreeService.js'></script> 
+	<script src="js/jquery.printElement.min.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="container" class="printContainer">
+		<table id="statisticByDay" cellpadding="0" cellspacing="0" >
+			<thead>
+				<tr>
+					<td colspan="13"><h1 style="font-size: 20px;">昆明市助产保健机构《出生医学证明》管理使用情况年度统计表</h1></td>
+				</tr>
+				<tr>
+					<td colspan="11" style="text-align: right;">填表年度：</td>
+					<td colspan="2"><span class="inputYear"></span></td>
+				</tr>
+				<tr>
+					<td rowspan="3">上一年底库存数(1)</td>
+					<td rowspan="3">当年申领数(2)</td>
+					<td colspan="8">当年使用情况</td>
+					<td rowspan="3">合计(11)</td>
+					<td rowspan="3">当年年底库存数(12)</td>
+					<td rowspan="3">当年医疗保健机构内活产数(13)</td>
+				</tr>
+				<tr>
+					<td colspan="4">医疗保健机构内出生的签发数</td>
+					<td colspan="4">废证数</td>
+				</tr>
+				<tr>
+					<td>首次签发数(3)</td>
+					<td>换发数(4)</td>
+					<td>补发数(5)</td>
+					<td>小计(6)</td>
+					<td>因打印或填写错误数(7)</td>
+					<td>遗失数(8)</td>
+					<td>其他原因数(9)</td>
+					<td>小计(10)</td>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="13">
+						<span>注：本统计表的《出生医学证明》数量为内芯数量，单位均为“枚”。												
+						<br/>表中逻辑关系：1、（6）=（3）+（4）+（5）；
+						2、（10）=（7）+（8）+（9）；<br/>3、（11）=（6）+（10）；
+						4、（12）=（1）+（2）-（11）</span>				
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">单位名称（盖章）：</td>
+					<td colspan="11">
+						<span class="orgName"></span>（公章）
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">负责人：</td>
+					<td colspan="4">
+						<span class="responsiblePerson"></span>
+					</td>
+					<td colspan="2">填表人：</td>
+					<td colspan="5">
+						<span class="inputPerson"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="11" align="right">填表日期：</td>
+					<td colspan="2"><span class="inputDate"></span></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+table.printCure{
+	border-collapse:collapse;
+    width: 700px;
+	text-align:center;
+	font-size:10px;
+}
+
+table.printCure td{
+	/*width:70px;*/
+}
+
+table.printCure td.printTitle{
+	border-top:1px dashed black; 
+	text-align:center; 
+	font-size:16px;
+}
+.printBottom{
+	border-bottom:1px dashed black;
+}
+
+.printInfo{
+	border-bottom:1px solid black;
+	text-align:left;
+	font-size:10px;
+}
+
+.signInfo{
+	text-align:center;
+	width:1.1em;
+	font-size:10px;
+}
+textarea{
+	height:50px;
+	width:100%;
+	border-style:none;
+}

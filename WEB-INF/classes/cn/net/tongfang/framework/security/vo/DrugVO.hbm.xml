@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE hibernate-mapping PUBLIC "hibernate-mapping" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class table="Drug" name="cn.net.tongfang.framework.security.vo.DrugVO">
+    <id type="java.lang.String" column="ID" name="ID" length="36">
+      <generator class="assigned"/>
+    </id>
+    <property not-null = "true"  type="java.lang.String" column="Code" name="Code" length="20"/>
+    <property not-null = "true"  type="java.lang.Integer" column="RecType" name="RecType" />
+    <property not-null = "false"  type="java.lang.String" column="Name" name="Name" />
+    <property not-null = "false"  type="java.lang.String" column="PinYin" name="PinYin" />
+    <property not-null = "false"  type="java.lang.String" column="Spec" name="Spec" />
+    <property not-null = "false"  type="java.lang.String" column="Unit" name="Unit" />
+    <property not-null = "false"  type="java.lang.String" column="Producer" name="Producer" />
+    <property not-null = "true"  type="java.lang.Integer" column="IsBase" name="IsBase" />
+    <property not-null = "true"  type="java.lang.Integer" column="IsCHN" name="IsCHN" />
+    <property not-null = "true"  type="java.math.BigDecimal" column="BuyPrice" name="BuyPrice" length="18"/>
+    <property not-null = "true"  type="java.math.BigDecimal" column="RetailPrice" name="RetailPrice" length="18"/>
+    <property not-null = "false"  type="java.lang.String" column="UploadClassID" name="UploadClassID" />
+    <property not-null = "false"  type="java.lang.String" column="UploadItemCode" name="UploadItemCode" />
+    <property not-null = "false"  type="java.lang.String" column="UploadFeeTypeID" name="UploadFeeTypeID" />
+  </class>
+</hibernate-mapping>

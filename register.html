@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>DWR Test</title> 
+	<link rel="stylesheet" type="text/css" href="/resources/css/ext-all.css" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/file-upload.css" />
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type='text/javascript' src='/dwr/util.js'></script>
+  <script type='text/javascript' src='dwr/interface/HelloService.js'></script> 
+   
+  
+    <script type="text/javascript" src="/js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="/js/ext/ext-all.js"></script>
+
+    <script type="text/javascript" src="/js/ext/dwrproxy.js"></script>
+    
+    
+
+      
+</head> 
+<script>
+
+	function callback(reg){
+		alert("注册成功， 你的id为:" + reg.id);
+	}
+	
+	function register(){
+		var name = document.getElementById('name').value;
+		var password = document.getElementById('password').value;
+		var address = document.getElementById('address').value;
+		var data = {name : name, type: password, code: address};
+		HelloService.register(data, callback);
+	}
+	
+</script>
+
+<script>
+
+    var cardTypeInfo = [
+            ['身份证', 0],
+            ['军官证', 1],
+            ['护照', 2]
+        ];
+
+    var storeUser = new Ext.data.SimpleStore({
+            fields: ['typename', 'typecode'],
+            data : cardTypeInfo
+
+        });
+        var comboCardType= new Ext.form.ComboBox({
+            store: storeUser,
+            displayField:'typename',
+            valueField:'typecode',
+            typeAhead: true,
+            mode: 'local',
+            forceSelection: true,
+            triggerAction: 'all',
+            emptyText:'请选择证件类型...',
+            selectOnFocus:true,
+            fieldLabel: '证件类型',
+            hiddenName: 'type',
+            allowBlank:false
+        });
+
+Ext.onReady(function(){
+	Ext.BLANK_IMAGE_URL = '/resources/images/default/s.gif';
+	Ext.QuickTips.init();
+	
+	var simple = new Ext.FormPanel({
+        labelWidth: 75, // label settings here cascade unless overridden
+        url:'save-form.php',
+        frame:true,
+        title: '设置查询条件',
+        bodyStyle:'padding:5px 5px 0',
+        defaults: {width: 230},
+        defaultType: 'textfield',
+        monitorValid:true,
+
+        items: [
+               {
+                   fieldLabel: '用户名',
+                   allowBlank:false,
+                   name: 'name'
+               },
+               {
+                   fieldLabel: '证件号码',
+                   allowBlank:false,
+                   name: 'code'
+               },    
+               comboCardType
+        ],
+		renderTo: 'registerForm',
+        buttons: [{
+            text: '保存',
+            formBind: true,
+            scope:this,
+            handler: function() {
+        		//store.loadData(myData);
+        		HelloService.register(simple.getForm().getValues(false), callback);
+            }
+            	
+        }]
+    });
+    
+	
+});
+
+</script>
+<body> 
+
+<form >
+	<table>
+		<tr>
+			<td>用户名</td>
+			<td><input id='name' name="name" type="text"/></td>
+		</tr>
+		<tr>
+			<td>密码</td>
+			<td><input id='password' name="password" type="text"/></td>
+		</tr>
+		<tr>
+			<td>地址</td>
+			<td><input id='address' name="address" type="text"/></td>
+		</tr>
+		<tr>
+
+			<td colspan="2"><input type="button" value="注册" onClick="register()"/></td>
+		</tr>
+
+	</table>
+</form>
+
+<hr/>
+
+<div id="registerForm"></div>
+
+ 
+</body></html> 

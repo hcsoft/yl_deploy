@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/FirstVistBeforeBornService.js'></script>
+<script type='text/javascript' src='/dwr/interface/babyBarrierRegService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/systemInformationUtils.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/BirthCertificateMsgService.js'></script>
+<script type="text/javascript" src="js/f.js"></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/calculateTime.js"></script>
+<script type="text/javascript" src="js/showInfo.js"></script>
+<script type="text/javascript" src="js/validSaveBefore.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_babyBarrierReg.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen,print" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+
+<!-- 导行流程图 -->
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type="text/javascript" src="js/nextOpt.js"></script>
+<link type="text/css" href="css/nextOpt.css" media="screen"
+	rel="stylesheet" />
+<script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+<link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+	rel="stylesheet" />
+<link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+
+<!-- 打印JS引入 -->
+<script language="javascript" src="js/LodopFuncs.js"></script>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0>
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0
+		pluginspage="install_lodop.exe"></embed>
+</object>
+<script language="javascript" src="js/printProtectPage.js"></script>
+<script type="text/javascript" src="js/UrlParse.js"></script>
+<script type="text/javascript" src="js/woman_print.js"></script>
+
+</head>
+<body>
+	<div class="outerContainer">
+		<div class="showToolbar"></div>
+		<div class="container">
+			<table class="form_tbl">
+				<tr>
+					<td colspan="2"><span class="tf_inline"
+						style="margin-left: 10px">档案编号</span></td>
+					<td colspan="4"><span id="districtNumber" class="tf_inline"></span><span
+						id="fileNo" class="tf_inline"></span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2"><span class="tf_inline" style="margin-left: 10px">条形码</span>
+					</td>
+					<td colspan="4"><span id="barCode"></span></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="5">一般情况</td>
+					<td class="header">姓名</td>
+					<td id="name" class="tf_inline"></td>
+					<td><span class="tf_inline" style="margin-left: 10px">性别</span></td>
+					<td><span id="sex" class="tf_inline"></span></td>
+					<td class="header">民族</td>
+					<td><span id="nation" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">出生日期</td>
+					<td id="birthday" class="tf_inline"></td>
+					<td class="header">年龄</td>
+					<td colspan="3"><span id="age" class="tf_inline"></span>岁 <span
+						id="ageMonth" class="tf_inline"></span>月 <span id="ageDay"
+						class="tf_inline"></span>天 <span id="ageHours" class="tf_inline"></span>小时
+					</td>
+				</tr>
+				<tr>
+					<td class="header">家庭住址</td>
+					<td id="familyAddress" class="tf_inline"></td>
+					<td><span class="tf_inline" style="margin-left: 10px">邮编</span></td>
+					<td><span id="post" class="tf_inline"></span></td>
+					<td class="header">联系电话</td>
+					<td><span id="tel" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">父亲姓名</td>
+					<td id="fatherName" class="tf_inline"></td>
+					<td><span class="tf_inline" style="margin-left: 10px">年龄</span></td>
+					<td><span id="fatherAge" class="tf_inline"></span></td>
+					<td class="header">职业</td>
+					<td><span id="fatherOccupation" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">母亲姓名</td>
+					<td id="motherName" class="tf_inline"></td>
+					<td><span class="tf_inline" style="margin-left: 10px">年龄</span></td>
+					<td><span id="motherAge" class="tf_inline"></span></td>
+					<td class="header">职业</td>
+					<td><span id="motherOccupation" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">筛查方法</td>
+					<td id="screeningWay" class="tf_inline" colspan="3"></td>
+					<td class="header">筛查时间</td>
+					<td><span id="screeningDate" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">筛查结果</td>
+					<td colspan="5" id="screeningResult"></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="16">个人情况</td>
+					<td class="header">出生情况</td>
+					<td colspan="5">第<span id="fetalNumber" class="tf_inline"></span>胎，
+						第<span id="yieldNumber" class="tf_inline"></span>产， 出生体重<span
+						id="weight" class="tf_inline"></span>Kg <span id="fetalWay"
+						class="tf_inline"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="header">分娩方式</td>
+					<td colspan="5" id="childBirthWay"></td>
+				</tr>
+				<tr>
+					<td class="header">出生缺陷</td>
+					<td colspan="5"><span id="birthDefact" class="tf_inline"></span><span
+						id="birthDefactOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">胎儿窘迫</td>
+					<td id="birthDistress"></td>
+					<td class="header">Apgar评分</td>
+					<td colspan="3"><span id="apgar" class="tf_inline"></span><span
+						id="apgarOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">产伤</td>
+					<td colspan="5"><span id="yieldHurt" class="tf_inline"></span><span
+						id="yieldHurtOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">羊水</td>
+					<td colspan="5" id="amnioticFluid"></td>
+				</tr>
+				<tr>
+					<td class="header">异常分娩</td>
+					<td colspan="5" id="childBirthException"></td>
+				</tr>
+				<tr>
+					<td class="header">头颅、五官畸形</td>
+					<td colspan="5"><span id="deformity" class="tf_inline"></span><span
+						id="deformityOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">出生后感染</td>
+					<td colspan="5"><span id="infection" class="tf_inline"></span><br/><span
+						id="infectionReason" class="tf_inline"></span><span
+						id="infectionCourse" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">出生后患病</td>
+					<td colspan="5"><span id="ill" class="tf_inline"></span><br/><span
+						id="illReason" class="tf_inline"></span><span id="illCourse"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">头部外伤史</td>
+					<td colspan="5"><span id="headHurt" class="tf_inline"></span><span
+						id="headHurtOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">耳毒性药物应用史</td>
+					<td colspan="5">
+						<span id="ototoxicityDrugHistoryId"></span>
+						<span id="ototoxicityDrugHistory"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="header">中耳炎史</td>
+					<td colspan="5"><span id="otitisHistory" class="tf_inline"></span><span
+						id="otitisHistoryOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">NICU抢救</td>
+					<td colspan="5"><span id="nicu" class="tf_inline"></span><br/><span
+						id="nicureason" class="tf_inline"></span><span id="nicudate"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">呼吸机使用</td>
+					<td colspan="5"><span id="ventilator" class="tf_inline"></span><span
+						id="ventilatorReason" class="tf_inline"></span><span
+						id="ventilatorDate" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="3">对外界声音和其他感官刺激的反应</td>
+					<td colspan="3" id="otherReaction"></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="10">母亲妊娠情况</td>
+					<td class="header">妊娠年龄</td>
+					<td colspan="5"><span id="childBirthAge" class="tf_inline"></span>岁
+					</td>
+				</tr>
+				<tr>
+					<td class="header">流产史</td>
+					<td colspan="5"><span id="abortionHistory" class="tf_inline"></span><span
+						id="abortionDate" class="tf_inline"></span><span
+						id="abortionReasion" class="tf_inline"></span><span
+						id="abortionWay" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">妊娠期病毒感染史</td>
+					<td colspan="5"><span id="infectionHistory" class="tf_inline"></span><span
+						id="infectionHistoryOther" class="tf_inline"></span><span id="infectionHistoryWeek"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">妊娠期外生殖器感染</td>
+					<td colspan="5"><span id="infectionHistory1" class="tf_inline"></span><span
+						id="infectionHistory1other" class="tf_inline"></span><span id="infectionHistory1week"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">妊娠期放射性物质接触史</td>
+					<td colspan="5"><span id="contactHistory" class="tf_inline"></span><br/><span
+						id="contactHistoryDate" class="tf_inline"></span><span id="contactHistoryWeek"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">妊娠期药物应用史</td>
+					<td colspan="5"><span id="appHistory" class="tf_inline"></span><br/><span
+						id="appHistoryDrugName" class="tf_inline"></span><span id="appHistoryDrugDate"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">妊娠期有害物质接触<br/>史：（例如：汞、砷、苯、铅、<br/>有机磷农药等）</td>
+					<td colspan="5"><span id="contactHistory1" class="tf_inline"></span><span
+						id="contactHistory1date" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">妊娠期的不良生活习惯史</td>
+					<td colspan="5">吸烟：<span id="smoking" class="tf_inline"></span>饮酒：<span
+						id="dreaking" class="tf_inline"></span>吸毒：<span id="drugging"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">妊娠期疾病史</td>
+					<td colspan="5"><span id="illHistory" class="tf_inline"></span><span
+						id="illHistoryOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">异常妊娠</td>
+					<td colspan="5"><span id="exceptionHistory" class="tf_inline"></span><span
+						id="exceptionHistoryOther" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header" rowspan="3">家庭史</td>
+					<td class="header">家庭的不良生活习惯</td>
+					<td colspan="5">吸烟：<span id="familySmoking" class="tf_inline"></span>饮酒：<span
+						id="familyDreaking" class="tf_inline"></span>吸毒：<span id="familyDrugging"
+						class="tf_inline"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="header">家族中有无耳聋患者</td>
+					<td colspan="5"><span id="deaf" class="tf_inline"></span><span
+						id="deafRelation" class="tf_inline"></span><span id="deafSituation"
+						class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header">父母是否近亲结婚</td>
+					<td colspan="5"><span id="intermarriage" class="tf_inline"></span><span
+						id="intermarriageRelation" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">听力学检查结果</td>
+					<td colspan="5"><span id="hearExamResult" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">诊断结果</td>
+					<td colspan="5"><span id="diagnosisResult" class="tf_inline"></span></td>
+				</tr>
+				<tr>
+					<td class="header" colspan="2">诊断医师签名</td>
+					<td id="diagnosisDoctor" colspan="5"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="showToolbar toolbarHide"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+</body>
+</html>

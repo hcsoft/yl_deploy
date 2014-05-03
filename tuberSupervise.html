@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>tuberSupervise.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type='text/javascript' src='/dwr/engine.js'></script> 
+    <link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+    
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/jquery.printElement.min.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+    
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/TuberSuperviseService.js'></script>
+    
+    <script type="text/javascript" src="js/controls.js"></script>
+    
+    <script type="text/javascript" src="js/tuberSupervise.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    
+	<!--<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">-->
+	<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    
+    <link rel="stylesheet" href="css/tuberSupervise.css" type="text/css"/>
+  </head>
+  
+  <body>
+    
+    <div id="container">
+    	<br />
+    	<div align="left">
+    		<button class="addTuberSuper">新增督导记录</button>
+    		<button class="gBtn updateTuber">修改基本信息</button>&nbsp;
+    		<button class="quit">退出</button>
+    		<button class="printPrev gBtn showWhenModify printTuber">打印</button>
+    	</div>
+    	<div id="tuberTable">
+    		<center><h1>结核病控制项目乡级督导记录</h1></center>
+    		<br />
+    		<span id="fileNo0" style="display: none;"></span>
+    		<table id="table01" cellpadding="0" cellspacing="0">
+    			<tr>
+    				<td>姓名：</td>
+    				<!--<td id="districtNumber" style="width:150px;">${name}</td>-->
+    				<td id="name0"></td>
+    				<td>性别：</td>
+    				<td id="sex0"></td>
+    				<td>年龄：</td>
+    				<td id="age0"></td>
+    				<td>地址：</td>
+    				<td id="address0" style="width:100px;border-bottom:1px dashed black;"></td>
+    				<td>病型：</td>
+    				<td id="typeForSick0"></td>
+    				<td>始治日期：</td>
+    				<td id="timeForStart0" style="width:80px;"></td>
+    				<td>登记号：</td>
+    				<td id="regNo0"></td>
+    				<td>病历号：</td>
+    				<td id="caseHisNo0"></td>
+    			</tr>
+    		</table>
+    		<table id="table02" cellpadding="0" cellspacing="0" border="1px">
+    			<tr>
+	    			<td rowspan="3">督导日期</td>
+	    			<td rowspan="3" style="width:350px;">督导访视内容及改进意见</td>
+	    			<td rowspan="3">取药次数<br />品种数量</td>
+	    			<td colspan="4">服药情况</td>
+	    			<td rowspan="3">访视人（单位）</td>
+	    			<td rowspan="3">病人签名</td>
+	    			<td rowspan="3">操作</td>
+    			</tr>
+    			<tr>
+	    			<td colspan="2">漏服药</td>
+	    			<td>补服药</td>
+	    			<td>断药</td>
+    			</tr>
+    			<tr>
+	    			<td>次数</td>
+	    			<td style="width:200px;">原因</td>
+	    			<td>次数</td>
+	    			<td>次数</td>
+    			</tr>
+    		</table>
+    	</div>
+    	<br />
+    	<div align="left">
+    		<button class="addTuberSuper">新增督导记录</button>
+			<button class="gBtn updateTuber">修改基本信息</button>&nbsp;
+    		<button class="quit">退出</button>
+			<button class="printPrev gBtn showWhenModify printTuber">打印</button>
+    	</div>
+    	
+    </div>
+  </body>
+</html>

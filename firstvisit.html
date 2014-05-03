@@ -1,0 +1,589 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/FirstVistBeforeBornService.js'></script>
+<script type='text/javascript' src='/dwr/interface/HighRiskService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/systemInformationUtils.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/BirthCertificateMsgService.js'></script>
+
+<script type="text/javascript" src="js/f.js"></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/calculateTime.js"></script>
+<script type="text/javascript" src="js/showInfo.js"></script>
+<script type="text/javascript" src="js/validSaveBefore.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_firstvisit.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen,print" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+
+<!-- 导行流程图 -->
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type="text/javascript" src="js/nextOpt.js"></script>
+<link type="text/css" href="css/nextOpt.css" media="screen"
+	rel="stylesheet" />
+<script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+<link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+	rel="stylesheet" />
+<link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+
+<!-- 打印JS引入 -->
+<script type="text/javascript" src="js/LodopFuncs.js"></script>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0>
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0	pluginspage="install_lodop.exe"> </embed>
+</object>
+<script type="text/javascript" src="js/printProtectPage.js"></script>
+<script type="text/javascript" src="js/UrlParse.js"></script>
+<script type="text/javascript" src="js/print/printSetting.js"></script>
+<script type="text/javascript" src="js/woman_print.js"></script>
+<script type="text/javascript" src="js/health-book-single.js"></script>
+<!--
+<script type="text/javascript" src="js/print/women/coverprint.js"></script>-->
+</head>
+<body>
+	<div style="display: none;" class="isWomanRecord">1</div>
+	<!-- <div style="display: none;" class="type">FirstVistBeforeBorn</div>-->
+	<div class="outerContainer">
+		<div class="showToolbar"> </div>
+		<button class="firstVisitPrint_new img1 woman i_print"
+            style="display: none;">
+            <img title="保健册打印" src="../image/print_positive_32_32.png" />保健册打印</button>
+		<button class="firstVisitPrint img1 woman i_print"
+			style="display: none;">
+			<img title="体检表打印" src="../image/print_positive_32_32.png" />体检表打印</button>
+		
+		<div class="container">
+			<table style="margin: 0; padding: 0" cellspacing=0>
+				<tr>
+					<td style="margin: 0; padding: 0">
+						<div class="span-19 last">
+							<ul class="tabs">
+								<li><a href="#">第1次产检</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-top: 1px solid #000;"><div class="promptMsg"></div></td>
+				</tr>
+			</table>
+		</div>
+		<div class="container panes">
+			<div class="cover span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td rowspan="2"><span class="tf_inline">姓名</span></td>
+						<td rowspan="2"><span id="name" class="tf_inline"></span></td>
+						<td><span class="tf_inline" style="margin-left: 50px">编号</span>
+						<span id="foreignId" style="display: none;">${name}</span>
+						</td>
+						<td colspan="2"><span id="districtNumber" class="tf_inline"></span><span
+							id="fileNo" class="tf_inline"></span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><span class="tf_inline" style="margin-left: 50px">条形码</span>
+						</td>
+						<td colspan="2"><span id="barCode"></span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="header">填表日期</td>
+						<td id="visitDate"></td>
+						<td class="header">填表孕周</td>
+						<td colspan="3"><span id="weeks"></span>周</td>
+					</tr>
+					<tr>
+						<td class="header">孕妇年龄</td>
+						<td colspan="5"><span id="bornAge" class="tf_inline"></span>岁</td>
+					</tr>
+					<tr>
+						<td class="header">高危孕产妇</td>
+						<td><span id="highRisk"></span> <span id="highRiskSearch"></span>
+						</td>
+						<td class="header">高危描述</td>
+						<td colspan="3"><span id="highRiskRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">丈夫姓名</td>
+						<td id="husbandName"></td>
+						<td class="header">丈夫年龄</td>
+						<td id="husbandAge"></td>
+						<td class="header">丈夫电话</td>
+						<td id="husbandTel"></td>
+					</tr>
+					<tr>
+						<td class="header">现病史</td>
+						<td colspan="5" id="presentIllnessHistory"></td>
+					</tr>
+					<tr>
+						<td class="header">月经史</td>
+						<td colspan="5">初潮年龄<span id="menarcheAge"></span>岁&nbsp;&nbsp;&nbsp;&nbsp;
+							周期<span id="cycleOne"></span>/<span id="cycleTwo"></span>天
+						</td>
+					</tr>
+					<tr>
+						<td class="header">孕 次</td>
+						<td id="gravidity"></td>
+						<td class="header">未次分娩时间</td>
+						<td colspan="3" id="endChildbirthDate"></td>
+					</tr>
+					<tr>
+						<td class="header">产 次</td>
+						<td colspan="5">阴道分娩<span id="parity"></span>次&nbsp;&nbsp;剖宫产<span
+							id="parity1"></span>次&nbsp;胎头吸引<span id="vacuumExtraction"></span>次
+							&nbsp;产钳<span id="forceps"></span>次
+							&nbsp;臀位<span id="breech"></span>次
+						</td>
+					</tr>
+					<tr>
+						<td class="header">末次月经</td>
+						<td id="lastMenses"></td>
+						<td class="header">预 产 期</td>
+						<td colspan="3" id="edc"></td>
+					</tr>
+					<tr>
+						<td class="header">既往史</td>
+						<td colspan="5"><span id="femePastHistory"></span><span
+							id="pastHistoryOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">家族史</td>
+						<td colspan="5"><span id="femeFamilyHistory"></span><span
+							id="familyHistoryOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">个人史</td>
+						<td colspan="5"><span id="personalHistory"></span><span
+							id="personalHistoryOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">妇科手术史</td>
+						<td colspan="5"><span id="opshistory"></span><span
+							id="opshistoryOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">避孕史</td>
+						<td colspan="5"><span id="contraceptiveHistory"></span><span id="contraceptiveHistoryOther"></span></td>
+					</tr>
+					<tr>
+						<td rowspan="8" class="header">孕产史</td>
+						<td colspan="2">
+							1.流产<span id="pregnant1"></span>次
+						</td>
+						<td class="header">未次流产（人流、<br/>药流、自然流产）时间</td>
+						<td colspan="2" id="endAbortionDate"></td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							2.死胎<span id="pregnant2"></span>次
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							3.死产<span id="pregnant3"></span>次
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							4.新生儿死亡<span id="pregnant4"></span>次
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							5.出生缺陷儿<span id="pregnant5"></span>次
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							6.早产<span id="prematureBirth"></span>次
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							7.现存活子女情况<span id="survivalMale"></span>男<span id="survivalFemale"></span>女
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							8.既往妊娠合并症及并发症：名称<span id="complicationHistory"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="header">身 高</td>
+						<td colspan="2"><span id="height"></span>cm</td>
+						<td class="header">体重</td>
+						<td colspan="2"><span id="weight"></span>kg</td>
+					</tr>
+					<tr>
+						<td class="header">体质指数</td>
+						<td colspan="2" id="habitus"></td>
+						<td class="header">血压</td>
+						<td colspan="2"><span id="diastolicPressure"></span>/<span
+							id="systolicPressure"></span>mmHg</td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="3">体格检查</td>
+						<td colspan="2">心脏：心率：<span id="heartRate"></span><span id="exam01"></span><span
+							id="exam01other"></span></td>
+						<td colspan="3">肺部：呼吸：<span id="breathingRate"></span><span id="exam02"></span><span
+							id="exam02other"></span></td>
+					</tr>
+					<tr>
+						<td colspan="2">肝脏：<span id="liver"></span><span id="liverOther"></span></td>
+						<td colspan="3">脾脏：<span id="spleen"></span><span id="spleenOther"></span></td>
+					</tr>
+					<tr>
+						<td colspan="2">乳房：<span id="breast"></span><span id="breastOther"></span></td>
+						<td colspan="3">其它检查：<span id="otherExam"></span><span id="otherExamOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="3">妇科检查</td>
+						<td colspan="2">外阴：<span id="exam03"></span><span
+							id="exam03other"></span></td>
+						<td colspan="3">阴道：<span id="exam04"></span><span
+							id="exam04other"></span></td>
+					</tr>
+					<tr>
+						<td colspan="2">宫颈：<span id="exam05"></span><span
+							id="exam05other"></span></td>
+						<td colspan="3">子宫：<span id="exam06"></span><span
+							id="exam06other"></span></td>
+					</tr>
+					<tr>
+						<td colspan="5">附件：<span id="exam07"></span><span
+							id="exam07other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="16">辅助检查</td>
+						<td>血常规</td>
+						<td colspan="4">血红蛋白值<span id="exam08"></span>g/L <br />
+							白细胞计数值<span id="exam09"></span>×10<sup>9</sup>/L 血小板计数值<span
+							id="exam10"></span>×10<sup>9</sup>/L <br />其他<span id="exam11"></span></td>
+					</tr>
+					<tr>
+						<td>尿常规*</td>
+						<td colspan="4">尿蛋白 <span id="exam12"></span> 尿糖 <span
+							id="exam13"></span> <br /> 尿酮体 <span id="exam14"></span> 尿潜血 <span
+							id="exam15"></span> <br />其他 <span id="exam16"></span>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="2">血型</td>
+						<td colspan="4" id="bloodTypeAbo"></td>
+					</tr>
+					<tr>
+						<td colspan="4">RH阴性*:<span id="bloodTypeRh"></span></td>
+					</tr>
+					<tr>
+						<td>血糖*</td>
+						<td colspan="4"><span id="bloodSugar"></span>mmol/L</td>
+					</tr>
+					<tr>
+						<td>肝功能*</td>
+						<td colspan="4">血清谷丙转氨酶 <span id="exam17"></span> U/L 血清谷草转氨酶
+							<span id="exam18"></span> U/L<br /> 白蛋白 <span id="exam19"></span>
+							g/L 总胆红素 <span id="exam20"></span> μmol/L<br /> 结合胆红素 <span
+							id="exam21"></span> μmol/L
+						</td>
+					</tr>
+					<tr>
+						<td>肾功能*</td>
+						<td colspan="4">血清肌酐 <span id="exam22"></span> μmol/L 血尿素氮 <span
+							id="exam23"></span> mmol/L <br /> 血钾浓度 <span id="exam24"></span>
+							mmol/L 血钠浓度 <span id="exam25"></span> mmol/L
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="2">阴道分泌物*</td>
+						<td colspan="4"><span id="femeSecretion"></span><span
+							id="exam26other"></span></td>
+					</tr>
+					<tr>
+						<td colspan="4">阴道清洁度：<span id="femeClean"></span></td>
+					</tr>
+					<tr>
+						<td rowspan="4">乙型肝炎五项</td>
+						<td style="width: 140px;">乙型肝炎表面抗原</td>
+						<td><span id="hepatitis01"></span></td>
+						<td>乙型肝炎表面抗体</td>
+						<td><span id="hepatitis02"></span></td>
+					</tr>
+					<tr>
+						<td>乙型肝炎e抗原</td>
+						<td><span id="hepatitis03"></span></td>
+						<td>乙型肝炎e抗体</td>
+						<td><span id="hepatitis04"></span></td>
+
+					</tr>
+					<tr>
+						<td>乙型肝炎核心抗体</td>
+						<td colspan="3"><span id="hepatitis05"></span></td>
+					</tr>
+					<tr>
+						<td class="header">乙肝病源学检测时间</td>
+						<td colspan="3" id="hepatitisBdetectDate"></td>
+						
+					</tr>
+					<tr>
+						<td>梅毒血清学试验*</td>
+						<td><span id="exam27"></span></td>
+						<td class="header">梅毒血清学检测时间</td>
+						<td colspan="2" id="syphilisDetectDate"></td>
+					</tr>
+					<tr>
+						<td>HIV抗体检测*</td>
+						<td><span id="exam28"></span></td>
+						<td class="header">HIV抗体首次检测时间</td>
+						<td colspan="2" id="hivdetectDate"></td>
+					</tr>
+					<tr>
+						<td>B超*</td>
+						<td colspan="4"><span id="exam29"></span></td>
+					</tr>
+					<tr>
+						<td class="header">总体评估</td>
+						<td colspan="5"><span id="evaluation"></span><span
+							id="beforeBornDirectOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">总体评估诊断</td>
+						<td colspan="5" id="diagnosisRemark"></td>
+					</tr>
+					<tr>
+						<td class="header">保健指导</td>
+						<td colspan="5"><span id="beforeBornCheckDirect"></span><span
+							id="beforeBornCheckDirectOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">转诊</td>
+						<td colspan="5"><span id="transfer"></span><span
+							id="transReason"></span><span id="transUnit"></span></td>
+					</tr>
+					<tr>
+						<td class="header">下次随访日期</td>
+						<td colspan="2" id="nextVisitDate"></td>
+						<td class="header">随访医生签名</td>
+						<td colspan="2"><span id="visitDoctor"></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="showToolbar toolbarHide"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+	<div class="printContainer">
+		<table cellpadding="0" cellspacing="0" class="printTable">
+			<tbody>
+				<tr>
+					<td style="width: 3.3cm;">姓名</td>
+					<td class="contentPrint"><span class="name"></span></td>
+					<td style="width: 2.5cm;">编号</td>
+					<td class="contentPrint"><span class="fileNo"></span></td>
+					<td>年龄</td>
+					<td class="contentPrint"><span class="age"></span></td>
+				</tr>
+				<tr>
+					<td>体检日期</td>
+					<td class="contentPrint"><span class="visitDate"></span></td>
+					<td>孕周</td>
+					<td class="contentPrint"><span class="weeks"></span></td>
+					<td style="width: 3cm;">是否高危</td>
+					<td class="contentPrint"><span class="highRisk"></span></td>
+				</tr>
+				<tr>
+					<td>高危因素</td>
+					<td colspan="5"><span class="highRiskRemark"></span></td>
+				</tr>
+				<tr>
+					<td>孕次</td>
+					<td class="contentPrint"><span class="visitDate"></span></td>
+					<td>产 次</td>
+					<td colspan="3">阴道分娩<span class="parity"></span>次&nbsp;&nbsp;剖宫产<span
+						class="parity1"></span>次
+					</td>
+				</tr>
+				<tr>
+					<td>末次月经</td>
+					<td class="contentPrint"><span class="lastMenses"></span></td>
+					<td>预 产 期</td>
+					<td colspan="3"><span class="edc"></span></td>
+				</tr>
+				<tr>
+					<td>既往史</td>
+					<td colspan="5"><span class="femePastHistory"></span>&nbsp;<span
+						class="pastHistoryOther"></span></td>
+				</tr>
+				<tr>
+					<td>家族史</td>
+					<td colspan="5"><span class="femeFamilyHistory"></span>&nbsp;<span
+						class="familyHistoryOther"></span></td>
+				</tr>
+				<tr>
+					<td>妇科手术史</td>
+					<td colspan="3"><span class="opshistory"></span>&nbsp;<span
+						class="opshistoryOther"></span></td>
+					<td>血压</td>
+					<td class="contentPrint"><span class="diastolicPressure"></span>/<span
+						class="systolicPressure"></span>mmHg</td>
+				</tr>
+				<tr>
+					<td>孕产史</td>
+					<td colspan="5">1.流产<span class="pregnant1"></span>次&nbsp;2.死胎<span
+						class="pregnant2"></span>个&nbsp; 3.死产<span class="pregnant3"></span>次&nbsp;4.新生儿死亡<span
+						class="pregnant4"></span>个&nbsp; 5.出生缺陷儿<span class="pregnant5"></span>个&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>身高</td>
+					<td class="contentPrint"><span class="height"></span></td>
+					<td>体重</td>
+					<td class="contentPrint"><span class="weight"></span></td>
+					<td>体质指数</td>
+					<td class="contentPrint"><span class="habitus"></span></td>
+				</tr>
+				<tr>
+					<td>心脏</td>
+					<td><span class="exam01"></span>&nbsp;<span
+						class="exam01other"></span></td>
+					<td>肺部</td>
+					<td colspan="3"><span class="exam02"></span>&nbsp;<span
+						class="exam02other"></span></td>
+				</tr>
+				<tr>
+					<td>外阴</td>
+					<td><span class="exam03"></span>&nbsp;<span
+						class="exam03other"></span></td>
+					<td>阴道</td>
+					<td colspan="3"><span class="exam04"></span>&nbsp;<span
+						class="exam04other"></span></td>
+				</tr>
+				<tr>
+					<td>宫颈</td>
+					<td><span class="exam05"></span>&nbsp;<span
+						class="exam05other"></span></td>
+					<td>子宫</td>
+					<td colspan="3"><span class="exam06"></span>&nbsp;<span
+						class="exam06other"></span></td>
+				</tr>
+				<tr>
+					<td>附件</td>
+					<td colspan="5"><span class="exam07"></span>&nbsp;<span
+						class="exam07other"></span></td>
+				</tr>
+				<tr>
+					<td>血常规</td>
+					<td colspan="5">血红蛋白值<span class="exam08"></span>g/L&nbsp;白细胞计数值<span
+						class="exam09"></span>×10<sup>9</sup>/L&nbsp; 血小板计数值<span
+						class="exam10"></span>×10<sup>9</sup>/L&nbsp;其他<span
+						class="exam11"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>尿常规</td>
+					<td colspan="5">尿蛋白 <span class="exam12"></span>&nbsp;尿糖<span
+						class="exam13"></span>&nbsp; 尿酮体 <span class="exam14"></span>&nbsp;尿潜血<span
+						class="exam15"></span>&nbsp; 其他<span class="exam16"></span>&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td>血型</td>
+					<td class="contentPrint"><span class="bloodTypeAbo"></span></td>
+					<td>RH阴性</td>
+					<td class="contentPrint"><span class="bloodTypeRh"></span></td>
+					<td>血糖</td>
+					<td class="contentPrint"><span class="bloodSugar"></span></td>
+				</tr>
+				<tr>
+					<td>肝功能</td>
+					<td colspan="5">血清谷丙转氨酶<span class="exam17"></span>U/L&nbsp;血清谷草转氨酶<span
+						class="exam18"></span>U/L&nbsp; 白蛋白<span class="exam19"></span>g/L&nbsp;总胆红素<span
+						class="exam20"></span>μmol/L&nbsp; 结合胆红素<span class="exam21"></span>μmol/L
+					</td>
+				</tr>
+				<tr>
+					<td>肾功能</td>
+					<td colspan="5">血清肌酐<span class="exam22"></span>μmol/L&nbsp;血尿素氮
+						<span class="exam23"></span>mmol/L&nbsp; 血钾浓度 <span class="exam24"></span>mmol/L&nbsp;血钠浓度<span
+						class="exam25"></span>mmol/L
+					</td>
+				</tr>
+				<tr>
+					<td>阴道分泌物</td>
+					<td colspan="2"><span class="femeSecretion"></span>&nbsp;<span
+						class="exam26other"></span></td>
+					<td colspan="2">阴道清洁度</td>
+					<td class="contentPrint"><span class="femeClean"></span></td>
+				</tr>
+				<tr>
+					<td>乙型肝炎五项</td>
+					<td colspan="5">乙型肝炎表面抗原：<span class="hepatitis01"></span>&nbsp;乙型肝炎表面抗体：<span
+						class="hepatitis02"></span>&nbsp; 乙型肝炎e抗原：<span
+						class="hepatitis03"></span>&nbsp;乙型肝炎e抗体：<span class="hepatitis04"></span>&nbsp;
+						乙型肝炎核心抗体：<span class="hepatitis05"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>梅毒血清学试验</td>
+					<td><span class="exam27"></span></td>
+					<td colspan="2">HIV抗体检测</td>
+					<td colspan="2"><span class="exam28"></span></td>
+				</tr>
+				<tr>
+					<td>B超</td>
+					<td colspan="5"><span class="exam29"></span></td>
+				</tr>
+				<tr>
+					<td>下次随访日期</td>
+					<td colspan="3"><span class="nextVisitDate"></span></td>
+					<td>医生签名</td>
+					<td><span class="visitDoctor"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

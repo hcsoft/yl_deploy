@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>月统计报表（表三）</title>
+	<link rel="stylesheet" type="text/css" href="js/ext-3.3.0/resources/css/ext-all.css" />
+    <script type="text/javascript" src="js/ext-3.3.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="js/ext-3.3.0/ext-all-debug.js"></script>
+	<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+	<script type='text/javascript' src='/dwr/engine.js'></script>
+	<script type="text/javascript" src="js/statisticByMonth03.js"></script>
+	<script type='text/javascript' src='/dwr/interface/ReportService.js'></script>  
+	<!-- Jquery引入包 -->
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/tf-statistic-publicMethod.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/report.css" />
+	<script src="js/jquery.printElement.min.js" type="text/javascript"></script>
+	<!-- 打印控件 -->
+	<script language="javascript" src="js/LodopFuncs.js"></script>
+	<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+
+		<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0 pluginspage="install_lodop.exe"></embed>
+	</object>
+	<script language="javascript" src="js/printProtectPage.js"></script>
+</head>
+<body>
+	<div id="container" class="printContainer">
+		<table id="statisticByDay" cellpadding="0" cellspacing="0"  width="98%" >
+			<thead>
+				<tr>
+					<td width="150px" rowspan="3">村委会名称</td>
+					<td colspan="10">计划免疫接种</td>
+					<td rowspan="2" colspan="2">乙肝疫苗<br/>补种</td>
+					<td colspan="2">传染病管理</td>
+					<td colspan="2">健康教育</td>
+					<td rowspan="3">健康讲座（期）</td>
+					<td rowspan="3">健康咨询（次）</td>
+				</tr>
+				<tr>
+					<td colspan="2">卡介苗</td>
+					<td colspan="2">麻疹疫苗</td>
+					<td colspan="2">白百破疫苗</td>
+					<td colspan="2">脊灰疫苗</td>
+					<td colspan="2">乙肝疫苗</td>
+					<td rowspan="2">报告例数</td>
+					<td rowspan="2">发病率 <br/>（/十万）</td>
+					<td colspan="2">设置宣传栏（个）</td>
+				</tr>
+				<tr>
+					<td>人数</td>
+					<td>%</td>
+					<td>人数</td>
+					<td>%</td>
+					<td>人数</td>
+					<td>%</td>
+					<td>人数</td>
+					<td>%</td>
+					<td>人数</td>
+					<td>%</td>
+					<td>人数</td>
+					<td>%</td>
+					<td>乡级</td>
+					<td>村级</td>
+				</tr>
+			</thead>
+			
+		</table>
+		
+	</div>
+</body>
+</html>

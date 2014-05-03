@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+">
+	
+	<bean id="securityService" class="cn.net.tongfang.framework.security.SecurityServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="fileNoGen" class="cn.net.tongfang.web.util.FileNoGen">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<!-- 修改开始 -->
+	<bean id="homeNoGen" class="cn.net.tongfang.web.util.HomeNoGen">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	<bean id="mgr" class="cn.net.tongfang.framework.util.service.ModuleMgr">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	<!-- 修改结束 -->
+	<!--EncryUtils必须在最开始被执行,凡是与加密有关的都不能在它之前执行,配置也必须放在其后-->
+	<bean id="EncryUtils"
+		class="cn.net.tongfang.framework.util.EncryUtils" scope="singleton"> 
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="ScoreUtil"
+		class="cn.net.tongfang.web.service.score.ScoreUtil"   scope="singleton"> 
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="ModuleUtil"
+		class="cn.net.tongfang.framework.util.ModuleUtil" scope="singleton"> 
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="commonExamUtil"
+		class="cn.net.tongfang.web.service.commonexam.CommonExamUtil" scope="singleton"> 
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	
+	<!--
+	<bean id="ConfigUtils"
+		class="cn.net.tongfang.framework.util.ConfigUtils" scope="singleton"> 
+		<constructor-arg ref="systemInformationUtils"/>
+	</bean>
+	<bean id="EncryptionUtils"
+		class="cn.net.tongfang.framework.util.EncryptionUtils"> 
+		<constructor-arg ref="ConfigUtils"/>
+	</bean>
+	-->
+	<!--定时短信相关任务 -->
+	<bean id="SmsUtil"
+		class="cn.net.tongfang.framework.util.SmsUtil" scope="singleton"> 
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="host" ><value>127.0.0.1</value></property>
+		<property name="name" ><value>test</value></property>
+		<property name="pwd" ><value>test</value></property>
+		<property name="apiId" ><value>test</value></property>
+		<property name="dbName" ><value>mas</value></property>
+	</bean>
+	<!--
+	<bean id="sendjobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	  <property name="targetObject" ref="SmsService" />
+	  <property name="targetMethod" value="sendMsgJob" />
+	</bean>
+	
+	<bean id="sendSmsJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail" ref="sendjobDetail" />
+	    <property name="cronExpression" value="0 55 12 * * ?" />
+	</bean>
+	
+	<bean id="makejobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	  <property name="targetObject" ref="SmsService" />
+	  <property name="targetMethod" value="makeMsgJob" />
+	</bean>
+	
+	<bean id="makeSmsjob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail" ref="makejobDetail" />
+	    <property name="cronExpression" value="0 50 12 * * ?" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	            <ref bean="sendSmsJob" />
+	            <ref bean="makeSmsjob" />
+	        </list>
+	    </property>
+	</bean>
+	-->
+	<!--短信定时任务-->
+</beans>

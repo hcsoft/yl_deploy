@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/ChildrenMediExamService.js'></script>
+<script type='text/javascript' src='/dwr/interface/HighRiskService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/EvaluateChildService.js'></script>
+<script type='text/javascript' src='/dwr/interface/GenDefaultVal.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/systemInformationUtils.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/BirthCertificateMsgService.js'></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/showInfo.js"></script>
+<script type="text/javascript" src="js/validSaveBefore.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_childexam2.js"></script>
+
+<script type="text/javascript" src="js/health-book-multi.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen,print" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="css/card.css" type="text/css"
+	media="screen, print" />
+<!-- 导行流程图 -->
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type="text/javascript" src="js/nextOpt.js"></script>
+<link type="text/css" href="css/nextOpt.css" media="screen"
+	rel="stylesheet" />
+<script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+<link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+	rel="stylesheet" />
+<link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+<script src="js/jquery.printElement.min.js" type="text/javascript"></script>
+
+<!-- JS打印 -->
+<script language="javascript" src="js/LodopFuncs.js"></script>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0>
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0
+		pluginspage="install_lodop.exe"></embed>
+</object>
+<script language="javascript" src="js/printProtectPage.js"></script>
+<script type="text/javascript" src="js/UrlParse.js"></script>
+<script type="text/javascript" src="js/childExam_print.js"></script>
+<script type="text/javascript" src="js/print/printChildSetting.js"></script>
+<!-- 在线拍照 -->
+<script language="javascript" src="js/onlineTakePhoto.js"></script>
+
+<!-- 浮动提示窗口 -->
+<script language="javascript" src="js/floatShowInfo.js"></script>
+<link rel="stylesheet" type="text/css" href="css/floatShowInfo.css" />
+<link href="css/personalInfo.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/miframe.js"></script>
+</head>
+<body>
+	<div style="display: none;" class="isWomanRecord">7</div>
+	<div class="showInfo_Child_Woman">
+		<div class="showInfo_Child_Woman_title">温馨提示：</div>
+		<div class="showInfo_Child_Woman_content">
+			<font size="2px">1~2岁儿童体检项目为： <span class="showInfo_items">12月龄</span>、
+				<span class="showInfo_items">18月龄</span>、 <span
+				class="showInfo_items">24月龄</span>、 <span class="showInfo_items">30月龄</span>、
+				<span class="showInfo_items">35月龄</span> 才纳入报销范围，其它项目不纳入报销范围。
+			</font>
+		</div>
+		<div class="showInfo_close">
+			<font size="2px">关闭</font>
+		</div>
+	</div>
+	<div style="display: none;" class="type">ChildrenMediExam</div>
+	<div style="display: none;" class="dataType">1</div>
+	<div class="outerContainer">
+		<div class="showToolbar"></div>
+		<div class="container">
+			<button class="img1 childvisit2_new child i_print" style="display: none;">
+                <img title="体检表打印" src="../image/print_positive_32_32.png" />保健册打印
+            </button>
+            <button class="img1 childvisit1 child i_print" style="display: none;">
+                <img title="体检表打印" src="../image/print_positive_32_32.png" />体检表打印
+            </button>
+			<table style="margin: 0; padding: 0" cellspacing=0>
+				<tr>
+					<td style="margin: 0; padding: 0">
+						<div class="span-19 last">
+							<ul class="tabs">
+								<li><a href="#">1~2岁儿童体检</a></li>
+								<li><a href="#">儿童其它项目</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-top: 1px solid #000;"><div class="promptMsg"></div></td>
+				</tr>
+			</table>
+		</div>
+		<div class="container panes">
+			<div class="cover span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td rowspan="2"><span class="tf_inline">姓名</span> <span
+							id="name" class="tf_inline"></span></td>
+						<td><span class="tf_inline" style="margin-left: 50px">编号</span>
+						</td>
+						<td colspan="2"><span id="districtNumber" class="tf_inline"></span><span
+							id="fileNo" class="tf_inline"></span><span id="foreignId" style="display: none;">${name}</span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><span class="tf_inline" style="margin-left: 50px">条形码</span>
+						</td>
+						<td colspan="2"><span id="barCode"></span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="header">项目</td>
+						<td colspan="4" id="checkItem"></td>
+					</tr>
+					<tr>
+						<td class="header">随访日期</td>
+						<td colspan="4" id="visitDate"></td>
+					</tr>
+					<tr>
+						<td class="header">高危儿童</td>
+						<td><span id="highRisk"></span> <span id="highRiskSearch"></span>
+						</td>
+						<td class="header">高危描述</td>
+						<td colspan="2"><span id="highRiskRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">体重(kg)</td>
+						<td><span id="weight"></span></td>
+						<td colspan="3"><span id="weightScore"></span></td>
+					</tr>
+					<tr>
+						<td class="header">身长(cm)</td>
+						<td><span id="height"></span></td>
+						<td colspan="3"><span id="heightScore"></span></td>
+					</tr>
+					<tr>
+						<td rowspan="14">体格检查</td>
+						<td class="header">面色</td>
+						<td colspan="3"><span id="face"></span></td>
+					</tr>
+					<tr>
+						<td class="header">皮肤</td>
+						<td colspan="3"><span id="exam01"></span><span
+							id="exam01other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">前卤</td>
+						<td><span id="exam02"></span></td>
+						<td colspan="2"><span id="exam03"></span>cm x <span
+							id="exam04"></span>cm</td>
+					</tr>
+					<tr>
+						<td class="header">眼</td>
+						<td colspan="3"><span id="eyes"></span><span id="eyesOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">耳</td>
+						<td colspan="3"><span id="ears"></span><span id="earsOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">听力</td>
+						<td colspan="3" id="exam14"></td>
+					</tr>
+					<tr>
+						<td class="header">出牙/龋齿数（颗）</td>
+						<td colspan="3"><span id="exam05"></span>/<span id="exam17"></span></td>
+					</tr>
+					<tr>
+						<td class="header">心肺</td>
+						<td colspan="3"><span id="heart"></span><span id="heartOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">腹部</td>
+						<td colspan="3"><span id="exam06"></span><span
+							id="exam06other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">四肢</td>
+						<td colspan="3"><span id="exam08"></span><span
+							id="exam08other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">步态</td>
+						<td colspan="3"><span id="walk"></span><span id="walkOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">佝偻病体征</td>
+						<td colspan="3"><span id="exam10"></span></td>
+					</tr>
+					<tr>
+						<td class="header">血红蛋白值(g/L)</td>
+						<td colspan="3"><span id="exam12"></span></td>
+					</tr>
+					<tr>
+						<td class="header">户外活动</td>
+						<td colspan="3"><span id="activityTime"></span>小时/日</td>
+					</tr>
+					<tr>
+						<td class="header">服用维生素D</td>
+						<td colspan="4"><span id="wdcount"></span>IU/日</td>
+					</tr>
+					<tr>
+						<td class="header">发育评估</td>
+						<td colspan="4"><span id="evaluate"></span></td>
+					</tr>
+					<tr>
+						<td class="header">两次访问间患病情况</td>
+						<td colspan="4"><span id="state"></span></td>
+					</tr>
+					<tr>
+						<td class="header">其它</td>
+						<td colspan="4"><span id="other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">转诊</td>
+						<td colspan="4"><span id="transfer"></span><span
+							id="transReason"></span><span id="transUnit"></span></td>
+					</tr>
+					<tr>
+						<td class="header">指导</td>
+						<td colspan="4" id="checkDirect"></td>
+					</tr>
+					<tr>
+						<td class="header">下次随访日期</td>
+						<td><span id="nextVisitDate"></span></td>
+						<td class="header">随访医生签名</td>
+						<td colspan=2><span id="visitDoctor"></span></td>
+					</tr>
+				</table>
+				<span id="dataType"></span>
+			</div>
+			<div class="span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td style="width: 200px;">血压</td>
+						<td><span id="pressure"></span>mmHg</td>
+						<td rowspan="7" align="center"><span id="onlinePhoto"></span>
+							<div>
+								<a href="#" class="onlineTakePhoto">在线拍照</a>
+							</div></td>
+					</tr>
+					<tr>
+						<td class="header">胸廓</td>
+						<td><span id="pleura"></span><span id="pleuraRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">乳牙数</td>
+						<td id="mikTooth"></td>
+					</tr>
+					<tr>
+						<td class="header">龋齿</td>
+						<td id="decayedTooth"></td>
+					</tr>
+					<tr>
+						<td class="header">咽、扁</td>
+						<td><span id="throatFlat"></span><span id="throatFlatRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">左眼</td>
+						<td id="leftEyes"></td>
+					</tr>
+					<tr>
+						<td class="header">右眼</td>
+						<td id="rightEyes"></td>
+					</tr>
+					<tr>
+						<td class="header">全身浅表淋巴结</td>
+						<td colspan="2"><span id="lymphNode"></span><span
+							id="lymphNodeRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肺脏</td>
+						<td colspan="2"><span id="lung"></span><span id="lungOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">心脏</td>
+						<td colspan="2"><span id="heartChild"></span><span
+							id="heartChildOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肝脏</td>
+						<td colspan="2"><span id="liver"></span><span id="liverOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">脾脏</td>
+						<td colspan="2"><span id="spleen"></span><span
+							id="spleenOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">鼻</td>
+						<td colspan="2"><span id="nose"></span><span id="noseother"></span></td>
+					</tr>
+					<tr>
+						<td class="header">听力筛查</td>
+						<td colspan="2"><span id="hearing"></span><span
+							id="hearingOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">脊柱</td>
+						<td colspan="2"><span id="backbone"></span><span
+							id="backboneOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">外生殖器</td>
+						<td colspan="2"><span id="genitals"></span><span
+							id="genitalsOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">神经心理</td>
+						<td colspan="2"><span id="nerveMental"></span><span
+							id="nerveMentalOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">髋关节外展试验</td>
+						<td colspan="2"><span id="pelvis"></span><span
+							id="pelvisOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">现患疾病</td>
+						<td id="illness" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">综合评估</td>
+						<td id="evaluateChild" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">营养指导</td>
+						<td id="dietDirect" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">早教指导</td>
+						<td id="earlyDirect" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">预防接种指导</td>
+						<td id="protectDirect" colspan="2"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="showToolbar toolbarHide"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+	<div class="printContainer">
+		<table cellpadding="0" cellspacing="0" class="printTable">
+			<tbody>
+				<tr>
+					<td colspan="2">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tbody>
+								<tr>
+									<td><span class="printHeaderSpan">姓名：</span><span
+										class="name"></span></td>
+									<td><span class="printHeaderSpan">性别：</span><span
+										class="sex"></span></td>
+									<td rowspan="10" align="center" valign="middle"><img
+										class="onlinePhoto" /></td>
+								</tr>
+								<tr>
+									<td><span class="printHeaderSpan">年龄：</span><span
+										class="directAge"></span></td>
+									<td><span class="printHeaderSpan">血压（mmHg）：</span><span
+										class="pressure"></span></td>
+								</tr>
+								<tr>
+									<td><span class="printHeaderSpan">体重（kg）：</span><span
+										class="weight"></span></td>
+									<td><span class="printHeaderSpan">身高（cm）：</span><span
+										class="height"></span></td>
+								</tr>
+								<tr>
+									<td><span class="printHeaderSpan">皮肤：</span><span
+										class="exam01"></span><span class="exam01other" title="异常"></span></td>
+									<td><span class="printHeaderSpan">前囟：</span><span
+										class="exam03 exam03formatnum"></span>cm x <span
+										class="exam04 exam04formatnum"></span>cm</td>
+								</tr>
+								<tr>
+									<td><span class="printHeaderSpan">胸廓：</span><span
+										class="pleura"></span><span class="pleuraRemark" title="其它"></span></td>
+									<td><span class="printHeaderSpan">乳牙数：</span><span
+										class="mikTooth mikToothformatnum"></span></td>
+								</tr>
+								<tr>
+									<td><span class="printHeaderSpan">龋齿：</span><span
+										class="decayedTooth decayedToothformatnum"></span></td>
+									<td><span class="printHeaderSpan">咽、扁：</span><span
+										class="throatFlat"></span><span class="throatFlatRemark"
+										title="其它"></span></td>
+								</tr>
+								<tr>
+									<td><span class="printHeaderSpan">耳：</span><span
+										class="ears"></span><span class="earsOther" title="异常"></span></td>
+									<td><span class="printHeaderSpan">鼻：</span><span
+										class="nose"></span><span class="noseother" title="异常"></span></td>
+								</tr>
+								<tr>
+									<td colspan="2"><span class="printHeaderSpan">听力筛查：</span><span
+										class="hearing"></span></td>
+								</tr>
+								<tr>
+									<td><span class="printHeaderSpan">左眼：</span><span
+										class="leftEyes"></span></td>
+									<td><span class="printHeaderSpan">右眼：</span><span
+										class="rightEyes"></span></td>
+
+								</tr>
+								<tr>
+									<td colspan="3"><span class="printHeaderSpan">全身浅表淋巴结：</span><span
+										class="lymphNode"></span><span class="lymphNodeRemark"
+										title="肿大"></span></td>
+
+								</tr>
+								<tr>
+									<td colspan="2"><span class="printHeaderSpan">肺脏：</span><span
+										class="lung"></span><span class="lungOther" title="异常"></span></td>
+									<td><span class="printHeaderSpan">心脏：</span><span
+										class="heartChild"></span><span class="heartChildOther"
+										title="异常"></span></td>
+								</tr>
+								<tr>
+									<td colspan="2"><span class="printHeaderSpan">肝脏：</span><span
+										class="liver"></span><span class="liverOther" title="其它"></span></td>
+									<td><span class="printHeaderSpan">脾脏：</span><span
+										class="spleen"></span><span class="spleenOther" title="其它"></span></td>
+								</tr>
+								<tr>
+									<td colspan="3"><span class="printHeaderSpan">外生殖器：</span><span
+										class="exam11"></span><span class="exam11other" title="异常"></span></td>
+								</tr>
+								<tr>
+									<td colspan="2"><span class="printHeaderSpan">脊柱：</span><span
+										class="backbone"></span><span class="backboneOther" title="异常"></span></td>
+									<td><span class="printHeaderSpan">四肢：</span><span
+										class="exam16"></span><span class="exam16Other" title="异常"></span></td>
+								</tr>
+								<tr>
+									<td colspan="2"><span class="printHeaderSpan">神经心理：</span><span
+										class="nerveMental"></span><span class="nerveMentalOther"
+										title="异常"></span></td>
+									<td><span class="printHeaderSpan">髋关节外展试验：</span><span
+										class="pelvis"></span><span class="pelvisOther" title="阳性"></span></td>
+								</tr>
+								<tr>
+									<td colspan="2"><span class="printHeaderSpan">现患疾病：</span><span
+										class="illness"></span></td>
+									<td><span class="printHeaderSpan">综合评估：</span><span
+										class="evaluateChild"></span></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="height: 150px; vertical-align: top;"><span
+						class="printHeaderSpan">营养指导：</span><span class="dietDirect"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="height: 150px; vertical-align: top;"><span
+						class="printHeaderSpan">早教指导：</span><span class="earlyDirect"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="height: 80px; vertical-align: top;"><span
+						class="printHeaderSpan">预防接种指导：</span><span class="protectDirect"></span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><span style="color: red; font-weight: bolder;">儿童体检联系电话：8127480</span><br />
+						<span style="color: red; font-weight: bolder;">下次体检时间：</span><span
+						class="nextVisitDate"></span></td>
+					<td><span class="printHeaderSpan">体检医师：</span><span
+						class="visitDoctor"></span></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>

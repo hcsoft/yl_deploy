@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/VisitAfterBornService.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type='text/javascript' src='/dwr/interface/HighRiskService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/systemInformationUtils.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/BirthCertificateMsgService.js'></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_VisitAfterBorn.js"></script>
+<script type="text/javascript" src="js/health-book-multi.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen,print" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+
+<!-- 导行流程图 -->
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type="text/javascript" src="js/nextOpt.js"></script>
+<link type="text/css" href="css/nextOpt.css" media="screen"
+	rel="stylesheet" />
+<script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+<link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+	rel="stylesheet" />
+<link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+<!-- 打印JS引入 -->
+<script language="javascript" src="js/LodopFuncs.js"></script>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0>
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0
+		pluginspage="install_lodop.exe"></embed>
+</object>
+<script language="javascript" src="js/printProtectPage.js"></script>
+<script type="text/javascript" src="js/UrlParse.js"></script>
+<script type="text/javascript" src="js/woman_print.js"></script>
+<script type="text/javascript" src="js/print/printSetting.js"></script>
+
+<link href="css/personalInfo.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/miframe.js"></script>
+</head>
+<body>
+	<div style="display: none;" class="isWomanRecord">1</div>
+	<div class="outerContainer">
+		<div class="showToolbar"></div>
+		<div class="container">
+			<!-- 
+			<button class="img childvisit36 child i_print" style="display: none;">
+				<img title="打印" src="../image/print_positive_32_32.png" />打印
+			</button> -->
+			<table style="margin: 0; padding: 0" cellspacing=0>
+				<tr>
+					<td style="margin: 0; padding: 0">
+						<div class="span-19 last">
+							<ul class="tabs">
+								<li><a href="#">产后访视</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="border-top: 1px solid #000;"><div class="promptMsg"></div></td>
+				</tr>
+			</table>
+		</div>
+		<div class="container panes">
+	
+			<button class="visitAfterBorn_new img1 woman i_print"
+                style="display: none;">
+                <img title="保健册打印" src="../image/print_positive_32_32.png" />保健册打印
+            </button>
+            <button class="visitAfterBorn img1 woman i_print"
+                style="display: none;">
+                <img title="体检表打印" src="../image/print_positive_32_32.png" />体检表打印
+            </button>
+			<div class="cover span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td rowspan="2"><span class="tf_inline">姓名：</span> <span
+							id="name" class="tf_inline" style="width: 50px;"></span></td>
+						<td><span class="tf_inline">编号：</span> <span
+							id="districtNumber" class="tf_inline"></span><span id="fileNo"
+							class="tf_inline"></span><span id="foreignId"
+							style="display: none;">${name}</span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><span class="tf_inline">条形码：</span> <span id="barCode"></span>
+						</td>
+						<td></td>
+					</tr>
+					<!-- 
+				<tr>
+					<td class="header">产次</td>
+					<td id="parities" colspan="2"></td>
+				</tr> -->
+					<tr>
+						<td class="header">项目</td>
+						<td id="item"></td>
+						<td>随访日期：<span id="visitDate"></span></td>
+					</tr>
+					<!-- <tr>
+	        <td class="header">高危孕产妇</td>
+	        <td>
+	        	<span id="highRisk"></span>
+	        	<span id="highRiskSearch"></span>
+	        </td>
+	        <td>
+	        	高危描述：<span id="highRiskRemark"></span>
+	        </td>
+	    </tr> -->
+					<tr>
+						<td class="header">体温</td>
+						<td colspan="2"><span id="bodyHeat"></span>℃</td>
+					</tr>
+					<tr>
+						<td class="header">脉搏</td>
+						<td colspan="2"><span id="pulseRate"></span>次/分</td>
+					</tr>
+					<tr>
+						<td class="header">一般健康情况</td>
+						<td id="health" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">一般心理状况</td>
+						<td id="mind" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">血压</td>
+						<td id="bloodPressure" colspan="2"><span
+							id="diastolicPressure"></span>/<span id="systolicPressure"></span>mmHg</td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="4">乳房</td>
+						<td colspan="2"><span id="breast"></span><span
+							id="breastOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">乳汁</td>
+						<td id="milk"></td>
+					</tr>
+					<tr>
+						<td class="header">红肿</td>
+						<td id="swelling"></td>
+					</tr>
+					<tr>
+						<td class="header">乳头皲裂</td>
+						<td id="nipple"></td>
+					</tr>
+					<tr>
+						<td class="header">恶露</td>
+						<td colspan="2"><span id="lochia"></span><span
+							id="lochiaOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2">子宫</td>
+						<td colspan="2"><span id="metra"></span><span id="metraOther"></span></td>
+					</tr>
+
+					<tr>
+						<td class="header">宫底高度</td>
+						<td><span id="palaceHeight"></span>cm</td>
+					</tr>
+					<tr>
+						<td class="header">伤口</td>
+						<td colspan="2"><span id="wound"></span><span id="woundOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">伤口愈合</td>
+						<td colspan="2" id="woundHealing"></td>
+					</tr>
+					<tr>
+						<td class="header">其他</td>
+						<td id="other" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">分类</td>
+						<td colspan="2"><span id="result"></span><span
+							id="resultOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">指导</td>
+						<td colspan="2"><span id="afterBornDirect"></span><br /> <span
+							id="afterBornDirectOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">转诊</td>
+						<td colspan="2"><span id="transfer"></span><span
+							id="transReason"></span><span id="transUnit"></span></td>
+					</tr>
+					<tr>
+						<td class="header">下次随访日期</td>
+						<td id="nextVisitDate" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">随访医生签名</td>
+						<td id="visitDoctor" colspan="2"></td>
+					</tr>
+				</table>
+			</div>
+			<span id="recordType"></span>
+		</div>
+		<div class="showToolbar toolbarHide"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+	<div class="printContainer">
+		<table cellpadding="0" cellspacing="0" class="printTable">
+			<tbody>
+				<tr>
+					<td style="width: 3cm;">姓名</td>
+					<td class="contentPrint"><span class="name"></span></td>
+					<td style="width: 1cm;">编号</td>
+					<td class="contentPrint"><span class="fileNo"></span></td>
+					<td style="width: 2.5cm;">体检日期</td>
+					<td class="contentPrint"><span class="visitDate"></span></td>
+				</tr>
+				<tr>
+					<td style="width: 3cm;">是否高危</td>
+					<td class="contentPrint"><span class="highRisk"></span></td>
+					<td>体温</td>
+					<td class="contentPrint"><span class="bodyHeat"></span></td>
+					<td>一般健康情况</td>
+					<td class="contentPrint"><span class="health"></span></td>
+				</tr>
+				<tr>
+					<td>高危因素</td>
+					<td colspan="5"><span class="highRiskRemark"></span></td>
+				</tr>
+				<tr>
+					<td>一般心理状况</td>
+					<td><span class="mind"></span></td>
+					<td>血压</td>
+					<td class="contentPrint"><span class="diastolicPressure"></span>/<span
+						class="systolicPressure"></span>mmHg</td>
+					<td>乳房</td>
+					<td class="contentPrint"><span class="breast"></span>&nbsp;<span
+						class="breastOther"></span></td>
+				</tr>
+				<tr>
+					<td>恶露</td>
+					<td class="contentPrint"><span class="lochia"></span>&nbsp;<span
+						class="lochiaOther"></span></td>
+					<td>子宫</td>
+					<td class="contentPrint"><span class="metra"></span>&nbsp;<span
+						class="metraOther"></span></td>
+					<td>伤口</td>
+					<td class="contentPrint"><span class="wound"></span>&nbsp;<span
+						class="woundOther"></span></td>
+				</tr>
+				<tr>
+					<td>其他</td>
+					<td class="contentPrint"><span class="other"></span></td>
+					<td>分类</td>
+					<td colspan="3"><span class="result"></span>&nbsp;<span
+						class="resultOther"></span></td>
+				</tr>
+				<tr>
+					<td>下次随访日期</td>
+					<td colspan="3"><span class="nextVisitDate"></span></td>
+					<td>医生签名</td>
+					<td><span class="visitDoctor"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

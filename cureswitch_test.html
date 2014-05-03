@@ -1,0 +1,533 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+    <script type='text/javascript' src='/dwr/interface/CureSwitchService.js'></script>
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/jquery.printElement.min.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/in_cureswitch.js"></script>
+    <script type="text/javascript" src="js/pi_print01.js"></script>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+    <!-- Import fancy-type plugin for the sample page. -->
+    <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection"/>
+ 
+    <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/tabs.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/sheet.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/new_css/card.css" type="text/css" media="screen, print"/>
+	<link rel="stylesheet" href="css/new_css/printCure.css" type="text/css" media="screen, print"/>
+
+
+    <script type="text/javascript" src="js/cureBackTest.js"></script>
+	<style type="text/css">
+		#testDiv {
+			position: absolute;
+			width: 800px;
+			height:1200px;
+			border:1px solid red;
+			z-index: 10000;
+			-moz-box-shadow:0 0 90px 5px #000;
+			-webkit-box-shadow: 0 0 90px #000;
+			margin-top:0px;
+			background-color:white;
+			display:block;
+			
+		}
+	</style>
+  </head>
+  <body>
+	<a href="#" id="showDiv">测试</a>
+	
+  	<div id="testDiv">
+  		<div><button class="print gBtn" id="printa">打印</button><span class="hint close">按Esc退出</span></div>
+        <table id="cardA" class="printCure" align="center">
+           <tr>
+           		<td class="printTitle">
+           			<br />
+           			存 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根
+           		</td>
+           		
+           </tr>
+           <tr><td>&nbsp;</td></tr>
+           <tr>
+           		<td>
+           			<table width="100%" cellpadding="0" cellspacing="0">
+           				<tr>
+           					<td class="signInfo" style="width:70px">患者姓名</td>
+			           		<td class="name printInfo" style="width:100px"></td>
+			           		<td class="signInfo" style="width:35px">性别</td>
+			           		<td class="sex printInfo" style="width:100px"></td>
+			           		<td class="signInfo" style="width:35px">年龄</td>
+			           		<td class="printInfo" style="width:30px"></td>
+			           		<td class="signInfo" style="width:70px">病案号</td>
+			           		<td class="fileNo printInfo" style="width:260px"></td>
+           				</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table width="100%" cellpadding="0" cellspacing="0" >
+           				<tr>
+           					<td class="signInfo" style="width:70px">家庭住址</td>
+			           		<td style="width:300px;border-bottom:1px solid black;text-algin:right;"></td>
+			           		<td style="width:70px" class="signInfo">联系电话</td>
+			           		<td class="tel printInfo"  style="width:240px;border-bottom:1px solid black;text-algin:right;"></td>
+           				</tr>
+           			
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td align="left">
+           			<table width="100%" cellpadding="0" cellspacing="0" >
+           				<tr>
+           					<td>
+           						<table><tr>
+		           					<td style="width: 40px;text-align:right;" class="signInfo">于</td>
+		           					<td class="date printInfo" style="width:150px;border-bottom:1px solid black;"></td>
+		           					<td style="width: 120px;text-align:center;" class="signInfo">因病情需要,转回</td>
+					           		<td class="exportOrg printInfo" style="width:370px;border-bottom:1px solid black;"></td>
+					           		<td style="width: 30px;text-align:center;" class="signInfo">单位</td>
+				           		</tr></table>
+           					</td>
+           				</tr>
+           				<tr>
+			           		<td>
+			           			<table>
+			           				<tr>
+			           					<td class="receptionDoctor printInfo" style="width:390px;border-bottom:1px solid black;"></td>
+						           		<td style="width: 100px;text-align:center;" class="signInfo">接诊医生。</td>
+						           		<td style="width: 210px;text-align:left;" class="signInfo"></td>
+			           				</tr>
+			           			</table>
+			           		</td>
+           				</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+	           				<td style="width: 600px;text-align:right;" class="signInfo">转诊医生（签字）：</td>
+           					<td class="doctor signInfo" style="width: 100px;"></td>
+	           			</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+	           				<td style="width: 500px;"></td>
+           					<td class="date signInfo" style="width: 200px;text-align:center;"></td>
+	           			</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td></td>
+           </tr>
+           
+           <tr>
+           		<td class="printTitle">
+           			<br />
+           			双向转诊（回转）单
+           		</td>
+           		
+           </tr>
+           <tr><td></td></tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+	           				<td style="width: 200px;" class="exportOrg printInfo"></td>
+           					<td style="width: 500px;text-align:left;" class="signInfo">（机构名称）:</td>
+	           			</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table><tr>
+		           		<td style="width: 80px;text-align:right;" class="signInfo">现有患者</td>
+		           		<td class="name printInfo" style="width:100px;border-bottom:1px solid black;text-align:center;"></td>
+					    <td style="width: 520px;text-align:left;" class="signInfo">因病情需要，需转回贵单位，请予以接诊。</td>
+				    </tr></table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table><tr>
+		           		<td style="width: 80px;text-align:right;" class="signInfo">诊断结果</td>
+		           		<td class="result printInfo" style="width:250px;border-bottom:1px solid black;text-align:center;"></td>
+		           		<td style="width: 100px;text-align:right;" class="signInfo">住院病案号</td>
+		           		<td class="recordNumber printInfo" style="width:270px;border-bottom:1px solid black;text-align:center;"></td>
+				    </tr></table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+           					<td  style="font-size:10px;">主要检查结果：</td>
+           				</tr>
+           				<tr>
+           					<td style="vertical-align: top;text-align:left;width: 700px;word-break:break-all;word-wrap:break-word;" class="checkResult signInfo"></td>
+           				</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+           					<td style="font-size:10px;">治疗经过、下一步治疗方案及康复建议：</td>
+           				</tr>
+           				<tr>
+           					<td style="vertical-align: top;text-align:left;width: 700px;word-break:break-all;word-wrap:break-word;" class="cureAdvice signInfo"></td>
+           				</tr>
+           			</table>
+           		</td>
+           </tr>
+           
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+           					<td style="text-align:right;width: 600px;"  class="signInfo">转诊医生（签字）：</td>
+           					<td style="text-align:left;width: 100px;" class="doctor signInfo"></td>
+           				</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+           					<td style="text-align:right;width: 600px;"  class="signInfo">联系电话：</td>
+           					<td style="text-align:left;width: 100px;" class="tel signInfo"></td>
+           				</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+           					<td style="text-align:right;width: 600px;" class="fromOrg signInfo"></td>
+           					<td style="text-align:left;width: 100px;"  class="signInfo">（机构名称）</td>
+           				</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td>
+           			<table>
+           				<tr>
+	           				<td style="width: 500px;"></td>
+           					<td class="date signInfo" style="width: 200px;text-align:center;"></td>
+	           			</tr>
+           			</table>
+           		</td>
+           </tr>
+           <tr>
+           		<td class="printBottom"></td>
+           </tr>
+        </table>
+    </div>
+  		<p>
+		
+
+printable {
+	padding-bottom : 0;
+
+table.card td{
+    border: 1px solid gray ;
+    width: 90px;
+    height: 20px;
+    padding: 1px;
+    text-align : center;
+}
+
+table.card td.block {
+    text-align : left; 
+    padding-bottom : 2px; 
+    padding-left:2px;
+}
+
+table.card td.hBlock {
+text-align : left; padding-bottom : 2px; padding-left : 2px; vertical-align:top; height:150px;
+}
+
+.printable {
+}
+
+.side-b, .side-a {
+	
+	/* must be initially hidden */
+	
+	/* place overlay on top of other elements */
+	z-index:10000;
+	
+	/* styling */
+/*	background-color:#333;*/
+	background-color:white;
+	
+	width:700px;	
+	min-height:200px;
+	border:1px solid #666;
+	
+	/* CSS3 styling for latest browsers */
+	-moz-box-shadow:0 0 90px 5px #000;
+	-webkit-box-shadow: 0 0 90px #000;	
+}
+
+div.printable {
+	padding-bottom : 0;
+	padding-left : 5px;
+	padding-right : 5px;
+	display : none;
+}
+
+button.print {
+	margin-top :  5px;
+	margin-bottom : 3px;
+	width : 70px;
+	height : 20px;
+}
+
+.hint {
+	margin-left : 5px;
+	cursor : pointer;
+}
+
+button.printPrev {
+	display : none;
+}
+		table.card {
+    border-collapse:collapse;
+    width: 700px;
+}
+
+.no-m-a {
+    text-align : left;
+}
+
+table.card td{
+    border: 1px solid gray ;
+    width: 90px;
+    height: 20px;
+    padding: 1px;
+    text-align : center;
+}
+
+table.card td.block {
+    text-align : left; 
+    padding-bottom : 2px; 
+    padding-left:2px;
+}
+
+table.card td.hBlock {
+text-align : left; padding-bottom : 2px; padding-left : 2px; vertical-align:top; height:150px;
+}
+
+.printable {
+}
+
+.side-b, .side-a {
+	
+	/* must be initially hidden */
+	
+	/* place overlay on top of other elements */
+	z-index:10000;
+	
+	/* styling */
+/*	background-color:#333;*/
+	background-color:white;
+	
+	width:700px;	
+	min-height:200px;
+	border:1px solid #666;
+	
+	/* CSS3 styling for latest browsers */
+	-moz-box-shadow:0 0 90px 5px #000;
+	-webkit-box-shadow: 0 0 90px #000;	
+}
+
+div.printable {
+	padding-bottom : 0;
+	padding-left : 5px;
+	padding-right : 5px;
+	display : none;
+}
+
+button.print {
+	margin-top :  5px;
+	margin-bottom : 3px;
+	width : 70px;
+	height : 20px;
+}
+
+.hint {
+	margin-left : 5px;
+	cursor : pointer;
+}
+
+button.printPrev {
+	display : none;
+}
+		table.card {
+    border-collapse:collapse;
+    width: 700px;
+}
+
+.no-m-a {
+    text-align : left;
+}
+
+table.card td{
+    border: 1px solid gray ;
+    width: 90px;
+    height: 20px;
+    padding: 1px;
+    text-align : center;
+}
+
+table.card td.block {
+    text-align : left; 
+    padding-bottom : 2px; 
+    padding-left:2px;
+}
+
+table.card td.hBlock {
+text-align : left; padding-bottom : 2px; padding-left : 2px; vertical-align:top; height:150px;
+}
+
+.printable {
+}
+
+.side-b, .side-a {
+	
+	/* must be initially hidden */
+	
+	/* place overlay on top of other elements */
+	z-index:10000;
+	
+	/* styling */
+/*	background-color:#333;*/
+	background-color:white;
+	
+	width:700px;	
+	min-height:200px;
+	border:1px solid #666;
+	
+	/* CSS3 styling for latest browsers */
+	-moz-box-shadow:0 0 90px 5px #000;
+	-webkit-box-shadow: 0 0 90px #000;	
+}
+
+div.printable {
+	padding-bottom : 0;
+	padding-left : 5px;
+	padding-right : 5px;
+	display : none;
+}
+
+button.print {
+	margin-top :  5px;
+	margin-bottom : 3px;
+	width : 70px;
+	height : 20px;
+}
+
+.hint {
+	margin-left : 5px;
+	cursor : pointer;
+}
+
+button.printPrev {
+	display : none;
+}
+		table.card {
+    border-collapse:collapse;
+    width: 700px;
+}
+
+.no-m-a {
+    text-align : left;
+}
+
+table.card td{
+    border: 1px solid gray ;
+    width: 90px;
+    height: 20px;
+    padding: 1px;
+    text-align : center;
+}
+
+table.card td.block {
+    text-align : left; 
+    padding-bottom : 2px; 
+    padding-left:2px;
+}
+
+table.card td.hBlock {
+text-align : left; padding-bottom : 2px; padding-left : 2px; vertical-align:top; height:150px;
+}
+
+.printable {
+}
+
+.side-b, .side-a {
+	
+	/* must be initially hidden */
+	
+	/* place overlay on top of other elements */
+	z-index:10000;
+	
+	/* styling */
+/*	background-color:#333;*/
+	background-color:white;
+	
+	width:700px;	
+	min-height:200px;
+	border:1px solid #666;
+	
+	/* CSS3 styling for latest browsers */
+	-moz-box-shadow:0 0 90px 5px #000;
+	-webkit-box-shadow: 0 0 90px #000;	
+}
+
+div.printable {
+	padding-bottom : 0;
+	padding-left : 5px;
+	padding-right : 5px;
+	display : none;
+}
+
+button.print {
+
+	</p>
+  </body>
+</html>

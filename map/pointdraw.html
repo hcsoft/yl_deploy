@@ -1,0 +1,384 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<link rel="stylesheet" type="text/css" href="../themes/sunny/easyui.css">
+<link href="../css/login.css" rel="stylesheet"/>
+<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=10fd14046e11c2285e97009ff7cc6a0f"></script>
+<script type="text/javascript" src="MarkerTool.js"></script>
+<script type="text/javascript" src="dwrloader.js"></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/MapService.js'></script>
+<script type="text/javascript" src="SearchControl_min.js"></script>
+<link rel="stylesheet" href="SearchControl_min.css" />
+
+<title>卫生机构设置</title>  
+<style type="text/css">  
+html{height:100%}  
+body{height:100%;margin:0px;padding:0px}  
+#container{height:100%}  
+a.theforever_knight1:visited {color:orange;}
+#l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+</style>  
+
+<script type="text/javascript">
+
+var html = [];
+html.push('<span style="font-size:12px">卫生组织机构信息: </span><br/>');
+html.push('<table border="0" cellpadding="1" cellspacing="1" >');
+html.push('  <tr>'); 
+html.push('      <td align="left" class="common">树形组织机构选择：</td>');
+html.push('      <td colspan="1"><input type="button" name="btnOK"  onclick="openTreeOrgan()" value="组织机构选择"></td>');
+html.push('  </tr>');
+html.push('  <tr>'); 
+html.push('      <td align="left" class="common">查询组织机构选择：</td>');
+html.push('      <td colspan="1"><input type="button" name="btn2OK"  onclick="openGridDid()" value="组织机构选择"></td>');
+html.push('  </tr>');
+html.push('  <tr>'); 
+html.push('      <td align="left" class="common">组织机构代码：</td>');
+html.push('      <td colspan="1"><input type="text" maxlength="50" size="18" id="organId" readonly="true"></td>');
+html.push('  </tr>');
+html.push('  <tr>');
+html.push('      <td  align="left" class="common">组织机构名称：</td>');
+html.push('      <td colspan="1"><input type="text" maxlength="30" size="18" id="organName" readonly="true></td>');
+html.push('  </tr>');
+html.push('  <tr>');
+html.push('	     <td  align="center" colspan="2">');
+html.push('          <input type="button" name="btnOK"  onclick="fnOK()" value="保存">&nbsp;&nbsp;');
+html.push('		     <input type="button" name="btnClear" onclick="fnClear()" value="删除">');
+html.push('	     </td>');
+html.push('  </tr>');
+html.push('</table>');	
+
+var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
+
+
+var delmaker = "";
+$(function(){
+
+	MapService.queryPointer(function(data){
+		if(data == null){
+			//alert("null");
+			return;
+		}else{
+
+			$.each(data, function(i, n){
+				var lng = parseFloat(n.id.split(",")[0]);
+				var lat = parseFloat(n.id.split(",")[1]);
+				var pt = new BMap.Point(lng,lat);
+				var maker = new BMap.Marker(pt);
+				map.addOverlay(maker);    
+				var label = new BMap.Label(n.organName,{offset:new BMap.Size(20,-15)});
+				maker.setLabel(label);
+				maker.addEventListener("click", function(){
+					var id = this.getPosition().lng + "," + this.getPosition().lat;
+					delcoordinates = id;
+					delmaker = this;
+					MapService.queryPointerById(id,function(data){
+						//var mkr = evt.marker;
+						maker.openInfoWindow(infoWin);
+						document.getElementById("organId").value = data.organId;
+						document.getElementById("organName").value = data.organName;
+
+						//alert(JSON.stringify(data));
+					});
+					
+				});
+
+			});
+
+
+		}
+
+	});
+
+		$('#treeOrganizationId').bind('click', function(){  
+			$('#organizationinfo').dialog('open'); 
+			/*
+			$('#taxinfo').panel('move',{   
+			  left:13,   
+			  top:50   
+			});
+			*/
+		}); 
+	
+
+		$('#organizationTree').tree({   
+			 checkbox: false,   
+			 url: '/OrganizationTreeServlet?type=0&pid=0&levels=top',   
+			 onBeforeExpand:function(node,param){  
+				 $('#organizationTree').tree('options').url = "/OrganizationTreeServlet?type=0&pid="+node.id+"&levels=" + node.attributes.levels;
+				 //alert(node.id);
+			 },               
+			onClick:function(node){
+
+				document.getElementById("organName").value = node.text;
+				document.getElementById("organId").value = node.id;
+				//alert(node.text + "---" + node.id);
+
+
+ 
+			},
+			onDblClick:function(node){
+				//alert(node.id);
+				var node1 = $('#taxtree').tree('getSelected');
+				$('#organizationTree').tree('options').url = "/OrganizationTreeServlet?type=0&pid="+node.id+"&levels=" + node.attributes.levels;
+				$('#taxtree').tree('expand', node1.target); 
+			},
+			onExpand:function(node, data){
+
+				//alert(JSON.stringify(node));
+				//var node = $('#taxtree').tree('getSelected');
+				//$('#taxtree').tree('expand', node.target); 
+			}
+			 
+
+		});	
+	
+ 	
+		$('#positonButtonId').bind('click', function(){  
+
+			var organName = document.getElementById("organNameId").value;
+			$('#payerInfoId').datagrid({
+				columns: [[
+					{field:"organId",title:'organId',width:100},
+					{field:"organName",title:'organName',width:200}
+				]],
+				singleSelect: true,
+				autoRowHeight: false,
+				width: 510,
+				height: 150,
+				url: MapService.getDataGridData(organName,function(data){
+						//alert(JSON.stringify(data));
+					})
+			});	
+		
+		});
+
+	}
+)
+
+function openGridDid(){
+	$('#positionDiv').dialog('open');
+}
+</script>
+
+</head>  
+   
+<body style="overflow:hidden">  
+
+
+	<div class="easyui-layout" style="width:1300px;height:620px;">
+
+	
+
+		<div data-options="region:'north',iconCls:'icon-ok'" style="width:900px;border:1">
+			<div id="searchBox" style="width:600px;border:1"></div>
+			<input type="button" value="选择" onclick="selectStyle()"/>
+		</div>		
+
+
+
+		<div data-options="region:'center',iconCls:'icon-ok'" style="width:900px;border:1">
+			<div id="container">
+
+			
+			</div>
+		</div>
+
+</div>
+
+
+
+
+
+<script>
+
+var coordinates = "";
+
+var map = new BMap.Map("container");
+
+MapService.getDistinctName(function(data){
+	map.centerAndZoom(data, 16);
+})
+
+
+map.enableScrollWheelZoom(); 
+
+//拼接infowindow内容字串
+
+var curMkr = null; // 记录当前添加的Mkr
+
+
+var mkrTool = new BMapLib.MarkerTool(map, {autoClose: true});
+mkrTool.addEventListener("markend", function(evt){ 
+    var mkr = evt.marker;
+    mkr.openInfoWindow(infoWin);
+    curMkr = mkr;
+	coordinates = mkr.getPosition().lng + "," + mkr.getPosition().lat;
+	delcoordinates = coordinates;
+	delmaker = mkr;
+	//alert(coordinates);
+		curMkr.addEventListener("click", function(){
+		//alert(this.getPosition().lng);
+		MapService.queryPointerById(coordinates,function(data){
+			//var mkr = evt.marker;
+			mkr.openInfoWindow(infoWin);
+			if(data != null){
+				document.getElementById("organId").value = data.organId;
+				document.getElementById("organName").value = data.organName;		
+			}
+
+
+			//alert(JSON.stringify(data));
+		});		
+	});
+});
+
+
+
+
+
+//保存数据
+function fnOK(){
+    var organId = encodeHTML(document.getElementById("organId").value);
+    var organName = encodeHTML(document.getElementById("organName").value);
+	if(organId == ""){
+		alert("组织机构代码不能为空");
+		return ;
+	}
+
+    if(curMkr){
+        //设置label
+        //var lbl = new BMap.Label(name, {offset: new BMap.Size(1, 1)});
+        //lbl.setStyle({border: "solid 1px gray"});
+        //curMkr.setLabel(lbl);
+        
+        //设置title
+       // var title = "电话: " + tel + "\n\r" + "地址: " +addr + "\n\r" + "描述: " + desc;
+       // curMkr.setTitle(title);        
+    }
+    if(infoWin.isOpen()){
+     //   map.closeInfoWindow();
+    }
+	MapService.savePointer(coordinates,organId,organName,function(d){
+		if(d == "01"){
+			alert("已经存在相同的组织机构，不能保存");
+			//map.removeOverlay(delmaker);
+			return;
+		}
+		if(d == "00"){
+			alert("保存成功");
+		}
+
+
+	})
+    //在此用户可将数据提交到后台数据库中
+}
+
+//删除数据
+function fnClear(){
+	//parseFloat(delcoordinates.id.split(",")[0])
+	//alert(parseFloat(delcoordinates.split(",")[0]) + "---" + parseFloat(delcoordinates.split(",")[1]));
+	//var pt = new BMap.Point(parseFloat(delcoordinates.split(",")[0]),parseFloat(delcoordinates.split(",")[1]));
+	//var maker = new BMap.Marker(pt);
+	MapService.deletePointerById(delcoordinates,function(d){
+		if(d == "00"){
+			map.removeOverlay(delmaker);
+			alert("删除成功");
+		}
+
+	})
+	
+	//alert(delcoordinates);
+//	MapService.savePointer(coordinates,organId,organName,function(d){
+//			alert(d);
+
+//		})
+    //在此用户可将数据提交到后台数据库中
+}
+
+//输入校验
+function encodeHTML(a){
+	return a.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+
+//选择样式
+function selectStyle(index){
+    mkrTool.open(); //打开工具 
+    var icon = BMapLib.MarkerTool.SYS_ICONS[0]; //设置工具样式，使用系统提供的样式BMapLib.MarkerTool.SYS_ICONS[0] -- BMapLib.MarkerTool.SYS_ICONS[23]
+    mkrTool.setIcon(icon); 
+}
+
+
+function openTreeOrgan(){
+	//alert($('#organizationinfo'));
+	$('#organizationinfo').dialog('open'); 
+
+}
+
+var searchControl = new BMapLib.SearchControl({
+    container : "searchBox" //存放控件的容器
+    , map     : map  //关联地图对象
+    , type    : 1  //检索类型
+});
+
+function queryOrgans(){
+	var organName = document.getElementById("organNameId").value;
+	var sContent = "<table border=0 cellpadding=2 cellspacing=0><tr><td>选择</td><td>组织机构代码</td><td>组织机构名称</td></tr>";
+	MapService.getOrganData(organName,function(data){
+		if(data != null){
+			$.each(data, function(i, n){
+				sContent = sContent + "<tr><td><input type=radio name='organName' value='" + n.id + "_" + n.name + "'/></td><td>"+n.id+"</td><td>" + n.name + "</td></tr>"
+
+			});
+		}
+	sContent = sContent + "</table>"
+		//alert(JSON.stringify(d));
+	document.getElementById("payerInfoId").innerHTML = sContent;
+
+	})
+}
+
+function selectOrgan(){
+	var chkObjs = document.getElementsByName("organName");
+	for(var i=0;i<chkObjs.length;i++){
+		if(chkObjs[i].checked){
+			document.getElementById("organId").value = chkObjs[i].value.split("_")[0];
+			document.getElementById("organName").value = chkObjs[i].value.split("_")[1];	
+			$('#positionDiv').window('close');  // open a window   
+			break;
+			//alert(chkObjs[i].value);
+		}
+	}	
+
+}
+</script>
+
+
+		<div id="organizationinfo" class="easyui-dialog" title="&nbsp;" data-options="iconCls:'icon-save',closed:true,modal:false,collapsible:true"  style="width:300px;height:500px;">
+			
+			<div id="organizationLayout" class="easyui-layout" style="width:280px;height:500px;" data-options="fit:true">
+				<div data-options="region:'center',split:true" title="">
+					<ul id="organizationTree" data-options="animate:true"></ul>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="positionDiv" class="easyui-dialog" title="组织机构查询" data-options="iconCls:'icon-save',closed:true,modal:false,collapsible:true"  style="width:550px;padding:20px">
+			组织机构名称：<input type="text" id="organNameId" style="width:200px;"/>&nbsp;&nbsp;
+			<a href="#" id="positonButtonId2" onclick="queryOrgans()" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-search'">查询</a>&nbsp;&nbsp;
+			<a href="javascript:selectOrgan()" class="easyui-linkbutton" iconCls="icon-add">选择</a>&nbsp;&nbsp;
+			<div id="payerInfoId" style="height:300px;overflow:auto;">
+			
+			</div>
+		</div>
+</body>  
+
+</html>  

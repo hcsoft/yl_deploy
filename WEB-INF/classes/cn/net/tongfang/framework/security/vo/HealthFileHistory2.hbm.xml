@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-11-7 2:58:46 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.net.tongfang.framework.security.vo.HealthFileHistory2" table="HealthFile_History2" schema="dbo">
+        <id name="id" type="long">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="filename" type="string">
+            <column name="filename" length="300" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="20" />
+        </property>
+        <property name="sex" type="string">
+            <column name="sex" length="10" />
+        </property>
+        <property name="idcard" type="string">
+            <column name="idcard" length="30" />
+        </property>
+        <property name="birthday" type="timestamp">
+            <column name="birthday" length="23" />
+        </property>
+        <property name="fileno" type="string">
+            <column name="fileno" length="30" />
+        </property>
+        <property name="pastname" type="string">
+            <column name="pastname" length="20" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="200" />
+        </property>
+        <property name="raddress" type="string">
+            <column name="raddress" length="200" />
+        </property>
+        <property name="tel" type="string">
+            <column name="tel" length="20" />
+        </property>
+        <property name="xz" type="string">
+            <column name="xz" length="50" />
+        </property>
+        <property name="cwh" type="string">
+            <column name="cwh" length="50" />
+        </property>
+        <property name="jddw" type="string">
+            <column name="jddw" length="50" />
+        </property>
+        <property name="jdr" type="string">
+            <column name="jdr" length="50" />
+        </property>
+        <property name="zrys" type="string">
+            <column name="zrys" length="20" />
+        </property>
+        <property name="jdrq" type="timestamp">
+            <column name="jdrq" length="23" />
+        </property>
+        <property name="districtId" type="string">
+            <column name="district_id" length="20" />
+        </property>
+        <property name="linkFileno" type="string">
+            <column name="link_fileno" length="36" />
+        </property>
+    </class>
+</hibernate-mapping>

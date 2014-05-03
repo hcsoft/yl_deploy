@@ -1,0 +1,545 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+<title>昆明市公共卫生服务管理系统</title>
+<script src="../js/angularjs/angular.min.js"></script>
+<script src="../js/angularjs/controllers/controllers.js"></script>
+<!-- 
+<script type='text/javascript' src='http://web.jingoal.com/mgt/scripts/online/online.js?cid=306739&defalt=false&invd=1&position=bottomRight&version=20120926'></script>
+					
+<script type='text/javascript'>
+	//selfIcon = 'http://doc.jingoal.com/306739/507bcf1c0cf225a7476ecba4/%E5%AE%A2%E6%9C%8D%E5%9B%BE%E6%A0%87%E5%89%AF%E6%9C%AC.gif/d77bf2a8-f345-4010-82f7-3e73f2c6473c/1600.jpg?cid=306739'
+	//selfIcon = 'http://farm9.staticflickr.com/8468/8096384166_d55f56d8ea_m.jpg'
+	//selfIcon = 'http://farm9.staticflickr.com/8331/8124437698_1f6dca1931_m.jpg';
+	//selfIcon = 'http://farm9.staticflickr.com/8046/8124421201_93a7712b49_m.jpg';
+	//selfIcon = 'http://farm9.staticflickr.com/8325/8124456062_b37a0b569f_b.jpg';
+	//selfIcon = 'http://pic.yupoo.com/payallmoney/ClxcOCrM/aBall.jpg';
+	selfIcon = 'http://pic.yupoo.com/payallmoney/CmWARIQM/ejpCJ.png';
+</script>
+ -->
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/ext-all.css" />
+<!-- Theme includes -->
+<link rel="stylesheet" type="text/css" title="olive"
+	href="../resources/css/xtheme-olive.css" />
+<link rel="stylesheet" type="text/css" title="green"
+	href="../resources/css/xtheme-green.css" />
+<link rel="stylesheet" type="text/css" title="blue"
+	href="../resources/css/xtheme-blue.css" />
+<link rel="stylesheet" type="text/css" title="gray"
+	href="../resources/css/xtheme-gray.css" />
+<link rel="stylesheet" type="text/css" title="purple"
+	href="../resources/css/xtheme-purple.css" />
+<link rel="stylesheet" type="text/css" title="slate"
+	href="../resources/css/xtheme-slate.css" />
+<link rel="stylesheet" type="text/css" title="silverCherry"
+	href="../resources/css/xtheme-silverCherry.css" />
+<link rel="stylesheet" type="text/css" title="peppermint"
+	href="../resources/css/xtheme-peppermint.css" />
+<link rel="stylesheet" type="text/css" title="chocolate"
+	href="../resources/css/xtheme-chocolate.css" />
+
+
+<link rel="stylesheet" type="text/css" title="yourtheme"
+	href="../resources/css/yourtheme.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="../resources/css/file-upload.css" />
+<link rel="stylesheet" type="text/css"
+	href="../resources/multiselect.css" />
+<link rel="stylesheet" type="text/css" href="/css/itax.css" />
+<script type="text/javascript" src="../js/Utils.js"></script>
+<script type="text/javascript" src="../js/Method.js"></script>
+
+<script type="text/javascript" src="../js/ext/ext-base.js"></script>
+<script type="text/javascript" src="../js/ext/ext-all.js"></script>
+<script type="text/javascript" src="../js/Exporter-all.js"></script>
+<script type="text/javascript" src="../js/printProtectPage.js"></script>
+<script type="text/javascript" src="../js/tf-statistic-publicMethod.js"></script>
+<script type="text/javascript" src="../js/tf-print-dataExport.js"></script>
+<script type='text/javascript' src='../dwr/engine.js'></script>
+<script type='text/javascript' src='../dwr/util.js'></script>
+
+<!-- <script type="text/javascript" src="../js/ext/ext-all-debug.js"></script> -->
+<script type="text/javascript" src="../js/ext/ext-lang-zh_CN.js"></script>
+
+<script type='text/javascript' src='/dwr/interface/CacheService.js'></script>
+<script type='text/javascript' src='/dwr/interface/OptionProvider.js'></script>
+<script type='text/javascript' src='/dwr/interface/UserService.js'></script>
+<script type='text/javascript' src='/dwr/interface/summaryService.js'></script>
+<script type='text/javascript' src='/dwr/interface/loginOffService.js'></script>
+<script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
+<script type='text/javascript' src='/dwr/interface/healthfileMaternalService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/HealthFileChildrenService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/waitingThingService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/VaccinationService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/SmsService.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
+
+<script type="text/javascript" src="../js/ext/dwrproxy.js"></script>
+<script type="text/javascript" src="../js/ext/DwrTreeLoader.js"></script>
+<script type="text/javascript" src="../js/jsLoader.js"></script>
+<script type="text/javascript" src="../js/FormSetValues.js"></script>
+<script type="text/javascript" src="../js/TabCloseMenu.js"></script>
+<script type="text/javascript" src="../js/tf.js"></script>
+<script type="text/javascript" src="../js/calculateTime.js"></script>
+<script type="text/javascript" src="../js/showInfo.js"></script>
+
+<script type="text/javascript" src="../js/tf-template-component.js"></script>
+<script type="text/javascript" src="../js/tf-waitingthing-grid.js"></script>
+<script type="text/javascript" src="../js/tf-template-DiseaseAndHearScreen.js"></script>
+<script type="text/javascript" src="../js/tf-PregnancyRecord-health.js"></script>
+
+<script type="text/javascript" src="../js/tf-health-books.js"></script>
+<script type="text/javascript" src="../js/ConstantUtils.js"></script>
+<script type="text/javascript" src="../js/tf-statistic-simple-detail.js"></script>
+<script type="text/javascript" src="../js/tf-statistic-hiv_syphilis.js"></script>
+<script type="text/javascript" src="../js/tf-statistic-simple.js"></script>
+<script type="text/javascript" src="../js/tf-statistic-district.js"></script>
+<script type="text/javascript" src="../js/tf-transfer-loginoff.js"></script>
+<script type="text/javascript" src="../js/tf-highRisk-simple.js"></script>
+<script type="text/javascript" src="../js/tf-health.js?v=1.0"></script>
+<script type="text/javascript" src="../js/tf-health-print.js"></script>
+<script type="text/javascript" src="../js/tf-health-printchild.js"></script>
+<script type="text/javascript" src="../js/app/sms/tf-SmsPanel.js"></script>
+<script type="text/javascript" src="../js/tf-extend-gridpanel.js"></script>
+<script type='text/javascript'
+	src='/dwr/interface/BirthCertificateMsgService.js'></script>
+<script type="text/javascript" src="../js/tf-statistic.js"></script>
+<!-- <script type="text/javascript" src="../js/tf-clinicLogs.js"></script> -->
+<script type="text/javascript" src="../js/tf-health-home.js"></script>
+<script type="text/javascript" src="../js/tf-query-home.js"></script>
+<script type="text/javascript" src="../js/miframe.js"></script>
+<script type="text/javascript" src="../js/DWRCombobox.js"></script>
+<script type="text/javascript" src="../js/DDView.js"></script>
+<script type="text/javascript" src="../js/MultiSelect.js"></script>
+<script type="text/javascript" src="../js/ItemSelector.js"></script>
+
+<!-- EXT JS 插件 -->
+<!-- 
+    <script type="text/javascript" src="../js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.blockUI.js"></script> 
+
+<script type="text/javascript" src="../js/jquery-1.5.min.js"></script>-->
+<script type="text/javascript" src="/js/easyui/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/js/jquery-validation/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery-validation/localization/messages_zh.js"></script>
+
+
+<script type="text/javascript" src="/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/js/easyui/extension/dwrloader.js"></script>
+
+<script type='text/javascript' src='/dwr/interface/ReportStat.js'></script>
+<script type='text/javascript' src='/dwr/interface/ModuleService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/XnhInterfaceService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type='text/javascript' src='/dwr/interface/UserService.js'></script>
+<script type='text/javascript' src='/dwr/interface/DemoService.js'></script>
+<script type='text/javascript' src='/dwr/interface/StatisticService.js'></script>
+<script type='text/javascript' src='/dwr/interface/DataExportService.js'></script>
+<script type='text/javascript' src='/dwr/interface/TestService.js'></script>
+<script type='text/javascript' src='/dwr/interface/ScoreService.js'></script>
+<script type="text/javascript" src="../js/FileUploadField.js"></script>
+<script type='text/javascript' src='/js/CommonUtil.js'></script>
+<script type="text/javascript"
+	src="../js/tf-businessDataForPerson-simple.js"></script>
+<script type="text/javascript"
+	src="../js/tf-birthCertifiQuery-simple.js"></script>
+<script type="text/javascript" src="../js/printVacciImmune.js"></script>
+<script type="text/javascript" src="../js/printVacciImmuneInfo.js"></script>
+<script type="text/javascript" src="../js/tf-vaccineImmune-simple-grid.js"></script>
+<script type="text/javascript" src="../js/tf-vaccineImmune-simple.js"></script>
+<script type="text/javascript" src="../js/TreeCheckNode.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/TreeCheckNode.css" />
+<link rel="stylesheet" type="text/css" href="../css/businessData.css" />
+<link rel="stylesheet" type="text/css" href="menubg.css?v=20131222" />
+
+<!-- 20121229 -->
+<script type="text/javascript" src="../js/tf-repeatfiles.js"></script>
+<script type='text/javascript' src='/dwr/interface/repeatFileNoService.js'></script>
+
+<!-- 20131105 -->
+<script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/js/chart/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="/js/chart/FusionCharts.js"></script>
+<script type="text/javascript" src="/js/chart/chartsplot.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/chart/chart.css"/>
+<script type='text/javascript' src='/dwr/interface/SummaryChartService.js'></script>
+<link rel="stylesheet" type="text/css" href="/themes/sunny/easyui.css">
+<link rel="stylesheet" type="text/css" href="/themes/icon.css">
+
+<style type="text/css">
+html,body {
+	font: normal 12px '宋体';
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	overflow: hidden;
+	height: 100%;
+}
+.tipTableCls{
+	border-top: 1px solid #FFF;
+	border-left: 1px solid #FFF;
+}
+.tipTableCls td{
+	line-height: 25px;
+	border-right: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.x-panel-header {
+color: #15428B;
+font: bold 12px tahoma,verdana,helvetica;
+line-height: 15px;
+}
+
+.x-tree-node {
+color: black;
+font: normal 12px arial,tahoma,helvetica,sans-serif;
+white-space: nowrap;
+}
+.x-grid3-hd-row td, .x-grid3-row td, .x-grid3-summary-row td {
+font: normal 12px arial,tahoma,helvetica,sans-serif;
+}
+.x-panel-tl .x-panel-header {
+color: #15428B;
+font: bold 12px tahoma,arial,verdana,sans-serif;
+}
+.x-small-editor .x-form-field {
+font: normal 12px arial,tahoma,helvetica,sans-serif;
+}
+.x-window-tl .x-window-header {
+color: #15428B;
+font: bold 12px tahoma,arial,verdana,sans-serif;
+}
+.x-btn button {
+border: 0 none;
+background: transparent;
+font: normal 12px tahoma,verdana,helvetica,'宋体';
+padding-left: 3px;
+padding-right: 3px;
+cursor: pointer;
+margin: 0;
+overflow: visible;
+width: auto;
+-moz-outline: 0 none;
+outline: 0 none;
+}
+.x-toolbar td, .x-toolbar span, .x-toolbar input, .x-toolbar div, .x-toolbar select, .x-toolbar label {
+white-space: nowrap;
+font: normal 12px tahoma,arial,helvetica,sans-serif;
+}
+.x-panel-mc {
+font: normal 12px tahoma,arial,helvetica,sans-serif;
+}
+
+.x-panel-header {
+color: #15428B;
+font-weight: bold;
+font-size: 12px;
+font-family: tahoma,arial,verdana,sans-serif;
+}
+
+.x-tab-strip span.x-tab-strip-text {
+font: normal 12px tahoma,arial,helvetica;
+color: #416AA3;
+white-space: nowrap;
+cursor: pointer;
+padding: 4px 0;
+}
+
+.my_row_odd {
+	background: #c8fbf9;
+}
+
+.my_row_odd:hover {
+	background: #efefef
+}
+
+.my_row_even {
+	background: #FFF;
+}
+
+.my_row_even:hover {
+	background: #efefef
+}
+
+p {
+	margin: 5px;
+}
+
+.nav {
+	background-image: url(../shared/icons/fam/folder_go.png);
+}
+
+.upload-icon {
+	background: url('../resources/icons/fam/image_add.png') no-repeat 0 0
+		!important;
+}
+
+.logo {
+	height: 26px;
+	padding-left: 5px;
+}
+
+table.x-date-inner {
+	width: 1px;
+}
+
+.c_add {
+	background-image: url(../resources/icons/fam/add.gif) !important;
+}
+
+.c_del {
+	background-image: url(../resources/icons/fam/delete.gif) !important;
+}
+
+.c_edit {
+	background-image: url(../resources/icons/fam/cog_edit.png) !important;
+}
+
+.c_save {
+	background-image: url(../resources/icons/save.gif) !important;
+}
+
+.c_query {
+	background-image: url(../image/query.png) !important;
+}
+.c_refresh {
+	background-image: url(../image/refresh.png) !important;
+}
+.c_print {
+	background-image: url(../image/print_16_16.png) !important;
+}
+.c_msg {
+    background-image: url(../image/msg.png) !important;
+}
+.c_set01 {
+    background-image: url(../image/set01.png) !important;
+}
+.c_start {
+    background-image: url(../image/start.png) !important;
+}
+.c_start1 {
+    background-image: url(../image/start1.png) !important;
+}
+</style>
+<script type="text/javascript" src="admin.js?v=20131222"></script>
+<script type="text/javascript" src="ballisticForm.js"></script>
+<script type="text/javascript">
+	if (!window.console)
+		console = {};
+	console.log = console.log || function() {
+	};
+	console.warn = console.warn || function() {
+	};
+	console.error = console.error || function() {
+	};
+	console.info = console.info || function() {
+	};
+</script>
+<link rel="stylesheet" type="text/css" href="showMenu.css" />
+<link rel="stylesheet" type="text/css" href="admin.css" />
+<script src="../js/jquery.printElement.min.js" type="text/javascript"></script>
+
+<script language="javascript" src="../js/LodopFuncs.js"></script>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0>
+
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0
+		pluginspage="install_lodop.exe"></embed>
+</object>
+<script language="javascript" src="../js/printProtectPage.js"></script>
+<script type='text/javascript'
+	src='/dwr/interface/BirthCertificateMsgService.js'></script>
+<link rel="stylesheet" type="text/css" href="../css/certificate.css" />
+
+<!-- 主题JS -->
+<script type="text/javascript" src="../js/themes.js"></script>
+<script type="text/javascript" src="../js/styleswitcher.js"></script>
+<link rel="shortcut icon" href="/resources/logo/pmhs_title.png">
+</head>
+<body>
+	<div id="containerForm">
+		<div id="north">
+			<select style="float: right; color: gray;"
+				name="styleswitcher_select" id="styleswitcher_select">
+				<option value="olive" selected>绿色主题</option>
+				<option value="green">蓝绿色主题</option>
+				<option value="blue">蓝色主题</option>
+				<option value="gray">灰色主题</option>
+				<option value="purple">紫色主题</option>
+				<option value="slate">黑灰色主题</option>
+				
+				<option value="silverCherry">银灰色主题</option>
+				<option value="peppermint">红色主题</option>
+				<option value="chocolate">褐色主题</option>
+				<option value="yourtheme">自定义主题</option>
+			</select>
+			<p style="float: right; color: gray;">
+				<a href="/j_spring_security_logout">退出</a>
+			</p>
+
+			<p style="float: right; color: gray;">
+				<a href="#" onclick="javascript:modifyPassword();">修改密码</a>
+			</p>
+			<!-- 待办事宜 -->
+			<p style="float: right; color: gray;">
+				<a href="#" onclick="javascript:redderToPage();">待办事宜</a>
+			</p>
+
+			<p id="_user_info"
+				style="float: right; color: gray; padding-right: 5px;"></p>
+
+			<p style="float: left;">
+				<img class="logo" src="/resources/logo/pmhs_title.png" />
+			</p>
+			<p
+				style="margin-top: 10px 0 0 2px; font-weight: bold; font-size: 14px; color: #44454a;">
+				昆明市公共卫生服务管理系统</p>
+		</div>
+	</div>
+	<div class="rc_box1">
+		<div class="rc_box2">
+			<div class="rc_box3">您有新的待办事宜，请及时处理！</div>
+		</div>
+		<div class="ov1"></div>
+		<div class="ov2"></div>
+	</div>
+	<!-- 
+	<audio controls="controls" autoplay="autoplay" loop="loop">
+		<source src="song.ogg" type="audio/ogg" />
+		<source src="audio/intwap-732587810.mp3" type="audio/mp3" />
+		Your browser does not support the audio element.
+	</audio> -->
+	<div id="center2"></div>
+	
+	<script type="text/javascript">
+ScoreService.basicInformationMap( {callback:function(data){
+    window.meta = data;
+}});
+</script>
+		<!-- 图标展现的模态框 -->
+		<div id="indiChart" style="width:900px">
+			<!--<div id="chartTitle"></div>-->
+			<div class="close"><a href="#" class="simplemodal-close" style="display:none;">x</a></div>
+			<div id="chartContent" style="display:none;">
+
+				<table width="100%%" border="0" cellspacing="0" cellpadding="3" align="center">
+				  <tr> 
+					<td valign="top" class="text" align="center"> <div id="chartdiv" align="center"> 
+						</div>
+					  <script type="text/javascript">
+						function subChart(queryType,subId){
+						//var o = app.summaryOptPerson.getParams();
+						//alert(JSON.stringify(o));
+							if(queryType == 1){
+								var o = app.summaryOptPerson.getParams();
+								document.getElementById("queryTypeId").innerText = "1";
+							}
+							if(queryType == 2){
+								var o = app.summaryOrg.getParams();
+								document.getElementById("queryTypeId").innerText = "2";
+							}
+							if(queryType == 3){
+								var o = app.summaryByYear.getParams();
+								document.getElementById("queryTypeId").innerText = "3";
+							}
+							if(queryType == 4){
+								var o = app.summaryByMonth.getParams();
+								document.getElementById("queryTypeId").innerText = "4";
+							}
+							if(queryType == 5){
+								var o = app.summaryByDay.getParams();
+								document.getElementById("queryTypeId").innerText = "5";
+							}
+							SummaryChartService.querySummaryChartStatisticsBySub(o,subId,function(d){
+								//alert(d);
+
+								   var chart = new FusionCharts("/Charts/Column2D.swf", "indiChart444", "1000", "550", "0", "0");
+								   chart.setXMLData(d);		   
+								   chart.render("chartdiv");
+								   chartTools.init("indiChart");
+								   //alert(d.selectData);
+								   //if(o.statisticType == "010"){
+										
+								   //}
+
+
+							});
+						
+						}
+
+						function bySum(){
+							var queryTypeId = document.getElementById('queryTypeId').innerText;
+							//alert(queryTypeId);
+							var o = null;
+							if(queryTypeId == 1){
+								o = app.summaryOptPerson.getParams();
+							}
+							if(queryTypeId == 2){
+								o = app.summaryOrg.getParams();
+							}
+							if(queryTypeId == 3){
+								o = app.summaryByYear.getParams();
+							}
+							if(queryTypeId == 4){
+								o = app.summaryByMonth.getParams();
+							}
+							if(queryTypeId == 5){
+								o = app.summaryByDay.getParams();
+							}
+							//alert(JSON.stringify(o));
+							SummaryChartService.querySummaryChartStatistics(o,function(d){
+								//alert(d);
+
+								   var chart = new FusionCharts("/Charts/StackedColumn2D.swf", "indiChart555", "1000", "550", "0", "0");
+								   chart.setXMLData(d.xmlData);		   
+								   chart.render("chartdiv");
+								   chartTools.init("indiChart");
+								   //alert(d.selectData);
+								   document.getElementById("selectdiv").innerHTML = d.selectData;
+								   //alert(d.selectData);
+								   //if(o.statisticType == "010"){
+										
+								   //}
+
+
+							});						
+						}
+						</script> </td>
+				  </tr>
+				  <tr> 
+					<td valign="top" class="text" align="center"> 
+
+						<span id="buttondiv" align="center"> 
+							<a href="javascript:bySum()" class="easyui-linkbutton">汇总</a>
+						</span>
+						<span id="selectdiv" align="center"> 
+						</span>
+					</td>
+				  </tr>
+				</table>
+				<div id="queryTypeId" style="display:none"></div>
+			</div>
+		</div>
+
+</body>
+</html>
+

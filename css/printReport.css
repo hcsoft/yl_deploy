@@ -1,0 +1,45 @@
+#statisticByDay{
+	border-bottom : 1px solid #000;
+	border-right : 1px solid #000;
+}
+#statisticByDay thead td {
+	border-left: 1px solid #000;
+	border-top: 1px solid #000;
+	font-size: 13px;
+	text-align: center;
+	border-collapse: collapse;
+	height:25px;
+	line-height: 25px;	
+}
+#container{
+	height:400px;
+	overflow: scroll;
+}
+
+#statisticByDay tfoot td {
+	border-left: 1px solid #000;
+	border-top: 1px solid #000;
+}
+
+#statisticByDay tbody td {
+	border-left: 1px solid #000;
+	border-top: 1px solid #000;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	word-spacing: 1px;
+	letter-spacing: 2px;
+	height:20px;
+	line-height: 20px;
+}
+
+/*#statisticByDay thead td span {
+	font-size: 20px;
+	font-weight: bolder;
+}*/
+
+#footNote {
+	font-size: 12px;
+	font-weight: bolder;
+	color: red;
+}

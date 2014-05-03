@@ -1,0 +1,107 @@
+.certificateInitClass {
+	border-bottom: 1px solid #CAE2FE;
+	border-right: 1px solid #CAE2FE;
+}
+
+.certificateInitClass tbody td {
+	border-left: 1px solid #CAE2FE;
+	border-top: 1px solid #CAE2FE;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	word-spacing: 1px;
+	letter-spacing: 2px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.certificateInitClass tfoot td {
+	border-left: 1px solid #CAE2FE;
+	border-top: 1px solid #CAE2FE;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	word-spacing: 1px;
+	letter-spacing: 2px;
+	height: 20px;
+	line-height: 20px;
+	color: red;
+}
+
+.condition,.endConditions {
+	width: 100px;
+}
+
+.restoreCondition,.restoreEndConditions {
+	width: 100px;
+}
+
+.otherCertificateCondotion {
+	width: 218px;
+}
+
+.container {
+	border-bottom: 1px solid #CAE2FE;
+	border-right: 1px solid #CAE2FE;
+}
+
+.container tbody td {
+	border-left: 1px solid #CAE2FE;
+	border-top: 1px solid #CAE2FE;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	letter-spacing: 1px;
+	height: 25px;
+	line-height: 25px;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 70px;
+}
+
+.container tfoot td {
+	border-left: 1px solid #CAE2FE;
+	border-top: 1px solid #CAE2FE;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	letter-spacing: 1px;
+	height: 25px;
+	line-height: 25px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.paging {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.certifiTable {
+	border: 1px solid #6f97d9;
+}
+
+.certifiTable thead td {
+	background-image: url(/image/querybg.jpg);
+	width: 120px;
+	height: 23px;
+	font-size: 13px;
+	vertical-align: middle;
+	text-align: center;
+	border-left: 1px solid #6f97d9;
+	border-bottom: 1px solid #6f97d9;
+}
+
+.certifiTable tbody td {
+	font-size: 12px;
+	border-bottom: 1px solid #6f97d9;
+	height: 20px;
+	line-height: 20px;
+	letter-spacing: 1px;
+}
+
+.certifiTable tfoot td {
+	font-size: 12px;
+	height: 20px;
+	line-height: 20px;
+}

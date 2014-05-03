@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2013-11-5 13:35:19 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="cn.net.tongfang.framework.security.vo.ExportMain" table="export_main" schema="dbo">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" not-null="true" />
+        </property>
+        <property name="sql" type="string">
+            <column name="sql" not-null="true" />
+        </property>
+        <property name="orderby" type="string">
+            <column name="orderby" />
+        </property>
+        <property name="groupby" type="string">
+            <column name="groupby" />
+        </property>
+    </class>
+</hibernate-mapping>

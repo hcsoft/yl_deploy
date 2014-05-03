@@ -1,0 +1,748 @@
+.settings {
+	background-image: url(../shared/icons/fam/folder_wrench.png);
+}
+
+.publicSettingMod {
+	background-repeat: no-repeat;
+	/*margin-left: 10px;*/
+	background-position: center left;
+}
+
+.settingsModDefault {
+	background-image:
+		url(../shared/icons/fam/default_mod_setting01_16_16.png) !important;
+}
+
+.system_setup {
+	background-image: url(../shared/icons/fam/system_setup01_16_16.png);
+}
+
+.detail_health_file {
+	background-image: url(../shared/icons/fam/detail_health_file.png);
+}
+
+.chronic_visit {
+	background-image: url(../shared/icons/fam/chronic_visit_16_16.png);
+}
+
+.chronic_info_add {
+	background-image: url(../shared/icons/fam/chronic_info_add_16_16.png);
+}
+
+.child_visit_01 {
+	background-image: url(../shared/icons/fam/child_visit_01_16_16.png);
+}
+
+.child_visit_02 {
+	background-image: url(../shared/icons/fam/child_visit_02_16_16.png);
+}
+
+.child_visit_03 {
+	background-image: url(../shared/icons/fam/child_visit_03_16_16.png);
+}
+
+.child_visit_04 {
+	background-image: url(../shared/icons/fam/child_visit_04_16_16.png);
+}
+
+.prevent_vaccinate_card {
+	background-image:
+		url(../shared/icons/fam/prevent_vaccinate_card_16_16.png);
+}
+
+.health_educate_record {
+	background-image:
+		url(../shared/icons/fam/health_educate_record_16_16.png);
+}
+
+.prevent_vaccinate_program {
+	background-image:
+		url(../shared/icons/fam/prevent_vaccinate_program_16_16.png);
+}
+
+.birth_certificate_init {
+	background-image:
+		url(../shared/icons/fam/birth_certificate_init_16_16.png);
+}
+
+.birth_certificate_month_report {
+	background-image:
+		url(../shared/icons/fam/birth_certificate_month_report_16_16.png);
+}
+
+.birth_certificate_use {
+	background-image:
+		url(../shared/icons/fam/birth_certificate_use_16_16.png);
+}
+
+.birth_certificate_distribute {
+	background-image:
+		url(../shared/icons/fam/birth_certificate_distribute_16_16.png);
+}
+
+.barcode_init {
+	background-image: url(../shared/icons/fam/barcode_init_16_16.png);
+}
+
+.birth_certificate_year_report {
+	background-image:
+		url(../shared/icons/fam/birth_certificate_year_report_16_16.png);
+}
+
+.health_file_manage {
+	background-image: url(../shared/icons/fam/health_file_manage_16_16.png);
+}
+
+.health_educate {
+	background-image: url(../shared/icons/fam/health_educate_16_16.png);
+}
+
+.mod_cat_setup {
+	background-image: url(../shared/icons/fam/mod_cat_setup_16_16.png);
+}
+
+.mod_setup {
+	/*background-image: url(../shared/icons/fam/mod_setup_16_16.png);*/
+	
+}
+
+.role_setup {
+	background-image: url(../shared/icons/fam/role_setup_16_16.png);
+}
+
+.user_setup {
+	background-image: url(../shared/icons/fam/user_setup_16_16.png);
+}
+
+.print_setup {
+	background-image: url(../shared/icons/fam/print_setup_16_16.png);
+}
+
+.district_setup {
+	background-image: url(../shared/icons/fam/district_setup_16_16.png);
+}
+
+.organization_setup {
+	background-image: url(../shared/icons/fam/organization_setup_16_16.png);
+}
+
+.pregnant_woman {
+	background-image: url(../shared/icons/fam/pregnant_woman_16_16.png);
+}
+
+.statistic_man {
+	background-image: url(../shared/icons/fam/statistic_man_16_16.png);
+}
+
+.statistic_twonship {
+	background-image: url(../shared/icons/fam/statistic_twonship_16_16.png);
+}
+
+.statistic_highrisk {
+	background-image: url(../shared/icons/fam/statistic_highrisk_16_16.png);
+}
+
+.statistic_hospital {
+	background-image: url(../shared/icons/fam/statistic_hospital_16_16.png);
+}
+
+.statistic_month_report_01 {
+	background-image:
+		url(../shared/icons/fam/statistic_month_report_01_16_16.png);
+}
+
+.statistic_month_report_02 {
+	background-image:
+		url(../shared/icons/fam/statistic_month_report_02_16_16.png);
+}
+
+.statistic_month_report_03 {
+	background-image:
+		url(../shared/icons/fam/statistic_month_report_03_16_16.png);
+}
+
+.statistic_day_report {
+	background-image:
+		url(../shared/icons/fam/statistic_day_report_16_16.png);
+}
+
+.hypertension_manage {
+	background-image: url(../shared/icons/fam/hypertension_manage_16_16.png);
+}
+
+.diabetes_manage {
+	background-image: url(../shared/icons/fam/diabetes_manage_16_16.png);
+}
+
+.mental_manage {
+	background-image: url(../shared/icons/fam/mental_manage_16_16.png);
+}
+
+.statistic_report {
+	background-image: url(../shared/icons/fam/statistic_report_16_16.png);
+}
+
+.birth_certificate {
+	background-image: url(../shared/icons/fam/birth_certificate_16_16.png);
+}
+
+.prevent_vaccinate {
+	background-image: url(../shared/icons/fam/prevent_vaccinate01_16_16.png);
+}
+
+.infectious_disease {
+	background-image: url(../shared/icons/fam/infectious_disease_16_16.png);
+}
+
+.old_man_manage {
+	background-image: url(../shared/icons/fam/old_man_manage_16_16.png);
+}
+
+.child_manage {
+	background-image: url(../shared/icons/fam/child_manage_16_16.png);
+}
+
+.healthfile {
+	background-image: url(../shared/icons/fam/health_file_16_16.png)
+		!important;
+}
+
+.medical_exam {
+	background-image: url(../shared/icons/fam/medical_exam_16_16.png)
+		!important;
+}
+
+div.modContainer{
+	width: 140px;
+	height: 120px;
+	float: left;
+}
+
+div.modother {
+	width: 90%;
+	height: 90%;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	box-shadow: 5px 5px 2px #CCF5CC;
+	border : 1px solid #CCF5CC;
+}
+
+div.modother img {
+	width: 60px;
+	height: 60px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+div.modother a {
+	text-decoration: none;
+	color: #000;
+	font-weight: bold;
+	font-size: 14px;
+}
+/*
+.modDivHover {
+	background-color: #CCFFFF;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+*/
+div.navigateContainerOther {
+	width: 100%;
+	margin-top:10px;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+div.navigateContainer {
+	height:100%;
+}
+
+div.mod{
+	cursor: pointer;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	border : 1px solid #CCF5CC;
+	position: absolute;
+	width: 120px;
+	height: 120px;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	font-size: 14px;
+	background-color: #FFF;
+}
+div.mod .remarks{
+	display : none;
+}
+div.mod img{
+	width : 80px;
+	height : 80px;
+	margin-bottom: 10px;
+	margin-top:5px;
+}
+.mod_hover{
+	z-index: 9999;
+	box-shadow: -5px 5px -2px #CCF5CC;
+}
+div.fun_mod_01{
+	margin-top: 40px;
+	margin-left: 135px;
+}
+div.fun_mod_02{
+	margin-top: 40px;
+	margin-left: 535px;
+}
+div.fun_mod_03{
+	margin-top: 180px;
+	margin-left: 135px;
+}
+div.mod_disable{
+	filter:alpha(opacity=40);  
+	-moz-opacity:0.4;  
+	-khtml-opacity: 0.4;  
+	opacity: 0.4;
+	cursor: auto;
+	background-color: #efeded;
+}
+div.fun_mod_04{
+	margin-top: 180px;
+	margin-left: 535px;
+}
+div.fun_mod_05{
+	margin-top: 335px;
+	margin-left: 45px;
+}
+div.fun_mod_06{
+	margin-top: 335px;
+	margin-left: 235px;
+}
+div.fun_mod_07{
+	margin-top: 335px;
+	margin-left: 413px;
+	width: 165px;
+}
+div.fun_mod_08{
+	margin-top: 335px;
+	margin-left: 615px;
+	width: 150px;
+}
+
+div.fun_mod_09{
+    margin-top: 335px;
+    margin-left: 815px;
+    width: 150px;
+}
+
+div.fun_mod_10{
+    margin-top: 335px;
+    margin-left: 1015px;
+    width: 150px;
+}
+div.div_fun_mod_container {
+	width: 800px;
+	height : 500px;
+	background-image: url(../image/menu/fun_mod_bg.png) !important;
+	background-repeat: no-repeat;
+}
+div.div_container{
+	width: 100%;
+	height : 100%;
+	/*overflow: scroll;*/
+}
+div.div_child_business_container{
+	background-image: url(../image/menu/fun_child_business_bg.png) !important;
+	background-repeat: no-repeat;
+}
+div.child_business_01{
+	margin-top: 70px;
+	margin-left: 325px;
+	width: 150px;
+}
+div.child_business_02{
+	margin-top: 265px;
+	margin-left: 40px;
+	width: 150px;
+}
+div.child_business_03{
+	margin-top: 265px;
+	margin-left: 230px;
+	width: 150px;
+}
+div.child_business_04{
+	margin-top: 265px;
+	margin-left: 415px;
+	width: 150px;
+}
+div.child_business_05{
+	margin-top: 265px;
+	margin-left: 610px;
+	width: 150px;
+}
+div.child_manage_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.child_manage_02{
+	margin-top: 20px;
+	margin-left: 200px;
+	width: 150px;
+}
+div.female_business_01{
+	margin-top: 70px;
+	margin-left: 325px;
+	width: 150px;
+}
+div.female_business_02{
+	margin-top: 265px;
+	margin-left: 40px;
+	width: 150px;
+}
+div.female_business_03{
+	margin-top: 265px;
+	margin-left: 230px;
+	width: 150px;
+}
+div.female_business_04{
+	margin-top: 265px;
+	margin-left: 415px;
+	width: 150px;
+}
+div.female_business_05{
+	margin-top: 265px;
+	margin-left: 610px;
+	width: 150px;
+}
+div.div_female_manage_container{
+	background-image: url(../image/menu/fun_female_manage_bg.png) !important;
+	background-repeat: no-repeat;
+}
+div.female_manage_01{
+	margin-top: 140px;
+	margin-left: 60px;
+	width: 150px;
+}
+div.female_manage_02{
+	margin-top: 40px;
+	margin-left: 330px;
+	width: 150px;
+}
+div.female_manage_03{
+	margin-top: 140px;
+	margin-left: 630px;
+	width: 150px;
+}
+div.female_manage_04{
+	margin-top: 330px;
+	margin-left: 200px;
+	width: 150px;
+}
+div.female_manage_05{
+	margin-top: 330px;
+	margin-left: 500px;
+	width: 150px;
+}
+div.child_birth_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.child_birth_02{
+	margin-top: 20px;
+	margin-left: 200px;
+	width: 150px;
+}
+div.child_ill_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.child_ill_02{
+	margin-top: 20px;
+	margin-left: 200px;
+	width: 150px;
+}
+div.div_mxb_container{
+	background-image: url(../image/menu/fun_mxb_bg.png) !important;
+	background-repeat: no-repeat;
+}
+div.mxb_01{
+	margin-top: 30px;
+	margin-left: 40px;
+	width: 150px;
+}
+div.mxb_02{
+	margin-top: 30px;
+	margin-left: 210px;
+	width: 150px;
+}
+div.mxb_03{
+	margin-top: 30px;
+	margin-left: 380px;
+	width: 150px;
+}
+div.mxb_04{
+	margin-top: 230px;
+	margin-left: 40px;
+	width: 150px;
+}
+div.mxb_05{
+	margin-top: 230px;
+	margin-left: 210px;
+	width: 150px;
+}
+div.mxb_06{
+	margin-top: 230px;
+	margin-left: 380px;
+	width: 150px;
+}
+div.mxb_07{
+	margin-top: 30px;
+	margin-left: 610px;
+	width: 190px;
+}
+div.crb_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.div_statistic_container{
+	background-image: url(../image/menu/fun_statistic_bg.png) !important;
+	background-repeat: no-repeat;
+}
+div.statistic_01{
+	margin-top: 60px;
+	margin-left: 120px;
+	width: 150px;
+}
+div.statistic_02{
+	margin-top: 60px;
+	margin-left: 330px;
+	width: 150px;
+}
+div.statistic_03{
+	margin-top: 60px;
+	margin-left: 530px;
+	width: 150px;
+}
+div.statistic_07{
+	margin-top: 60px;
+	margin-left: 730px;
+	width: 150px;
+}
+div.statistic_04{
+	margin-top: 265px;
+	margin-left: 120px;
+	width: 150px;
+}
+div.statistic_05{
+	margin-top: 265px;
+	margin-left: 330px;
+	width: 150px;
+}
+div.statistic_06{
+	margin-top: 265px;
+	margin-left: 530px;
+	width: 150px;
+}
+div.personInfo_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.complex_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.complex_02{
+	margin-top: 20px;
+	margin-left: 200px;
+	width: 150px;
+}
+div.complex_03{
+	margin-top: 20px;
+	margin-left: 375px;
+	width: 150px;
+}
+div.complex_04{
+	margin-top: 20px;
+	margin-left: 550px;
+	width: 150px;
+}
+div.exam_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.exam_02{
+	margin-top: 20px;
+	margin-left: 200px;
+	width: 150px;
+}
+div.exam_03{
+	margin-top: 20px;
+	margin-left: 375px;
+	width: 150px;
+}
+div.exam_04{
+    margin-top: 20px;
+    margin-left: 550px;
+    width: 150px;
+}
+div.exam_05{
+    margin-top: 20px;
+    margin-left: 725px;
+    width: 150px;
+}
+div.clinics_01{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 150px;
+}
+div.clinics_02{
+	margin-top: 20px;
+	margin-left: 200px;
+	width: 150px;
+}
+div.clinics_03{
+	margin-top: 20px;
+	margin-left: 375px;
+	width: 150px;
+}
+div.clinics_04{
+	margin-top: 20px;
+	margin-left: 550px;
+	width: 150px;
+}
+div.div_transfer_container{
+	background-image: url(../image/menu/fun_transfer_bg.png) !important;
+	background-repeat: no-repeat;
+}
+div.transfer_01{
+	margin-top: 40px;
+	margin-left: 330px;
+	width: 150px;
+}
+div.transfer_02{
+	margin-top: 300px;
+	margin-left: 150px;
+	width: 150px;
+}
+div.transfer_03{
+	margin-top: 300px;
+	margin-left: 500px;
+	width: 150px;
+}
+div.div_health_container{
+	background-image: url(../image/menu/fun_female_manage_bg.png) !important;
+	background-repeat: no-repeat;
+}
+div.health_01{
+	margin-top: 190px;
+	margin-left: 330px;
+	width: 150px;
+}
+div.health_02{
+	margin-top: 80px;
+	margin-left: 60px;
+	width: 150px;
+}
+div.health_03{
+	margin-top: 40px;
+	margin-left: 330px;
+	width: 150px;
+}
+div.health_04{
+	margin-top: 80px;
+	margin-left: 620px;
+	width: 150px;
+}
+div.health_05{
+	margin-top: 300px;
+	margin-left: 60px;
+	width: 150px;
+}
+div.health_06{
+	margin-top: 350px;
+	margin-left: 330px;
+	width: 150px;
+}
+div.health_07{
+	margin-top: 300px;
+	margin-left: 620px;
+	width: 150px;
+}
+div.health_08{
+	margin-top: 190px;
+	margin-left: 820px;
+	width: 240px;
+}
+div.menu_second_div{
+	cursor: pointer;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	border : 1px solid #CCF5CC;
+	margin:0 auto;
+	width: 100%;
+	height: 120px;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+	font-size: 14px;
+}
+div.menuContainer{
+	height : 100%;
+	width : 95%;
+	margin:0 auto;
+}
+div.menu_second_div img{
+	width : 80px;
+	height : 80px;
+	margin-bottom: 10px;
+	margin-top:5px;
+}
+
+div.div_sms_container{
+    background-image: url(../image/menu/sms_bg.png) !important;
+    background-repeat: no-repeat;
+}
+
+div.sms_01{
+    margin-top: 190px;
+    margin-left: 330px;
+    width: 150px;
+}
+div.sms_02{
+    margin-top: 80px;
+    margin-left: 60px;
+    width: 150px;
+}
+div.sms_03{
+    margin-top: 40px;
+    margin-left: 330px;
+    width: 150px;
+}
+div.sms_04{
+    margin-top: 80px;
+    margin-left: 620px;
+    width: 150px;
+}
+div.sms_05{
+    margin-top: 300px;
+    margin-left: 60px;
+    width: 150px;
+}
+div.sms_06{
+    margin-top: 350px;
+    margin-left: 330px;
+    width: 150px;
+}
+div.sms_07{
+    margin-top: 300px;
+    margin-left: 620px;
+    width: 150px;
+}

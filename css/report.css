@@ -1,0 +1,57 @@
+#statisticByDay{
+	
+	border-top: 1px solid #CAE2FE;
+	border-left : 1px solid #CAE2FE;
+	display: none;
+	width: 98%;
+}
+
+#statisticByDay thead td {
+	border-bottom : 1px solid #CAE2FE;
+	border-right : 1px solid #CAE2FE;
+	font-size: 13px;
+	text-align: center;
+	border-collapse: collapse;
+	height:25px;
+	line-height: 25px;	
+}
+#container{
+	height:450px;
+	overflow: scroll;
+}
+
+#showInfor{
+	width: 150px;
+	height: 20px;
+	font-size: 12px;
+}
+
+#statisticByDay tfoot td {
+	border-right : 1px solid #CAE2FE;
+	border-bottom : 1px solid #CAE2FE;
+	font-size: 12px;
+	height : 25px;
+	line-height : 25px;
+}
+
+#statisticByDay tbody td {
+	border-right : 1px solid #CAE2FE;
+	border-bottom : 1px solid #CAE2FE;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	word-spacing: 1px;
+	letter-spacing: 2px;
+	height:20px;
+	line-height: 20px;
+}
+
+#statisticByDay thead td {
+	font-size: 12px;
+}
+
+#footNote {
+	font-size: 12px;
+	font-weight: bolder;
+	color: red;
+}

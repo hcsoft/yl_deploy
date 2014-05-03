@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script> 
+    <script type='text/javascript' src='/dwr/interface/ConsultationService.js'></script>
+    <script type='text/javascript' src='/dwr/interface/PersonalInfoService.js'></script>
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/in_consultation.js"></script>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print"/>
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+    <!-- Import fancy-type plugin for the sample page. -->
+    <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection"/>
+ 
+    <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/tabs.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/sheet.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/new_css/card.css" type="text/css" media="screen, print"/>
+	<link rel="stylesheet" href="css/new_css/printCure.css" type="text/css" media="screen, print"/>
+  </head>
+  <body>
+<div class="outerContainer">
+  <div class="showToolbar"></div>
+  <div class="container">
+      <div class="span-19 feet">
+      <table class="form_tbl">
+        <tr>
+	        <td>
+	             <span class="tf_inline">姓名：</span>
+	             <span id="name" class="tf_inline"></span>
+	        </td><td>
+                 <span class="tf_inline">编号：</span>
+                 <span id="districtNumber" class="tf_inline"></span><span id="fileNo" class="tf_inline"></span>
+	        </td>
+	        <td></td>
+        </tr>
+        </table>
+        <div  class="span-10 sheet" style="width: 800px;">
+			<div style="width: 780px;">
+			会诊原因：<br/><span id="reason"></span>
+			会诊意见：<br/><span id="notion"></span>
+			会诊医生及其所在医疗机构：<br/><div style="height: 100px;" id="consultationOrg"></div>
+		<table class="form_tbl">
+         <tr>
+            <td class="header" colspan="3">责任医生：<span id="doctor"></span></td>
+            <td class="header" colspan="3">会诊日期：<span id="date"></span></td>
+        </tr>
+      </table>
+		</div>
+      
+      </div>
+  </div>
+  <div class="showToolbar"></div>
+    	<br/>
+		<br/>
+</div>
+</body>
+</html>

@@ -1,0 +1,318 @@
+.inputtable {
+    font: normal 14px '宋体';
+    text-indent: 0;
+    white-space: nowrap;
+    margin-left: 7%;
+    width: 80%;
+    line-height: 24px;
+	margin-top:60px;
+	border-spacing: 0px !important;
+}
+.inputtable input {
+    border: 1px inset blue;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    text-align: center;
+    /* font-weight: bold; */
+	color:blue;
+    height: 20px;
+}
+
+.inputtable label {
+	display: block;
+	margin-bottom: 0px !important;
+}
+
+.inputtable input [type=radio] {
+    text-align: center;
+    /* font-weight: bold; */
+	color:blue;
+    height: 18px !important;
+}
+.inputtable input [type=checkbox] {
+    text-align: center;
+    /* font-weight: bold; */
+	color:blue;
+    height: 18px!important;
+}
+.input-validfail{
+    border: 1px inset red;
+
+    text-align: center;
+    /* font-weight: bold; */
+    height: 24px;
+}
+.inputtable TEXTAREA {
+    border: 0px inset blue;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    background: WHITE url(../../image/underline.png) repeat;
+    text-align: left;
+    /* font-weight: bold; */
+    height: 48px;
+    line-height: 23px;
+}
+.idcard {
+    /* font: bold 16px '宋体' !important; */
+    border: 0px !important;
+    letter-spacing: 14px;
+    padding-left: 2px;
+    /* background: WHITE url(../../image/idcard.png) repeat-x; */
+    text-align: left !important;
+    width: 413px;
+}
+
+.idcardbg {
+    /* font: bold 16px '宋体' !important; */
+    border: 0px !important;
+    letter-spacing: 16px;
+    padding-left: 2px;
+    background: WHITE url(/image/idcard.png) repeat-x;
+    text-align: left !important;
+    line-height: 24px;
+    width: 413px;
+}
+.inputtable tr {
+    height: 24px
+}
+
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 600px; 
+    height: 300px;
+}
+.tabbable .nav-tabs{
+	z-index: 10;
+	position:fixed;
+	background-color:#ffffff;
+	width:100%;
+}
+
+.toolbar{
+	z-index: 11;
+	position:fixed;
+	right: 0;
+	background-color:#ffffff;
+	margin-top:5px;
+	margin-right:10px;
+}
+.onlinedialog{
+	position: fixed;
+	top: 10%;
+	left: 35%;
+	z-index: 1050;
+	width:280px;
+	/* margin-left: -280px; */
+	background-color: #ffffff;
+	border: 1px solid #999;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	outline: none;
+	-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+	background-color:#accfe8;
+}
+.onlinetd{
+	border:1px inset blue;
+	width:120px;
+	text-align:center;
+	float:right;
+}
+.alertpanel{
+	position:fixed;
+	width:150px;
+	z-index:12;
+	margin-top:40px;
+	left:450px;
+}
+label{
+	display: inline-block !important;
+	margin-right:10px;
+}
+label input{
+	margin-right:3px !important;
+	margin-bottom: 7px !important;
+}
+.headtext{
+	color:#2618b2;
+}
+textarea {
+	resize:none !important; 
+	-webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,0) !important;
+	box-shadow: inset 0 0px 0px rgba(0,0,0,0)  !important;
+	-webkit-transition: border linear 0s,box-shadow linear 0s !important;
+	transition: border linear 0s,box-shadow linear !important;
+}
+.nameselect{
+	position:fixed;
+	background-color:#ffffff; 
+	z-index:10px;
+}
+
+.nameselect ul{
+	margin-top: 2px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 40px;
+}
+.select2-container .select2-choice span {
+	text-align:center;
+	color:blue;
+/* 	font-weight:bold; */
+}
+
+input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+	border: 0px !important;
+    text-align: center;
+    height: 24px;
+	color:blue;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+
+.printtable {
+    font: normal 14px '宋体';
+    text-indent: 0;
+    white-space: pre-wrap;
+    margin-left: 3%;
+    width: 96%;
+    line-height: 22px;
+    padding-left:10;
+    padding-right:10;
+    padding-top:10;
+}
+.printtable input {
+    border: 1px inset blue;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    text-align: center;
+    /* font-weight: bold; */
+	color:blue;
+    height: 24px;
+}
+.printtable TEXTAREA {
+    border: 0px inset blue;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    background: WHITE url(../../image/underline.png) repeat;
+    text-align: left;
+    /* font-weight: bold; */
+    height: 48px;
+    line-height: 23px;
+}
+.printtable label{
+    border: 1px inset blue;    
+    border-top: 0px;    
+    border-left: 0px;    
+    border-right: 0px;    
+    display: inline-block !important;    
+    white-space:pre-wrap;
+    text-align:center;
+    overflow:visible;
+}
+
+.printtable font{
+	font-weight:bold;
+}
+.printtable .selectbox{
+	position:absolute;
+	width:13px;
+	height:28px;
+	margin-top:5px;
+	background:#ffffff;
+	font-weight:bold;
+	display: inline-block !important;
+}
+
+.printtable .textarea{
+	font: normal 14px '宋体';
+	border:0px !important;
+	width:100%;
+}
+
+.printtable .textarea td{
+	font: normal 14px '宋体';
+	vertical-align:top ;
+	border:0px !important;
+}
+
+.printtable1 {
+    font: normal 13px '宋体';
+    text-indent: 0;
+    white-space: pre-wrap;
+    line-height: 30px;
+    padding-left:0;
+    padding-right:0;
+}
+
+.printtable1  label{
+	display: inline-block !important;
+	margin-right:0px;
+	text-align:right;
+}
+.printtable1 table{
+	font: normal 13px '宋体';
+    text-indent: 0;
+    white-space: pre-wrap;
+}
+
+
+.printtable2 {
+	font: normal 13px '宋体';
+	border: 1px solid  black !important;
+	border-collapse:collapse;
+	line-height: 30px;
+}
+
+.printtable2 td{
+	font: normal 13px '宋体';
+	border-collapse: separate;
+	border: 1px solid  black !important;
+	line-height: 30px;
+	text-align:center;
+	vertical-align:middle;
+	padding-left:3;
+}
+
+.printtable3 td {
+    font: normal 13px '宋体';
+    text-indent: 0;
+    white-space: pre-wrap;
+    line-height: 30px;
+    border: 0px inset black !important;
+}
+
+
+
+.printtable1 th {
+    font: normal 12px '宋体' !important;
+}
+
+.printtable1 TEXTAREA {
+    border: 0px inset blue;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    text-align: left;
+    /* font-weight: bold; */
+    height: 48px;
+    line-height: 23px;
+}

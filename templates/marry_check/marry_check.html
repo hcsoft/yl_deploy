@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html style="height:100%;width:100%;" >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="/js/easyui/themes/hc/easyui.css">
+		<link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css">
+		<script type="text/javascript" src="/js/easyui/jquery-1.8.0.min.js"></script>
+		<script src='/js/angularjs/jquery/jquery.dateFormat-1.0.js'></script>
+		<script type='text/javascript' src='/dwr/engine.js'></script>
+		<script type='text/javascript' src='/dwr/util.js'></script>
+		<script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
+		<script type='text/javascript' src='/dwr/interface/UserMenuTreeService.js'></script>
+		<script src="/js/easyui/jquery.easyui.min.js"></script>
+		<script src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+		<style>
+			.tree-file {
+				background: url(../../resources/images/default/tree/leaf.gif) no-repeat;
+			}
+			
+			.tree-node-selected {
+				background: #d9e8fb;
+				color: #000000;
+			}
+			
+			.datagrid-row-selected {
+				background: #eaf2ff !important;
+				color: #000000;
+				font-weight:bold;
+			}
+			.datagrid-row-over, .datagrid-header td.datagrid-header-over {
+				background: #eaf2ff !important;
+				color: #000000;
+				cursor: default;
+			}
+		</style>
+		<script>
+			function examDwrLoader(pluginName){
+				return function(param, success, error){
+					var opts = $(this)[pluginName]('options');
+					if (!opts.url) return false;
+					var dwrFunc = eval(opts.url);
+					param = genParam(param)
+					dwrFunc(param[0],param[1],param[2],param[3],param[4], {
+						callback: function(data){
+							success(data);
+						},
+						exceptionHandler: function(){
+							error.apply(this, arguments);
+						}
+					});
+				}
+			}
+			$.fn.datagrid.defaults.loader = examDwrLoader('datagrid');
+			
+            function exam_add() {
+            	//在新增之前,始终选择最后一层
+            	selectChild();
+                $("#exam_addpanel").dialog("open");
+				var node = $('#orgtree').tree('getSelected');  
+				var url = "marry_check_info.html#&opt=new&district="+node.id;
+				$("#iframe").attr("src","about:blank");
+				$("#iframe").attr("src",url);
+            }
+            function exam_edit() {
+            	var checked = $("#querygrid").datagrid("getChecked");
+            	if(checked){
+	            	var node = $('#orgtree').tree('getSelected');  
+					var url = "marry_check_info.html#&opt=open&district="+node.id+"&id="+checked[0]["col0"];
+					if(url != $("#iframe").attr("src")){
+						$("#iframe").attr("src",url);
+					}
+					$("#exam_addpanel").dialog("open");
+            	}
+            }
+            function exam_del() {
+            	var checked = $("#querygrid").datagrid("getChecked");
+            	if(checked){
+            		var rowindex = $("#querygrid").datagrid("getRowIndex",checked[0]);
+            		$.messager.confirm('确认','是否确定删除选中数据?',function(r){   
+            		    if (r){   
+            		    	CommonExamService.delExam(checked[0]["col0"],function(data){
+            		    		$.messager.alert('成功',data); 
+            		    		 $("#querygrid").datagrid("deleteRow",rowindex);
+            		    	});
+            		    }   
+            		}); 
+            	}
+            }
+            function getBasemap(){
+            	return {
+            		"选择":{col:"info.id",coltype:"string"},
+            		"男方编号":{col:"dbo.denc(hf1.fileno)",coltype:"string"},
+            		"男方姓名":{col:"dbo.denc(hf1.name)",coltype:"string"},
+            		"女方编号":{col:"dbo.denc(hf.fileno)",coltype:"string"},
+            		"女方姓名":{col:"dbo.denc(hf.name)",coltype:"string"},
+            		"男方生日":{col:"pf1.birthday",coltype:"date"},
+            		"女方生日":{col:"pf.birthday",coltype:"date"},
+            		"婚检时间":{col:"info.inputdate",coltype:"date"}
+            	}
+            }
+            function getColList(){
+            	return [
+            	    "选择",
+            	    "女方编号",
+            		"女方姓名",
+            		"女方生日",
+            		"男方编号",
+            		"男方姓名",
+            		"男方生日",
+            		"婚检时间"
+            	];
+            }
+			function dialogClose(){
+				$("#iframe").attr("src","about:blank");
+			}
+			function getparams(pagenum){
+				return{"page":{pagesize:20,currentpage:pagenum}};
+			}
+			function gridStyle(index,row){
+				if (index % 2 == 0 ){
+					return 'background-color:#fbfbfb;';
+				}else{
+					return ':hover {background-color:#eaf2ff}';
+				}
+			}
+			function datefomattor(value,row,index){
+		 		return $.format.date(value, "yyyy-MM-dd")
+			}
+			function dblclick(rowIndex, rowData){
+				var node = $('#orgtree').tree('getSelected');  
+				var url = "marry_check_info.html#&opt=open&district="+node.id+"&id="+rowData["col0"];
+				//if(url != $("#iframe").attr("src")){
+					$("#iframe").attr("src","about:blank");//释放iframe内存
+					$("#iframe").attr("src",url);
+				//}
+				$("#exam_addpanel").dialog("open");
+			}
+			function closeDialog(){
+				$("#iframe").attr("src","about:blank");
+				$("#exam_addpanel").dialog("close");
+			}
+			
+			function genParam(param){
+				var value = $("#exam_searcher").searchbox("getValue")
+				var name = $("#exam_searcher").searchbox("getName")
+				var pagenumber = 1;
+				if(param.page && param.page>1){
+					pagenumber = param.page;
+				}
+				var params = getparams(pagenumber);
+				var basemap = getBasemap();
+				if(value){
+					params[name]={"value":value,"opt":"="};
+				}
+				
+				var collist = getColList();
+				var columns=[[  ]]  ;
+				for(var i = 0 ; i <collist.length ; i ++){
+					if("选择"===collist[i]){
+						columns[0].push({field:"col"+i,title:collist[i],checkbox:true});
+					}else if(basemap[collist[i]].coltype==="date"){
+						columns[0].push({field:"col"+i,title:collist[i],formatter:datefomattor});
+					}else{
+						columns[0].push({field:"col"+i,title:collist[i]});
+					}
+				}
+				var node = $('#orgtree').tree('getSelected'); 
+				var dwrparams = ["婚检",node.id,params,getBasemap(),getColList()];
+				return dwrparams;
+			}
+			function exam_query(value,name,page){
+				var param = {"page":page,"rows":20}
+				$('#querygrid').datagrid('load', genParam(param)); 
+			}
+			
+			function selectChild(){
+				var node = $('#orgtree').tree('getSelected');  
+				//始终选择最后一层
+				if(!node.attributes.isDetail){
+					var childs = $('#orgtree').tree('getChildren', node.target);
+					for(var i = 0 ; i <  childs.length ; i ++){
+						if(childs[i].attributes.isDetail){
+							$('#orgtree').tree('expandTo',childs[i].target);
+							$('#orgtree').tree('select',childs[i].target);
+							break;
+						}
+					}
+				}
+			}
+			
+			$(function(){
+				var nodedata = window.top.earyuitreedata;
+				$('#orgtree').tree({   
+					data:nodedata,
+					onSelect:function(node){
+						$("#selectedorg").val(node.id);
+						$("#orgname").text(node.text);
+					},
+					onLoadSuccess:function(){
+						//选中第一节点
+						var node = $('#orgtree').tree('find', parseInt(nodedata[0].id));
+						$('#orgtree').tree('select', node.target);
+					}
+				});
+				var collist = getColList();
+				var columns=[[  ]]  ;
+				for(var i = 0 ; i <collist.length ; i ++){
+					if("选择"===collist[i]){
+						columns[0].push({field:"col"+i,title:collist[i],checkbox:true});
+					}else if(getBasemap()[collist[i]].coltype==="date"){
+						columns[0].push({field:"col"+i,title:collist[i],formatter:datefomattor});
+					}else{
+						columns[0].push({field:"col"+i,title:collist[i]});
+					}
+				}
+				$("#querygrid").datagrid({
+					columns:columns,
+					rowStyler:gridStyle,
+					singleSelect:true,
+					onDblClickRow:dblclick,
+					pageList :[20]
+				});
+			});
+		</script>
+		<body >
+			<div class="easyui-panel easyui-layout" data-options='fit:true'>
+				<input id='selectedorg' type='hidden'>
+				<div data-options="region:'west'" title='行政区划' style='width:200px'>
+					<ul id="orgtree"></ul>  
+				</div>
+				<div id="query-tools"  data-options="region:'north'" style='height:40px;padding-top:5px;padding-left:5px;border:true;background-color: #E0ECFF;'>
+					<a id="btn_add" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="javascript:exam_add()">增加</a>
+					<a id="btn_edit" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="javascript:exam_edit()">修改</a>
+					<a id="btn_remove" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="javascript:exam_del()">删除</a>
+					<input id="exam_searcher" class="easyui-searchbox" style="width:300px"
+					data-options="inline:true,searcher:exam_query,prompt:'请输入查询条件',menu:'#query_drop',destroy:function(){$('#query_drop'.destory())}">
+					</input>
+				</div>
+				<div id="query_drop" style="width:120px">
+					<div data-options="name:'女方编号'">
+						按女方编号
+					</div>
+					<div data-options="name:'女方姓名'">
+						按女方姓名
+					</div>
+					<div data-options="name:'女方生日'">
+						按女方生日
+					</div>
+					<div data-options="name:'男方编号'">
+						按男方编号
+					</div>
+					<div data-options="name:'男方姓名'">
+						按男方姓名
+					</div>
+					<div data-options="name:'男方生日'">
+						按男方生日
+					</div>
+					<div data-options="name:'婚检时间'">
+						按婚检时间
+					</div>
+				</div>
+				<div  class="easyui-layout" data-options = "region:'center'">
+					<div style='height:26px;padding:5px 0 0 5px;background-color: #E0ECFF;' data-options="region:'north',border:false"><font bold id='orgname'>请选择一个行政区划</font></div>
+					<div data-options = "region:'center',border:false">
+						<table id='querygrid' class="easyui-datagrid" data-options = "fit:true,pagination:true,url:CommonExamService.marry_examList,singleSelect:true,onDblClickRow:dblclick,pageList :[20]">
+							<thead>  
+								<tr>  
+									<th data-options="field:'col0',checkbox:true">选择</th>  
+									<th data-options="field:'col1'">男方编号</th>  
+									<th data-options="field:'col2'">男方姓名</th>  
+									<th data-options="field:'col3'">女方编号</th>  
+									<th data-options="field:'col4'">女方姓名</th>  
+									<th data-options="field:'col5'">男方生日</th>  
+									<th data-options="field:'col6'">女方生日</th>  
+									<th data-options="field:'col7'">婚检时间</th> 
+								</tr>  
+							</thead>  
+							<tbody>  
+							</tbody>  
+						</table> 
+					</div>
+				</div>
+				<div id="exam_addpanel" class="easyui-dialog" title="婚前医学检查" style="width:910px;height:600px;"
+				data-options="iconCls:'icon-save',resizable:false,modal:true,closed:true,onClose:dialogClose">
+					<div style='overflow:visible;height:100%;width:100%'>
+						<!--<table id="exam_addpanel_propergrid"></table>-->
+						<iframe width="100%" height="100%" scrolling=true frameborder="0" id='iframe' name='iframe'  >
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</body>
+</html>

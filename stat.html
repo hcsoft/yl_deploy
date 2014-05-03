@@ -1,0 +1,565 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type='text/javascript' src='/dwr/interface/StatService.js'></script>
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/in_stat.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/in_stat_report.js"></script>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+    <!-- Import fancy-type plugin for the sample page. -->
+    <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+ 
+    <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/tabs.css" type="text/css" media="screen" />
+
+  </head>
+  <body>
+  <div class="container">
+
+<h2>工作月报表</h2>
+ 
+<div>
+    <span id="districtNumber"></span> <button class="fetch hideWhenModify" disabled title="填写报告月份之后才能获取报表数据">获取统计数据</button>
+    <span>请正确填写报告月份，然后点击“获取统计数据“按钮，获得系统能够自动获取的统计数据。注意：不能创建已存在填报数据的月份的报表</span>
+</div>
+<table class="form_tbl">
+  <colgroup> 
+    <col width="192"> 
+    <col width="192"> 
+    <col width="211"> 
+    <col width="76"> 
+    <col width="105"> 
+  </colgroup> 
+  <tr height="19"> 
+    <td colspan="5" valign="bottom">填报单位（盖章）：<span id="org"></span> 填报人：<span id="reporter"></span> 审核：<span id="checker"></span></td> 
+  </tr> 
+  <tr height="19"> 
+    <td colspan="2" valign="bottom" align="left">联系电话：<span id="tel"></span></td> 
+    <td colspan="3"valign="bottom">电子邮箱：<span id="email"></span></td> 
+  </tr> 
+  <tr height="19"> 
+    <td colspan="2" valign="bottom" align="left">报告月份：<span id="reportMonth"></span> <span>(如: 201002)</span></td> 
+    <td colspan="3"valign="bottom">填表时间：<span id="reportDate"></span></td> 
+  </tr> 
+  <tr height="19"> 
+    <td colspan="5" valign="bottom">&nbsp;</td> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+  </tr> 
+  <tr height="25"> 
+    <td valign="bottom" align="left">服务项目</td> 
+    <td valign="bottom" align="center">工作内容</td> 
+    <td valign="bottom" align="center">统计项目</td> 
+    <td valign="bottom" align="center">本月</td> 
+    <td valign="bottom" align="center">当年累计</td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="14" valign="middle" align="left">一、社区基本情况</td> 
+    <td rowspan="10" valign="middle" align="center">社区人口</td> 
+    <td valign="middle" align="center">户籍人口数</td> 
+    <td id="basicResNum"></td> 
+    <td id="yearBasicResNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">流动人口数</td> 
+    <td id="basicFloatNum"></td> 
+    <td id="yearBasicFloatNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">出生人口数</td> 
+    <td id="basicBirthNum"></td> 
+    <td id="yearBasicBirthNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">0-3岁儿童数</td> 
+    <td id="basicBabyNum"></td> 
+    <td id="yearBasicBabyNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">孕产妇数</td> 
+    <td id="basicPregnantNum"></td> 
+    <td id="yearBasicPregnantNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">15岁以下儿童数</td> 
+    <td id="basicChildNum"></td> 
+    <td id="yearBasicChildNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">65岁以上老年人数</td> 
+    <td id="basicOldNum"></td> 
+    <td id="yearBasicOldNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">高血压患者数</td> 
+    <td id="basicHypNum"></td> 
+    <td id="yearBasicHypNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">糖尿病患者数</td> 
+    <td id="basicDiabNum"></td> 
+    <td id="yearBasicDiabNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">精神病人数</td> 
+    <td id="basicFuriousNum"></td> 
+    <td id="yearBasicFuriousNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="4" valign="middle" align="center">机构情况</td> 
+    <td valign="middle" align="center">医生数</td> 
+    <td id="basicDoctorNum"></td> 
+    <td id="yearBasicDoctorNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">护士数</td> 
+    <td id="basicNurseNum"></td> 
+    <td id="yearBasicNurseNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">公卫医师数</td> 
+    <td id="basicPhsicianNum"></td> 
+    <td id="yearBasicPhsicianNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">床位数</td> 
+    <td id="basicBedNum"></td> 
+    <td id="yearBasicBedNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td valign="middle" align="left">二、建立健康档案</td> 
+    <td colspan="2" valign="middle" align="center">居民健康档案建立数</td> 
+    <td style="display:none;"></td> 
+    <td id="fileNum"></td> 
+    <td id="yearFileNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="10" valign="middle" align="left">三、健康教育&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+    <td rowspan="2" valign="middle" align="center">发放健康教育资料</td> 
+    <td valign="middle" align="center">种类</td> 
+    <td id="eduPaperCategoryNum"></td> 
+    <td id="yearEduPaperCategoryNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">份数</td> 
+    <td id="eduPaperNum"></td> 
+    <td id="yearEduPaperNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="2" valign="middle" align="center">播放音像资料</td> 
+    <td valign="middle" align="center">次数</td> 
+    <td id="eduAvNum"></td> 
+    <td id="yearEduAvNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">种类</td> 
+    <td id="eduAvCategoryNum"></td> 
+    <td id="yearEduAvCategoryNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="2" valign="middle" align="center">健康教育宣传栏</td> 
+    <td valign="middle" align="center">设置宣传栏数</td> 
+    <td id="eduBarNum"></td> 
+    <td id="yearEduBarNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">更换内容次数</td> 
+    <td id="eduBarReplaceNum"></td> 
+    <td id="yearEduBarReplaceNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="2" valign="middle" align="center">健康主题日咨询活动</td> 
+    <td valign="middle" align="center">活动次数</td> 
+    <td id="eduActivityNum"></td> 
+    <td id="yearEduActivityNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">参加咨询人数</td> 
+    <td id="eduActivityPeopleNum"></td> 
+    <td id="yearEduActivityPeopleNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="2" valign="middle" align="center">健康教育讲座</td> 
+    <td valign="middle" align="center">举办次数</td> 
+    <td id="eduTalkNum"></td> 
+    <td id="yearEduTalkNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">参加讲座人数</td> 
+    <td id="eduTalkPeopleNum"></td> 
+    <td id="yearEduTalkPeopleNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="4" valign="middle" align="left">四、儿童保健&nbsp;</td> 
+    <td valign="middle" align="center">儿童建册</td> 
+    <td valign="middle" align="center">儿童建档数</td> 
+    <td id="childFileNum"></td> 
+    <td id="yearChildFileNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">新生儿访视</td> 
+    <td valign="middle" align="center">访视人次数</td> 
+    <td id="childBabyVisitNum"></td> 
+    <td id="yearChildBabyVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">新生儿满月管理</td> 
+    <td valign="middle" align="center">管理人次数</td> 
+    <td id="childBabyMoonNum"></td> 
+    <td id="yearChildBabyMoonNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">0--3岁儿童健康管理</td> 
+    <td valign="middle" align="center">随访人次数</td> 
+    <td id="childVisitNum"></td> 
+    <td id="yearChildVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="9" valign="middle" align="left">五、孕产妇保健</td> 
+    <td rowspan="2" valign="middle" align="center">孕早期（孕12周前）保健</td> 
+    <td valign="middle" align="center">早孕建卡人数</td> 
+    <td id="pregnantEarlyNum"></td> 
+    <td id="yearPregnantEarlyNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">孕早期随访人次数</td> 
+    <td id="pregnantEarlyVisitNum"></td> 
+    <td id="yearPregnantEarlyVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="2" valign="middle" align="center">孕中期（孕16周--24周）保健</td> 
+    <td valign="middle" align="center">孕16周-20周随访人次数</td> 
+    <td id="pregnantMidOneVisitNum"></td> 
+    <td id="yearPregnantMidOneVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">孕21周-24周随访人次数</td> 
+    <td id="pregnantMidTwoVisitNum"></td> 
+    <td id="yearPregnantMidTwoVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="2" valign="middle" align="center">产前（孕25周--40周）保健</td> 
+    <td valign="middle" align="center">孕25周-36周随访人次数</td> 
+    <td id="pregnantLateOneVisitNum"></td> 
+    <td id="yearPregnantLateOneVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">孕37周-40周随访人次数</td> 
+    <td id="pregnantLateTwoVisitNum"></td> 
+    <td id="yearPregnantLateTwoVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="2" valign="middle" align="center">产后访视</td> 
+    <td valign="middle" align="center">访视人次数</td> 
+    <td id="pregnantNatalVisitNum"></td> 
+    <td id="yearPregnantNatalVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">产后42天体检人数</td> 
+    <td id="pregnantNatalExamNum"></td> 
+    <td id="yearPregnantNatalExamNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td colspan="2" valign="middle" align="center">住院分娩人数</td> 
+    <td style="display:none;"></td> 
+    <td id="pregnantNatalNum"></td> 
+    <td id="yearPregnantNatalNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="2" valign="middle" align="left">六、老年人保健</td> 
+    <td rowspan="2" valign="middle" align="center">65岁以上老年人保健</td> 
+    <td valign="middle" align="center">健康档案建立数</td> 
+    <td id="oldFileNum"></td> 
+    <td id="yearOldFileNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">体检人数</td> 
+    <td id="oldExamNum"></td> 
+    <td id="yearOldExamNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="6" valign="middle" align="left">七、预防接种</td> 
+    <td rowspan="5" valign="middle" align="center">0---6岁儿童预防接种</td> 
+    <td valign="middle" align="center">新生儿建卡数</td> 
+    <td id="vaccBabyNum"></td> 
+    <td id="yearVaccBabyNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">免疫规划疫苗接种针次数</td> 
+    <td id="vaccNeedleNum"></td> 
+    <td id="yearVaccNeedleNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">乙肝疫苗及时接种人数</td> 
+    <td id="vaccHepatitisNum"></td> 
+    <td id="yearVaccHepatitisNum"></td> 
+  </tr> 
+  <tr height="38"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">疑似预防接种异常反应发生人次数</td> 
+    <td id="vaccAbnormalNum"></td> 
+    <td id="yearVaccAbnormalNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">预防接种前知情告知人次数</td> 
+    <td id="vaccInformNum"></td> 
+    <td id="yearVaccInformNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">15岁以下儿童乙肝补种</td> 
+    <td valign="middle" align="center">补种人次数</td> 
+    <td id="vaccHepatitisResupplyNum"></td> 
+    <td id="yearVaccHepatitisResupplyNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="7" valign="middle" align="left">八、传染病报告和处理</td> 
+    <td rowspan="4" valign="middle" align="center">传染病报告数</td> 
+    <td valign="middle" align="center">甲类</td> 
+    <td id="infectANum"></td> 
+    <td id="yearInfectANum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">乙类</td> 
+    <td id="infectBNum"></td> 
+    <td id="yearInfectBNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">丙类</td> 
+    <td id="infectCNum"></td> 
+    <td id="yearInfectCNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">及时报告数</td> 
+    <td id="infectTimelyNum"></td> 
+    <td id="yearInfectTimelyNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="3" valign="middle" align="center">传染病处理</td> 
+    <td valign="middle" align="center">转送病人数</td> 
+    <td id="infectTransNum"></td> 
+    <td id="yearInfectTransNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">协助流行病学调查病例数</td> 
+    <td id="infectInvestNum"></td> 
+    <td id="yearInfectInvestNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">传染病人随访人数</td> 
+    <td id="infectVisitNum"></td> 
+    <td id="yearInfectVisitNum"></td> 
+  </tr> 
+  <tr height="38"> 
+    <td rowspan="6" valign="middle" align="left">九、高血压病例管理</td> 
+    <td rowspan="2" valign="middle" align="center">高血压筛查</td> 
+    <td valign="middle" align="center">35以上居民首诊测血压人次数</td> 
+    <td id="hypFirstExamNum"></td> 
+    <td id="yearHypFirstExamNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">高血压患者主动发现数</td> 
+    <td id="hypDiscoverNum"></td> 
+    <td id="yearHypDiscoverNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="4" valign="middle" align="center">高血压患者管理</td> 
+    <td valign="middle" align="center">高血压患者建档数</td> 
+    <td id="hypFileNum"></td> 
+    <td id="yearHypFileNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">高血压患者随访人次数</td> 
+    <td id="hypVisitNum"></td> 
+    <td id="yearHypVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">高血压患者体检人数</td> 
+    <td id="hypExamNum"></td> 
+    <td id="yearHypExamNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">高血压控制人数</td> 
+    <td id="hypControlNum"></td> 
+    <td id="yearHypControlNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="6" valign="middle" align="left">十、糖尿病病例管理</td> 
+    <td rowspan="2" valign="middle" align="center">糖尿病筛查</td> 
+    <td valign="middle" align="center">测血糖人次数</td> 
+    <td id="diabPeopleNum"></td> 
+    <td id="yearDiabPeopleNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">糖尿病患者发现数</td> 
+    <td id="diabDiscoverNum"></td> 
+    <td id="yearDiabDiscoverNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td rowspan="4" valign="middle" align="center">糖尿病病例管理</td> 
+    <td valign="middle" align="center">糖尿病患者建档数</td> 
+    <td id="diabFileNum"></td> 
+    <td id="yearDiabFileNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">糖尿病患者随访人次数</td> 
+    <td id="diabVisitNum"></td> 
+    <td id="yearDiabVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">糖尿病患者体检人数</td> 
+    <td id="diabExamNum"></td> 
+    <td id="yearDiabExamNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">糖尿病控制人数</td> 
+    <td id="diabControlNum"></td> 
+    <td id="yearDiabControlNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td rowspan="4" valign="middle" align="left">十一、重性精神疾病患者管理</td> 
+    <td rowspan="4" valign="middle" align="center">重性精神疾病患者管理</td> 
+    <td valign="middle" align="center">健康档案建立数</td> 
+    <td id="furiousFileNum"></td> 
+    <td id="yearFuriousFileNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">随访人次数</td> 
+    <td id="furiousVisitNum"></td> 
+    <td id="yearFuriousVisitNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">患者体检人数</td> 
+    <td id="furiousExamNum"></td> 
+    <td id="yearFuriousExamNum"></td> 
+  </tr> 
+  <tr height="19"> 
+    <td style="display:none;"></td> 
+    <td style="display:none;"></td> 
+    <td valign="middle" align="center">患者显好人数</td> 
+    <td id="furiousGoodNum"></td> 
+    <td id="yearFuriousGoodNum"></td> 
+  </tr> 
+</table> 
+
+  </div>
+
+</body>
+</html>

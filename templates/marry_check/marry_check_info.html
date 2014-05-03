@@ -1,0 +1,1972 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html style="height:100%;width:100%;" ng-app="all" ng-controller="MarryCheck">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="marry_check_info.css">
+		<link rel="stylesheet" type="text/css" href="/js/angularjs/jqueryui/css/smoothness/jquery-ui-1.10.2.custom.min.css">
+		<link rel="stylesheet" type="text/css" href="/js/angularjs/ui/build/angular-ui.min.css">
+		<link rel="stylesheet" type="text/css" href="/js/angularjs/bootstrap/bootstrap.min.css">
+		<link href="/js/angularjs/select2/select2.css" rel="stylesheet"/>
+		<script language="javascript" src="/js/LodopFuncs.js"></script>
+		<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+			width=0 height=0>
+			<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0
+				pluginspage="install_lodop.exe"></embed>
+		</object>
+		<script type="text/javascript" src="/js/printProtectPage.js"></script>
+		<body >
+		<div class = 'toolbar'>
+			<a id='btn_save' class="btn" ng-click="save()" >保存</a>
+			<!-- <a class="btn" ng-click="newExam()" >新建</a> -->
+			<a class="btn" ng-click="print()">打印检查表</a>
+			<a class="btn" ng-click="print1()">打印证明</a>
+			<a class="btn" ng-click="exit()">退出</a>
+		</div>
+		<alert class='alertpanel' ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+		<tabs>
+			<pane heading="女性婚前医学检查表" >
+				<div data-options="region:'center'" style='overflow:visible;'>
+					<table class='inputtable' >
+						<tr>
+							<td colspan=2 style='text-align:center;font:bold 22px 宋体'>&nbsp;<br>
+							女性婚前医学检查表</td>
+						</tr>
+						<tr>
+							<td colspan=2 align='right'>卡编号：<input ng-model="data.items[0]['卡编号']"  class="required"  minlength="18"  maxlength="18" style="width:200px" />
+							</td>
+						</tr>
+						<tr>
+							<td>填写日期：<input ng-model="dateitems['inputdate']" readOnly  ui-date style="width:120px" >
+							</td>
+							<td rowspan=4 ng-click='onlinePhoto("女方")' ng-bind-html-unsafe="headpic['女方_头像html']" >
+								
+							</td>
+						</tr>
+						<tr>
+							<td>姓&nbsp;&nbsp;&nbsp;&nbsp;名：<input class='select2' id='woman_name' ng-model="woman.name" searchWidth=500 ui-select2="{query:womanchangeName,formatSelection:formatSelection,formatSearching:womanSearching,formatNoMatches:formatNoMatches,openOnEnter:false,initSelection:initSelection}" style="width:120px" />
+							<select id='womannameselect' ng-model="womannameselect" realvalue='{{womannameselect}}' title='姓名、联系人只要输入1位就进行查询；身份证号输入10位后开始查询；条形码、档案编号输入4位后才进行查询' ng-options='option.value as option.name for option in namequeryoptions'  style="width:100px"></select>
+							<select id='womandistrictselect' ng-model="womandistrictselect" realvalue='{{womandistrictselect}}'  title='跨区域选择'  ng-options='option.value as option.name group by option.parent for option in districtdata.nodes'  style="width:120px"></select>
+							 出生日期：<input ng-model="woman.birthday" readonly ui-date style="width:120px" >
+							 
+							</td>
+						</tr>
+						<tr>
+							<td>身份证号：<input ng-model="woman.idcard" readOnly class="required number idcard"  minlength="18"  maxlength="18" />
+							</td>
+						</tr>
+						<tr>
+							<td>职&nbsp;&nbsp;&nbsp;&nbsp;业：<input readOnly ng-model="woman.occupation" class="required number"  minlength="18"  maxlength="18" style="width:300px" />
+							&nbsp;&nbsp;&nbsp;文化程度：<input readOnly  ng-model="woman.education"  class="required"  minlength="4"  maxlength="4" style="width:150px" />
+							
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>户口所在地属：<input readOnly ng-model="woman.residenceAddress"  class="required number"  minlength="18"  maxlength="18" style="width:410px" />
+							&nbsp;&nbsp;&nbsp;民族：<input readOnly ng-model="woman.folk"  class="required"  minlength="4"  maxlength="4" style="width:60px" />
+							&nbsp;&nbsp;国籍：<input  ng-model="data.items[0]['女方_国籍']"  class="required"  minlength="4"  maxlength="4" style="width:40px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>现&nbsp;住&nbsp;址：<input readOnly ng-model="woman.address"  class="required"  minlength="18"  maxlength="18" style="width:470px" />
+							邮&nbsp;&nbsp;&nbsp;&nbsp;编：<input readOnly ng-model="data.items[0]['女方_邮编']"  class="required number idcard"  minlength="6"  maxlength="6" style="width:130px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>工作单位：<input ng-model="woman.workUnit" readOnly class="required number"  minlength="18"  maxlength="18" style="width:470px" />
+							联系电话：<input ng-model="woman.linkmanTel" class="required" readOnly minlength="4"  maxlength="4" style="width:130px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>对方姓名：<input ng-model="woman.othersidename" readOnly class="required number"  minlength="18"  maxlength="18" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2><br>---------------------------------------以—下—由—医—生—填—写------------------------------------------</td>
+						</tr>
+						<tr>
+							<td colspan=2>编&nbsp;&nbsp;&nbsp;&nbsp;号：<input value="{{data.base.fileno | denc}}" class="required number" readOnly  minlength="18"  maxlength="18" style="width:230px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对方编号：<input value="{{data.items[0]['男方_编号'] | denc}}" readOnly class="required"   maxlength="18" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>检查日期：<input ng-model="dateitems['checkdate']"  ui-date style="width:120px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>血缘关系：<label><input type="radio" checked value="无" ng-model="data.items[0]['女方_血缘关系']">无</label>
+							<label><input type="radio" value="表" ng-model="data.items[0]['女方_血缘关系']">表</label>
+							<label><input type="radio" value="堂" ng-model="data.items[0]['女方_血缘关系']">堂</label>
+							<label><input type="radio" value="其他" ng-model="data.items[0]['女方_血缘关系']">其他</label><input ng-model="data.items[0]['女方_血缘关系其他']" ng-readonly="!(data.items[0]['女方_血缘关系'] | equal:'其他')" style="width:130px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>既往病史：<label><input type='checkbox' ng-true-value="true" ng-model="data.items[0]['女方_既往病史无'] " ng-un-checked="(data.items[0]['女方_既往病史心脏病']| equal:'true' )||(data.items[0]['女方_既往病史肺结核']| equal:'true' )||(data.items[0]['女方_既往病史肝脏病']| equal:'true' )||(data.items[0]['女方_既往病史泌尿生殖系统疾病']| equal:'true' )||(data.items[0]['女方_既往病史糖尿病']| equal:'true' )||(data.items[0]['女方_既往病史高血压']| equal:'true' )||(data.items[0]['女方_既往病史精神病']| equal:'true' )||(data.items[0]['女方_既往病史性病']| equal:'true' )||(data.items[0]['女方_既往病史癫痫']| equal:'true' )||(data.items[0]['女方_既往病史甲亢']| equal:'true')" >无</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史心脏病']" ng-un-checked="data.items[0]['女方_既往病史无']|equal:'true' ">心脏病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史肺结核']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">肺结核</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史肝脏病']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">肝脏病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史泌尿生殖系统疾病']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">泌尿生殖系疾病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史糖尿病']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">糖尿病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史高血压']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">高血压</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史精神病']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">精神病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史性病']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">性病</label><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史癫痫']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">癫痫</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_既往病史甲亢']" ng-un-checked="(data.items[0]['女方_既往病史无']|equal:'true') ">甲亢</label>
+								<label>先天疾患</label>
+								<input ng-model="data.items[0]['女方_既往病史先天疾患']"   class="required number"  maxlength="50" style="width:230px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							手术史：<label><input type='radio' value="无" ng-model="data.items[0]['女方_手术史']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['女方_手术史']">有</label><input ng-model="data.items[0]['女方_手术史情况']" ng-readonly="!(data.items[0]['女方_手术史'] | equal:'有')"  class="required number" maxlength="50" style="width:250px" />其他：<input ng-model="data.items[0]['女方_既往病史其他']" class="required number"   maxlength="50" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>现&nbsp;病&nbsp;史：<label><input type='radio' value="无" ng-model="data.items[0]['女方_现病史']">无</label>&nbsp;&nbsp;<label><input type='radio' value="有" ng-model="data.items[0]['女方_现病史']">有</label><input ng-model="data.items[0]['女方_现病史情况']" ng-readonly="!(data.items[0]['女方_现病史'] | equal:'有')"   maxlength="50" style="width:330px">
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>月&nbsp;经&nbsp;史：初潮年龄<input ng-model="data.items[0]['女方_初潮年龄']" minlength="1"  maxlength="2" style="width:100px">岁
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							经期、周期：<input ng-model="data.items[0]['女方_经期']" class="required number"  minlength="1"  maxlength="2" style="width:100px">/<input ng-model="data.items[0]['女方_月经周期']" class="required number"  minlength="2"  maxlength="2" style="width:100px">
+							量：<label><input type='radio' value="多" ng-model="data.items[0]['女方_月经量']">多</label>
+							<label><input type='radio' value="中" ng-model="data.items[0]['女方_月经量']">中</label>
+							<label><input type='radio' value="少" ng-model="data.items[0]['女方_月经量']">少</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							痛经：<label><input type='radio' value="无" ng-model="data.items[0]['女方_痛经']">无</label>
+							<label><input type='radio' value="轻" ng-model="data.items[0]['女方_痛经']">轻</label>
+							<label><input type='radio' value="中" ng-model="data.items[0]['女方_痛经']">中</label>
+							<label><input type='radio' value="重" ng-model="data.items[0]['女方_痛经']">重</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							末次月经：<input ng-model="dateitems['女方_末次月经时间']" ui-date minlength="4"  maxlength="4" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>既往婚育史：<label><input type='radio' value="无" ng-model="data.items[0]['女方_既往婚育史']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['女方_既往婚育史']">有</label>(<label><input type='checkbox' ng-disabled="!(data.items[0]['女方_既往婚育史'] | equal:'有')"  ng-true-value="true" ng-model="data.items[0]['女方_既往婚育史丧偶']">丧偶</label><label><input ng-disabled="!(data.items[0]['女方_既往婚育史'] | equal:'有')" type='checkbox' ng-true-value="true" ng-model="data.items[0]['女方_既往婚育史离异']">离异</label>)
+							足月<input ng-model="data.items[0]['女方_足月']" class="required number"  minlength="1"  maxlength="2" style="width:30px">次
+							早产<input ng-model="data.items[0]['女方_早产']" class="required number"  minlength="1"  maxlength="2" style="width:30px">次
+							流产<input ng-model="data.items[0]['女方_流产']" class="required number"  minlength="1"  maxlength="2" style="width:30px">次
+							子<input ng-model="data.items[0]['女方_子']" class="required number" minlength="1"  maxlength="2" style="width:30px">人&nbsp;女<input ng-model="data.items[0]['女方_女']" class="required number" minlength="1"  maxlength="2" style="width:30px">人
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>与遗传有关的家族史：<label><input type='checkbox' ng-true-value="true" ng-model="data.items[0]['女方_与遗传有关的家族史无']">无</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_与遗传有关的家族史盲']">盲</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_与遗传有关的家族史聋']">聋</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_与遗传有关的家族史哑']">哑</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_与遗传有关的家族史精神病']">精神病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_与遗传有关的家族史先天性智力低下']">先天性智力低下</label>
+								<label><input type='checkbox' ng-true-value="true" ng-model="data.items[0]['女方_与遗传有关的家族史先天性心脏病']">先天性心脏病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_与遗传有关的家族史血友病']">血友病</label><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_与遗传有关的家族史糖尿病']">糖尿病</label>
+								<label>其他</label>
+								<input ng-model="data.items[0]['女方_与遗传有关的家族史其他']" class="required number"   maxlength="50" style="width:330px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							患者与本人关系<input ng-model="data.items[0]['女方_与遗传有关的家族史患者与本人关系']" maxlength="50" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>家族近亲配婚：<label><input type='radio' value='无'  ng-model="data.items[0]['女方_家族近亲婚配']">无</label>
+								<label><input type='radio' value='有'  ng-model="data.items[0]['女方_家族近亲婚配']">有</label>(
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_家族近亲婚配父母']">父母</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_家族近亲婚配祖父母']">祖父母</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_家族近亲婚配外祖父母']">外祖父母</label>)
+								</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='text-align:center;font:bold 18px 宋体'>&nbsp;<br><br>
+							体&nbsp;&nbsp;&nbsp;格&nbsp;&nbsp;&nbsp;检&nbsp;&nbsp;&nbsp;查
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>血压：<input ng-model="data.items[0]['女方_收缩压']" class="required number"  minlength="2"  maxlength="10" style="width:81px" />/<input ng-model="data.items[0]['女方_舒张压']" class="required number"  minlength="2"  maxlength="10" style="width:81px" />mmHg
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							体重：<input ng-model="data.items[0]['女方_体重']" class="required number"  minlength="4"  maxlength="4" style="width:40px" />千克
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							身高<input ng-model="data.items[0]['女方_身高']" class="required number"  minlength="1"  maxlength="3" style="width:40px" />厘米
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>精神状态：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_精神状态']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_精神状态']">异常</label><input ng-model="data.items[0]['女方_精神状态异常']" class="required" maxlength="50" style="width:210px" />
+							&nbsp;&nbsp;
+							特殊体态：<label><input type='radio' value="无" ng-model="data.items[0]['女方_特殊体态']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['女方_特殊体态']">有</label><input ng-model="data.items[0]['女方_特殊体态情况']" class="required number"  minlength="2"  maxlength="10" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>智力：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_智力']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_智力']">异常</label>(
+							<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_智力异常常识']">常识</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_智力异常判断']">判断</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_智力异常记忆']">记忆</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['女方_智力异常计算']">计算</label>)
+							特殊面容：<label><input type='radio' value="无" ng-model="data.items[0]['女方_特殊面容']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['女方_特殊面容']">有</label><input ng-model="data.items[0]['女方_特殊面容情况']" class="required"   maxlength="50" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>五官：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_五官']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_五官']">异常</label><input ng-model="data.items[0]['女方_五官异常']" class="required"  maxlength="50" style="width:237px" />
+							&nbsp;&nbsp;
+							皮肤毛发：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_皮肤毛发']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_皮肤毛发']">异常</label><input ng-model="data.items[0]['女方_皮肤毛发异常']" class="required" maxlength="50" style="width:140px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>视力：左<input ng-model="data.items[0]['女方_视力左']" class="required number"  minlength="2"  maxlength="10" style="width:56px" />
+							右<input ng-model="data.items[0]['女方_视力右']" class="required number"  minlength="2"  maxlength="10" style="width:56px" />&nbsp;&nbsp;&nbsp;
+							辨色力：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_辨色力']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_辨色力']">异常</label>
+							&nbsp;&nbsp;&nbsp;
+							甲&nbsp;状&nbsp;腺：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_甲状腺']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_甲状腺']">异常</label><input ng-model="data.items[0]['女方_甲状腺异常']" class="required" maxlength="50" style="width:140px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>心：&nbsp;&nbsp;心率<input ng-model="data.items[0]['女方_心率']" class="required number"  minlength="2"  maxlength="10" style="width:63px" />次/分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							心律<input ng-model="data.items[0]['女方_心律']" class="required number"  minlength="2"  maxlength="10" style="width:101px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							杂&nbsp;&nbsp;&nbsp;&nbsp;音：<label><input type='radio' value="无" ng-model="data.items[0]['女方_杂音']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['女方_杂音']">有</label><input ng-model="data.items[0]['女方_杂音情况']" class="required" maxlength="50" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>肺：&nbsp;&nbsp;<label><input type='radio' value="正常" ng-model="data.items[0]['女方_肺']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_肺']">异常</label><input ng-model="data.items[0]['女方_肺异常']" class="required" maxlength="50" style="width:167px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							肝：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type='radio' value="未及" ng-model="data.items[0]['女方_肝']">未及</label>
+							<label><input type='radio' value="可及" ng-model="data.items[0]['女方_肝']">可及</label><input ng-model="data.items[0]['女方_肝情况']" class="required" maxlength="50" style="width:140px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>四肢脊柱：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_四肢脊柱']">正常</label>&nbsp;&nbsp;
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_四肢脊柱']">异常</label><input ng-model="data.items[0]['女方_四肢脊柱异常']" class="required" maxlength="100" style="width:400px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>其他：<input ng-model="data.items[0]['女方_体格检查其他']" class="required"  maxlength="100" style="width:556px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>第二性征：阴毛：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_阴毛']">正常</label>
+							<label><input type='radio' value="稀少" ng-model="data.items[0]['女方_阴毛']">稀少</label>
+							<label><input type='radio' value="无" ng-model="data.items[0]['女方_阴毛']">无</label>
+							<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							乳房：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_乳房']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_乳房']">异常</label><input ng-model="data.items[0]['女方_乳房异常']" class="required" maxlength="50" style="width:450px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>生&nbsp;殖&nbsp;器：肛查(常规)：外阴：<input ng-model="data.items[0]['女方_肛查外阴']" class="required number"  minlength="2"  maxlength="10" style="width:270px" />
+							分泌物：<input ng-model="data.items[0]['女方_肛查分泌物']" class="required number"  minlength="2"  maxlength="10" style="width:200px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							子宫：<input ng-model="data.items[0]['女方_肛查子宫']" class="required number"  minlength="2"  maxlength="10" style="width:270px" />
+							附&nbsp;&nbsp;件：<input ng-model="data.items[0]['女方_肛查附件']" class="required number"  minlength="2"  maxlength="10" style="width:200px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							阴道检查（必要时）：外阴：<input ng-model="data.items[0]['女方_阴道检查外阴']" class="required number"  minlength="2"  maxlength="10" style="width:89px" />
+							阴道：<input ng-model="data.items[0]['女方_阴道检查阴道']" class="required number"  minlength="2"  maxlength="10" style="width:90px" />
+							宫颈：<input ng-model="data.items[0]['女方_阴道检查宫颈']" class="required number"  minlength="2"  maxlength="10" style="width:200px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							子宫：<input ng-model="data.items[0]['女方_阴道检查子宫']" class="required number"  minlength="2"  maxlength="10" style="width:300px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							附件：<input ng-model="data.items[0]['女方_阴道检查附件']" class="required number"  minlength="2"  maxlength="10" style="width:300px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>其他：<input ng-model="data.items[0]['女方_第二性征其他']" class="required"   maxlength="50" style="width:510px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>同意阴道检查,本人签字：<input ng-model="data.items[0]['女方_阴道检查同意签字']" class="required"  minlength="2"  maxlength="10" style="width:115px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='text-align:center;font:bold 18px 宋体'>实验室及特殊检查
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2  style='border:2px inset BLACK; padding:15px;line-height:24px'>
+							1.胸部透视：<label><input type='radio' value="未发现异常" ng-model="data.items[0]['女方_胸部透视']">未发现异常</label>&nbsp;&nbsp;
+							<label><input type='radio' value="其他" ng-model="data.items[0]['女方_胸部透视']">其他</label><input ng-model="data.items[0]['女方_胸部透视其他']" class="required" maxlength="50" style="width:142px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							5.血转氨酶：<input ng-model="data.items[0]['女方_血转氨酶']" class="required number"  minlength="2"  maxlength="10" style="width:115px" />u/L<br>
+							2.血常规：血红蛋白：<input ng-model="data.items[0]['女方_血红蛋白']" class="required number"  minlength="1"  maxlength="5" style="width:32px" />g/L
+							红细胞：<input ng-model="data.items[0]['女方_红细胞']" class="required number"  minlength="1"  maxlength="5" style="width:32px" />×10<font style='font:normal 14px Calibri'>¹²</font>/L
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							6.乙肝表面抗原检测：<label><input type='radio' value="陰性" ng-model="data.items[0]['女方_乙肝表面抗原检测']">陰性</label>&nbsp;&nbsp;
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['女方_乙肝表面抗原检测']">陽性</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							白&nbsp;细&nbsp;胞：<input ng-model="data.items[0]['女方_白细胞']" class="required number"  minlength="1"  maxlength="5" style="width:32px" />×10⁹/L<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							白细胞分类：中性：<input ng-model="data.items[0]['女方_白细胞分类中性']" class="required number"  minlength="1"  maxlength="5" style="width:50px" />%
+							淋巴：<input ng-model="data.items[0]['女方_淋巴']" class="required number"  minlength="2"  maxlength="10" style="width:50px" />%<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							单核：<input ng-model="data.items[0]['女方_单核']" class="required number"  minlength="2"  maxlength="10" style="width:50px" />%<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							血小板：<input ng-model="data.items[0]['女方_血小板']" class="required number"  minlength="2"  maxlength="10" style="width:50px" />×10<font style='font:normal 14px Calibri'>¹²</font>/L<br>
+							3.尿常规：<label><input type='radio' value="正常" ng-model="data.items[0]['女方_尿常规']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['女方_尿常规']">异常</label>
+							尿蛋白：<label><input type='radio' value="陰性" ng-model="data.items[0]['女方_尿蛋白']">陰性</label>
+							<label><input type='radio' value="+" ng-model="data.items[0]['女方_尿蛋白']">（+）</label>
+							<label><input type='radio' value="≥++" ng-model="data.items[0]['女方_尿蛋白']">≥(++)</label>
+							7.HIV抗体：<label><input type='radio' value="陰性" ng-model="data.items[0]['女方_HIV抗体']">陰性</label>
+							<label><input type='radio' value="待复查" ng-model="data.items[0]['女方_HIV抗体']">待复查</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							尿糖：<label><input type='radio' value="陰性" ng-model="data.items[0]['女方_尿糖']">陰性</label>
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['女方_尿糖']">陽性</label><br>
+							4.梅毒：<label><input type='radio' value="陰性" ng-model="data.items[0]['女方_梅毒']">陰性</label>
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['女方_梅毒']">陽性</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							8.尿HCG：<label><input type='radio' value="陰性" ng-model="data.items[0]['女方_尿HCG']">陰性</label>
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['女方_尿HCG']">陽性</label><br>
+							&nbsp;
+							滴度：<label><input type='radio' value="未检测" ng-model="data.items[0]['女方_滴度']">未检测</label>
+							<label><input type='radio' value="1:8以下" ng-model="data.items[0]['女方_滴度']">1:8以下</label>
+							<label><input type='radio' value="1:8～1:64" ng-model="data.items[0]['女方_滴度']">1:8～1:64</label>
+							<label><input type='radio' value="1:64～1:128" ng-model="data.items[0]['女方_滴度']">1:64～1:128</label>
+							&nbsp;&nbsp;&nbsp;
+							9.淋球菌：<label><input type='radio' value="陰性" ng-model="data.items[0]['女方_淋球菌']">陰性</label>
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['女方_淋球菌']">陽性</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="1:128～1:256" ng-model="data.items[0]['女方_滴度']">1:128～1:256</label>
+							<label><input type='radio' value="1:256以上" ng-model="data.items[0]['女方_滴度']">1:256以上</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>检查结果：<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							未见异常：<input type='checkbox' ng-true-value="true" style='margin-bottom: 7px !important;' ng-model="data.items[0]['女方_特殊检查未见异常']"><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							异常情况：<TEXTAREA  ng-model="data.items[0]['女方_特殊检查异常情况']" class="required" cols=60 rows=2 maxlength="60" style='height:48px;width :600px !important;'></TEXTAREA><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							疾病诊断：<TEXTAREA ng-model="data.items[0]['女方_特殊检查疾病诊断']" class="required" cols=60 rows=2 maxlength="60"   style='height:48px;width :600px !important;'></TEXTAREA>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>医学意见：<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="未发现医学上不宜结婚的情形" ng-model="data.items[0]['女方_医学意见']">①未发现医学上不宜结婚的情形</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议暂缓结婚" ng-model="data.items[0]['女方_医学意见']">②建议暂缓结婚</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议不宜生育" ng-model="data.items[0]['女方_医学意见']">③建议不宜生育</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议不宜结婚" ng-model="data.items[0]['女方_医学意见']">④建议不宜结婚</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议采取医学措施,尊重受检者意愿" ng-model="data.items[0]['女方_医学意见']">⑤建议采取医学措施,尊重受检者意愿</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>婚前卫生咨询：
+							<TEXTAREA ng-model="data.items[0]['女方_婚前卫生咨询']" class="required" cols=77 rows=3 maxlength="120"  style='height:72px;width :620px !important;'></TEXTAREA>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>咨询指导结果：<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="接受指导意见" ng-model="data.items[0]['女方_咨询指导结果']">①接受指导意见</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="不接受指导意见,知情后选择结婚,后果自己承担" ng-model="data.items[0]['女方_咨询指导结果']">②不接受指导意见,知情后选择结婚,后果自己承担</label>
+							</td>
+						</tr>
+						<tr>
+							<td>转诊医院：<input ng-model="data.items[0]['女方_转诊医院']" class="required number"  minlength="2"  maxlength="10" style="width:120px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;转诊日期：<input  ng-model="dateitems['女方_转诊日期']" ui-date class="required number"  minlength="4"  maxlength="4" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td>预约复诊日期：<input ng-model="dateitems['女方_预约复诊日期']" ui-date class="required number"  minlength="4"  maxlength="4" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td>出具《婚前医学检查证明》日期：<input ng-model="dateitems['女方_出具《婚前医学检查证明》日期']" ui-date class="required number"  minlength="4"  maxlength="4" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='text-align:right'>
+							受检者签名：<input ng-model="data.items[0]['女方_普通检查受检者签名']" class="required"  minlength="1"  maxlength="6" style="width:100px" />检查医师签名：<input ng-model="data.items[0]['女方_普通检查医师签名']" class="required"  minlength="2"  maxlength="10" style="width:115px" />主检医师签名：<input ng-model="data.items[0]['女方_主检医师签名']" class="required number"  minlength="2"  maxlength="10" style="width:115px" />
+							</td>
+						</tr>
+					</table>
+				</div>
+			</pane>
+			<pane heading="男性婚前医学检查表" >
+				<div data-options="region:'center'" style='overflow:visible;'>
+					<table class='inputtable' >
+						<tr>
+							<td colspan=2 style='text-align:center;font:bold 22px 宋体'><br>
+							男性婚前医学检查表
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 align='right'>卡编号：<input ng-model="data.items[0]['卡编号']"  class="required"  minlength="18"  maxlength="18" style="width:200px" />
+							</td>
+						</tr>
+						<tr>
+							<td>填写日期：<input ng-model="dateitems['inputdate']" readonly ui-date style="width:120px" >
+							</td>
+							<td rowspan=4 ng-click='onlinePhoto("男方")' ng-bind-html-unsafe="headpic['男方_头像html']" >
+								
+							</td>
+						</tr>
+						<tr>
+							<td>姓&nbsp;&nbsp;&nbsp;&nbsp;名：<input id="man_name" ng-model="man.name" searchWidth=500 ui-select2="{query:manchangeName,formatSelection:formatSelection,formatSearching:manSearching,formatNoMatches:formatNoMatches,change:nameChange,openOnEnter:false,initSelection:initSelection}"  style="width:120px" />
+							<select id="mannameselect" ng-model="mannameselect" realvalue='{{mannameselect}}' title='姓名、联系人只要输入1位就进行查询；身份证号输入10位后开始查询；条形码、档案编号输入4位后才进行查询' ng-options='option.value as option.name for option in namequeryoptions'  style="width:100px"></select>
+							<select id="mandistrictselect" ng-model="mandistrictselect" realvalue='{{mandistrictselect}}' title='跨区域选择' ng-options='option.value as option.name group by option.parent for option in districtdata.nodes'  style="width:120px"></select>
+							出生日期：<input ng-model="man.birthday" readonly ui-date style="width:120px" >
+							</td>
+						</tr>
+						<tr>
+							<td>身份证号：<input ng-model="man.idcard" readonly class="required number idcard"  minlength="18"  maxlength="18" />
+							</td>
+						</tr>
+						<tr>
+							<td>职&nbsp;&nbsp;&nbsp;&nbsp;业：<input ng-model="man.occupation" readonly class="required number"  minlength="18"  maxlength="18" style="width:300px" />
+							&nbsp;&nbsp;&nbsp;文化程度：<input  ng-model="man.education" readonly class="required"  minlength="4"  maxlength="4" style="width:150px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>户口所在地属：<input  ng-model="man.residenceAddress" readonly  class="required number"  minlength="18"  maxlength="18" style="width:410px" />
+							&nbsp;&nbsp;&nbsp;民族：<input  ng-model="man.folk" readonly  class="required"  minlength="4"  maxlength="4" style="width:60px" />
+							&nbsp;&nbsp;国籍：<input  ng-model="data.items[0]['男方_国籍']"  class="required"  minlength="4"  maxlength="4" style="width:40px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>现&nbsp;住&nbsp;址：<input readonly  ng-model="man.address"  class="required"  minlength="18"  maxlength="18" style="width:470px" />
+							邮&nbsp;&nbsp;&nbsp;&nbsp;编：<input readonly ng-model="data.items[0]['男方_邮编']"  class="required number idcard"  minlength="6"  maxlength="6" style="width:130px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>工作单位：<input ng-model="man.workUnit" readonly class="required number"  minlength="18"  maxlength="18" style="width:470px" />
+							联系电话：<input ng-model="man.linkmanTel" readonly class="required"  minlength="4"  maxlength="4" style="width:130px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>对方姓名：<input ng-model="man.othersidename" readonly class="required number"  minlength="18"  maxlength="18" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2><br>---------------------------------------以—下—由—医—生—填—写------------------------------------------
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>编&nbsp;&nbsp;&nbsp;&nbsp;号：<input readOnly value="{{data.items[0]['男方_编号'] | denc}}" class="required number"  minlength="18"  maxlength="18" style="width:230px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对方编号：<input readonly value="{{data.base.fileno | denc}}" class="required"   maxlength="18" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>检查日期：<input ng-model="dateitems['checkdate']"  ui-date style="width:120px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>血缘关系：<label><input type="radio" checked value="无" ng-model="data.items[0]['男方_血缘关系']">无</label>
+							<label><input type="radio" value="表" ng-model="data.items[0]['男方_血缘关系']">表</label>
+							<label><input type="radio" value="堂" ng-model="data.items[0]['男方_血缘关系']">堂</label>
+							<label><input type="radio" value="其他" ng-model="data.items[0]['男方_血缘关系']">其他</label><input ng-model="data.items[0]['男方_血缘关系其他']" class="required"   maxlength="50" style="width:130px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>既往病史：<label><input type='checkbox' ng-true-value="true" value="无" ng-model="data.items[0]['男方_既往病史无']">无</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史心脏病']">心脏病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史肺结核']">肺结核</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史肝脏病']">肝脏病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史泌尿生殖系统疾病']">泌尿生殖系疾病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史糖尿病']">糖尿病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史高血压']">高血压</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史精神病']">精神病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史性病']">性病</label><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史癫痫']">癫痫</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_既往病史甲亢']">甲亢</label>
+								<label>先天疾患</label>
+								<input ng-model="data.items[0]['男方_既往病史先天疾患']" class="required number"  maxlength="50" style="width:230px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							手术史：<label><input type='radio' value="无" ng-model="data.items[0]['男方_手术史']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['男方_手术史']">有</label><input ng-model="data.items[0]['男方_手术史情况']" class="required number" maxlength="50" style="width:250px" />其他：<input ng-model="data.items[0]['男方_既往病史其他']" class="required number"   maxlength="50" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>现&nbsp;病&nbsp;史：<label><input type='radio' value="无" ng-model="data.items[0]['男方_现病史']">无</label>&nbsp;&nbsp;<label><input type='radio' value="有" ng-model="data.items[0]['男方_现病史']">有</label><input ng-model="data.items[0]['男方_现病史情况']"  maxlength="50" style="width:330px">
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>既往婚育史：<label><input type='radio' value="无" ng-model="data.items[0]['男方_既往婚育史']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['男方_既往婚育史']">有</label>(<label><input type='checkbox' ng-true-value="true" ng-model="data.items[0]['男方_既往婚育史丧偶']">丧偶</label><label><input type='checkbox' ng-true-value="true" ng-model="data.items[0]['男方_既往婚育史离异']">离异</label>)
+							子<input ng-model="data.items[0]['男方_子']" class="required number" minlength="1"  maxlength="2" style="width:30px">人&nbsp;女<input ng-model="data.items[0]['男方_女']" class="required number" minlength="1"  maxlength="2" style="width:30px">人
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>与遗传有关的家族史：<label><input type='checkbox' ng-true-value="true" ng-model="data.items[0]['男方_与遗传有关的家族史无']">无</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_与遗传有关的家族史盲']">盲</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_与遗传有关的家族史聋']">聋</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_与遗传有关的家族史哑']">哑</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_与遗传有关的家族史精神病']">精神病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_与遗传有关的家族史先天智力低下']">先天性智力低下</label>
+								<label><input type='checkbox' ng-true-value="true" ng-model="data.items[0]['男方_与遗传有关的家族史先天性心脏病']">先天性心脏病</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_与遗传有关的家族史血友病']">血友病</label><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_与遗传有关的家族史糖尿病']">糖尿病</label>
+								<label>其他</label>
+								<input ng-model="data.items[0]['男方_与遗传有关的家族史其他']" class="required number"   maxlength="50" style="width:330px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							患者与本人关系<input ng-model="data.items[0]['男方_与遗传有关的家族史患者与本人关系']" maxlength="50" style="width:230px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>家族近亲配婚：<label><input type='radio' value='无'  ng-model="data.items[0]['男方_家族近亲婚配']">无</label>
+								<label><input type='radio' value='有'  ng-model="data.items[0]['男方_家族近亲婚配']">有</label>(
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_家族近亲婚配父母']">父母</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_家族近亲婚配祖父母']">祖父母</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_家族近亲婚配外祖父母']">外祖父母</label>)
+								</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='text-align:center;font:bold 18px 宋体'>&nbsp;<br><br>
+							体&nbsp;&nbsp;&nbsp;格&nbsp;&nbsp;&nbsp;检&nbsp;&nbsp;&nbsp;查
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>血压：<input ng-model="data.items[0]['男方_收缩压']" class="required number"  minlength="2"  maxlength="10" style="width:81px" />/<input ng-model="data.items[0]['男方_舒张压']" class="required number"  minlength="2"  maxlength="10" style="width:81px" />mmHg
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							体重：<input ng-model="data.items[0]['男方_体重']" class="required number"  minlength="4"  maxlength="4" style="width:40px" />千克
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							身高<input ng-model="data.items[0]['男方_身高']" class="required number"  minlength="1"  maxlength="3" style="width:40px" />厘米
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>精神状态：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_精神状态']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_精神状态']">异常</label><input ng-model="data.items[0]['男方_精神状态异常']" class="required" maxlength="50" style="width:210px" />
+							&nbsp;&nbsp;
+							特殊体态：<label><input type='radio' value="无" ng-model="data.items[0]['男方_特殊体态']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['男方_特殊体态']">有</label><input ng-model="data.items[0]['男方_特殊体态情况']" class="required number"  minlength="2"  maxlength="10" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>智力：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_智力']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_智力']">异常</label>(
+							<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_智力异常常识']">常识</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_智力异常判断']">判断</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_智力异常记忆']">记忆</label>
+								<label><input type='checkbox' ng-true-value="true"  ng-model="data.items[0]['男方_智力异常计算']">计算</label>)
+							特殊面容：<label><input type='radio' value="无" ng-model="data.items[0]['男方_特殊面容']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['男方_特殊面容']">有</label><input ng-model="data.items[0]['男方_特殊面容情况']" class="required"   maxlength="50" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>五官：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_五官']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_五官']">异常</label><input ng-model="data.items[0]['男方_五官异常']" class="required"  maxlength="50" style="width:237px" />
+							&nbsp;&nbsp;
+							皮肤毛发：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_皮肤毛发']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_皮肤毛发']">异常</label><input ng-model="data.items[0]['男方_皮肤毛发异常']" class="required" maxlength="50" style="width:140px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>视力：左<input ng-model="data.items[0]['男方_视力左']" class="required number"  minlength="2"  maxlength="10" style="width:56px" />
+							右<input ng-model="data.items[0]['男方_视力右']" class="required number"  minlength="2"  maxlength="10" style="width:56px" />&nbsp;&nbsp;&nbsp;
+							辨色力：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_辨色力']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_辨色力']">异常</label>
+							&nbsp;&nbsp;&nbsp;
+							甲&nbsp;状&nbsp;腺：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_甲状腺']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_甲状腺']">异常</label><input ng-model="data.items[0]['男方_甲状腺异常']" class="required" maxlength="50" style="width:140px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>心：&nbsp;&nbsp;心率<input ng-model="data.items[0]['男方_心率']" class="required number"  minlength="2"  maxlength="10" style="width:63px" />次/分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							心律<input ng-model="data.items[0]['男方_心律']" class="required number"  minlength="2"  maxlength="10" style="width:101px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							杂&nbsp;&nbsp;&nbsp;&nbsp;音：<label><input type='radio' value="无" ng-model="data.items[0]['男方_杂音']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['男方_杂音']">有</label><input ng-model="data.items[0]['男方_杂音情况']" class="required" maxlength="50" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>肺：&nbsp;&nbsp;<label><input type='radio' value="正常" ng-model="data.items[0]['男方_肺']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_肺']">异常</label><input ng-model="data.items[0]['男方_肺异常']" class="required" maxlength="50" style="width:167px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							肝：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type='radio' value="未及" ng-model="data.items[0]['男方_肝']">未及</label>
+							<label><input type='radio' value="可及" ng-model="data.items[0]['男方_肝']">可及</label><input ng-model="data.items[0]['男方_肝情况']" class="required" maxlength="50" style="width:140px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>四肢脊柱：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_四肢脊柱']">正常</label>&nbsp;&nbsp;
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_四肢脊柱']">异常</label><input ng-model="data.items[0]['男方_四肢脊柱异常']" class="required" maxlength="100" style="width:400px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>其他：<input ng-model="data.items[0]['男方_体格检查其他']" class="required"  maxlength="100" style="width:556px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>第二性征：喉结：<label><input type='radio' value="有" ng-model="data.items[0]['男方_喉结']">有</label>
+							<label><input type='radio' value="无" ng-model="data.items[0]['男方_喉结']">无</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							阴毛：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_阴毛']">正常</label>
+							<label><input type='radio' value="稀少" ng-model="data.items[0]['男方_阴毛']">稀少</label>
+							<label><input type='radio' value="无" ng-model="data.items[0]['男方_阴毛']">无</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>生&nbsp;殖&nbsp;器：阴茎：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_阴茎']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_阴茎']">异常</label>
+							<input ng-model="data.items[0]['男方_阴茎异常']" class="required number"   maxlength="50" style="width:170px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							包皮：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_包皮']">正常</label>
+							<label><input type='radio' value="过长" ng-model="data.items[0]['男方_包皮']">过长</label>
+							<label><input type='radio' value="包茎" ng-model="data.items[0]['男方_包皮']">包茎</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							睾丸：<label><input type='radio' value="双侧扪及" ng-model="data.items[0]['男方_睾丸']">双侧扪及</label>
+							体积(ml)左<input ng-model="data.items[0]['男方_睾丸左体积']" class="required number"  maxlength="5" style="width:50px" />
+							右<input ng-model="data.items[0]['男方_睾丸右体积']" class="required number"  maxlength="5" style="width:50px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="未扪及" ng-model="data.items[0]['男方_睾丸']">未扪及：</label>
+							<label><input type='checkbox' ng-true-value="true" value="左" ng-model="data.items[0]['男方_睾丸未扪及左']">左</label>
+							<label><input type='checkbox' ng-true-value="true" value="右" ng-model="data.items[0]['男方_睾丸未扪及右']">右</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							附睾：<label><input type='radio'  ng-model="data.items[0]['男方_附睾']">双侧正常</label>
+							<label><input type='radio'  ng-model="data.items[0]['男方_附睾']">结节</label>：左<input ng-model="data.items[0]['男方_附睾结节左']" class="required number"   maxlength="50" style="width:100px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							右：<input ng-model="data.items[0]['男方_附睾结节右']" class="required number"   maxlength="50" style="width:100px" /><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							精索静脉曲张：<label><input type='radio' value="无" ng-model="data.items[0]['男方_精索静脉曲张']">无</label>
+							<label><input type='radio' value="有" ng-model="data.items[0]['男方_精索静脉曲张']">有：</label>
+							部位<input ng-model="data.items[0]['男方_精索静脉曲张部位']" maxlength="10" style="width:100px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							程度<input ng-model="data.items[0]['男方_精索静脉曲张程度']" maxlength="10" style="width:100px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2>其他：<input ng-model="data.items[0]['男方_第二性征其他']" class="required"  minlength="2"  maxlength="10" style="width:510px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='text-align:center;font:bold 18px 宋体'>实验室及特殊检查
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2  style='border:2px inset BLACK; padding:15px;line-height:24px'>
+							1.胸部透视：<label><input type='radio' value="未发现异常" ng-model="data.items[0]['男方_胸部透视']">未发现异常</label>&nbsp;&nbsp;
+							<label><input type='radio' value="其他" ng-model="data.items[0]['男方_胸部透视']">其他</label><input ng-model="data.items[0]['男方_胸部透视其他']" class="required" maxlength="50" style="width:142px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							5.血转氨酶：<input ng-model="data.items[0]['男方_血转氨酶']" class="required number"  minlength="2"  maxlength="10" style="width:115px" />u/L<br>
+							2.血常规：血红蛋白：<input ng-model="data.items[0]['男方_血红蛋白']" class="required number"  minlength="1"  maxlength="5" style="width:32px" />g/L
+							红细胞：<input ng-model="data.items[0]['男方_红细胞']" class="required number"  minlength="1"  maxlength="5" style="width:32px" />×10<font style='font:normal 14px Calibri'>¹²</font>/L
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							6.乙肝表面抗原检测：<label><input type='radio' value="陰性" ng-model="data.items[0]['男方_乙肝表面抗原检测']">陰性</label>&nbsp;&nbsp;
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['男方_乙肝表面抗原检测']">陽性</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							白&nbsp;细&nbsp;胞：<input ng-model="data.items[0]['男方_白细胞']" class="required number"  minlength="1"  maxlength="5" style="width:32px" />×10⁹/L<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							白细胞分类：中性：<input ng-model="data.items[0]['男方_白细胞分类中性']" class="required number"  minlength="1"  maxlength="5" style="width:50px" />%
+							淋巴：<input ng-model="data.items[0]['男方_淋巴']" class="required number"  minlength="2"  maxlength="10" style="width:50px" />%<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							单核：<input ng-model="data.items[0]['男方_单核']" class="required number"  minlength="2"  maxlength="10" style="width:50px" />%<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							血小板：<input ng-model="data.items[0]['男方_血小板']" class="required number"  minlength="2"  maxlength="10" style="width:50px" />×10<font style='font:normal 14px Calibri'>¹²</font>/L<br>
+							3.尿常规：<label><input type='radio' value="正常" ng-model="data.items[0]['男方_尿常规']">正常</label>
+							<label><input type='radio' value="异常" ng-model="data.items[0]['男方_尿常规']">异常</label>
+							尿蛋白：<label><input type='radio' value="陰性" ng-model="data.items[0]['男方_尿蛋白']">陰性</label>
+							<label><input type='radio' value="+" ng-model="data.items[0]['男方_尿蛋白']">（+）</label>
+							<label><input type='radio' value="≥++" ng-model="data.items[0]['男方_尿蛋白']">≥(++)</label>
+							7.HIV抗体：<label><input type='radio' value="陰性" ng-model="data.items[0]['男方_HIV抗体']">陰性</label>
+							<label><input type='radio' value="待复查" ng-model="data.items[0]['男方_HIV抗体']">待复查</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							尿糖：<label><input type='radio' value="陰性" ng-model="data.items[0]['男方_尿糖']">陰性</label>
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['男方_尿糖']">陽性</label><br>
+							4.梅毒：<label><input type='radio' value="陰性" ng-model="data.items[0]['男方_梅毒']">陰性</label>
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['男方_梅毒']">陽性</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							8.淋球菌：<label><input type='radio' value="陰性" ng-model="data.items[0]['男方_淋球菌']">陰性</label>
+							<label><input type='radio' value="陽性" ng-model="data.items[0]['男方_淋球菌']">陽性</label><br>
+							&nbsp;
+							滴度：<label><input type='radio' value="未检测" ng-model="data.items[0]['男方_滴度']">未检测</label>
+							<label><input type='radio' value="1:8以下" ng-model="data.items[0]['男方_滴度']">1:8以下</label>
+							<label><input type='radio' value="1:8～1:64" ng-model="data.items[0]['男方_滴度']">1:8～1:64</label>
+							<label><input type='radio' value="1:64～1:128" ng-model="data.items[0]['男方_滴度']">1:64～1:128</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="1:128～1:256" ng-model="data.items[0]['男方_滴度']">1:128～1:256</label>
+							<label><input type='radio' value="1:256以上" ng-model="data.items[0]['男方_滴度']">1:256以上</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>检查结果：<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							未见异常：<input type='checkbox' ng-true-value="true" style='margin-bottom: 7px !important;' ng-model="data.items[0]['男方_特殊检查未见异常']"><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							异常情况：<TEXTAREA  ng-model="data.items[0]['男方_特殊检查异常情况']" class="required" cols=60 rows=2 maxlength="60" style='height:48px;width :600px !important;'></TEXTAREA><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							疾病诊断：<TEXTAREA ng-model="data.items[0]['男方_特殊检查疾病诊断']" class="required" cols=60 rows=2 maxlength="60"  style='height:48px;width :600px !important;'></TEXTAREA>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>医学意见：<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="未发现医学上不宜结婚的情形" ng-model="data.items[0]['男方_医学意见']">①未发现医学上不宜结婚的情形</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议暂缓结婚" ng-model="data.items[0]['男方_医学意见']">②建议暂缓结婚</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议不宜生育" ng-model="data.items[0]['男方_医学意见']">③建议不宜生育</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议不宜结婚" ng-model="data.items[0]['男方_医学意见']">④建议不宜结婚</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="建议采取医学措施,尊重受检者意愿" ng-model="data.items[0]['男方_医学意见']">⑤建议采取医学措施,尊重受检者意愿</label>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>婚前卫生咨询：
+							<TEXTAREA ng-model="data.items[0]['男方_婚前卫生咨询']" class="required" cols=77 rows=3 maxlength="120" style='height:72px;width :620px !important;'></TEXTAREA>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='vertical-align:top'>咨询指导结果：<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="接受指导意见" ng-model="data.items[0]['男方_咨询指导结果']">①接受指导意见</label><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<label><input type='radio' value="不接受指导意见,知情后选择结婚,后果自己承担" ng-model="data.items[0]['男方_咨询指导结果']">②不接受指导意见,知情后选择结婚,后果自己承担</label>
+							</td>
+						</tr>
+						<tr>
+							<td>转诊医院：<input ng-model="data.items[0]['男方_转诊医院']" class="required number"  minlength="2"  maxlength="10" style="width:120px" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;转诊日期：<input  ng-model="dateitems['男方_转诊日期']" ui-date class="required number"  minlength="4"  maxlength="4" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td>预约复诊日期：<input ng-model="dateitems['男方_预约复诊日期']" ui-date class="required number"  minlength="4"  maxlength="4" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td>出具《婚前医学检查证明》日期：<input ng-model="dateitems['男方_出具《婚前医学检查证明》日期']" ui-date class="required number"  minlength="4"  maxlength="4" style="width:170px" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2 style='text-align:right'>
+							受检者签名：<input ng-model="data.items[0]['男方_普通检查受检者签名']" class="required"  minlength="1"  maxlength="6" style="width:100px" />检查医师签名：<input ng-model="data.items[0]['男方_普通检查医师签名']" class="required"  minlength="2"  maxlength="10" style="width:115px" />主检医师签名：<input ng-model="data.items[0]['男方_主检医师签名']" class="required number"  minlength="2"  maxlength="10" style="width:115px" />
+							</td>
+						</tr>
+					</table>
+				</div>
+			</pane>
+		</tabs>
+		<!-- 打印内容 -->
+		<div id='printpage1' style='overflow:visible;display:none'>
+		<!--  换行=7px
+				汉字=14px
+				空格=4px
+				总长677px
+				 -->
+			<table class='printtable' >
+				<tr>
+					<td colspan=2 style='text-align:center;font:bold 22px 宋体'>
+					女性婚前医学检查表
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					卡编号：<label ng-bind-html-unsafe="data.items[0]['卡编号']" style='width:160px'></label>
+					</td>
+				</tr>
+				<tr>
+					<td width='90%'>填写日期：<span ng-bind-html-unsafe="dateitems.inputdate |date2"></span>
+					</td>
+					<td rowspan=4   ng-bind-html-unsafe="headpic['女方_头像html']" >
+					</td>
+				</tr>
+				<tr>
+					<td>姓<span style='width:28px'></span>名：<label ng-bind-html-unsafe="woman.name.text" style='width:160px'></label>
+					<span style='width:26px'></span>出生日期：<span ng-bind-html-unsafe="woman.birthday |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>身份证号：<label style='width:240px' ng-bind-html-unsafe="woman.idcard |idcard"></label>
+					<span style='width:36px'></span>国<span style='width:28px'></span>籍：<label style='width:52px' ng-bind-html-unsafe="data.items[0]['女方_国籍'] "></label>
+					</td>
+				</tr>
+				<tr>
+					<td>职<span style='width:28px'></span>业：<label style='width:280px' ng-bind-html-unsafe="woman.occupation"></label>文化程度：<label style='width:98px' ng-bind-html-unsafe="woman.education"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>户口所在地属：<label style='width:474px' ng-bind-html-unsafe="woman.residenceAddress"></label>
+					民族：<label style='width:56px' ng-bind-html-unsafe="woman.folk "></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>现<span style='width:7px'></span>住<span style='width:7px'></span>址：<label  style='width:433px' ng-bind-html-unsafe="woman.address"></label>
+					邮<span style='width:28px'></span>编：<label style='width:97px' ng-bind-html-unsafe="data.items[0]['女方_邮编']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>工作单位：<label  style='width:433px' ng-bind-html-unsafe="woman.workUnit"></label>
+					联系电话：<label style='width:97px' ng-bind-html-unsafe="woman.linkmanTel" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>对方姓名：<label  style='width:160px' ng-bind-html-unsafe="woman.othersidename"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>-------------------------------------------------以—下—由—医—生—填—写----------------------------------------------------
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>编<span style='width:28px'></span>号：<label style='width:160px' ng-bind-html-unsafe="data.base.fileno | denc"></label>
+					<span style='width:60px'></span>
+					对方编号：<label  style='width:160px' ng-bind-html-unsafe="data.items[0]['男方_编号']|denc"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>检查日期：<span ng-bind-html-unsafe="dateitems.checkdate |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>血缘关系：<font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'表'"></font>表
+					<font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'堂'"></font>堂
+					<font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'其他'"></font>其他<label style='width:120px' ng-bind-html-unsafe="data.items[0]['女方_血缘关系其他']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>既往病史：<font ng-bind-html-unsafe="data.items[0]['女方_既往病史无']| checked:'true'"></font>无
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史心脏病']| checked:'true'"></font>心脏病
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史肺结核']| checked:'true'"></font>肺结核
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史肝脏病']| checked:'true'"></font>肝脏病
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史泌尿生殖系统疾病']| checked:'true'"></font>泌尿生殖系疾病
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史糖尿病']| checked:'true'"></font>糖尿病
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史高血压']| checked:'true'"></font>高血压
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史精神病']| checked:'true'"></font>精神病
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史性病']| checked:'true'"></font>性病<br>
+						<span style='width:70px'></span>
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史癫痫']| checked:'true'"></font>癫痫
+						<font ng-bind-html-unsafe="data.items[0]['女方_既往病史甲亢']| checked:'true'"></font>甲亢
+						<span style='width:14px'></span>先天疾患
+						<label style='width:230px' ng-bind-html-unsafe="data.items[0]['女方_既往病史先天疾患']" ></label><br>
+					<span style='width:70px'></span>
+					手术史：<font ng-bind-html-unsafe="data.items[0]['女方_手术史']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_手术史']| checked:'有'"></font>有
+					<label style='width:200px' ng-bind-html-unsafe="data.items[0]['女方_手术史情况']" ></label>
+					其他：<label style='width:200px' ng-bind-html-unsafe="data.items[0]['女方_既往病史其他']" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>现<span style='width:7px'></span>病<span style='width:7px'></span>史：<font ng-bind-html-unsafe="data.items[0]['女方_现病史'] | checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_现病史'] | checked:'有'"></font>有
+					<label style='width:330px' ng-bind-html-unsafe="data.items[0]['女方_现病史情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>月<span style='width:7px'></span>经<span style='width:7px'></span>史：初潮年龄<label style='width:80px' ng-bind-html-unsafe="data.items[0]['女方_初潮年龄']"></label>岁
+					<span style='width:16px'></span>
+					经期、周期：<label style='width:90px' ng-bind-html-unsafe="data.items[0]['女方_经期']"></label>/<label style='width:90px' ng-bind-html-unsafe="data.items[0]['女方_月经周期']"></label>
+					量：<font ng-bind-html-unsafe="data.items[0]['女方_月经量']| checked:'多'"></font>多
+					<font ng-bind-html-unsafe="data.items[0]['女方_月经量']| checked:'中'"></font>中
+					<font ng-bind-html-unsafe="data.items[0]['女方_月经量']| checked:'少'"></font>少
+					<span style='width:71px'></span>
+					痛经：<font ng-bind-html-unsafe="data.items[0]['女方_痛经']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_痛经']| checked:'轻'"></font>轻
+					<font ng-bind-html-unsafe="data.items[0]['女方_痛经']| checked:'中'"></font>中
+					<font ng-bind-html-unsafe="data.items[0]['女方_痛经']| checked:'重'"></font>重
+					<span style='width:166px'></span>
+					末次月经：<span ng-bind-html-unsafe="dateitems['女方_末次月经时间'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>既往婚育史：<font ng-bind-html-unsafe="data.items[0]['女方_既往婚育史']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_既往婚育史']| checked:'有'"></font>有(<font ng-bind-html-unsafe="data.items[0]['女方_既往婚育史丧偶']| checked:'true'"></font>丧偶<font ng-bind-html-unsafe="data.items[0]['女方_既往婚育史离异']| checked:'true'"></font>离异)
+					足月<label style='width:30px' ng-bind-html-unsafe="data.items[0]['女方_足月']"></label>次
+					早产<label style='width:30px' ng-bind-html-unsafe="data.items[0]['女方_早产']"></label>次
+					流产<label style='width:30px' ng-bind-html-unsafe="data.items[0]['女方_流产']"></label>次
+					子<label style='width:30px' ng-bind-html-unsafe="data.items[0]['女方_子']"></label>人
+					女<label style='width:30px' ng-bind-html-unsafe="data.items[0]['女方_女']"></label>人
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>与遗传有关的家族史：<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史无']| checked:'true'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史盲']| checked:'true'"></font>盲
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史聋']| checked:'true'"></font>聋
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史哑']| checked:'true'"></font>哑
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史精神病']| checked:'true'"></font>精神病
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史先天性智力低下']| checked:'true'"></font>先天性智力低下
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史先天性心脏病']| checked:'true'"></font>先天性心脏病
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史血友病']| checked:'true'"></font>血友病<br>
+					<span style='width:140px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史糖尿病']| checked:'true'"></font>糖尿病
+					<span style='width:10px'></span>其他
+					<label style='width:330px' ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史其他']"></label><br>
+					<span style='width:145px'></span>
+					患者与本人关系<label style='width:230px' ng-bind-html-unsafe="data.items[0]['女方_与遗传有关的家族史患者与本人关系']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>家族近亲配婚：<font ng-bind-html-unsafe="data.items[0]['女方_家族近亲婚配']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_家族近亲婚配']| checked:'有'"></font>有(
+					<font ng-bind-html-unsafe="data.items[0]['女方_家族近亲婚配父母']| checked:'true'"></font>父母
+					<font ng-bind-html-unsafe="data.items[0]['女方_家族近亲婚配祖父母']| checked:'true'"></font>祖父母
+					<font ng-bind-html-unsafe="data.items[0]['女方_家族近亲婚配外祖父母']| checked:'true'"></font>外祖父母)
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 align='right'>
+					受检者签名：<label style="width:100px" ></label>
+					医师签名：<label style="width:100px" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:center;font:bold 18px 宋体'>
+					体<span style='width:28px'></span>格<span style='width:28px'></span>检<span style='width:28px'></span>查
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>血压：<label style='width:80px' ng-bind-html-unsafe="data.items[0]['女方_收缩压']"></label>/<label style='width:80px' ng-bind-html-unsafe="data.items[0]['女方_舒张压']"></label>mmHg
+					<span style='width:100px'></span>
+					体重：<label style='width:60px' ng-bind-html-unsafe="data.items[0]['女方_体重']"></label>千克
+					<span style='width:50px'></span>
+					身高<label style='width:60px' ng-bind-html-unsafe="data.items[0]['女方_身高']"></label>厘米
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>精神状态：<font ng-bind-html-unsafe="data.items[0]['女方_精神状态']| checked:'正常'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['女方_精神状态']| checked:'异常'"></font>异常<label style='width:180px' ng-bind-html-unsafe="data.items[0]['女方_精神状态异常']"></label>
+					<span style='width:3px'></span>
+					特殊体态：<font ng-bind-html-unsafe="data.items[0]['女方_特殊体态']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['女方_特殊体态']| checked:'有'"></font>有<label style='width:170px' ng-bind-html-unsafe="data.items[0]['女方_特殊体态情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>智力：<font ng-bind-html-unsafe="data.items[0]['女方_智力']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['女方_智力']| checked:'异常'"></font>异常(
+						<font ng-bind-html-unsafe="data.items[0]['女方_智力异常常识']| checked:'常识'"></font>常识
+						<font ng-bind-html-unsafe="data.items[0]['女方_智力异常判断']| checked:'判断'"></font>判断
+						<font ng-bind-html-unsafe="data.items[0]['女方_智力异常记忆']| checked:'记忆'"></font>记忆
+						<font ng-bind-html-unsafe="data.items[0]['女方_智力异常计算']| checked:'计算'"></font>计算)
+						<span style='width:5px'></span>
+						特殊面容：<font ng-bind-html-unsafe="data.items[0]['女方_特殊面容']| checked:'无'"></font>无
+						<font ng-bind-html-unsafe="data.items[0]['女方_特殊面容']| checked:'有'"></font>有<label style='width:170px' ng-bind-html-unsafe="data.items[0]['女方_特殊面容情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>五官：<font ng-bind-html-unsafe="data.items[0]['女方_五官']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['女方_五官']| checked:'异常'"></font>异常<label style='width:180px' ng-bind-html-unsafe="data.items[0]['女方_五官异常']"></label>
+						<span style='width:31px'></span>
+						皮肤毛发：<font ng-bind-html-unsafe="data.items[0]['女方_皮肤毛发']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['女方_皮肤毛发']| checked:'异常'"></font>异常<label style='width:142px' ng-bind-html-unsafe="data.items[0]['女方_皮肤毛发异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>视力：左<label style='width:40px' ng-bind-html-unsafe="data.items[0]['女方_视力左']"></label>右<label style='width:40px' ng-bind-html-unsafe="data.items[0]['女方_视力右']"></label>
+						辨色力：<font ng-bind-html-unsafe="data.items[0]['女方_辨色力']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['女方_辨色力']| checked:'异常'"></font>异常</label>
+						<span style='width:33px'></span>
+						甲状腺：<font ng-bind-html-unsafe="data.items[0]['女方_甲状腺']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['女方_甲状腺']| checked:'异常'"></font>异常<label style='width:156px' ng-bind-html-unsafe="data.items[0]['女方_甲状腺异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>心：心率<label style='width:40px' ng-bind-html-unsafe="data.items[0]['女方_心率']"></label>次/分
+						<span style='width:20px'></span>
+						心律<label style='width:80px' ng-bind-html-unsafe="data.items[0]['女方_心律']"></label>
+						<span style='width:83px'></span>
+						杂音：<font ng-bind-html-unsafe="data.items[0]['女方_杂音']| checked:'无'"></font>无
+						<font ng-bind-html-unsafe="data.items[0]['女方_杂音']| checked:'有'"></font>有<label style='width:197px' ng-bind-html-unsafe="data.items[0]['女方_杂音情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>肺：<font ng-bind-html-unsafe="data.items[0]['女方_肺']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['女方_肺']| checked:'异常'"></font>异常<label style='width:194px' ng-bind-html-unsafe="data.items[0]['女方_肺异常']"></label>
+						<span style='width:31px'></span>
+						肝：<font ng-bind-html-unsafe="data.items[0]['女方_肝']| checked:'未及'"></font>未及
+						<font ng-bind-html-unsafe="data.items[0]['女方_肝']| checked:'可及'"></font>可及<label style='width:184px' ng-bind-html-unsafe="data.items[0]['女方_肝情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>四肢脊柱：<font ng-bind-html-unsafe="data.items[0]['女方_四肢脊柱']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['女方_四肢脊柱']| checked:'异常'"></font>异常<label style='width:400px' ng-bind-html-unsafe="data.items[0]['女方_四肢脊柱异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>其他：<label style='width:526px' ng-bind-html-unsafe="data.items[0]['女方_四肢脊柱异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style="text-align:right">
+						检查医师签名：<label style="width:100px" ></label>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id='printpage1_2' style='overflow:visible;display:none'>
+			<table class='printtable'>
+				<tr>
+					<td colspan=2>
+					第二性征：阴毛：<font ng-bind-html-unsafe="data.items[0]['女方_阴毛']| checked:'正常'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['女方_阴毛']| checked:'稀少'"></font>稀少
+					<font ng-bind-html-unsafe="data.items[0]['女方_阴毛']| checked:'无'"></font>无<br>
+					<span style='width:70px'></span>
+					乳房：<font ng-bind-html-unsafe="data.items[0]['女方_乳房']| checked:'正常'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['女方_乳房']| checked:'异常'"></font>异常<label style='width:474px' ng-bind-html-unsafe="data.items[0]['女方_乳房异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>生<span style='width:7px'></span>殖<span style='width:7px'></span>器：肛查(常规)：外阴：<label style='width:220px' ng-bind-html-unsafe="data.items[0]['女方_肛查外阴']"></label>
+					分泌物：<label style='width:200px' ng-bind-html-unsafe="data.items[0]['女方_肛查分泌物']"></label><br>
+					<span style='width:150px'></span>
+					子宫：<label style='width:220px' ng-bind-html-unsafe="data.items[0]['女方_肛查子宫']"></label>
+					附<span style='width:14px'></span>件：<label style='width:200px' ng-bind-html-unsafe="data.items[0]['女方_肛查附件']"></label><br>
+					<span style='width:70px'></span>
+					阴道检查（必要时）：外阴：<label style='width:105px' ng-bind-html-unsafe="data.items[0]['女方_阴道检查外阴']"></label>
+					阴道：<label style='width:105px' ng-bind-html-unsafe="data.items[0]['女方_阴道检查阴道']"></label>
+					宫颈：<label style='width:105px' ng-bind-html-unsafe="data.items[0]['女方_阴道检查宫颈']"></label><br>
+					<span style='width:209px'></span>
+					子宫：<label style='width:300px' ng-bind-html-unsafe="data.items[0]['女方_阴道检查子宫']"></label><br>
+					<span style='width:209px'></span>
+					附件：<label style='width:300px' ng-bind-html-unsafe="data.items[0]['女方_阴道检查附件']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>其他：<label style='width:509px' ng-bind-html-unsafe="data.items[0]['女方_第二性征其他']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>同意阴道检查,本人签字：<label style="width:115px" ></label>
+					<span style='width:182px'></span>
+					检查医师签名：<label style="width:115px" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:center;font:bold 18px 宋体'>实验室及特殊检查
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2  style='border:2px inset BLACK; padding:5px 15px 5px 15px;line-height:24px'>
+					1.胸部透视：<font ng-bind-html-unsafe="data.items[0]['女方_胸部透视']| checked:'未发现异常'"></font>未发现异常
+					<font ng-bind-html-unsafe="data.items[0]['女方_胸部透视']| checked:'其他'"></font>其他<label style='width:142px' ng-bind-html-unsafe="data.items[0]['女方_胸部透视其他']"></label>
+					<span style='width:0px'></span>
+					5.血转氨酶：<label style='width:115px' ng-bind-html-unsafe="data.items[0]['女方_血转氨酶']"></label>u/L<br>
+					2.血常规：血红蛋白：<label style='width:49px' ng-bind-html-unsafe="data.items[0]['女方_血红蛋白']"></label>g/L
+					红细胞：<label style='width:49px' ng-bind-html-unsafe="data.items[0]['女方_红细胞']"></label>×10<font style='font:normal 14px Calibri'>¹²</font>/L
+					<span style='width:1px'></span>
+					6.乙肝表面抗原检测：<font ng-bind-html-unsafe="data.items[0]['女方_乙肝表面抗原检测']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['女方_乙肝表面抗原检测']| checked:'陽性'"></font>陽性<br>
+					<span style='width:67px'></span>
+					白细胞：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['女方_白细胞']"></label>×10⁹/L<br>
+					<span style='width:67px'></span>
+					白细胞分类：中性：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['女方_白细胞分类中性']"></label>%
+					淋巴：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['女方_淋巴']"></label>%<br>
+					<span style='width:151px'></span>
+					单核：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['女方_单核']"></label>%<br>
+					<span style='width:67px'></span>
+					血小板：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['女方_血小板']"></label>×10<font style='font:normal 14px Calibri'>¹²</font>/L<br>
+					3.尿常规：<font ng-bind-html-unsafe="data.items[0]['女方_尿常规']| checked:'正常|10'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['女方_尿常规']| checked:'异常|10'"></font>异常
+					<span style='width:20px'></span>尿蛋白：<font ng-bind-html-unsafe="data.items[0]['女方_尿蛋白'] |checked:'陰性|10'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['女方_尿蛋白']| checked:'+|8'"></font>(+)
+					<font ng-bind-html-unsafe="data.items[0]['女方_尿蛋白']| checked:'≥++|8'"></font>≥(++)
+					<span style='width:27px'></span>
+					7.HIV抗体：<font ng-bind-html-unsafe="data.items[0]['女方_HIV抗体']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['女方_HIV抗体']| checked:'待复查'"></font>待复查<br>
+					<span style='width:70px'></span>
+					尿糖：<font ng-bind-html-unsafe="data.items[0]['女方_尿糖']| checked:'陰性|10'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['女方_尿糖']| checked:'陽性|10'"></font>陽性<br>
+					4.梅毒：<font ng-bind-html-unsafe="data.items[0]['女方_梅毒']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['女方_梅毒']| checked:'陽性'"></font>陽性
+					<span style='width:222px'></span>
+					8.尿HCG：<font ng-bind-html-unsafe="data.items[0]['女方_尿HCG']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['女方_尿HCG']| checked:'陽性'"></font>陽性<br>
+					<span style='width:20px'></span>
+					滴度：<font ng-bind-html-unsafe="data.items[0]['女方_滴度']| checked:'未检测|10'"></font>未检测
+					<font ng-bind-html-unsafe="data.items[0]['女方_滴度']| checked:'1:8以下|10'"></font>1:8以下
+					<font ng-bind-html-unsafe="data.items[0]['女方_滴度']| checked:'1:8～1:64|10'"></font>1:8～1:64
+					<font ng-bind-html-unsafe="data.items[0]['女方_滴度']| checked:'1:64～1:128|10'"></font>1:64～1:128
+					<span style='width:46px'></span>
+					9.淋球菌：<font ng-bind-html-unsafe="data.items[0]['女方_淋球菌']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['女方_淋球菌']| checked:'陽性'"></font>陽性<br>
+					<span style='width:113px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['女方_滴度']| checked:'1:128～1:256'"></font>1:128～1:256
+					<font ng-bind-html-unsafe="data.items[0]['女方_滴度']| checked:'1:256以上'"></font>1:256以上
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='vertical-align:top'>
+					<table class='textarea' >
+						<tr>	
+							<td>检查结果：</td>
+							<td>未见异常：</td>			
+							<td><font ng-bind-html-unsafe="data.items[0]['女方_特殊检查未见异常']| checked:'true'"></font></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td style='vertical-align:top;padding-top:7px;'>异常情况：</td>
+							<td>
+							<TEXTAREA style='height:48px;width :500px !important;overflow:auto;display: inline-block;'>{{data.items[0]['女方_特殊检查异常情况']}}</TEXTAREA>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td style='vertical-align:top;padding-top:7px;'>疾病诊断：</td>
+							<td>
+							<TEXTAREA style='height:48px;width :500px !important;overflow-y:hidden;display: inline-block;'>{{data.items[0]['女方_特殊检查疾病诊断']}}</TEXTAREA>
+							</td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='vertical-align:top'>医学意见：	<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'未发现医学上不宜结婚的情形'"></font>①未发现医学上不宜结婚的情形
+					<span style='width:70px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议暂缓结婚'"></font>②建议暂缓结婚<br>
+					<span style='width:77px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议不宜生育'"></font>③建议不宜生育
+					<span style='width:168px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议不宜结婚'"></font>④建议不宜结婚<br>
+					<span style='width:77px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议采取医学措施,尊重受检者意愿'"></font>⑤建议采取医学措施,尊重受检者意愿
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					受检双方签名：<label style="width:100px" ></label>/<label style="width:100px" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='border:0px'>
+					<table class='textarea' style='border:0px'><tr><td style='vertical-align:top;padding-top:7px;border:0px'>
+					婚前卫生咨询：</td>
+					<td>
+					<TEXTAREA style='height:73px;width :590px !important;overflow-y:hidden;display: inline-block;'>{{data.items[0]['女方_婚前卫生咨询']}}</TEXTAREA>
+					</td></tr></table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='vertical-align:top'>咨询指导结果：<font ng-bind-html-unsafe="data.items[0]['女方_咨询指导结果']| checked:'接受指导意见'"></font>①接受指导意见<br>
+					<span style='width:97px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['女方_咨询指导结果']| checked:'不接受指导意见,知情后选择结婚,后果自己承担'"></font>②不接受指导意见,知情后选择结婚,后果自己承担
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					受检双方签名：<label style="width:100px" ></label>/<label style="width:100px" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td>转诊医院：<label style='width:120px' ng-bind-html-unsafe="data.items[0]['女方_转诊医院']"></label>
+					<span style='width:20px'></span>
+					转诊日期：<span ng-bind-html-unsafe="dateitems['女方_转诊日期'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>预约复诊日期：<span ng-bind-html-unsafe="dateitems['女方_预约复诊日期'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>出具《婚前医学检查证明》日期：<span ng-bind-html-unsafe="dateitems['女方_出具《婚前医学检查证明》日期'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					主检医师签名：<label style="width:100px" ></label>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id='printpage1_3' style='overflow:visible;display:none'>
+			<table class='printtable'>
+				<tr>
+					<td colspan=2 style='text-align:center;font:bold 22px 宋体'>
+					<br>
+					男性婚前医学检查表
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					卡编号：<label ng-bind-html-unsafe="data.items[0]['卡编号']" style='width:160px'></label>
+					</td>
+				</tr>
+				<tr>
+					<td width='90%'>填写日期：<span ng-bind-html-unsafe="dateitems.inputdate |date2"></span>
+					</td>
+					<td rowspan=4   ng-bind-html-unsafe="headpic['男方_头像html']" >
+					</td>
+				</tr>
+				<tr>
+					<td>姓<span style='width:28px'></span>名：<label ng-bind-html-unsafe="man.name.text" style='width:160px'/></label>
+					<span style='width:26px'></span>出生日期：<span ng-bind-html-unsafe="dateitems['man.birthday'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>身份证号：<label style='width:240px' ng-bind-html-unsafe="data.man.idcard | idcard"></label>
+					<span style='width:36px'></span>国<span style='width:28px'></span>籍：<label style='width:52px' ng-bind-html-unsafe="data.items[0]['男方_国籍'] "></label>
+					</td>
+				</tr>
+				<tr>
+					<td>职<span style='width:28px'></span>业：<label style='width:280px' ng-bind-html-unsafe="man.occupation"></label>文化程度：<label style='width:98px' ng-bind-html-unsafe="man.education"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>户口所在地属：<label style='width:474px' ng-bind-html-unsafe="man.residenceAddress"></label>
+					民族：<label style='width:56px' ng-bind-html-unsafe="man.folk "></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>现<span style='width:7px'></span>住<span style='width:7px'></span>址：<label  style='width:433px' ng-bind-html-unsafe="man.address"></label>
+					邮<span style='width:28px'></span>编：<label style='width:97px' ng-bind-html-unsafe="data.items[0]['男方_邮编']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>工作单位：<label  style='width:433px' ng-bind-html-unsafe="man.workUnit"></label>
+					联系电话：<label style='width:97px' ng-bind-html-unsafe="man.linkmanTel" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>对方姓名：<label  style='width:160px' ng-bind-html-unsafe="man.othersidename"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2><br>-------------------------------------------------以—下—由—医—生—填—写----------------------------------------------------<br>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>编<span style='width:28px'></span>号：<label style='width:160px' ng-bind-html-unsafe="data.items[0]['男方_编号'] | denc"></label>
+					<span style='width:60px'></span>
+					对方编号：<label  style='width:160px' ng-bind-html-unsafe="data.base.fileno|denc"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>检查日期：<span ng-bind-html-unsafe="dateitems.checkdate |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>血缘关系：<font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'表'"></font>表
+					<font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'堂'"></font>堂
+					<font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'其他'"></font>其他<label style='width:120px' ng-bind-html-unsafe="data.items[0]['男方_血缘关系其他']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>既往病史：<font ng-bind-html-unsafe="data.items[0]['男方_既往病史无']| checked:'true'"></font>无
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史心脏病']| checked:'true'"></font>心脏病
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史肺结核']| checked:'true'"></font>肺结核
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史肝脏病']| checked:'true'"></font>肝脏病
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史泌尿生殖系统疾病']| checked:'true'"></font>泌尿生殖系疾病
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史糖尿病']| checked:'true'"></font>糖尿病
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史高血压']| checked:'true'"></font>高血压
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史精神病']| checked:'true'"></font>精神病
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史性病']| checked:'true'"></font>性病<br>
+						<span style='width:70px'></span>
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史癫痫']| checked:'true'"></font>癫痫
+						<font ng-bind-html-unsafe="data.items[0]['男方_既往病史甲亢']| checked:'true'"></font>甲亢
+						<span style='width:14px'></span>先天疾患
+						<label style='width:230px' ng-bind-html-unsafe="data.items[0]['男方_既往病史先天疾患']" ></label><br>
+					<span style='width:70px'></span>
+					手术史：<font ng-bind-html-unsafe="data.items[0]['男方_手术史']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_手术史']| checked:'有'"></font>有
+					<label style='width:200px' ng-bind-html-unsafe="data.items[0]['男方_手术史情况']" ></label>
+					其他：<label style='width:200px' ng-bind-html-unsafe="data.items[0]['男方_既往病史其他']" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>现<span style='width:7px'></span>病<span style='width:7px'></span>史：<font ng-bind-html-unsafe="data.items[0]['男方_现病史'] | checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_现病史'] | checked:'有'"></font>有
+					<label style='width:330px' ng-bind-html-unsafe="data.items[0]['男方_现病史情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>既往婚育史：<font ng-bind-html-unsafe="data.items[0]['男方_既往婚育史']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_既往婚育史']| checked:'有'"></font>有(<font ng-bind-html-unsafe="data.items[0]['男方_既往婚育史丧偶']| checked:'true'"></font>丧偶<font ng-bind-html-unsafe="data.items[0]['男方_既往婚育史离异']| checked:'true'"></font>离异)
+					子<label style='width:30px' ng-bind-html-unsafe="data.items[0]['男方_子']"></label>人
+					女<label style='width:30px' ng-bind-html-unsafe="data.items[0]['男方_女']"></label>人
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>与遗传有关的家族史：<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史无']| checked:'true'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史盲']| checked:'true'"></font>盲
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史聋']| checked:'true'"></font>聋
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史哑']| checked:'true'"></font>哑
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史精神病']| checked:'true'"></font>精神病
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史先天性智力低下']| checked:'true'"></font>先天性智力低下
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史先天性心脏病']| checked:'true'"></font>先天性心脏病
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史血友病']| checked:'true'"></font>血友病<br>
+					<span style='width:140px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史糖尿病']| checked:'true'"></font>糖尿病
+					<span style='width:10px'></span>其他
+					<label style='width:330px' ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史其他']"></label><br>
+					<span style='width:145px'></span>
+					患者与本人关系<label style='width:230px' ng-bind-html-unsafe="data.items[0]['男方_与遗传有关的家族史患者与本人关系']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>家族近亲配婚：<font ng-bind-html-unsafe="data.items[0]['男方_家族近亲婚配']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_家族近亲婚配']| checked:'有'"></font>有(
+					<font ng-bind-html-unsafe="data.items[0]['男方_家族近亲婚配父母']| checked:'true'"></font>父母
+					<font ng-bind-html-unsafe="data.items[0]['男方_家族近亲婚配祖父母']| checked:'true'"></font>祖父母
+					<font ng-bind-html-unsafe="data.items[0]['男方_家族近亲婚配外祖父母']| checked:'true'"></font>外祖父母)
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 align='right'>
+					受检者签名：<label style="width:100px" ></label>
+					医师签名：<label style="width:100px" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:center;font:bold 18px 宋体'><br>
+					体<span style='width:28px'></span>格<span style='width:28px'></span>检<span style='width:28px'></span>查
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>血压：<label style='width:80px' ng-bind-html-unsafe="data.items[0]['男方_收缩压']"></label>/<label style='width:80px' ng-bind-html-unsafe="data.items[0]['男方_舒张压']"></label>mmHg
+					<span style='width:100px'></span>
+					体重：<label style='width:60px' ng-bind-html-unsafe="data.items[0]['男方_体重']"></label>千克
+					<span style='width:50px'></span>
+					身高<label style='width:60px' ng-bind-html-unsafe="data.items[0]['男方_身高']"></label>厘米
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>精神状态：<font ng-bind-html-unsafe="data.items[0]['男方_精神状态']| checked:'正常'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['男方_精神状态']| checked:'异常'"></font>异常<label style='width:180px' ng-bind-html-unsafe="data.items[0]['男方_精神状态异常']"></label>
+					<span style='width:3px'></span>
+					特殊体态：<font ng-bind-html-unsafe="data.items[0]['男方_特殊体态']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_特殊体态']| checked:'有'"></font>有<label style='width:170px' ng-bind-html-unsafe="data.items[0]['男方_特殊体态情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>智力：<font ng-bind-html-unsafe="data.items[0]['男方_智力']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['男方_智力']| checked:'异常'"></font>异常(
+						<font ng-bind-html-unsafe="data.items[0]['男方_智力异常常识']| checked:'常识'"></font>常识
+						<font ng-bind-html-unsafe="data.items[0]['男方_智力异常判断']| checked:'判断'"></font>判断
+						<font ng-bind-html-unsafe="data.items[0]['男方_智力异常记忆']| checked:'记忆'"></font>记忆
+						<font ng-bind-html-unsafe="data.items[0]['男方_智力异常计算']| checked:'计算'"></font>计算)
+						<span style='width:5px'></span>
+						特殊面容：<font ng-bind-html-unsafe="data.items[0]['男方_特殊面容']| checked:'无'"></font>无
+						<font ng-bind-html-unsafe="data.items[0]['男方_特殊面容']| checked:'有'"></font>有<label style='width:170px' ng-bind-html-unsafe="data.items[0]['男方_特殊面容情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>五官：<font ng-bind-html-unsafe="data.items[0]['男方_五官']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['男方_五官']| checked:'异常'"></font>异常<label style='width:180px' ng-bind-html-unsafe="data.items[0]['男方_五官异常']"></label>
+						<span style='width:31px'></span>
+						皮肤毛发：<font ng-bind-html-unsafe="data.items[0]['男方_皮肤毛发']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['男方_皮肤毛发']| checked:'异常'"></font>异常<label style='width:142px' ng-bind-html-unsafe="data.items[0]['男方_皮肤毛发异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>视力：左<label style='width:40px' ng-bind-html-unsafe="data.items[0]['男方_视力左']"></label>右<label style='width:40px' ng-bind-html-unsafe="data.items[0]['男方_视力右']"></label>
+						辨色力：<font ng-bind-html-unsafe="data.items[0]['男方_辨色力']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['男方_辨色力']| checked:'异常'"></font>异常</label>
+						<span style='width:33px'></span>
+						甲状腺：<font ng-bind-html-unsafe="data.items[0]['男方_甲状腺']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['男方_甲状腺']| checked:'异常'"></font>异常<label style='width:156px' ng-bind-html-unsafe="data.items[0]['男方_甲状腺异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>心：心率<label style='width:40px' ng-bind-html-unsafe="data.items[0]['男方_心率']"></label>次/分
+						<span style='width:20px'></span>
+						心律<label style='width:80px' ng-bind-html-unsafe="data.items[0]['男方_心律']"></label>
+						<span style='width:83px'></span>
+						杂音：<font ng-bind-html-unsafe="data.items[0]['男方_杂音']| checked:'无'"></font>无
+						<font ng-bind-html-unsafe="data.items[0]['男方_杂音']| checked:'有'"></font>有<label style='width:197px' ng-bind-html-unsafe="data.items[0]['男方_杂音情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>肺：<font ng-bind-html-unsafe="data.items[0]['男方_肺']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['男方_肺']| checked:'异常'"></font>异常<label style='width:194px' ng-bind-html-unsafe="data.items[0]['男方_肺异常']"></label>
+						<span style='width:31px'></span>
+						肝：<font ng-bind-html-unsafe="data.items[0]['男方_肝']| checked:'未及'"></font>未及
+						<font ng-bind-html-unsafe="data.items[0]['男方_肝']| checked:'可及'"></font>可及<label style='width:184px' ng-bind-html-unsafe="data.items[0]['男方_肝情况']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>四肢脊柱：<font ng-bind-html-unsafe="data.items[0]['男方_四肢脊柱']| checked:'正常'"></font>正常
+						<font ng-bind-html-unsafe="data.items[0]['男方_四肢脊柱']| checked:'异常'"></font>异常<label style='width:400px' ng-bind-html-unsafe="data.items[0]['男方_四肢脊柱异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>其他：<label style='width:526px' ng-bind-html-unsafe="data.items[0]['男方_四肢脊柱异常']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style="text-align:right">
+						检查医师签名：<label style="width:100px" ></label>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id='printpage1_4' style='overflow:visible;display:none'>
+			<table class='printtable'>
+				<tr>
+					<td colspan=2>第二性征：喉结：<font ng-bind-html-unsafe="data.items[0]['男方_喉结']| checked:'有'"></font>有
+					<font ng-bind-html-unsafe="data.items[0]['男方_喉结']| checked:'无'"></font>无
+					<span style='width:282px'></span>
+					阴毛：<font ng-bind-html-unsafe="data.items[0]['男方_阴毛']| checked:'正常'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['男方_阴毛']| checked:'稀少'"></font>稀少
+					<font ng-bind-html-unsafe="data.items[0]['男方_阴毛']| checked:'无'"></font>无<br>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>生<span style='width:7px'></span>殖<span style='width:7px'></span>器：阴茎：<font ng-bind-html-unsafe="data.items[0]['男方_阴茎']| checked:'正常'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['男方_阴茎']| checked:'异常'"></font>异常<label style='width:200px' ng-bind-html-unsafe="data.items[0]['男方_阴茎异常']"></label>
+					<span style='width:43px'></span>
+					包皮：<font ng-bind-html-unsafe="data.items[0]['男方_包皮']| checked:'正常'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['男方_包皮']| checked:'过长'"></font>过长
+					<font ng-bind-html-unsafe="data.items[0]['男方_包皮']| checked:'包茎'"></font>包茎<br>
+					<span style='width:70px'></span>
+					睾丸：<font ng-bind-html-unsafe="data.items[0]['男方_睾丸']| checked:'双侧扪及'"></font>双侧扪及
+					体积(ml)左<label style='width:40px' ng-bind-html-unsafe="data.items[0]['男方_睾丸左体积']"></label>
+					右<label style='width:40px' ng-bind-html-unsafe="data.items[0]['男方_睾丸右体积']"></label>
+					<span style='width:72px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_睾丸']| checked:'未扪及'"></font>未扪及
+					<font ng-bind-html-unsafe="data.items[0]['男方_睾丸未扪及左']| checked:'true'"></font>左
+					<font ng-bind-html-unsafe="data.items[0]['男方_睾丸未扪及右']| checked:'true'"></font>右<br>
+					<span style='width:70px'></span>
+					附睾：<font ng-bind-html-unsafe="data.items[0]['男方_附睾']| checked:'双侧正常'"></font>双侧正常
+					<font ng-bind-html-unsafe="data.items[0]['男方_附睾']| checked:'结节'"></font>结节：左
+					<label style='width:180px' ng-bind-html-unsafe="data.items[0]['男方_附睾结节左']"></label>
+					<span style='width:0px'></span>
+					右：<label style='width:150px' ng-bind-html-unsafe="data.items[0]['男方_附睾结节右']"></label><br>
+					<span style='width:70px'></span>
+					精索静脉曲张：<font ng-bind-html-unsafe="data.items[0]['男方_精索静脉曲张']| checked:'无'"></font>无
+					<font ng-bind-html-unsafe="data.items[0]['男方_精索静脉曲张']| checked:'有'"></font>
+					有：部位<label style='width:170px' ng-bind-html-unsafe="data.items[0]['男方_精索静脉曲张部位']"></label>
+					程度<label style='width:150px' ng-bind-html-unsafe="data.items[0]['男方_精索静脉曲张程度']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2>其他：<label style='width:509px' ng-bind-html-unsafe="data.items[0]['男方_第二性征其他']"></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 align='right'>
+					检查医师签名：<label style="width:115px" ></label>
+					<br>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:center;font:bold 18px 宋体'>实验室及特殊检查
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2  style='border:2px inset BLACK; padding:15px;line-height:24px'>
+					1.胸部透视：<font ng-bind-html-unsafe="data.items[0]['男方_胸部透视']| checked:'未发现异常'"></font>未发现异常
+					<font ng-bind-html-unsafe="data.items[0]['男方_胸部透视']| checked:'其他'"></font>其他<label style='width:142px' ng-bind-html-unsafe="data.items[0]['男方_胸部透视其他']"></label>
+					<span style='width:0px'></span>
+					5.血转氨酶：<label style='width:115px' ng-bind-html-unsafe="data.items[0]['男方_血转氨酶']"></label>u/L<br>
+					2.血常规：血红蛋白：<label style='width:49px' ng-bind-html-unsafe="data.items[0]['男方_血红蛋白']"></label>g/L
+					红细胞：<label style='width:49px' ng-bind-html-unsafe="data.items[0]['男方_红细胞']"></label>×10<font style='font:normal 14px Calibri'>¹²</font>/L
+					<span style='width:1px'></span>
+					6.乙肝表面抗原检测：<font ng-bind-html-unsafe="data.items[0]['男方_乙肝表面抗原检测']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['男方_乙肝表面抗原检测']| checked:'陽性'"></font>陽性<br>
+					<span style='width:67px'></span>
+					白细胞：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['男方_白细胞']"></label>×10⁹/L<br>
+					<span style='width:67px'></span>
+					白细胞分类：中性：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['男方_白细胞分类中性']"></label>%
+					淋巴：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['男方_淋巴']"></label>%<br>
+					<span style='width:151px'></span>
+					单核：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['男方_单核']"></label>%<br>
+					<span style='width:67px'></span>
+					血小板：<label style='width:50px' ng-bind-html-unsafe="data.items[0]['男方_血小板']"></label>×10<font style='font:normal 14px Calibri'>¹²</font>/L<br>
+					3.尿常规：<font ng-bind-html-unsafe="data.items[0]['男方_尿常规']| checked:'正常|10'"></font>正常
+					<font ng-bind-html-unsafe="data.items[0]['男方_尿常规']| checked:'异常|10'"></font>异常
+					<span style='width:20px'></span>尿蛋白：<font ng-bind-html-unsafe="data.items[0]['男方_尿蛋白'] |checked:'陰性|10'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['男方_尿蛋白']| checked:'+|8'"></font>(+)
+					<font ng-bind-html-unsafe="data.items[0]['男方_尿蛋白']| checked:'≥++|8'"></font>≥(++)
+					<span style='width:27px'></span>
+					7.HIV抗体：<font ng-bind-html-unsafe="data.items[0]['男方_HIV抗体']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['男方_HIV抗体']| checked:'待复查'"></font>待复查<br>
+					<span style='width:70px'></span>
+					尿糖：<font ng-bind-html-unsafe="data.items[0]['男方_尿糖']| checked:'陰性|10'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['男方_尿糖']| checked:'陽性|10'"></font>陽性<br>
+					4.梅毒：<font ng-bind-html-unsafe="data.items[0]['男方_梅毒']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['男方_梅毒']| checked:'陽性'"></font>陽性
+					<span style='width:222px'></span>
+					8.淋球菌：<font ng-bind-html-unsafe="data.items[0]['男方_淋球菌']| checked:'陰性'"></font>陰性
+					<font ng-bind-html-unsafe="data.items[0]['男方_淋球菌']| checked:'陽性'"></font>陽性<br>
+					<span style='width:20px'></span>
+					滴度：<font ng-bind-html-unsafe="data.items[0]['男方_滴度']| checked:'未检测|10'"></font>未检测
+					<font ng-bind-html-unsafe="data.items[0]['男方_滴度']| checked:'1:8以下|10'"></font>1:8以下
+					<font ng-bind-html-unsafe="data.items[0]['男方_滴度']| checked:'1:8～1:64|10'"></font>1:8～1:64
+					<font ng-bind-html-unsafe="data.items[0]['男方_滴度']| checked:'1:64～1:128|10'"></font>1:64～1:128<br>
+					<span style='width:113px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_滴度']| checked:'1:128～1:256'"></font>1:128～1:256
+					<font ng-bind-html-unsafe="data.items[0]['男方_滴度']| checked:'1:256以上'"></font>1:256以上
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='vertical-align:top'>
+					<table class='textarea' >
+						<tr>	
+							<td>检查结果：</td>
+							<td>未见异常：</td>			
+							<td><font ng-bind-html-unsafe="data.items[0]['男方_特殊检查未见异常']| checked:'true'"></font></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td style='vertical-align:top;padding-top:7px;'>异常情况：</td>
+							<td>
+							<TEXTAREA style='height:48px;width :500px !important;overflow:auto;display: inline-block;'>{{data.items[0]['男方_特殊检查异常情况']}}</TEXTAREA>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td style='vertical-align:top;padding-top:7px;'>疾病诊断：</td>
+							<td>
+							<TEXTAREA style='height:48px;width :500px !important;overflow-y:hidden;display: inline-block;'>{{data.items[0]['男方_特殊检查疾病诊断']}}</TEXTAREA>
+							</td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='vertical-align:top'>医学意见：	<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'未发现医学上不宜结婚的情形'"></font>①未发现医学上不宜结婚的情形
+					<span style='width:70px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议暂缓结婚'"></font>②建议暂缓结婚<br>
+					<span style='width:77px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议不宜生育'"></font>③建议不宜生育
+					<span style='width:168px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议不宜结婚'"></font>④建议不宜结婚<br>
+					<span style='width:77px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议采取医学措施,尊重受检者意愿'"></font>⑤建议采取医学措施,尊重受检者意愿
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					受检双方签名：<label style="width:100px" ></label>/<label style="width:100px" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 >
+					<table class='textarea'><tr><td style='vertical-align:top;padding-top:7px;'>
+					婚前卫生咨询：</td>
+					<td>
+					<TEXTAREA style='height:73px;width :590px !important;overflow-y:hidden;display: inline-block;'>{{data.items[0]['男方_婚前卫生咨询']}}</TEXTAREA>
+					</td></tr></table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='vertical-align:top'>咨询指导结果：<font ng-bind-html-unsafe="data.items[0]['男方_咨询指导结果']| checked:'接受指导意见'"></font>①接受指导意见<br>
+					<span style='width:97px'></span>
+					<font ng-bind-html-unsafe="data.items[0]['男方_咨询指导结果']| checked:'不接受指导意见,知情后选择结婚,后果自己承担'"></font>②不接受指导意见,知情后选择结婚,后果自己承担
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					受检双方签名：<label style="width:100px" ></label>/<label style="width:100px" ></label>
+					</td>
+				</tr>
+				<tr>
+					<td>转诊医院：<label style='width:120px' ng-bind-html-unsafe="data.items[0]['男方_转诊医院']"></label>
+					<span style='width:20px'></span>
+					转诊日期：<span ng-bind-html-unsafe="dateitems['男方_转诊日期'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>预约复诊日期：<span ng-bind-html-unsafe="dateitems['男方_预约复诊日期'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>出具《婚前医学检查证明》日期：<span ng-bind-html-unsafe="dateitems['男方_出具《婚前医学检查证明》日期'] |date2"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan=2 style='text-align:right'>
+					主检医师签名：<label style="width:100px" ></label>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<!-- 证明打印 -->
+		<div id='printpage2' style='overflow:visible;display: none ' borderthin='true'>
+			<table class='printtable1'  width='100%'  >
+				<tr width='100%'>
+				<th width="48%">
+					<div width="100%">
+						<table width='100%'>
+							<tr><td style='text-align:center;font:bold 22px 宋体'>婚前医学检查证明存根<br>
+							</td></tr>
+							<tr><td align='center'><label ng-bind-html-unsafe="woman['省']"  style='width:5%'></label>省
+							<label ng-bind-html-unsafe="woman['市']" style='width:5%'></label>地(州、市) 
+							<label ng-bind-html-unsafe="woman['县']" style='width:5%'></label>县(市、区) 
+							<label ng-bind-html-unsafe="woman['乡镇']" style='width:5%'></label>乡(镇、居委会) 
+							<span style='width:width:2%'></span>
+							编号：<span ng-bind-html-unsafe="data.base.id" style='width:100px'></span>
+							</td></tr>
+							<tr ><td width='100%'>
+							<table class='printtable2' borderthin='true' border='1'>
+								<tr >
+									<td colspan=1 width='15%'>姓<span style='width:35%'></span>名</td>
+									<td colspan=4 width='32%'><span ng-bind-html-unsafe="woman.name.text" style='width:100px'></span></td>
+									<td colspan=1 width='15%'>出生日期</td>
+									<td colspan=3 width='32%'><label ng-bind-html-unsafe="woman.birthday |date3:'label'"></label></td>
+									<td colspan=1 width='8%' rowspan=3 ng-bind-html-unsafe="headpic['女方_头像html']"></td>
+								</tr>
+								<tr>
+									<td colspan=1 >性<span style='width:35%'></span>别</td>
+									<td colspan=4 >女</td>
+									<td colspan=1 >民<span style='width:35%'></span>族</td>
+									<td colspan=3 ><span style='width:90%' ng-bind-html-unsafe="woman.folk "></span></td>
+								</tr>
+								<tr>
+									<td colspan=2 width='17%'>身<span style='width:10%'></span>份<span style='width:10%'></span>证<span style='width:10%'></span>号</td>
+									<td colspan=7 ><span style='width:80%' ng-bind-html-unsafe="woman.idcard |idcard"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 width='18%'>单位或职业</td>
+									<td colspan=7 ><span width='76%' ng-bind-html-unsafe="woman.workUnit"></span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan=3 >现住址</td>
+									<td colspan=7 ><span  style='width:100%' ng-bind-html-unsafe="woman.address| limit:28"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 >对方姓名</td>
+									<td colspan=7 ><span  style='width:160px' ng-bind-html-unsafe="woman.othersidename"></span></td>
+								</tr>
+								<tr>
+									<td colspan=10 style='text-align:left;'><span width='5%'></span>直系、三代内旁系血亲关系 <font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'无'"></font>无
+										<font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'表,堂,其他'"></font>有
+									</td>
+								</tr>
+								<tr height='25%'>
+									<td colspan=10 width='100%' style='text-align:left;vertical-align:top;line-height:24px;'>
+										婚前医学检查结果：<font ng-bind-html-unsafe="data.items[0]['女方_特殊检查未见异常']| true:'true|未见异常|'"></font><br>
+										<span style='width:10%'></span><font ng-bind-html-unsafe="data.items[0]['女方_特殊检查未见异常']| true:'true||异常情况：'"></font><span width='70%' ng-bind-html-unsafe="data.items[0]['女方_特殊检查异常情况']"></span><br>
+										<span style='width:10%'></span><font ng-bind-html-unsafe="data.items[0]['女方_特殊检查未见异常']| true:'true||疾病诊断：'"></font><span  width='70%' ng-bind-html-unsafe="data.items[0]['女方_特殊检查疾病诊断']"></span>
+									</td>
+								</tr>
+								<tr height='20%'>
+									<td colspan=10 style='text-align:left;vertical-align:top;line-height:24px;'>
+										医学意见：<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'未发现医学上不宜结婚的情形'"></font>①未发现医学上不宜结婚的情形
+										<span style='width:10%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议暂缓结婚'"></font>②建议暂缓结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议不宜生育'"></font>③建议不宜生育
+										<span style='width:28%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议不宜结婚'"></font>④建议不宜结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议采取医学措施,尊重受检者意愿'"></font>⑤建议采取医学措施,尊重受检者意愿
+									</td>
+								</tr>
+								<tr>
+									<td colspan=4 width='20%'>主检医师<br>签<span style='width:20%'></span>字</td>
+									<td colspan=3 width='30%'>&nbsp;</td>
+									<td colspan=1 width='20%'>检查单位<br>专用章</td>
+									<td colspan=2 width='30%'>&nbsp;</td>
+								</tr>
+							</table>
+							</td></tr>
+							<tr><td>(此联留婚前医学检查单位)</td></tr>
+							<tr><td style='text-align:right'><span ng-bind-html-unsafe="dateitems.inputdate |date3:'span'"></span><span style='width:5%'></span>
+							</td></tr>
+						</table>
+					</div>
+				</th>
+				<th width="2%"></th>
+				<th width="48%">
+					<div width="100%">
+						<table width='100%'>
+							<tr><td style='text-align:center;font:bold 22px 宋体'>婚前医学检查证明<br>
+							</td></tr>
+							<tr><td align='center'><label ng-bind-html-unsafe="woman['省']"  style='width:5%'></label>省
+							<label ng-bind-html-unsafe="woman['市']" style='width:5%'></label>地(州、市) 
+							<label ng-bind-html-unsafe="woman['县']" style='width:5%'></label>县(市、区) 
+							<label ng-bind-html-unsafe="woman['乡镇']" style='width:5%'></label>乡(镇、居委会) 
+							<span style='width:width:2%'></span>
+							编号：<span ng-bind-html-unsafe="data.base.id" style='width:100px'></span>
+							</td></tr>
+							<tr ><td width='100%'>
+							<table class='printtable2' borderthin='true' border='1'>
+								<tr >
+									<td colspan=1 width='15%'>姓<span style='width:35%'></span>名</td>
+									<td colspan=4 width='32%'><span ng-bind-html-unsafe="woman.name.text" style='width:100px'></span></td>
+									<td colspan=1 width='15%'>出生日期</td>
+									<td colspan=3 width='32%'><label ng-bind-html-unsafe="woman.birthday |date3:'label'"></label></td>
+									<td colspan=1 width='8%' rowspan=3 ng-bind-html-unsafe="headpic['女方_头像html']"></td>
+								</tr>
+								<tr>
+									<td colspan=1 >性<span style='width:35%'></span>别</td>
+									<td colspan=4 >女</td>
+									<td colspan=1 >民<span style='width:35%'></span>族</td>
+									<td colspan=3 ><span style='width:90%' ng-bind-html-unsafe="woman.folk "></span></td>
+								</tr>
+								<tr>
+									<td colspan=2 width='17%'>身<span style='width:10%'></span>份<span style='width:10%'></span>证<span style='width:10%'></span>号</td>
+									<td colspan=7 ><span style='width:80%' ng-bind-html-unsafe="woman.idcard |idcard"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 width='18%'>单位或职业</td>
+									<td colspan=7 ><span width='76%' ng-bind-html-unsafe="woman.workUnit"></span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan=3 >现住址</td>
+									<td colspan=7 ><span  style='width:100%' ng-bind-html-unsafe="woman.address| limit:28"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 >对方姓名</td>
+									<td colspan=7 ><span  style='width:160px' ng-bind-html-unsafe="woman.othersidename"></span></td>
+								</tr>
+								<tr>
+									<td colspan=10 style='text-align:left;'><span width='5%'></span>直系、三代内旁系血亲关系 <font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'无'"></font>无
+										<font ng-bind-html-unsafe="data.items[0]['女方_血缘关系'] | checked:'表,堂,其他'"></font>有
+									</td>
+								</tr>
+								<tr height='25%'>
+									<td colspan=10 width='100%' style='text-align:left;vertical-align:top;line-height:24px;'>
+										婚前医学检查结果：<font ng-bind-html-unsafe="data.items[0]['女方_特殊检查未见异常']| true:'true|未见异常|'"></font><br>
+										<span style='width:10%'></span><font ng-bind-html-unsafe="data.items[0]['女方_特殊检查未见异常']| true:'true||异常情况：'"></font><font ng-bind-html-unsafe="data.items[0]['女方_特殊检查异常情况']"></font><br>
+										<span style='width:10%'></span><font ng-bind-html-unsafe="data.items[0]['女方_特殊检查未见异常']| true:'true||疾病诊断：'"></font><font ng-bind-html-unsafe="data.items[0]['女方_特殊检查疾病诊断']"></font>
+									</td>
+								</tr>
+								<tr height='20%'>
+									<td colspan=10 style='text-align:left;vertical-align:top;line-height:24px;'>
+										医学意见：<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'未发现医学上不宜结婚的情形'"></font>①未发现医学上不宜结婚的情形
+										<span style='width:10%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议暂缓结婚'"></font>②建议暂缓结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议不宜生育'"></font>③建议不宜生育
+										<span style='width:28%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议不宜结婚'"></font>④建议不宜结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['女方_医学意见']| checked:'建议采取医学措施,尊重受检者意愿'"></font>⑤建议采取医学措施,尊重受检者意愿
+									</td>
+								</tr>
+								<tr>
+									<td colspan=4 width='20%'>主检医师<br>签<span style='width:20%'></span>字</td>
+									<td colspan=3 width='30%'>&nbsp;</td>
+									<td colspan=1 width='20%'>检查单位<br>专用章</td>
+									<td colspan=2 width='30%'>&nbsp;</td>
+								</tr>
+							</table>
+							</td></tr>
+							<tr><td>注：1.本证明有效期为三个月；2.对上述结果如有异议，可申请医学技术鉴定。<br>(此联交婚姻登记部门)</td></tr>
+							<tr><td style='text-align:right'><span ng-bind-html-unsafe="dateitems.inputdate |date3:'span'"></span><span style='width:5%'></span>
+							</td></tr>
+						</table>
+					</div>
+				</th>
+				<th width="2%"></th>
+				</tr>
+			</table>
+		</div>
+		<!-- 证明打印 -->
+		<div id='printpage2_2' style='overflow:visible;display: none ' borderthin='true'>
+			<table class='printtable1'  width='100%'  >
+				<tr width='100%'>
+				<th width="48%">
+					<div width="100%">
+						<table width='100%'>
+							<tr><td style='text-align:center;font:bold 22px 宋体'>婚前医学检查证明存根<br>
+							</td></tr>
+							<tr><td align='center'><label ng-bind-html-unsafe="man['省']"  style='width:5%'></label>省
+							<label ng-bind-html-unsafe="man['市']" style='width:5%'></label>地(州、市) 
+							<label ng-bind-html-unsafe="man['县']" style='width:5%'></label>县(市、区) 
+							<label ng-bind-html-unsafe="man['乡镇']" style='width:5%'></label>乡(镇、居委会) 
+							<span style='width:width:2%'></span>
+							编号：<span ng-bind-html-unsafe="data.base.id" style='width:100px'></span>
+							</td></tr>
+							<tr ><td width='100%'>
+							<table class='printtable2' borderthin='true' border='1'>
+								<tr >
+									<td colspan=1 width='15%'>姓<span style='width:35%'></span>名</td>
+									<td colspan=4 width='32%'><span ng-bind-html-unsafe="man.name.text" style='width:100px'></span></td>
+									<td colspan=1 width='15%'>出生日期</td>
+									<td colspan=3 width='32%'><label ng-bind-html-unsafe="man.birthday |date3:'label'"></label></td>
+									<td colspan=1 width='8%' rowspan=3 ng-bind-html-unsafe="headpic['男方_头像html']"></td>
+								</tr>
+								<tr>
+									<td colspan=1 >性<span style='width:35%'></span>别</td>
+									<td colspan=4 >男</td>
+									<td colspan=1 >民<span style='width:35%'></span>族</td>
+									<td colspan=3 ><span style='width:90%' ng-bind-html-unsafe="man.folk "></span></td>
+								</tr>
+								<tr>
+									<td colspan=2 width='17%'>身<span style='width:10%'></span>份<span style='width:10%'></span>证<span style='width:10%'></span>号</td>
+									<td colspan=7 ><span style='width:80%' ng-bind-html-unsafe="man.idcard |idcard"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 width='18%'>单位或职业</td>
+									<td colspan=7 ><span width='76%' ng-bind-html-unsafe="man.workUnit"></span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan=3 >现住址</td>
+									<td colspan=7 ><span  style='width:100%' ng-bind-html-unsafe="man.address| limit:28"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 >对方姓名</td>
+									<td colspan=7 ><span  style='width:160px' ng-bind-html-unsafe="man.othersidename"></span></td>
+								</tr>
+								<tr>
+									<td colspan=10 style='text-align:left;'><span width='5%'></span>直系、三代内旁系血亲关系 <font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'无'"></font>无
+										<font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'表,堂,其他'"></font>有
+									</td>
+								</tr>
+								<tr height='25%'>
+									<td colspan=10 width='100%' style='text-align:left;vertical-align:top;line-height:24px;'>
+										婚前医学检查结果：{{data.items[0]['男方_特殊检查未见异常']| true:'true|未见异常|'}}<br>
+										<span style='width:3%'></span>{{data.items[0]['男方_特殊检查未见异常']| true:'true||异常情况：'}}{{data.items[0]['男方_特殊检查异常情况']}}<br>
+										<span style='width:3%'></span>{{data.items[0]['男方_特殊检查未见异常']| true:'true||疾病诊断：'}}{{data.items[0]['男方_特殊检查疾病诊断']}}
+									</td>
+								</tr>
+								<tr height='20%'>
+									<td colspan=10 style='text-align:left;vertical-align:top;line-height:24px;'>
+										医学意见：<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'未发现医学上不宜结婚的情形'"></font>①未发现医学上不宜结婚的情形
+										<span style='width:10%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议暂缓结婚'"></font>②建议暂缓结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议不宜生育'"></font>③建议不宜生育
+										<span style='width:28%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议不宜结婚'"></font>④建议不宜结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议采取医学措施,尊重受检者意愿'"></font>⑤建议采取医学措施,尊重受检者意愿
+									</td>
+								</tr>
+								<tr>
+									<td colspan=4 width='20%'>主检医师<br>签<span style='width:20%'></span>字</td>
+									<td colspan=3 width='30%'>&nbsp;</td>
+									<td colspan=1 width='20%'>检查单位<br>专用章</td>
+									<td colspan=2 width='30%'>&nbsp;</td>
+								</tr>
+							</table>
+							</td></tr>
+							<tr><td>(此联留婚前医学检查单位)</td></tr>
+							<tr><td style='text-align:right'><span ng-bind-html-unsafe="dateitems.inputdate |date3:'span'"></span><span style='width:5%'></span></td></tr>
+						</table>
+					</div>
+				</th>
+				<th width="2%"></th>
+				<th width="48%">
+					<div width="100%">
+						<table width='100%'>
+							<tr><td style='text-align:center;font:bold 22px 宋体'>婚前医学检查证明<br>
+							</td></tr>
+							<tr><td align='center'><label ng-bind-html-unsafe="man['省']"  style='width:5%'></label>省
+							<label ng-bind-html-unsafe="man['市']" style='width:5%'></label>地(州、市) 
+							<label ng-bind-html-unsafe="man['县']" style='width:5%'></label>县(市、区) 
+							<label ng-bind-html-unsafe="man['乡镇']" style='width:5%'></label>乡(镇、居委会) 
+							<span style='width:width:2%'></span>
+							编号：<span ng-bind-html-unsafe="data.base.id" style='width:100px'></span>
+							</td></tr>
+							<tr ><td width='100%'>
+							<table class='printtable2' borderthin='true' border='1'>
+								<tr >
+									<td colspan=1 width='15%'>姓<span style='width:35%'></span>名</td>
+									<td colspan=4 width='32%'><span ng-bind-html-unsafe="man.name.text" style='width:100px'></span></td>
+									<td colspan=1 width='15%'>出生日期</td>
+									<td colspan=3 width='32%'><label ng-bind-html-unsafe="man.birthday |date3:'label'"></label></td>
+									<td colspan=1 width='8%' rowspan=3 ng-bind-html-unsafe="headpic['男方_头像html']"></td>
+								</tr>
+								<tr>
+									<td colspan=1 >性<span style='width:35%'></span>别</td>
+									<td colspan=4 >男</td>
+									<td colspan=1 >民<span style='width:35%'></span>族</td>
+									<td colspan=3 ><span style='width:90%' ng-bind-html-unsafe="man.folk "></span></td>
+								</tr>
+								<tr>
+									<td colspan=2 width='17%'>身<span style='width:10%'></span>份<span style='width:10%'></span>证<span style='width:10%'></span>号</td>
+									<td colspan=7 ><span style='width:80%' ng-bind-html-unsafe="man.idcard |idcard"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 width='18%'>单位或职业</td>
+									<td colspan=7 ><span width='76%' ng-bind-html-unsafe="man.workUnit"></span>
+									</td>
+								</tr>
+								<tr>
+									<td colspan=3 >现住址</td>
+									<td colspan=7 ><span  style='width:100%' ng-bind-html-unsafe="man.address| limit:28"></span></td>
+								</tr>
+								<tr>
+									<td colspan=3 >对方姓名</td>
+									<td colspan=7 ><span  style='width:160px' ng-bind-html-unsafe="man.othersidename"></span></td>
+								</tr>
+								<tr>
+									<td colspan=10 style='text-align:left;'><span width='5%'></span>直系、三代内旁系血亲关系 <font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'无'"></font>无
+										<font ng-bind-html-unsafe="data.items[0]['男方_血缘关系'] | checked:'表,堂,其他'"></font>有
+									</td>
+								</tr>
+								<tr height='25%'>
+									<td colspan=10  style='text-align:left;vertical-align:top;line-height:24px;'>
+										婚前医学检查结果：{{data.items[0]['男方_特殊检查未见异常']| true:'true|未见异常|'}}<br>
+										<span style='width:3%'></span>{{data.items[0]['男方_特殊检查未见异常']| true:'true||异常情况：'}}{{data.items[0]['男方_特殊检查异常情况']}}<br>
+										<span style='width:3%'></span>{{data.items[0]['男方_特殊检查未见异常']| true:'true||疾病诊断：'}}{{data.items[0]['男方_特殊检查疾病诊断']}}
+									</td>
+								</tr>
+								<tr height='20%'>
+									<td colspan=10 style='text-align:left;vertical-align:top;line-height:24px;'>
+										医学意见：<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'未发现医学上不宜结婚的情形'"></font>①未发现医学上不宜结婚的情形
+										<span style='width:10%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议暂缓结婚'"></font>②建议暂缓结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议不宜生育'"></font>③建议不宜生育
+										<span style='width:28%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议不宜结婚'"></font>④建议不宜结婚<br>
+										<span style='width:12%'></span>
+										<font ng-bind-html-unsafe="data.items[0]['男方_医学意见']| checked:'建议采取医学措施,尊重受检者意愿'"></font>⑤建议采取医学措施,尊重受检者意愿
+									</td>
+								</tr>
+								<tr>
+									<td colspan=4 width='20%'>主检医师<br>签<span style='width:20%'></span>字</td>
+									<td colspan=3 width='30%'>&nbsp;</td>
+									<td colspan=1 width='20%'>检查单位<br>专用章</td>
+									<td colspan=2 width='30%'>&nbsp;</td>
+								</tr>
+							</table>
+							</td></tr>
+							<tr><td>注：1.本证明有效期为三个月；2.对上述结果如有异议，可申请医学技术鉴定。<br>(此联交婚姻登记部门)</td></tr>
+							<tr><td style='text-align:right'><span ng-bind-html-unsafe="dateitems.inputdate |date3:'span'"></span><span style='width:5%'></span></td></tr>
+						</table>
+					</div>
+				</th>
+				<th width="2%"></th>
+				</tr>
+			</table>
+		</div>
+			<div id="photodialog" width="356" height="340" style='display:none'>
+			  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                        id="onlineTakePhoto" width="356" height="340"
+                    	codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+                    <param name="movie" value="onlineTakePhoto.swf" />
+                    <param name="quality" value="high" />
+                    <param name="bgcolor" value="#a6c9e2" />
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <embed src="/onlineTakePhoto.swf" quality="high" bgcolor="#a6c9e2"
+                        width="280" height="340" name="onlineTakePhoto" align="middle"
+                        play="true"
+                        loop="false"
+                        quality="high"
+                        allowScriptAccess="sameDomain"
+                        type="application/x-shockwave-flash"
+                        pluginspage="http://www.adobe.com/go/getflashplayer">
+                    </embed>
+                </object>
+			</div>
+			<script src="/js/angularjs/moment.min.js"></script>
+			<script src="/js/util/util.js"></script>
+			<script type='text/javascript' src='/dwr/engine.js'></script>
+			<script type='text/javascript' src='/dwr/util.js'></script>
+			<script src="/js/angularjs/bootstrap/widgets.js"></script>
+			<script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
+			<script type='text/javascript' src='/dwr/interface/PersonalInfoService.js'></script>
+			<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+			<script type='text/javascript' src='/dwr/interface/UserMenuTreeService.js'></script>
+			<script type="text/javascript" src="/js/angularjs/jquery/jquery-1.9.1.min.js"></script>
+			<script type="text/javascript" src="/js/angularjs/jqueryui/js/jquery-ui-1.10.2.custom.min.js"></script>
+			<script type="text/javascript" src="/js/angularjs/jqueryui/jquery-ui-zh-CN.js"></script>
+			<script src="/js/angularjs/select2/select2.js"></script>
+			<script src="/js/angularjs/angular.min.js"></script>
+			<script src="/js/angularjs/ui/build/angular-ui.min.js"></script>
+			
+			<script src="/js/angularjs/bootstrap/ui-bootstrap-tpls-0.2.0.js"></script>
+			<script type="text/javascript" src="/js/angularjs/jquery.mask.min.js"></script>
+			<script src="/js/angularjs/controllers/directives.js"></script>
+			<script src="/js/angularjs/controllers/controllers.js"></script>
+			<script src="marry_check_info.js"></script>
+		</body>
+</html>

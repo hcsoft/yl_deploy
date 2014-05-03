@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+    <script type="text/javascript" src="js/rx.js"></script>
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/rx.jQuery.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+    <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+    <script type="text/javascript" src="js/med.js"></script>
+    <script type="text/javascript" src="js/validate.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/base.js"></script>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+    <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+    <!-- Import fancy-type plugin for the sample page. -->
+    <link rel="stylesheet" href="css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+ 
+    <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
+
+  </head>
+  <body>
+  <div class="container">
+    <h2>个人基本信息表</h2>
+   <table class="form_tbl">
+    <tr class="noborder">
+        <td class="header">
+          姓名: 
+        </td>
+        <td colspan="3" id="name">
+        </td>
+        <td>
+           编号 
+        </td>
+        <td id="fileNo">
+        </td>
+    </tr>
+    <tr>
+        <td class="header">
+            性别
+        </td>
+        <td colspan="3" id="gender">
+        </td>
+        <td>
+            出生日期
+        </td>
+        <td id="birthday">
+            ${birthday}
+        </td>
+    </tr>
+    <tr>
+        <td class="header">身份证号码</td>
+        <td colspan="2" id="idCardNo">${idCardNo}</td>
+        <td>工作单位</td>
+        <td colspan="2" id="employer">${employer}</td>
+    </tr>
+    <tr>
+        <td class="header">本人电话</td>
+        <td id="phone">${phone}</td>
+        <td>联系人姓名</td>
+        <td id="contactor">${contactor}</td>
+        <td>联系人电话</td>
+        <td id="contactorPhone">${contactorPhone}</td>
+    </tr>
+    <tr>
+        <td class="header">常住类型</td>
+        <td colspan="2" id="residence">${residence}</td>
+        <td>民族</td>
+        <td colspan="2"><div id="nationality">${nationality}</div><span id="minorNationality">${nName}</span></td>
+    </tr>
+    <tr>
+        <td class="header">血型</td>
+        <td colspan="3" id="bloodType">${bloodType}</td>
+        <td colspan="2">RH阴性: <span id="RHType">${RHType}</span></td>
+    </tr>
+    <tr>
+        <td class="header">文化程度</td>
+        <td colspan="5" id="education">${education}</td>
+    </tr>
+    <tr>
+        <td class="header">职业</td>
+        <td colspan="5" id="profession">${profession}</td>
+    </tr>
+    <tr>
+        <td class="header">婚姻状况</td>
+        <td colspan="5" id="marriage">${marriage}</td>
+    </tr>
+    <tr>
+        <td class="header">医疗费用支付方式</td>
+        <td colspan="5" id="payment">${payment}</td>
+    </tr>
+    <tr>
+        <td class="header">药物过敏史</td>
+        <td colspan="5"><div id="allergy">${allergy}</div><div id="allergyOther"></div></td>
+    </tr>
+    <tr>
+        <td class="header">疾病</td>
+        <td colspan="5"><div id="disease">${disease}</div>
+        <!--<div id="cancers"></div><div id="otherDisease"></div> -->
+        </td>
+    </tr>
+    <tr>
+        <td class="header">手术</td>
+        <td colspan="5" id="operations"></td>
+    </tr>
+    <tr>
+        <td class="header">外伤</td>
+        <td colspan="5" id="injuries">${operation}</td>
+    </tr>
+    <tr>
+        <td class="header">输血</td>
+        <td colspan="5" id="transfusion">${operation}</td>
+    </tr>
+    <tr>
+        <td class="header" rowspan="4">家族史</td>
+        <td>父亲</td>
+        <td colspan="4"></td>
+    </tr>
+    <tr>
+        <td>母亲</td>
+        <td colspan="4"></td>
+    </tr>
+    <tr>
+        <td>兄弟姐妹</td>
+        <td colspan="4"></td>
+    </tr>
+    <tr>
+        <td>子女</td>
+        <td colspan="4"></td>
+    </tr>
+    <tr>
+        <td class="header">遗传病史</td>
+        <td colspan="5"><div id="geneticDiseases"></div><div id="geneticDiseaseName"></div></td>
+    </tr>
+    <tr>
+        <td class="header">残疾情况</td>
+        <td colspan="5"><div id="deformity" class="inline"></div><div id="deformityOthers" class="inline" style="float:left"></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

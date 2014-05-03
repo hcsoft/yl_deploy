@@ -1,0 +1,72 @@
+table.card {
+    border-collapse:collapse;
+    width: 700px;
+}
+
+.no-m-a {
+    text-align : left;
+}
+
+table.card td{
+    border: 1px solid gray ;
+    width: 90px;
+    height: 20px;
+    padding: 1px;
+    text-align : center;
+}
+
+table.card td.block {
+    text-align : left; 
+    padding-bottom : 2px; 
+    padding-left:2px;
+}
+
+table.card td.hBlock {
+text-align : left; padding-bottom : 2px; padding-left : 2px; vertical-align:top; height:150px;
+}
+
+.printable {
+}
+
+.side-b, .side-a {
+	
+	/* must be initially hidden */
+	
+	/* place overlay on top of other elements */
+	z-index:10000;
+	
+	/* styling */
+/*	background-color:#333;*/
+	background-color:white;
+	
+	width:700px;	
+	min-height:200px;
+	border:1px solid #666;
+	
+	/* CSS3 styling for latest browsers */
+	-moz-box-shadow:0 0 90px 5px #000;
+	-webkit-box-shadow: 0 0 90px #000;	
+}
+
+div.printable {
+	padding-bottom : 0;
+	padding-left : 5px;
+	padding-right : 5px;
+	display : none;
+}
+
+button.print {
+	margin-top :  5px;
+	margin-bottom : 3px;
+	width : 70px;
+	height : 20px;
+}
+
+.hint {
+	margin-left : 5px;
+	cursor : pointer;
+}
+
+button.printPrev {
+	display : none;
+}

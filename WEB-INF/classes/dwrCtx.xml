@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.directwebremoting.org/schema/spring-dwr
+    http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.1.xsd">
+
+	<dwr:controller id="dwrController" debug="true" />
+	<dwr:configuration>
+		<dwr:init>
+			<dwr:converter id="timestamp"
+				class="cn.net.tongfang.framework.dwr.convert.TimestampConverter" />
+			<dwr:converter id="integer"
+				class="cn.net.tongfang.framework.dwr.convert.IntegerConverter" />
+		</dwr:init>
+		<dwr:convert type="exception" class="java.lang.Exception"/>
+		<dwr:convert type="bean" class="cn.net.tongfang.web.service.commonexam.CommonVO"/>
+
+		<dwr:convert type="bean" class="java.lang.StackTraceElement" />
+
+		<dwr:convert type="integer" class="java.lang.Integer" />
+		<dwr:convert type="timestamp" class="java.sql.Timestamp" />
+		<!-- <dwr:convert type="boolean" class="java.lang.Boolean"/> <dwr:convert 
+			type="string" class="java.lang.String"/> -->
+
+		<dwr:convert type="bean" class="cn.net.tongfang.framework.demo.*" />
+
+		<dwr:convert type="bean"
+			class="cn.net.tongfang.framework.security.bo.*" />
+		<dwr:convert type="bean"
+			class="cn.net.tongfang.framework.security.vo.*" />
+		<dwr:convert type="bean"
+			class="cn.net.tongfang.framework.security.vo.SamTaxempcode" />
+		<dwr:convert type="bean"
+			class="cn.net.tongfang.framework.util.service.vo.*" />
+		<dwr:convert type="bean" class="cn.net.tongfang.web.service.bo.*" />
+		<dwr:convert type="bean"
+			class="cn.net.tongfang.framework.security.demo.service.vo.*" />
+
+		<dwr:convert type="bean"
+			class="cn.net.tongfang.framework.security.demo.service.TaxempDetail" />
+		<dwr:convert type="bean"
+			class="org.springframework.security.GrantedAuthorityImpl" />
+
+
+	</dwr:configuration>
+
+	<bean id="DWRHelloService"
+		class="cn.net.tongfang.framework.security.demo.service.SimpleServiceImpl">
+		<aop:scoped-proxy />
+		<dwr:remote javascript="HelloService"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="DWRModuleService"
+		class="cn.net.tongfang.framework.security.demo.service.ModuleServiceImpl">
+		<property name="securityService" ref="securityService" />
+		<aop:scoped-proxy />
+		<dwr:remote javascript="ModuleService"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="MyUserService"
+		class="cn.net.tongfang.framework.security.demo.service.UserServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<aop:scoped-proxy />
+		<dwr:remote javascript="MyUserService"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="DWRXnhInterfaceService"
+		class="cn.net.tongfang.framework.security.demo.service.XnhInterfaceServiceImpl">
+		<aop:scoped-proxy />
+		<dwr:remote javascript="XnhInterfaceService"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="OptionProvider" class="cn.net.tongfang.framework.util.service.OptionProvider">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="optionClassMap">
+			<map>
+				<entry>
+					<key>
+						<value>ModuleCategory</value>
+					</key>
+					<value>cn.net.tongfang.framework.security.vo.SamModuleCategory
+					</value>
+				</entry>
+				<entry>
+					<key>
+						<value>Taxorgcode</value>
+					</key>
+					<value>cn.net.tongfang.framework.security.vo.SamTaxorgcode</value>
+				</entry>
+				<entry>
+					<key>
+						<value>HospitalProp</value>
+					</key>
+					<value>cn.net.tongfang.framework.security.vo.HospitalProp</value>
+				</entry>
+				<entry>
+					<key>
+						<value>Producers</value>
+					</key>
+					<value>cn.net.tongfang.framework.security.vo.Producers</value>
+				</entry>
+				<entry>
+					<key>
+						<value>BasicInformation</value>
+					</key>
+					<value>cn.net.tongfang.framework.security.vo.BasicInformation</value>
+				</entry>
+			</map>
+		</property>
+		<dwr:remote javascript="OptionProvider"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="COptionProvider" class="cn.net.tongfang.framework.util.service.COptionProvider">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="optionClassMap">
+			<map>
+				<entry>
+					<key>
+						<value>Taxorgcode</value>
+					</key>
+					<value>cn.net.tongfang.framework.security.vo.SamTaxorgcode</value>
+				</entry>
+			</map>
+		</property>
+		<dwr:remote javascript="COptionProvider"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="OrgOptProvider" class="cn.net.tongfang.framework.util.service.TaxOrgProvider">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="optionClassMap">
+			<map>
+				<entry>
+					<key>
+						<value>Taxorgcode</value>
+					</key>
+					<value>cn.net.tongfang.framework.security.vo.SamTaxorgcode</value>
+				</entry>
+			</map>
+		</property>
+		<dwr:remote javascript="OrgOptProvider"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<!--
+	<bean id="SmsService" class="cn.net.tongfang.web.service.sms.SmsService">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="smsUtil" ref="SmsUtil" />
+		<dwr:remote javascript="SmsService"> <dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+		<aop:scoped-proxy />
+	</bean>
+	-->
+	<bean id="CacheService" class="cn.net.tongfang.web.service.cache.CacheService">
+		<property name ='cacheList'>
+			<list> 
+				<ref bean="ModuleUtil" /> 
+				<ref bean="ScoreUtil" /> 
+				<ref bean="commonExamUtil" /> 
+			</list> 
+		</property>
+		<dwr:remote javascript="CacheService"> <dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+		<aop:scoped-proxy />
+	</bean>
+
+	<bean id="ScoreService" class="cn.net.tongfang.web.service.score.ScoreService">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="scoreUtil" ref="ScoreUtil"/>
+		<dwr:remote javascript="ScoreService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+		<aop:scoped-proxy />
+	</bean>
+
+	<bean id="UserMenuTreeService" class="cn.net.tongfang.framework.util.service.ModuleMgr">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="moduleUtil" ref="ModuleUtil" />
+		<dwr:remote javascript="UserMenuTreeService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+		<aop:scoped-proxy />
+	</bean>
+
+	<bean id="DWRUserService" class="cn.net.tongfang.framework.security.UserServiceImpl">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="UserService"  ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean class="cn.net.tongfang.framework.demo.DemoServiceImpl">
+		<dwr:remote javascript="DemoService" />
+	</bean>
+
+	<bean id="MetaProvider"
+		class="cn.net.tongfang.framework.security.demo.service.MetaServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="MetaProvider" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="HealthFileService" class="cn.net.tongfang.web.service.HealthFileService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="HealthFileService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="PersonalInfoService" class="cn.net.tongfang.web.service.PersonalInfoService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="fileNoGen" ref="fileNoGen" />
+		<property name="moduleMgr" ref="UserMenuTreeService" />
+		<dwr:remote javascript="PersonalInfoService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="ChildBirthService" class="cn.net.tongfang.web.service.ChildBirthService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="fileNoGen" ref="fileNoGen" />
+		<dwr:remote javascript="ChildBirthService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="BabyVisitService" class="cn.net.tongfang.web.service.BabyVisitService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="childDirect" ref="GenDefaultVal" />
+		<property name="sysUtils" ref="systemInformationUtils" />
+		<property name="childRocordService" ref="ChildLastMedicalExamRecordService" />
+		<dwr:remote javascript="BabyVisitService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="ChildrenMediExam3Service" class="cn.net.tongfang.web.service.ChildrenMediExam3Service">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="ChildrenMediExam3Service" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="ChildrenMediExam36Service" class="cn.net.tongfang.web.service.ChildrenMediExam36Service">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="childDirect" ref="GenDefaultVal" />
+		<property name="sysInfo" ref="systemInformationUtils" />
+		<property name="childRocordService" ref="ChildLastMedicalExamRecordService" />
+		<dwr:remote javascript="ChildrenMediExam36Service" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="ChildrenMediExamService" class="cn.net.tongfang.web.service.ChildrenMediExamService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="childDirect" ref="GenDefaultVal" />
+		<property name="sysInfo" ref="systemInformationUtils" />
+		<property name="childRocordService" ref="ChildLastMedicalExamRecordService" />
+		<dwr:remote javascript="ChildrenMediExamService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="ConsultationService" class="cn.net.tongfang.web.service.ConsultationService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="ConsultationService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="CureSwitchService" class="cn.net.tongfang.web.service.CureSwitchService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="CureSwitchService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="CureBackService" class="cn.net.tongfang.web.service.CureBackService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="CureBackService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="DiabetesVisitService" class="cn.net.tongfang.web.service.DiabetesVisitService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="DiabetesVisitService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="FirstVistBeforeBornService" class="cn.net.tongfang.web.service.FirstVistBeforeBornService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sysUtils" ref="systemInformationUtils" />
+		<property name="womanRocordService" ref="womanRocordService" />
+		<dwr:remote javascript="FirstVistBeforeBornService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="FuriousInfoService" class="cn.net.tongfang.web.service.FuriousInfoService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="FuriousInfoService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="FuriousVisitService" class="cn.net.tongfang.web.service.FuriousVisitService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="FuriousVisitService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="HealthEducatService" class="cn.net.tongfang.web.service.HealthEducatService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="HealthEducatService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="HypertensionVisitService" class="cn.net.tongfang.web.service.HypertensionVisitService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="HypertensionVisitService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="InfectionReportService" class="cn.net.tongfang.web.service.InfectionReportService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="InfectionReportService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="MedicalExamService" class="cn.net.tongfang.web.service.MedicalExamService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="MedicalExamService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="ReceptionService" class="cn.net.tongfang.web.service.ReceptionService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="ReceptionService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="VaccineInfoService" class="cn.net.tongfang.web.service.VaccineInfoService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="VaccineInfoService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="VaccinationService" class="cn.net.tongfang.web.service.VaccinationService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="VaccinationService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="VisitBeforeBornService" class="cn.net.tongfang.web.service.VisitBeforeBornService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sysInfo" ref="systemInformationUtils" />
+		<property name="womanRocordService" ref="womanRocordService" />
+		<dwr:remote javascript="VisitBeforeBornService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="VisitAfterBornService" class="cn.net.tongfang.web.service.VisitAfterBornService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sysInfo" ref="systemInformationUtils" />
+		<property name="womanRocordService" ref="womanRocordService" />
+		<dwr:remote javascript="VisitAfterBornService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="StatService" class="cn.net.tongfang.web.service.StatService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="StatService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="FileNumSearch" class="cn.net.tongfang.web.service.FileNumSearch">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="FileNumSearch" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<!-- 修改开始 -->
+	<bean id="HomeNumSearch" class="cn.net.tongfang.web.service.HomeNumSearch">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="HomeNumSearch" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<!-- 修改结束 -->
+	<bean id="ReportStat" class="cn.net.tongfang.web.service.ReportStat">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="ReportStat" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<!-- 修改开始 -->
+	<bean id="HomeInfoService" class="cn.net.tongfang.web.service.HomeInfoService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="homeNoGen" ref="homeNoGen" />
+		<property name="mgr" ref="mgr" />
+		<dwr:remote javascript="HomeInfoService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="TuberSuperviseService" class="cn.net.tongfang.web.service.TuberSuperviseService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="TuberSuperviseService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<!-- 修改结束 -->
+	<bean id="QueryByHomeService" class=" cn.net.tongfang.web.service.QueryByHomeService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="QueryByHomeService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="InitMainDataService" class=" cn.net.tongfang.web.service.InitMainDataService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="InitMainDataService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="HighRiskService" class="cn.net.tongfang.web.service.HighRiskService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="HighRiskService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="TestService" class=" cn.net.tongfang.web.service.TestService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="TestService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="ClinicLogsService" class="cn.net.tongfang.web.service.ClinicLogsService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="ClinicLogsService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="StatisticService" class="cn.net.tongfang.web.service.StatisticService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="StatisticService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="ReportService" class=" cn.net.tongfang.web.service.ReportService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="ReportService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="systemInformationUtils" class="cn.net.tongfang.framework.util.SystemInformationUtils">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="systemInformationUtils" ></dwr:remote>
+	</bean>
+
+	<bean id="BirthCertificateMsgService" class=" cn.net.tongfang.web.service.BirthCertificateMsgService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sysInfoUtils" ref="systemInformationUtils" />
+		<property name="fileNoGen" ref="fileNoGen" />
+		<property name="moduleMgr" ref="UserMenuTreeService" />
+		<dwr:remote javascript="BirthCertificateMsgService"><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="DataExportService" class=" cn.net.tongfang.web.service.DataExportService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="reportService" ref="ReportService"></property>
+		<property name="sysInfos" ref="systemInformationUtils"></property>
+		<property name="summaryService" ref="summaryService"></property>
+		<property name="userMenuTreeService" ref="UserMenuTreeService"></property>
+		<dwr:remote javascript="DataExportService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="MedicalExamPrintService" class="cn.net.tongfang.web.service.MedicalExamPrintService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="MedicalExamPrintService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="GenDefaultVal" class="cn.net.tongfang.framework.util.service.GenDefaultVal">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="GenDefaultVal" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="EvaluateChildService" class="cn.net.tongfang.web.service.EvaluateChildService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="EvaluateChildService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+
+	<bean id="summaryService" class="cn.net.tongfang.web.service.SummaryService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="person" ref="PersonalInfoService" />
+		<dwr:remote javascript="summaryService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="womanRocordService"
+		class="cn.net.tongfang.web.service.WomanLastMedicalExamRecordService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="womanRocordService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	
+	<bean id="ChildLastMedicalExamRecordService"
+		class="cn.net.tongfang.web.service.ChildLastMedicalExamRecordService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="ChildLastMedicalExamRecordService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	
+	<bean id="waitingThingService"
+		class="cn.net.tongfang.web.service.WaitingThingService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="fileNoGen" ref="fileNoGen" />
+		<dwr:remote javascript="waitingThingService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="DiseaseAndHearScreenConsentService" class="cn.net.tongfang.web.service.DiseaseAndHearScreenConsentService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="DiseaseAndHearScreenConsentService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="HearScreenReportCardService" class="cn.net.tongfang.web.service.HearScreenReportCardService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="HearScreenReportCardService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="BabyBarrierRegService"
+		class="cn.net.tongfang.web.service.BabyBarrierRegService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="babyBarrierRegService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	
+	<bean id="loginOffHealthFileService"
+		class="cn.net.tongfang.web.service.LoginOffHealthFileService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="fileNoGen" ref="fileNoGen" />
+		<dwr:remote javascript="loginOffService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="healthfileMaternalService"
+		class="cn.net.tongfang.web.service.HealthfileMaternalBuildService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="healthfileMaternalService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	<bean id="HealthFileChildrenService"
+		class="cn.net.tongfang.web.service.HealthFileChildrenService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<dwr:remote javascript="HealthFileChildrenService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	
+	<bean id="repeatFileNoService"
+		class=" cn.net.tongfang.web.service.ProcListExamByFilesservice">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="userMenuTreeService" ref="UserMenuTreeService"></property>
+		<property name="vaccinationService" ref="VaccinationService"></property>
+		<dwr:remote javascript="repeatFileNoService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+	
+	<bean id="CommonExamService"
+		class="cn.net.tongfang.web.service.commonexam.CommonExamService">
+		<aop:scoped-proxy />
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="commonExamUtil" ref="commonExamUtil" />
+		<property name="fileNoGen" ref="fileNoGen" />
+		<dwr:remote javascript="CommonExamService" ><dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+	</bean>
+</beans>

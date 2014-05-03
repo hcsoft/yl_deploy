@@ -1,0 +1,373 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Pragma" content="no-cache">
+        </meta>
+        <meta http-equiv="expires" content="0">
+        </meta>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script type='text/javascript' src='/dwr/engine.js'></script>
+        <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+        <script type='text/javascript' src='/dwr/interface/HomeNumSearch.js'></script>
+        <script type="text/javascript" src="/dwr/interface/FileNumSearch.js?v=20131219"></script>
+        <script type='text/javascript'
+        src='/dwr/interface/PersonalInfoService.js'></script>
+        <script type='text/javascript'
+        src='/dwr/interface/FirstVistBeforeBornService.js'></script>
+        <script type='text/javascript'
+        src='/dwr/interface/UserMenuTreeService.js'></script>
+        <script type="text/javascript" src="js/rx.js"></script>
+        <!-- 打印控件 -->
+        <script language="javascript" src="js/LodopFuncs.js"></script>
+		<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+			width=0 height=0>
+			<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0
+				pluginspage="install_lodop.exe"></embed>
+		</object>
+        
+        <script type='text/javascript' src='/dwr/interface/printerService.js'></script>
+        <script type="text/javascript" src="js/printProtectPage.js"></script>
+        <script type="text/javascript" src="js/print-healthfile-exam.js"></script>
+        <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+        <script type="text/javascript" src="js/jquery.blockUI.js"></script>
+        <script type="text/javascript" src="js/jquery.printElement.min.js"></script>
+        <script type="text/javascript" src="js/rx.jQuery.js"></script>
+        <script type="text/javascript" src="js/controls.js?v=3.0"></script>
+        <!-- <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+        <script type="text/javascript" src="js/ext/ext-all-debug.js"></script> -->
+        <script type="text/javascript" src="js/med.js?v=2.0"></script>
+        <script type="text/javascript" src="js/validate.js"></script>
+        <script type="text/javascript" src="js/app.js?v=3.0"></script>
+        <script type="text/javascript" src="js/personalInfo.js?v=20131219"></script>
+        <script type="text/javascript" src="js/pi_print.js"></script>
+        <!-- Framework CSS -->
+        <link rel="stylesheet" href="css/screen.css" type="text/css"
+        media="screen, projection">
+        </link>
+        <!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+        <!-- Import fancy-type plugin for the sample page. -->
+        <link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+        type="text/css" media="screen, projection">
+        </link>
+
+        <link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/main.css" type="text/css"
+        media="screen" />
+        <link rel="stylesheet" href="css/tabs.css" type="text/css"
+        media="screen" />
+        <link rel="stylesheet" href="css/card.css" type="text/css"
+        media="screen, print" />
+
+        <!-- 下一步操作引入  -->
+        <script type="text/javascript" src="js/nextOpt.js"></script>
+        <link type="text/css" href="css/nextOpt.css" media="screen"
+        rel="stylesheet" />
+        <script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+        <link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+        rel="stylesheet" />
+        <link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+        rel="stylesheet" />
+
+        <!-- <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7/themes/cupertino/jquery-ui.css" media="screen" rel="stylesheet"/> -->
+
+        <link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+        <script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+        <script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+        <script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+
+        <script type="text/javascript" src="js/personalInfoDropdown.js"></script>
+        <script type="text/javascript" src="js/addDoctors.js"></script>
+        <script type="text/javascript" src="js/f.js"></script>
+        <script language="javascript" type="text/javascript"
+        src="My97DatePicker/WdatePicker.js"></script>
+        <link href="css/personalInfo.css" type="text/css" rel="stylesheet" />
+        <style type="text/css">
+            .ie6input {
+                width: 100%;
+            }
+            td span .ie6input {
+                width: 95%;
+            }
+            li a {
+                font-size: 9px !important
+            }
+        </style>
+    </head>
+    <body>
+    	<div id="printHealthFile" style="display:none;"></div>
+        <div class="outerContainer">
+            <div class="showToolbar"></div>
+            <div class="container">
+                <table style="margin: 0; padding: 0" cellspacing=0>
+                    <tr>
+                        <td style="margin: 0; padding: 0">
+                        <div class="span-19 last">
+                            <ul class="tabs">
+                                <li>
+                                    <a href="#">居民健康档案</a>
+                                </li>
+                                <li>
+                                    <a href="#">个人基本信息表</a>
+                                </li>
+                            </ul>
+                        </div></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="container panes">
+                <div class="cover span-22 last">
+                    <table class="form_tbl cover">
+                    	<tr>
+                            <td class="header"><font color='red'>历史数据选择</font></td>
+                            <td><div id='historyselect' style='display:inline-block;height:100%;'></div></td>
+                        </tr>
+                        <tr>
+                            <td class="header">编号</td>
+                            <td id="fileNo"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">纸质档案编号</td>
+                            <td id="paperFileNo"></td>
+                        </tr>
+                        <!--
+                        <tr>
+                        <td class="header">家庭编号</td>
+                        <td id="homeId"></td>
+                        </tr>
+                        <tr>
+                        <td class="header">户主</td>
+                        <td><span id="household"></span></td>
+                        </tr>
+                        -->
+                        <tr>
+                            <td class="header">姓名<font size="2" color="red">（必填）</font></td>
+                            <td id="name"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">现住址<font size="2" color="red">（必填）</font></td>
+                            <td id="address"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">户籍地址</td>
+                            <td id="residenceAddress"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">联系电话<font size="2" color="red">（必填）</font></td>
+                            <td id="tel0">${employer}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">行政区划编码</td>
+                            <td class="districtNumber" id="districtNumber">${name}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">乡镇(街道)名称</td>
+                            <td id="township">${name}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">村(居)委会名称</td>
+                            <td id="village">${name}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">建档单位</td>
+                            <td><span id="buildUnit">${name}</span><img width="15"
+                            height="15" class="selectCursor" src="image/declare.png"
+                            id="selectBuildUnit" /><div id="showSelectUnit" class="show"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="header">建档人</td>
+                            <td><span id="buildPerson">${name}</span><img width="15"
+                            height="15" class="selectCursor" src="image/declare.png"
+                            id="selectBuildPerson" /><div id="showBuildPerson" class="show"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="header">责任医生</td>
+                            <td><span id="doctor">${name}</span><img width="15"
+                            height="15" class="selectCursor" src="image/declare.png"
+                            id="selectDoctor" /><div id="showDoctor" class="show"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="header">建档日期<font size="2" color="red">（必填）</font></td>
+                            <td id="buildDate">${name}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">条形码</td>
+                            <td id="barCode">${name}</td>
+                            <span id="status" style="display:none;"/>
+                        </tr>
+                    </table>
+                </div>
+                <div class="span-22 last">
+                    <table class="form_tbl">
+                        <tr>
+                            <td class="header">性别<font size="2" color="red">（必填）</font></td>
+                            <td colspan="3"><span id="sex"></span></td>
+                            <td colspan='2' >
+                            	<table border=0 style='padding:0px;margin:0px'>
+	                            	<tr>
+	                            		<td>出生日期<font size="2" color="red">（必填）</font></td>
+	                            		<td id="birthday"></td>
+	                            		<td>国籍</td>
+	                            		<td id="nation">${nation}</td>
+	                            	</tr>
+	                            </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="header">身份证号码 <button  onclick='alertinfo("idnumber")'>重复检测</button></td>
+                            <td colspan="2" id="idnumber">${idCardNo}</td>
+                            <td>工作单位</td>
+                            <td colspan="2" id="workUnit">${employer}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">本人电话</td>
+                            <td id="tel">${phone}</td>
+                            <td align="center">联系人姓名</td>
+                            <td id="linkman">${contactor}</td>
+                            <td align="center">联系人电话</td>
+                            <td id="linkmanTel">${contactorPhone}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">常住类型</td>
+                            <td colspan="2" id="resideType">${residence}</td>
+                            <td>民族</td>
+                            <td colspan="2">
+                            <div id="folk">
+                                ${nationality}
+                            </div><span id="folkOther">${nName}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="header">血型</td>
+                            <td colspan="3" id="bloodTypeAbo"></td>
+                            <td colspan="2">RH阴性: <span id="bloodTypeRh">${RHType}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="header">文化程度</td>
+                            <td colspan="5" id="education">${education}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">职业</td>
+                            <td colspan="5" id="occupation">${profession}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">婚姻状况</td>
+                            <td colspan="5" id="maritalStatus">${marriage}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">农业人口<font size="2" color="red">（必填）</font></td>
+                            <td colspan="5" id="farmStatus"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">城镇居民<font size="2" color="red">（必填）</font></td>
+                            <td colspan="5" id="townStatus"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">是否孕产妇</td>
+                            <td colspan="5"><span id="bornStatus"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="header">医疗费用支付方式</td>
+                            <td colspan="5">
+                            <div id="paymentMode">
+                                ${payment}
+                            </div>
+                            <div id="paymentModeOther">
+                                ${payment}
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td class="header">药物过敏史</td>
+                            <td colspan="5">
+                            <div id="allergiesHistory">
+                                ${allergy}
+                            </div><div id="allergiesOther"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="header">暴露史</td>
+                            <td colspan="5">
+                            <div id="exposeHistory">
+                                ${expose}
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td class="header" rowspan="4">既往史</td>
+                            <td class="header">疾病</td>
+                            <td colspan="4" id="diseaseHistory"><!--<div id="cancers" name="cancers"></div><div id="otherDisease" name="otherDisease"></div> --></td>
+                        </tr>
+                        <tr>
+                            <td class="header">手术</td>
+                            <td colspan="4" id="opshistory"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">外伤</td>
+                            <td colspan="4" id="traumaHistory">${operation}</td>
+                        </tr>
+                        <tr>
+                            <td class="header">输血</td>
+                            <td colspan="4" id="bloodTrans">${operation}</td>
+                        </tr>
+                        <tr>
+                            <td class="header" rowspan="4">家族史</td>
+                            <td>父亲</td>
+                            <td colspan="3" id="fatherHistory"></td>
+                            <td id="fhistoryOther"></td>
+                        </tr>
+                        <tr>
+                            <td>母亲</td>
+                            <td colspan="3" id="matherHistory"></td>
+                            <td id="mhistoryOther"></td>
+                        </tr>
+                        <tr>
+                            <td>兄弟姐妹</td>
+                            <td colspan="3" id="brotherHistory"></td>
+                            <td id="bhistoryOther"></td>
+                        </tr>
+                        <tr>
+                            <td>子女</td>
+                            <td colspan="3" id="familyHistory"></td>
+                            <td id="fmHistoryOther"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">遗传病史</td>
+                            <td colspan="5"><div id="geneticHistory"></div><div id="geneticHistoryOther"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="header">残疾情况</td>
+                            <td colspan="5"><div id="disabilityStatus"></div><div id="disabilityStatusOther" class="inline"
+                            style="float: left"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="header" rowspan="5">生活环境</td>
+                            <td class="header">厨房排风设施</td>
+                            <td colspan="4" id="kitchen"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">燃料类型</td>
+                            <td colspan="4" id="bunkers"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">饮水</td>
+                            <td colspan="4" id="drinkingWater"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">厕所</td>
+                            <td colspan="4" id="toilet"></td>
+                        </tr>
+                        <tr>
+                            <td class="header">禽畜栏</td>
+                            <td colspan="4" id="poultry"></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="showToolbar toolbarHide"></div>
+            <br />
+            <br />
+        </div>
+		  
+       
+
+    </body>
+</html>

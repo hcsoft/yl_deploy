@@ -1,0 +1,244 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<table class="form_tbl">
+		<tr>
+			<td id="id_tabcount" ></td>
+		</tr>
+		<tr>
+			<td id="id_subtabcount"> 
+				<ul class='subtabs'>
+					<li><a href="#">1~2岁儿童体检</a></li>
+					<li><a href="#">儿童其它项目</a></li>
+				</ul>
+			</td>
+		</tr>
+		<tr class='trtab'>
+			<td>
+				<table class="form_tbl">
+					<tr>
+						<td class="header">项目</td>
+						<td colspan="4" id="checkItem"></td>
+					</tr>
+					<tr>
+						<td class="header">随访日期</td>
+						<td colspan="4" id="visitDate"></td>
+					</tr>
+					<tr>
+						<td class="header">高危儿童</td>
+						<td><span id="highRisk"></span> <span id="highRiskSearch"></span>
+						</td>
+						<td class="header">高危描述</td>
+						<td colspan="2"><span id="highRiskRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">体重(kg)</td>
+						<td><span id="weight"></span></td>
+						<td colspan="3"><span id="weightScore"></span></td>
+					</tr>
+					<tr>
+						<td class="header">身长(cm)</td>
+						<td><span id="height"></span></td>
+						<td colspan="3"><span id="heightScore"></span></td>
+					</tr>
+					<tr>
+						<td rowspan="14">体格检查</td>
+						<td class="header">面色</td>
+						<td colspan="3"><span id="face"></span></td>
+					</tr>
+					<tr>
+						<td class="header">皮肤</td>
+						<td colspan="3"><span id="exam01"></span><span
+							id="exam01other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">前卤</td>
+						<td><span id="exam02"></span></td>
+						<td colspan="2"><span id="exam03"></span>cm x <span
+							id="exam04"></span>cm</td>
+					</tr>
+					<tr>
+						<td class="header">眼</td>
+						<td colspan="3"><span id="eyes"></span><span id="eyesOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">耳</td>
+						<td colspan="3"><span id="ears"></span><span id="earsOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">听力</td>
+						<td colspan="3" id="exam14"></td>
+					</tr>
+					<tr>
+						<td class="header">出牙/龋齿数（颗）</td>
+						<td colspan="3"><span id="exam05"></span>/<span id="exam17"></span></td>
+					</tr>
+					<tr>
+						<td class="header">心肺</td>
+						<td colspan="3"><span id="heart"></span><span id="heartOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">腹部</td>
+						<td colspan="3"><span id="exam06"></span><span
+							id="exam06other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">四肢</td>
+						<td colspan="3"><span id="exam08"></span><span
+							id="exam08other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">步态</td>
+						<td colspan="3"><span id="walk"></span><span id="walkOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">佝偻病体征</td>
+						<td colspan="3"><span id="exam10"></span></td>
+					</tr>
+					<tr>
+						<td class="header">血红蛋白值(g/L)</td>
+						<td colspan="3"><span id="exam12"></span></td>
+					</tr>
+					<tr>
+						<td class="header">户外活动</td>
+						<td colspan="3"><span id="activityTime"></span>小时/日</td>
+					</tr>
+					<tr>
+						<td class="header">服用维生素D</td>
+						<td colspan="4"><span id="wdcount"></span>IU/日</td>
+					</tr>
+					<tr>
+						<td class="header">发育评估</td>
+						<td colspan="4"><span id="evaluate"></span></td>
+					</tr>
+					<tr>
+						<td class="header">两次访问间患病情况</td>
+						<td colspan="4"><span id="state"></span></td>
+					</tr>
+					<tr>
+						<td class="header">其它</td>
+						<td colspan="4"><span id="other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">转诊</td>
+						<td colspan="4"><span id="transfer"></span><span
+							id="transReason"></span><span id="transUnit"></span></td>
+					</tr>
+					<tr>
+						<td class="header">指导</td>
+						<td colspan="4" id="checkDirect"></td>
+					</tr>
+					<tr>
+						<td class="header">下次随访日期</td>
+						<td><span id="nextVisitDate"></span></td>
+						<td class="header">随访医生签名</td>
+						<td colspan=2><span id="visitDoctor"></span></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr class='trtab'>
+			<td>
+				<table class="form_tbl">
+					<tr>
+						<td style="width: 200px;">血压</td>
+						<td colspan="2"><span id="pressure"></span>mmHg</td>
+					</tr>
+					<tr>
+						<td class="header">胸廓</td>
+						<td colspan="2"><span id="pleura"></span><span id="pleuraRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">乳牙数</td>
+						<td id="mikTooth" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">龋齿</td>
+						<td id="decayedTooth" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">咽、扁</td>
+						<td colspan="2"><span id="throatFlat"></span><span id="throatFlatRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">左眼</td>
+						<td id="leftEyes" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">右眼</td>
+						<td id="rightEyes" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">全身浅表淋巴结</td>
+						<td colspan="2"><span id="lymphNode"></span><span
+							id="lymphNodeRemark"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肺脏</td>
+						<td colspan="2"><span id="lung"></span><span id="lungOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">心脏</td>
+						<td colspan="2"><span id="heartChild"></span><span
+							id="heartChildOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肝脏</td>
+						<td colspan="2"><span id="liver"></span><span id="liverOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">脾脏</td>
+						<td colspan="2"><span id="spleen"></span><span
+							id="spleenOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">鼻</td>
+						<td colspan="2"><span id="nose"></span><span id="noseother"></span></td>
+					</tr>
+					<tr>
+						<td class="header">听力筛查</td>
+						<td colspan="2"><span id="hearing"></span><span
+							id="hearingOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">脊柱</td>
+						<td colspan="2"><span id="backbone"></span><span
+							id="backboneOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">外生殖器</td>
+						<td colspan="2"><span id="genitals"></span><span
+							id="genitalsOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">神经心理</td>
+						<td colspan="2"><span id="nerveMental"></span><span
+							id="nerveMentalOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">髋关节外展试验</td>
+						<td colspan="2"><span id="pelvis"></span><span
+							id="pelvisOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header">现患疾病</td>
+						<td id="illness" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">综合评估</td>
+						<td id="evaluateChild" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">营养指导</td>
+						<td id="dietDirect" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">早教指导</td>
+						<td id="earlyDirect" colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="header">预防接种指导</td>
+						<td id="protectDirect" colspan="2"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>

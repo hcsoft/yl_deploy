@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE hibernate-mapping PUBLIC "hibernate-mapping" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class table="NccmIntCode" name="cn.net.tongfang.framework.security.vo.NccmintcodeVO">
+    <composite-id name="primaryKey" class="cn.net.tongfang.framework.security.vo.NccmintcodePK">
+      <key-property name="TableNo" column="TableNo" type="java.lang.String" length="20"/>
+      <key-property name="ItemNo" column="ItemNo" type="java.lang.String" length="20"/>
+    </composite-id>
+    <property not-null = "false"  type="java.lang.String" column="TableName" name="TableName" />
+    <property not-null = "false"  type="java.lang.String" column="ItemValue" name="ItemValue" />
+  </class>
+</hibernate-mapping>

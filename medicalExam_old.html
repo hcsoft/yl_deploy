@@ -1,0 +1,703 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
+<script type='text/javascript' src='/dwr/interface/FileNumSearch.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/MedicalExamService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script type="text/javascript" src="js/rx.js"></script>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<script type="text/javascript" src="js/rx.jQuery.js"></script>
+<script type="text/javascript" src="js/controls.js"></script>
+<script type="text/javascript" src="js/f.js"></script>
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/med.js"></script>
+<script type="text/javascript" src="js/validate.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/in_medicalExam.js"></script>
+<!-- Framework CSS -->
+<link rel="stylesheet" href="css/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="css/print.css" type="text/css"
+	media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+<!-- Import fancy-type plugin for the sample page. -->
+<link rel="stylesheet" href="css/plugins/fancy-type/screen.css"
+	type="text/css" media="screen, projection" />
+
+<link rel="stylesheet" href="css/hud.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="css/main.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css"
+	media="screen" />
+
+<!-- 导行流程图 -->
+<script type='text/javascript'
+	src='/dwr/interface/PersonalInfoService.js'></script>
+
+<script type="text/javascript" src="js/nextOpt.js"></script>
+<link href="css/nextOpt.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="inputThemes/fg.menu.js"></script>
+<link type="text/css" href="inputThemes/fg.menu.css" media="screen"
+	rel="stylesheet" />
+<link type="text/css" href="inputThemes/theme/ui.all.css" media="screen"
+	rel="stylesheet" />
+
+<link rel="stylesheet" type="text/css" href="resources/css/ext-all.css" />
+
+<script type="text/javascript" src="js/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="js/ext/ext-all-debug.js"></script>
+<script type="text/javascript" src="js/ext/ext-lang-zh_CN.js"></script>
+
+</head>
+<body>
+    <!--注 :isWomanRecord参见FileNumSearch.OtherParamType_*常量,9为老年人 -->
+    <div style="display: none;" class="isWomanRecord">9</div>
+	<div class="outerContainer">
+		<div class="showToolbar"></div>
+		<div class="container">
+			<table style="margin: 0; padding: 0">
+				<tr>
+					<td style="margin: 0; padding: 0">
+						<div class="span-19 last">
+							<ul class="tabs">
+								<li><a href="#">一般检查</a></li>
+								<li><a href="#">查体</a></li>
+								<li><a href="#">辅助检查</a></li>
+								<li><a href="#">其它</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="container panes">
+			<div class="span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td class="header" rowspan="2">姓名</td>
+						<td id="name" rowspan="2"></td>
+						<td class="header" colspan="2">编号： <span id="districtNumber"></span><span
+							id="fileNo"></span> <span id="medicalExamSex"
+							style="display: none;"></span>
+						</td>
+						<td colspan="4"></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">条形码： <span id="barCode"></span>
+						</td>
+						<td colspan="4"></td>
+					</tr>
+					<tr>
+						<td class="header">体检日期</td>
+						<td colspan="2" id="examDate"></td>
+						<td class="header">责任医生</td>
+						<td colspan="4" id="doctor"></td>
+					</tr>
+					<tr>
+						<td class="header">内容</td>
+						<td class="header" colspan="7">检 查 项 目</td>
+					</tr>
+					<tr>
+						<td class="header">症状</td>
+						<td colspan="7"><span id="examSymptom"></span><span
+							id="symptomOther"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="9">一般状况</td>
+						<td class="header">体温</td>
+						<td><span id="general01"></span>℃</td>
+						<td class="header" colspan="2">脉率</td>
+						<td colspan="3"><span id="general02"></span>次/分钟</td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2">呼吸频率</td>
+						<td rowspan="2"><span id="general03"></span>次/分钟</td>
+						<td class="header" rowspan="2">血压</td>
+						<td class="header">左侧</td>
+						<td colspan="3"><span id="general04"></span>/<span
+							id="general05"></span>mmHg</td>
+					</tr>
+					<tr>
+						<td class="header">右侧</td>
+						<td colspan="3"><span id="general06"></span>/<span
+							id="general07"></span>mmHg</td>
+					</tr>
+					<tr>
+						<td class="header">身高</td>
+						<td><span id="general08"></span>cm</td>
+						<td class="header">体重</td>
+						<td colspan="4"><span id="general09"></span>kg</td>
+					</tr>
+					<tr>
+						<td class="header">腰围</td>
+						<td><span id="general10"></span>cm</td>
+						<td class="header">体质指数</td>
+						<td colspan="4"><span id="general11"></span></td>
+					</tr>
+					<!-- 
+        <tr>
+            <td class="header">臀围</td>
+            <td ><span id="general12"></span>cm</td>
+            <td class="header">腰臀围比值</td>
+            <td colspan="4"><span id="general13"></span></td>        	
+        </tr>
+         -->
+					<tr>
+						<td class="header" colspan="2">老年人健康状态自我评估*</td>
+						<td id="oldManHealthEstimate" colspan="5"></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="2">老年人生活自理能力自我评估*</td>
+						<td id="oldManLifeEstimate" colspan="5"></td>
+					</tr>
+					<tr>
+						<td class="header" colspan="1">老年人认知功能</td>
+						<td colspan="2" id="general14"></td>
+						<td class="header">简易智力状态检查</td>
+						<td colspan="3" id="general15"></td>
+					</tr>
+					<tr>
+						<td class="header">老年人情感状态</td>
+						<td colspan="2" id="general16"></td>
+						<td class="header">老年人抑郁评分检查</td>
+						<td colspan="3" id="general17"></td>
+					</tr>
+
+					<tr>
+						<td class="header" rowspan="18">生活方式</td>
+						<td class="header" rowspan="3">体育锻炼</td>
+						<td class="header">锻炼频率</td>
+						<td colspan="5" id="life01"></td>
+					</tr>
+					<tr>
+						<td class="header">每次锻炼时间</td>
+						<td><span id="life02"></span>分钟</td>
+						<td class="header">坚持锻炼时间</td>
+						<td colspan="3"><span id="life03"></span>年</td>
+					</tr>
+					<tr>
+						<td class="header">锻炼方式</td>
+						<td colspan="5" id="life04"></td>
+					</tr>
+					<tr>
+						<td class="header">饮食习惯</td>
+						<td colspan="6"><span id="eatHabit"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="3">吸烟情况</td>
+						<td class="header">吸烟状况</td>
+						<td colspan="5" id="life06">${name}</td>
+					</tr>
+					<tr>
+						<td class="header">日吸烟量</td>
+						<td colspan="5"><span>平均</span><span id="life07"></span>支</td>
+					</tr>
+					<tr>
+						<td class="header">开始吸烟年龄</td>
+						<td><span id="life08"></span>岁</td>
+						<td class="header">戒烟年龄</td>
+						<td colspan="3"><span id="life09"></span>岁</td>
+					</tr>
+
+					<tr>
+						<td class="header" rowspan="5">饮酒情况</td>
+						<td class="header">饮酒频率</td>
+						<td colspan="5" id="life10"></td>
+					</tr>
+					<tr>
+						<td class="header">日饮酒量</td>
+						<td colspan="5">平均<span id="life11"></span>两
+						</td>
+					</tr>
+					<tr>
+						<td class="header">是否戒酒</td>
+						<td><span id="life12"></span></td>
+						<td class="header">戒酒年龄</td>
+						<td colspan="3"><span id="life13"></span>岁</td>
+					</tr>
+					<tr>
+						<td class="header">开始饮酒年龄</td>
+						<td><span id="life14"></span>岁</td>
+						<td class="header" colspan="2">近一年内是否曾醉酒</td>
+						<td colspan=2><span id="life15"></span></td>
+					</tr>
+					<tr>
+						<td class="header">饮酒种类</td>
+						<td colspan="5"><span id="drinkHabit"></span><span
+							id="life16other"></span></td>
+					</tr>
+
+					<tr>
+						<td class="header" rowspan="6">职业暴露情况</td>
+						<td colspan="6"><span id="life17"></span><span id="life18"></span><span
+							id="life19"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="5">毒物种类</td>
+						<td class="header">粉尘:<span id="life20"></span></td>
+						<!-- <td id="life20"></td> -->
+						<td class="header">防护措施</td>
+						<td colspan=2><span id="life21"></span><span id="life21other"></span></td>
+
+					</tr>
+					<tr>
+						<td class="header">放射物质:<span id="life22"></span></td>
+						<!-- <td id="life22"></td> -->
+						<td class="header">防护措施</td>
+						<td colspan=2><span id="life23"></span><span id="life23other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">物理因素:<span id="life24"></span></td>
+						<!-- <td id="life24"></td> -->
+						<td class="header">防护措施</td>
+						<td colspan=2><span id="life25"></span><span id="life25other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">化学物质:<span id="life26"></span></td>
+						<!-- <td id="life26"></td> -->
+						<td class="header">防护措施</td>
+						<td colspan=2><span id="life27"></span><span id="life27other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">其他:<span id="life28"></span></td>
+						<!-- <td id="life28"></td> -->
+						<td class="header">防护措施</td>
+						<td colspan=2><span id="life29"></span><span id="life29other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="6">脏器功能</td>
+						<td class="header" rowspan="3">口腔</td>
+						<td class="header">口唇</td>
+						<td colspan="5" id="viscera01"></td>
+					</tr>
+					<tr>
+						<td class="header">齿列</td>
+						<td id="viscera02"></td>
+						<td colspan="2" class="header">齿列描述</td>
+						<td colspan=2>
+							<table cellpadding="0" cellspacing="0"
+								style="margin: 0px; padding: 0px; border: 0px; border-collapse: collapse; height: 100%;">
+								<tr>
+									<td id="viscera02description"></td>
+									<td id="viscera02description1"></td>
+								</tr>
+								<tr>
+									<td id="viscera02description2"></td>
+									<td id="viscera02description3"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td class="header">咽部</td>
+						<td colspan="5" id="viscera03"></td>
+					</tr>
+					<tr>
+						<td class="header">视力</td>
+						<td colspan="6">左眼<span id="viscera04"></span>右眼<span
+							id="viscera05"></span> <span>(矫正视力：左眼</span><span id="viscera06"></span>右眼<span
+							id="viscera07"></span>)
+						</td>
+					</tr>
+					<tr>
+						<td class="header">听力</td>
+						<td colspan="6" id="viscera08"></td>
+					</tr>
+					<tr>
+						<td class="header">运动能力</td>
+						<td colspan="6" id="viscera09"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td class="header" rowspan="24">查体</td>
+						<td>眼底*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td class="header" colspan="5"><span id="exam29"></span><span
+							id="exam29other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">皮肤</td>
+						<td colspan="5"><span id="body01"></span><span
+							id="body01other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">巩膜</td>
+						<td colspan="5"><span id="body02"></span><span
+							id="body02other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">淋巴结</td>
+						<td colspan="5"><span id="body03"></span><span
+							id="body03other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="3">肺</td>
+						<td class="header">桶状胸</td>
+						<td colspan="4"><span id="body04"></span></td>
+					</tr>
+					<tr>
+						<td class="header">呼吸音</td>
+						<td colspan="4"><span id="body05"></span><span
+							id="body05other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">罗音</td>
+						<td colspan="4"><span id="body06"></span><span
+							id="body06other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2">心脏</td>
+						<td class="header">心率</td>
+						<td><span id="body07"></span>次/分钟</td>
+						<td class="header">心律</td>
+						<td colspan=2><span id="body08"></span></td>
+					</tr>
+					<tr>
+						<td class="header">杂音</td>
+						<td colspan="4"><span id="body09"></span><span
+							id="body09other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="5">腹部</td>
+						<td class="header">压痛</td>
+						<td colspan="4"><span id="body10"></span><span
+							id="body10other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">包块</td>
+						<td colspan="4"><span id="body12"></span><span
+							id="body12other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肝大</td>
+						<td colspan="4"><span id="body13"></span><span
+							id="body13other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">脾大</td>
+						<td colspan="4"><span id="body14"></span><span
+							id="body14other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">移动性浊音</td>
+						<td colspan="4"><span id="body15"></span><span
+							id="body15other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">下肢水肿</td>
+						<td colspan="5" id="body16"></td>
+					</tr>
+					<tr>
+						<td class="header">足背动脉博动</td>
+						<td colspan="5" id="body17"></td>
+					</tr>
+					<tr>
+						<td class="header">肛门指诊*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td colspan="5"><span id="body18"></span><span
+							id="body18other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">乳腺*</td>
+						<td colspan="5"><span id="galactophore"></span><span
+							id="body19other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="5">妇科</td>
+						<td class="header">外阴*</td>
+						<td colspan="4"><span id="body20"></span><span
+							id="body20other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">阴道*</td>
+						<td colspan="4"><span id="body21"></span><span
+							id="body21other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">宫颈*</td>
+						<td colspan="4"><span id="body22"></span><span
+							id="body22other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">宫体*</td>
+						<td colspan="4"><span id="body23"></span><span
+							id="body23other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">附件*</td>
+						<td colspan="4"><span id="body24"></span><span
+							id="body24other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">其它*</td>
+						<td colspan="5"><span id="body25"></span></td>
+					</tr>
+
+				</table>
+			</div>
+			<div class="span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td class="header" rowspan="30">辅助检查</td>
+						<td class="header" rowspan="2">血常规*</td>
+						<td class="header">血红蛋白<span id="exam03"></span>g/L
+						</td>
+						<td class="header">白细胞<span id="exam04"></span>×10<sup>9</sup>/L
+						</td>
+						<td class="header">血小板<span id="exam05"></span>×10<sup>9</sup>/L
+						</td>
+					</tr>
+					<tr>
+						<td class="header" colspan="3">其它<span id="exam06"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2">尿常规*</td>
+						<td class="header">尿蛋白<span id="exam07"></span></td>
+						<td class="header">尿糖<span id="exam08"></span></td>
+						<td class="header">尿酮体<span id="exam09"></span></td>
+					</tr>
+					<tr>
+						<td class="header">尿潜血<span id="exam10"></span></td>
+						<td class="header" colspan="2">其它<span id="exam11"></span></td>
+					</tr>
+					<tr>
+						<td class="header">空腹血糖*</td>
+						<td colspan="3"><span id="exam01"></span>mmol/L 或 (餐后)<span
+							id="exam02"></span>mmol/L</td>
+					</tr>
+					<tr>
+						<td class="header">心电图*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td class="header" colspan="3"><span id="exam30"></span><span
+							id="exam30other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">尿微量白蛋白*</td>
+						<td class="header" colspan="3"><span id="exam12"></span></td>
+					</tr>
+					<tr>
+						<td class="header">大便潜血*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td colspan="3"><span id="exam13"></span></td>
+					</tr>
+					<tr>
+						<td>糖化血红蛋白*</td>
+						<td class="header" colspan="3"><span id="exam27"></span></td>
+					</tr>
+					<tr>
+						<td>乙型肝炎表面抗原*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td class="header" colspan="3"><span id="exam28"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2">肝功能*</td>
+						<td>血清谷丙转氨酶<span id="exam14"></span>U/L
+						</td>
+						<td>血清谷草转氨酶<span id="exam15"></span>U/L
+						</td>
+						<td colspan="2">白蛋白<span id="exam16"></span>g/L
+						</td>
+					</tr>
+					<tr>
+						<td>总胆红素<span id="exam17"></span>µmol
+						</td>
+						<td colspan="2">结合胆红素<span id="exam18"></span>µmol
+						</td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="2">肾功能*</td>
+						<td>血清肌酐<span id="exam19"></span>µmol
+						</td>
+						<td colspan="2">血尿素氮<span id="exam20"></span>mmol
+						</td>
+					</tr>
+					<tr>
+						<td>血钾浓度<span id="exam21"></span>mmol
+						</td>
+						<td colspan="2">血纳浓度<span id="exam22"></span>mmol
+						</td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="3">血脂*</td>
+						<td class="header">总胆固醇<span id="exam23"></span>mmol/L
+						</td>
+						<td class="header" colspan="2">甘油三酯<span id="exam24"></span>mmol/L
+						</td>
+					</tr>
+					<tr>
+						<td class="header" colspan="3">血清低密度脂蛋白胆固醇<span id="exam25"></span>mmol/L
+						</td>
+					</tr>
+					<tr>
+						<td class="header" colspan="3">血清高密度脂蛋白胆固醇<span id="exam26"></span>mmol/L
+						</td>
+					</tr>
+					<tr>
+						<td class="header">胸片X线片*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td class="header" colspan="3"><span id="exam31"></span><span
+							id="exam31other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">B超*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td class="header" colspan="3"><span id="exam32"></span><span
+							id="exam32other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">宫颈涂片*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td class="header" colspan="3"><span id="exam33"></span><span
+							id="exam33other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">其他*</td>
+						<td class="header" colspan="3"><span id="exam34"></span><span
+							id="exam34other"></span></td>
+					</tr>
+					<tr>
+						<td class="header" rowspan="9">中医体质辨识*<br />
+						<font size="2px" color="red">（空代表未测）</font></td>
+						<td class="header">平和质</td>
+						<td class="header" colspan="5"><span id="chn01"></span></td>
+					</tr>
+					<tr>
+						<td class="header">气虚质</td>
+						<td class="header" colspan="5"><span id="chn02"></span></td>
+					</tr>
+					<tr>
+						<td class="header">阳虚质</td>
+						<td class="header" colspan="5"><span id="chn03"></span></td>
+					</tr>
+					<tr>
+						<td class="header">阴虚质</td>
+						<td class="header" colspan="5"><span id="chn04"></span></td>
+					</tr>
+					<tr>
+						<td class="header">痰湿质</td>
+						<td class="header" colspan="5"><span id="chn05"></span></td>
+					</tr>
+					<tr>
+						<td class="header">湿热质</td>
+						<td class="header" colspan="5"><span id="chn06"></span></td>
+					</tr>
+					<tr>
+						<td class="header">血瘀质</td>
+						<td class="header" colspan="5"><span id="chn07"></span></td>
+					</tr>
+					<tr>
+						<td class="header">气郁质</td>
+						<td class="header" colspan="5"><span id="chn08"></span></td>
+					</tr>
+					<tr>
+						<td class="header">特秉质</td>
+						<td class="header" colspan="5"><span id="chn09"></span></td>
+					</tr>
+					<tr>
+						<td colspan="6"><font size="2px" color="red"> 提示：<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、其中填写必须数字的“-1”代表这些项未测；<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、其中填写字符的“未测”代表这些项未测；<br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、其中选择的为空代表这些项未测。
+						</font></td>
+					</tr>
+				</table>
+			</div>
+			<div class="span-22 last">
+				<table class="form_tbl">
+					<tr>
+						<td class="header" rowspan="7">现在主要健康问题</td>
+						<td class="header">脑血管疾病</td>
+						<td class="header" colspan="3"><span id="harnsSick"></span><span
+							id="problem01other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">肾脏疾病</td>
+						<td class="header" colspan="3"><span id="kidneySick"></span><span
+							id="problem02other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">心脏疾病</td>
+						<td class="header" colspan="3"><span id="heartSick"></span><span
+							id="problem03other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">血管疾病</td>
+						<td class="header" colspan="3"><span id="vasSick"></span><span
+							id="problem04other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">眼部疾病</td>
+						<td class="header" colspan="3"><span id="eyeSick"></span><span
+							id="problem05other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">神经系统疾病</td>
+						<td class="header" colspan="3"><span id="problem06"></span><span
+							id="problem06other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">其它系统疾病</td>
+						<td class="header" colspan="3"><span id="problem07"></span><span
+							id="problem07other"></span></td>
+					</tr>
+					<tr>
+						<td class="header">住院治疗情况</td>
+						<td class="header" colspan="4"><span id="hospitalization"></span></td>
+					</tr>
+					<tr>
+						<td class="header">主要用药情况</td>
+						<td class="header" colspan="4"><span id="examMedications"></span></td>
+					</tr>
+					<tr>
+						<td class="header">非免疫规划预防接种史</td>
+						<td class="header" colspan="4"><span id="vaccinateHistory"></span></td>
+					</tr>
+					<tr>
+						<td class="hearder" rowspan="5">健康评价</td>
+						<td colspan="4" id="judge01"></td>
+					</tr>
+					<tr>
+						<td colspan="4">异常1<span id="judge02"></span></td>
+					</tr>
+					<tr>
+						<td colspan="4">异常2<span id="judge03"></span></td>
+					</tr>
+					<tr>
+						<td colspan="4">异常3<span id="judge04"></span></td>
+					</tr>
+					<tr>
+						<td colspan="4">异常4<span id="judge05"></span></td>
+					</tr>
+					<tr>
+						<td class="header">健康指导</td>
+						<td colspan="4"><span id="healthDirect"></span></td>
+					</tr>
+					<tr>
+						<td class="header">危险因素控制</td>
+						<td colspan="4"><span id="dangerControl"></span><span
+							id="dangerControlOther1"></span><span id="dangerControlOther2"></span><span
+							id="dangerControlOther3"></span></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="showToolbar toolbarHide"></div>
+		<div class="i_enter">
+			<br /> <br />
+		</div>
+	</div>
+</body>
+</html>

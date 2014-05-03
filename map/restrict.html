@@ -1,0 +1,482 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<link rel="stylesheet" type="text/css" href="../themes/sunny/easyui.css">
+<link rel="stylesheet" type="text/css" href="../themes/icon.css">
+<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=10fd14046e11c2285e97009ff7cc6a0f"></script>
+<script type="text/javascript" src="BMapLib_AreaRestriction.js"></script>
+<script type="text/javascript" src="MarkerTool.js"></script>
+
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/interface/MapService.js'></script>
+
+<title>地图展示信息</title>  
+<style type="text/css">  
+html{height:100%}  
+body{height:100%;margin:0px;padding:0px}  
+#container{height:100%}  
+a.theforever_knight1:visited {color:orange;}
+#l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+</style>  
+
+<script type="text/javascript">
+
+var html = [];
+html.push('<table border="0" cellpadding="1" cellspacing="1" >');
+html.push('  <tr>');
+html.push('      <td  align="left" class="common">组织机构名称：</td>');
+html.push('      <td colspan="1"><span id="organName"></span></td>');
+html.push('  </tr>');
+html.push('</table>');	
+
+var infoWin = new BMap.InfoWindow(html.join(""), {offset: new BMap.Size(0, -10)});
+
+$(function(){
+
+		MapService.queryPointer(function(data){
+			if(data == null){
+				//alert("null");
+				return;
+			}else{
+
+				$.each(data, function(i, n){
+					var lng = parseFloat(n.id.split(",")[0]);
+					var lat = parseFloat(n.id.split(",")[1]);
+					var pt = new BMap.Point(lng,lat);
+					var maker = new BMap.Marker(pt);
+					map.addOverlay(maker);    
+					var label = new BMap.Label(n.organName,{offset:new BMap.Size(20,-15)});
+					maker.setLabel(label);
+					maker.addEventListener("click", function(){
+						var id = this.getPosition().lng + "," + this.getPosition().lat;
+						//alert(id);
+						MapService.queryPointerById(id,function(data){
+							//var mkr = evt.marker;
+							maker.openInfoWindow(infoWin);
+							//document.getElementById("organId").value = data.organId;
+							document.getElementById("organName").innerHTML = data.organName;
+
+							//alert(JSON.stringify(data));
+						});
+						
+					});
+
+				});
+
+
+			}
+
+		});
+
+
+		$('#treeOrganizationId').bind('click', function(){  
+			$('#organizationinfo').dialog('open'); 
+			/*
+			$('#taxinfo').panel('move',{   
+			  left:13,   
+			  top:50   
+			});
+			*/
+		}); 
+	
+
+		$('#organizationTree').tree({   
+			 checkbox: false,   
+			 url: '/OrganizationTreeServlet?type=1&pid=0&levels=init',   
+			 onBeforeExpand:function(node,param){  
+				 $('#organizationTree').tree('options').url = "/OrganizationTreeServlet?type=1&pid="+node.id+"&levels=" + node.attributes.levels;
+				 //alert(node.id);
+			 },               
+			onClick:function(node){
+
+				document.getElementById("xzqNameId").value = node.text;
+				document.getElementById("xzqCodeId").value = node.id;
+				//alert(node.text + "---" + node.id);
+
+				MapService.getAreaRestrictConfigByDistrictId(node.id,function(d){
+					if(d == null){
+						document.getElementById("sw_xId").value = "";
+						document.getElementById("sw_yId").value = "";
+						document.getElementById("ne_xId").value = "";
+						document.getElementById("ne_yId").value = "";
+						document.getElementById("center_xId").value = "";
+						document.getElementById("center_yId").value = "";
+						document.getElementById("zoom_levelId").value= "";	
+
+
+						//alert("没有获取到地图限制范围");
+						return;
+					}else{
+						document.getElementById("sw_xId").value = d.sw.split(",")[0];
+						document.getElementById("sw_yId").value = d.sw.split(",")[1];
+						document.getElementById("ne_xId").value = d.ne.split(",")[0];
+						document.getElementById("ne_yId").value = d.ne.split(",")[1];
+						document.getElementById("center_xId").value = d.centerPoint.split(",")[0];
+						document.getElementById("center_yId").value = d.centerPoint.split(",")[1];
+						document.getElementById("zoom_levelId").value= d.zoomLevel;								
+
+					}
+
+				});
+
+				var bdary = new BMap.Boundary();
+				bdary.get(node.text, function(rs){       //获取行政区域
+					map.clearOverlays();        //清除地图覆盖物       
+					var count = rs.boundaries.length; //行政区域的点有多少个
+					for(var i = 0; i < count; i++){
+						var ply = new BMap.Polygon(rs.boundaries[i], {strokeWeight: 2, strokeColor: "#ff0000"}); //建立多边形覆盖物
+						map.addOverlay(ply);  //添加覆盖物
+						map.setViewport(ply.getPath());    //调整视野         
+					}         
+					
+					MapService.queryPointer(function(data){
+						if(data == null){
+							//alert("null");
+							return;
+						}else{
+
+							$.each(data, function(i, n){
+								var lng = parseFloat(n.id.split(",")[0]);
+								var lat = parseFloat(n.id.split(",")[1]);
+								var pt = new BMap.Point(lng,lat);
+								var maker = new BMap.Marker(pt);
+								map.addOverlay(maker);    
+								var label = new BMap.Label(n.organName,{offset:new BMap.Size(20,-15)});
+								maker.setLabel(label);
+								maker.addEventListener("click", function(){
+									var id = this.getPosition().lng + "," + this.getPosition().lat;
+									//alert(id);
+									MapService.queryPointerById(id,function(data){
+										//var mkr = evt.marker;
+										maker.openInfoWindow(infoWin);
+										//document.getElementById("organId").value = data.organId;
+										document.getElementById("organName").innerHTML = data.organName;
+
+										//alert(JSON.stringify(data));
+									});
+									
+								});
+
+							});
+
+
+						}
+
+					});
+
+
+				}); 
+
+
+
+
+ 
+			},
+			onDblClick:function(node){
+				//alert(node.id);
+				var node1 = $('#taxtree').tree('getSelected');
+				$('#organizationTree').tree('options').url = "/OrganizationTreeServlet?type=1&pid="+node.id+"&levels=" + node.attributes.levels;
+				$('#taxtree').tree('expand', node1.target); 
+			},
+			onExpand:function(node, data){
+
+				//alert(JSON.stringify(node));
+				//var node = $('#taxtree').tree('getSelected');
+				//$('#taxtree').tree('expand', node.target); 
+			}
+			 
+
+		});	
+		$('#saveId').bind('click', function(){
+			var xzqCode = document.getElementById("xzqCodeId").value;
+			var sw_x = document.getElementById("sw_xId").value;
+			var sw_y = document.getElementById("sw_yId").value;
+			var ne_x = document.getElementById("ne_xId").value;
+			var ne_y = document.getElementById("ne_yId").value;
+			var center_x = document.getElementById("center_xId").value;
+			var center_y = document.getElementById("center_yId").value;
+			var zoom_level = document.getElementById("zoom_levelId").value;
+			if(xzqCode == ""){
+				alert("行政区域代码不能为空");
+				return;
+			}
+			if(sw_x == ""){
+				alert("西南限制点X不能为空");
+				return;
+			}
+			if(ne_x == ""){
+				alert("东北限制点X不能为空");
+				return;
+			}
+			if(center_x == ""){
+				alert("中心定位点X不能为空");
+				return;
+			}
+			if(zoom_level == ""){
+				alert("地图缩放级别不能为空");
+				return;
+			}
+			MapService.saveAreaRestrictConfig(xzqCode,sw_x,sw_y,ne_x,ne_y,center_x,center_y,zoom_level,function(d){
+				alert("配置保存成功");
+
+
+
+			});
+
+
+		}); 	
+})
+
+function openGridDid(){
+	$('#positionDiv').dialog('open');
+}
+</script>
+
+</head>  
+   
+<body style="overflow:hidden">  
+
+
+	<div class="easyui-layout" style="width:1100px;height:650px;">
+
+		<div data-options="region:'center',iconCls:'icon-ok'" style="width:750px;border:1">
+			<div id="container">
+
+			
+			</div>
+		</div>
+
+		<div data-options="region:'east',split:true,title:'地图区域配置',border:true" style="width:350px;">
+
+				<a href="#" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-position'"  onclick="openGridDid()">查询组织机构</a>
+				<a href="#" id="treeOrganizationId" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-position'">地图定位</a>
+				<br><br>
+				<table border="0">
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行政区域名称：
+						</td>
+						<td>
+							<input id="xzqNameId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;行政区域代码：
+						</td>
+						<td>
+							<input id="xzqCodeId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+
+				</table>
+
+				<br>
+				<table border="0">
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;<input id="swPointCheckboxId" type="checkbox"/>&nbsp;&nbsp;西南限制点X：
+						</td>
+						<td>
+							<input id="sw_xId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西南限制点Y：
+						</td>
+						<td>
+							<input id="sw_yId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+
+				</table>
+	
+
+				<br>
+				<table border="0">
+
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;<input id="nePointCheckboxId" type="checkbox"/>&nbsp;&nbsp;东北限制点X：
+						</td>
+						<td>
+							<input id="ne_xId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;东北限制点Y：
+						</td>
+						<td>
+							<input id="ne_yId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+				</table>
+
+	
+
+				<br>
+				<table border="0">
+
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中心定位点X：
+						</td>
+						<td>
+							<input id="center_xId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中心定位点Y：
+						</td>
+						<td>
+							<input id="center_yId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+				</table>
+
+				<br>
+				<table border="0">
+
+					<tr>
+						<td>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地图缩放级别：
+						</td>
+						<td>
+							<input id="zoom_levelId" type="text" value="" readonly="true"/>
+						 
+						</td>
+
+					</tr>
+				</table>
+
+				<br>
+				<table border="0">
+
+					<tr>
+						<td>
+							&nbsp;
+						</td>
+						<td>
+							<a href="#" id="saveId" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-position'">保存</a>
+
+						 
+						</td>
+
+					</tr>
+				</table>
+
+		</div>
+
+</div>
+
+
+
+
+<script>
+var centerCityName = "";
+
+
+	var map = new BMap.Map("container");
+	MapService.getDistinctName(function(data){
+		map.centerAndZoom(data, 16);
+	})
+	map.enableScrollWheelZoom(); 
+	map.addEventListener("click", function(e){
+		if(document.getElementById("swPointCheckboxId").checked){
+				document.getElementById("sw_xId").value = e.point.lng;
+				document.getElementById("sw_yId").value = e.point.lat;
+		}
+		if(document.getElementById("nePointCheckboxId").checked){
+				document.getElementById("ne_xId").value = e.point.lng;
+				document.getElementById("ne_yId").value = e.point.lat;
+		}
+	});
+
+	map.addEventListener("dragend", function showInfo(){
+		var cp = map.getCenter();
+		document.getElementById("center_xId").value = cp.lng;
+		document.getElementById("center_yId").value = cp.lat;
+	});
+	map.addEventListener("zoomend", function showInfo(){
+		document.getElementById("zoom_levelId").value = map.getZoom();
+	});
+
+
+</script>
+
+
+<script>
+	function queryOrgans(){
+		var organName = document.getElementById("organNameId").value;
+		var sContent = "<table border=0 cellpadding=2 cellspacing=0><tr><td>选择</td><td>组织机构代码</td><td>组织机构名称</td></tr>";
+		MapService.queryPointerByName(organName,function(data){
+			if(data != null){
+				$.each(data, function(i, n){
+					sContent = sContent + "<tr><td><input type=radio name='organName' value='" + n.id + "'/></td><td>"+n.organId+"</td><td>" + n.organName + "</td></tr>"
+
+				});			
+			}
+		sContent = sContent + "</table>"
+			//alert(JSON.stringify(d));
+		document.getElementById("payerInfoId").innerHTML = sContent;
+
+		})
+	}
+
+	function selectOrgan(){
+		var chkObjs = document.getElementsByName("organName");
+		for(var i=0;i<chkObjs.length;i++){
+			if(chkObjs[i].checked){
+				map.centerAndZoom(new BMap.Point(parseFloat( chkObjs[i].value.split(",")[0]),parseFloat( chkObjs[i].value.split(",")[1])),16);	
+				$('#positionDiv').window('close');  // open a window   
+				break;
+				//alert(chkObjs[i].value);
+			}
+		}	
+
+	}
+</script>
+
+		<div id="organizationinfo" class="easyui-dialog" title="&nbsp;" data-options="iconCls:'icon-save',closed:true,modal:false,collapsible:true"  style="width:300px;height:500px;">
+			
+			<div id="organizationLayout" class="easyui-layout" style="width:280px;height:500px;" data-options="fit:true">
+				<div data-options="region:'center',split:true" title="">
+					<ul id="organizationTree" data-options="animate:true"></ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="positionDiv" class="easyui-dialog" title="组织机构查询" data-options="iconCls:'icon-save',closed:true,modal:false,collapsible:true"  style="width:550px;padding:20px">
+			组织机构名称：<input type="text" id="organNameId" style="width:200px;"/>&nbsp;&nbsp;
+			<a href="#" id="positonButtonId2" onclick="queryOrgans()" class="easyui-linkbutton" data-options="plain:false,iconCls:'icon-search'">查询</a>&nbsp;&nbsp;
+			<a href="javascript:selectOrgan()" class="easyui-linkbutton" iconCls="icon-add">选择</a>&nbsp;&nbsp;
+			<div id="payerInfoId" style="height:300px;overflow:auto;">
+			
+			</div>
+		</div>
+</body>  
+
+</html>  

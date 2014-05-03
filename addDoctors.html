@@ -1,0 +1,37 @@
+<div>
+	<table class="addDoctors_Table">
+		<tr>
+			<td class="addDoctors_header">姓名：</td>
+			<td><input type="text" id="name" onfocus="doctorObj.selectOrg()"/></td>
+		</tr>
+		<tr>
+			<td class="addDoctors_header">性别：</td>
+			<td>
+				<input type="radio" id="male" value="男" checked="checked" name="sex"/>男
+				<input type="radio" id="female" value="女" name="sex"/>女
+			</td>
+		</tr>
+		<tr>
+			<td class="addDoctors_header">出生日期：</td>
+			<td><input type="text" id="birthday" onfocus="WdatePicker({isShowWeek:true})"/></td>
+		</tr>
+		<tr>
+			<td class="addDoctors_header">联系电话：</td>
+			<td><input type="text" id="tel"/></td>
+		</tr>
+		<tr>
+			<td class="addDoctors_header">联系地址：</td>
+			<td><input type="text" id="address"/></td>
+		</tr>
+		<tr>
+			<td class="addDoctors_header">所属机构：</td>
+			<td><select id="hospId" onclick="selectOrg()"></select></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" class="addDoctors_submit">
+				<button id="submit" onclick="doctorObj.saveDoctors()">增加</button>
+				<button id="cancel" onclick="doctorObj.cancelDoctors()">取消</button>
+			</td>
+		</tr>
+	</table>
+</div>
