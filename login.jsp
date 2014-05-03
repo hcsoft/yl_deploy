@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>昆明市公共卫生服务管理平台</title>
+<title>彝良县公共卫生服务管理平台</title>
 <link href="css/login-new.css" rel="stylesheet" type="text/css" />
 <script type='text/javascript' src='/dwr/engine.js'></script>
 <script type='text/javascript' src='/dwr/util.js'></script>

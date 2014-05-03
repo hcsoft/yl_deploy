@@ -1,0 +1,12 @@
+<Context>
+ <Resource name="jdbc/sqlserver"
+         auth="Container"
+         driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+         type="javax.sql.DataSource"
+         url="jdbc:sqlserver://hcsoft2014.sqlserver.rds.aliyuncs.com:3433;databaseName=db23w7yt41fk3kl8"
+         username="hcsoft"
+         password="hcsoftdb2014"
+         maxActive="100" 
+         maxIdle="30"
+         maxWait="10000" />
+</Context>
