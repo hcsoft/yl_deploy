@@ -306,7 +306,7 @@ function getPrintCfg02(data,orgmap){
 		value[count++] =  "√";
 	}
 	value[count++] =  "云南";//产后休养地-省
-	value[count++] =  "昆明";//市
+	value[count++] =  "昭通";//市
 	value[count++] =  orgmap.getNodeById(data.file.fileNo.substr(0,6)).text;//区
 	value[count++] =  data.file.township;//街
 	value[count++] =  data.file.village;//村

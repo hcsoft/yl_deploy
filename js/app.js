@@ -558,7 +558,7 @@ var fieldsArray = {};
                     	if(d[prop] == null)
                     		d[prop] = '';
                     	else if(prop == 'idnumber' && d[prop] == '')
-                    		d[prop] = '5301'
+                    		d[prop] = '5306'
                         c.val(d[prop]);
                     }
                 }//if

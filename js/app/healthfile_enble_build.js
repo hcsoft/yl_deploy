@@ -76,8 +76,8 @@ app.healthfileEnbleBuildPanel = new Ext.tf.HealthPanel({
 			var birthday = calculateTimeObj.dateToStr(selections[0].data.personalInfo_birthday);
 			var tel = escape(selections[0].json.tel);
 			var provence = escape('云南');
-			var city = escape('昆明');
-			var county = escape('');
+			var city = escape('昭通市');
+			var county = escape('彝良县');
 			var township = escape(selections[0].json.township);
 			var village = escape(selections[0].json.village);
 //			console.log(Ext.tf.currentUser);

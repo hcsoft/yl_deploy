@@ -421,7 +421,7 @@
 		      var filterValue = "";
 		      var isFirst = 0;
 		      var cond = {
-		        district : "530100",
+		        district : "530628",
 		        filterKey : filterKey,
 		        filterValue : filterValue,
 		        isFirst : isFirst
@@ -430,7 +430,7 @@
 		 }
 		var store = new Ext.data.Store({
 			proxy : new Ext.ux.data.DWRProxy({
-				dwrFunction : UserMenuTreeService.test("530100",10)
+				dwrFunction : UserMenuTreeService.test("530628",10)
 //				 listeners : { 
 //					 'beforeload' : function(dataProxy, params) {
 //						 params[dataProxy.loadArgsKey] = [ "jack" ];

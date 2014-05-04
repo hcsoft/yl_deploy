@@ -61,7 +61,7 @@ Ext.onReady(function() {
 						json = '{' + json + '}';
 						BirthCertificateMsgService.barCodeInit(json,function(data){
 							certificateObj.clearAllInput('distriNo','barCodeInit');
-							$('#distriNo').val('5301');
+							$('#distriNo').val('5306');
 							Ext.Msg.alert('提示','保存成功');
 							$('#showResultInfo').html('<font color=red size=2>您已经成功初始化' + data.successNum + '个条形码编号。</font>')
 						});
@@ -84,7 +84,7 @@ Ext.onReady(function() {
 							json = '{' + json + '}';
 							BirthCertificateMsgService.barCodeDel(json,function(data){
 								certificateObj.clearAllInput('distriNo','barCodeInit');
-								$('#distriNo').val('5301');
+								$('#distriNo').val('5306');
 								Ext.Msg.alert('提示','删除成功');
 								var failureInfo = data.failureStr;
 								if(failureInfo != ''){
