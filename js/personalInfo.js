@@ -545,7 +545,6 @@ function formatdate(date){
       setting: {
         maxlen: 18,
         size: 18,
-        format:'idnumber',
         calculateBirthday: true,
         calculateBirthdayByIDNumber: ["birthday"]
       },
