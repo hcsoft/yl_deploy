@@ -547,8 +547,7 @@ function formatdate(date){
         size: 18,
         format:'idnumber',
         calculateBirthday: true,
-        calculateBirthdayByIDNumber: ["birthday"],
-        checkfunc:window.checkidnumber
+        calculateBirthdayByIDNumber: ["birthday"]
       },
       required: [true, "身份证号"]
     }, {
