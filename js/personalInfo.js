@@ -388,18 +388,19 @@ function formatdate(date){
 	  if(!valid.valid){
 		  return "身份证号"+valid.msg;
 	  }
-	  
-	  FileNumSearch.checkFileByIdNumber($("#fileNo span").html(),idnumber,		{ 
-	        async: false,
-	        callback: function(data){
-	        	console.log(data);
-	        	if(data.length>0){
-	        		ret = "不允许录入重复的身份证号!身份证与以下档案重复:"
-	        		for(var i = 0 ; i <data.length;i++){
-	        			ret += "<br>姓名:"+denc(data[i][1])+"&nbsp;&nbsp;档案编号:"+denc(data[i][0]);
-	        		}
-	        	}	        }
-	  });
+	  if($("#fileNo span").html()){
+		  FileNumSearch.checkFileByIdNumber($("#fileNo span").html(),idnumber,		{ 
+				async: false,
+				callback: function(data){
+					console.log(data);
+					if(data.length>0){
+						ret = "不允许录入重复的身份证号!身份证与以下档案重复:"
+						for(var i = 0 ; i <data.length;i++){
+							ret += "<br>姓名:"+denc(data[i][1])+"&nbsp;&nbsp;档案编号:"+denc(data[i][0]);
+						}
+					}	        }
+		  });
+	  }
 	  return ret;
   }
 
