@@ -388,7 +388,7 @@ function formatdate(date){
 	  if(!valid.valid){
 		  return "身份证号"+valid.msg;
 	  }
-	  if($("#fileNo span").html()){
+	  if(idnumber){
 		  FileNumSearch.checkFileByIdNumber($("#fileNo span").html(),idnumber,		{ 
 				async: false,
 				callback: function(data){
