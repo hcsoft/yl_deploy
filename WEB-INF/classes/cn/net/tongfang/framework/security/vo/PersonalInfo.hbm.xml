@@ -27,7 +27,7 @@
 		</property>
 		<property generated="never" lazy="false" name="idnumber"
 			type="java.lang.String">
-			<column name="IDNumber" not-null="true" />
+			<column name="IDNumber" />
 		</property>
 		<property generated="never" lazy="false" name="workUnit"
 			type="java.lang.String">
