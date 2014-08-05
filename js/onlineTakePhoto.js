@@ -39,13 +39,22 @@ Ext.onReady(function(){
 							$('#onlinePhoto img').attr('src','headPicture/' + data);
 							$('.onlineTakePhoto').hide();
 						}
-							
 					});
 					win.close();
 				}
 			}]
 			
 		});
+		window.closePhotoWin = function(){
+			PersonalInfoService.getHeadPicture(function(data){
+			    console.log(data);
+				if(data){
+					$('#onlinePhoto img').attr('src','headPicture/' + data);
+					$('.onlineTakePhoto').hide();
+				}
+			});
+			win.close();
+		}
 		win.show(this);
 		win.doLayout();
 	});
