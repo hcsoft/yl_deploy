@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>连接池状态</title>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/poolService.js'></script>
+</head>
+<body>
+	<table>
+		<tr><td >最大活动连接</td><td id="maxactive"></td></tr>
+		<tr><td >当前连接数</td><td id="numactive"></td></tr>
+		<tr><td >最大闲置连接</td><td id="maxidle"></td></tr>
+		<tr><td >当前闲置连接</td><td id="numidle"></td></tr>
+	</table>
+	<script>
+	poolService.queryPoolStatus(function(data){
+		document.getElementById("maxactive").innerHTML = data.maxactive;
+		document.getElementById("numactive").innerHTML = data.numactive;
+		document.getElementById("maxidle").innerHTML = data.maxidle;
+		document.getElementById("numidle").innerHTML = data.numidle;
+	});
+	</script>
+</body>
+</html>
