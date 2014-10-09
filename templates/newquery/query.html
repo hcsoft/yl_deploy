@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html style="height:100%;width:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="/js/easyui/themes/hc/easyui.css">
+<link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css">
+<script type="text/javascript" src="/js/easyui/jquery-1.8.0.min.js"></script>
+<script src='/js/angularjs/jquery/jquery.dateFormat-1.0.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
+<script type='text/javascript' src='/dwr/interface/DataExportService.js'></script>
+<script type='text/javascript' src='/dwr/interface/HealthFileService.js'></script>
+
+
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script src="/js/easyui/jquery.easyui.min.js"></script>
+<script src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<style>
+.tree-file {
+	background: url(../../resources/images/default/tree/leaf.gif) no-repeat;
+}
+
+.tree-node-selected {
+	background: #d9e8fb;
+	color: #000000;
+}
+
+.datagrid-row-selected {
+	background: #eaf2ff !important;
+	color: #000000;
+	font-weight: bold;
+}
+
+.datagrid-row-over,.datagrid-header td.datagrid-header-over {
+	background: #eaf2ff !important;
+	color: #000000;
+	cursor: default;
+}
+</style>
+<script>
+	function showExport() {
+		var id = $("#select_type").combobox('getValue');
+		$("#params_panel").html('');
+		var values = g_params[id];
+		var html = "<table>";
+		if (g_subs[id]) {
+			for ( var key in g_subs[id]) {
+				html += ("<tr><td>" + g_subs[id][key].name + "：</td>");
+				console.log(g_subs[id][key]);
+				if(g_subs[id][key].type=='select'){
+					var data = eval("("+g_subs[id][key].colstr+")");
+					html += ("<td><select id='"+g_subs[id][key].code+"'>");
+					for(var opt in data){
+						if (values && values[key] && values[key]==opt ) {
+							html += "<option value=\""+opt+"\" selected>"+opt+"</option>";
+						}else{
+							html += "<option value=\""+opt+"\">"+opt+"</option>";
+						}
+					}
+					html += ("</select></td></tr>");
+				}else{
+					if (values && values[key]) {
+						html += ("<td><input id='"+g_subs[id][key].code+"' value='"+values[key]+"'></td></tr>");
+					} else {
+						html += ("<td><input id='"+g_subs[id][key].code+"'></td></tr>");
+					}
+				}
+			}
+		}
+		html += ("<tr><td colspan=2 ><a class='query_button' href='#' onclick='javascript:queryGrid()'>查询</a><a class='export_button' href='#' onclick='javascript:export_data()'>导出</a></td></tr>");
+		html += ("</table>");
+		$("#params_panel").append(html);
+		$('.query_button').linkbutton({
+			iconCls : 'icon-search'
+		});
+		$('.export_button').linkbutton({
+			iconCls : 'icon-redo'
+		});
+		$('#params_panel').dialog();
+		$('#params_panel').dialog('open');
+		$('#params_panel').dialog('center');
+	}
+	function getParameterByName(name) {
+		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex
+				.exec(location.search);
+		return results == null ? "" : decodeURIComponent(results[1].replace(
+				/\+/g, " "));
+	}
+	var examname = getParameterByName("examname");
+	function examDwrLoader(pluginName) {
+		return function(param, success, error) {
+			var opts = $(this)[pluginName]('options');
+			if (!opts.url)
+				return false;
+			var dwrFunc = eval(opts.url);
+			param = genParam(param);
+			dwrFunc(param[0], param[1], param[2], param[3], {
+				callback : function(data) {
+					success(data);
+				},
+				exceptionHandler : function() {
+					error.apply(this, arguments);
+				}
+			});
+		}
+	}
+	$.fn.datagrid.defaults.loader = examDwrLoader('datagrid');
+	var g_params = {};
+	function saveparams() {
+		var inputs = $("#params_panel").find("input,select");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		})
+		g_params[$("#select_type").combobox('getValue')] = params;
+	}
+	function gettreevalue(){
+		var orgparamtype = g_main[$("#select_type").combobox('getValue')][2];
+		if("in"==orgparamtype){
+			var node = $('#orgtree').tree('getChecked');
+			var orgs = "";
+			for (var i = 0; i < node.length; i++) {
+				orgs += "," + node[i].id;
+			}
+			return orgs.substr(1);
+		}else{
+			return $('#orgtree').tree('getSelected').id;
+		}
+	}
+	function gettreeopt(){
+		var orgparamtype = g_main[$("#select_type").combobox('getValue')][2];
+		if("in"==orgparamtype){
+			return "check";
+		}else{
+			return "select";
+		}
+	}
+	
+	function export_data() {
+		var inputs = $("#params_panel").find("input");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		});
+		$('.export_button').linkbutton('disable');
+		DataExportService.sqlExport(gettreevalue(),$("#select_type").combobox('getValue'),
+				$("#select_type").combobox('getText'), params, function(data) {
+					$('.export_button').linkbutton('enable');
+					window.location.href = data;
+				});
+	}
+
+	function dialogClose() {
+		saveparams();
+		$("#iframe").attr("src", "about:blank");
+	}
+	function gridStyle(index, row) {
+		if (index % 2 == 0) {
+			return 'background-color:#fbfbfb;';
+		} else {
+			return ':hover {background-color:#eaf2ff}';
+		}
+	}
+	function datefomattor(value, row, index) {
+		return $.format.date(value, "yyyy-MM-dd")
+	}
+
+	function genParam(param) {
+		var inputs = $("#params_panel").find("input,select");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		});
+		var pageable = g_main[$("#select_type").combobox('getValue')][3];
+		var pagesize = g_main[$("#select_type").combobox('getValue')][4];
+		var pagenumber = param.page;
+		var pager = { 'pagesize':(pagesize ? pagesize:1000),'pagenumber':(pagenumber?pagenumber:1)};
+		var dwrparams = [gettreevalue(),$("#select_type").combobox('getValue'), params,pager ];
+		return dwrparams;
+	}
+
+	function selectChild() {
+		var node = $('#orgtree').tree('getSelected');
+		//始终选择最后一层
+		if (!node.attributes.isDetail) {
+			var childs = $('#orgtree').tree('getChildren', node.target);
+			for (var i = 0; i < childs.length; i++) {
+				if (childs[i].attributes.isDetail) {
+					$('#orgtree').tree('expandTo', childs[i].target);
+					$('#orgtree').tree('select', childs[i].target);
+					break;
+				}
+			}
+		}
+	}
+
+	function dblclick(rowIndex, rowData) {
+		//var node = $('#orgtree').tree('getSelected');  
+		//var url = "marry_check_info.html#&opt=open&district="+node.id+"&id="+rowData["col0"];
+		//if(url != $("#iframe").attr("src")){
+		//$("#iframe").attr("src","about:blank");//释放iframe内存
+		//$("#iframe").attr("src",url);
+		//}
+		//$("#exam_addpanel").dialog("open");
+	}
+	function initColumn(data){
+		for(var i = 0 ; i<data.length ;i ++){
+			if(data[i].format){
+				data[i].formatter = eval(data[i].format);
+			}
+		}
+		return data;
+	}
+	
+	function buttonColumn(value,row,index){
+		var buttons = eval(value.replace(/\#/g,"'"));
+		var retstr="";
+		for(var i = 0 ; i<buttons.length;i++){
+			retstr+="<button onclick='openwindow("+JSON.stringify(buttons[i])+")'>"+buttons[i].name+"</button>"
+		}
+		return retstr;
+	}
+	function funcButtonColumn(value,row,index){
+		var buttons = eval(value.replace(/\#/g,"'"));
+		var retstr="";
+		for(var i = 0 ; i<buttons.length;i++){
+			retstr+="<button onclick='funcbutton("+buttons[i].func+",\""+buttons[i].data+"\")'>"+buttons[i].name+"</button>"
+		}
+		return retstr;
+	}
+	function openwindow(args){
+		$("#window_panel").html('');
+		$("#window_panel").attr("title",args.name);
+		DataExportService.getDiv(args.id,function(data){
+			var html = data.html.replace(/\\\"/g,"'");
+			$("#window_panel").attr("panelArgs",JSON.stringify(args));
+			$("#window_panel").append(html);
+			$('#window_panel').dialog({width:700,title:args.name});
+			$('#window_panel').dialog("open");
+			initEasyui('#window_panel');
+			$('#window_panel').dialog("refresh");
+			$('#window_panel').dialog('center');
+		});
+	}
+	
+	function funcbutton(func,data){
+		if(func){
+			func(data, {
+				async : false,
+				callback : function(data) {
+					if(data){
+						if(data.success){
+							$.messager.alert('操作成功','操作成功!','info'); 
+						}else{
+							$.messager.alert('操作失败',data.msg,'info'); 
+						}
+					}
+				}
+			});
+		}else{
+			alert("服务配置有错!请与系统管理员联系!")
+		}
+	}
+	
+	function initEasyui(selector){
+		$(selector).find(".easyui-layout").layout();
+		$(selector).find(".easyui-linkbutton").linkbutton();
+		$(selector).find(".easyui-datagrid").datagrid();
+	}
+
+	$(function() {
+		DataExportService.sqlListHead($("#select_type").combobox('getValue'), {
+			async : false,
+			callback : function(data) {
+				columns = initColumn(data);
+			}
+		});
+		var nodedata = window.top.earyuitreedata;
+		var orgparamtype = g_main[$("#select_type").combobox('getValue')][2];
+		$('#orgtree').tree(
+				{
+					data : nodedata,
+					checkbox : "in"==orgparamtype ?true:false,
+					onLoadSuccess : function() {
+						//选中第一节点
+						var node = $('#orgtree').tree('find',
+								parseInt(nodedata[0].id));
+						$('#orgtree').tree(gettreeopt(), node.target);
+					}
+				});
+		initGrid();
+	});
+
+	function initGrid() {
+		var columns = [];
+		DataExportService.sqlListHead($("#select_type").combobox('getValue'), {
+			async : false,
+			callback : function(data) {
+				columns = initColumn(data);
+			}
+		});
+		var id = $("#select_type").combobox('getValue');
+		var pageable = g_main[$("#select_type").combobox('getValue')][3];
+		var pagesize = g_main[$("#select_type").combobox('getValue')][4];
+		$("#querygrid").datagrid({
+			url : 'DataExportService.sqlListnew',
+			columns : [ columns ],
+			rowStyler : gridStyle,
+			singleSelect : true,
+			pageSize :pagesize,
+			pageList : [ pagesize ],
+			pagination : pageable,
+			fit : true
+		});
+	}
+	function typechange() {
+		var columns = [];
+		DataExportService.sqlListHead($("#select_type").combobox('getValue'), {
+			async : false,
+			callback : function(data) {
+				columns = initColumn(data);
+			}
+		});
+		$("#querygrid").datagrid({
+			columns : [ columns ]
+		});
+	}
+	function queryGrid() {
+		$(".query_button").linkbutton('disable');
+		$("#querygrid").datagrid("reload");
+		$(".query_button").linkbutton('enable');
+	}
+	
+	function initWindowGrid() {
+		var columns = [];
+		DataExportService.sqlListHead($("#select_type").combobox('getValue'), {
+			async : false,
+			callback : function(data) {
+				columns = initColumn(data);
+			}
+		});
+		var id = $("#select_type").combobox('getValue');
+		var pageable = g_main[$("#select_type").combobox('getValue')][3];
+		var pagesize = g_main[$("#select_type").combobox('getValue')][4];
+		$("#querygrid").datagrid({
+			url : 'DataExportService.sqlListnew',
+			columns : [ columns ],
+			rowStyler : gridStyle,
+			singleSelect : true,
+			pageSize :pagesize,
+			pageList : [ pagesize ],
+			pagination : pageable,
+			fit : true
+		});
+	}
+	function windowListLoader(param, success, error) {
+		var opts = $(this)['datagrid']('options');
+		if (!opts.url)
+			return false;
+		eval("var args = "+$("#window_panel").attr("panelArgs"));
+		var inputs = $("#window_panel").find("input");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		});
+		$.extend(params,args);
+		var pageable = g_main[$("#window_examid").val()][3];
+		var pagesize = g_main[$("#window_examid").val()][4];
+		var pagenumber = param.page;
+		var pager = { 'pagesize':(pagesize ? pagesize:1000),'pagenumber':(pagenumber?pagenumber:1)};
+		var dwrparams = [gettreevalue(),$("#select_type").combobox('getValue'), params,pager ];
+		var dwrFunc = eval(opts.url);
+		dwrFunc(null,$("#window_examid").val(),params,pager, {
+			callback : function(data) {
+				console.log(data);
+				success(data);
+			},
+			exceptionHandler : function() {
+				error.apply(this, arguments);
+			}
+		});
+	}
+</script>
+<body>
+	<div class="easyui-panel easyui-layout" data-options='fit:true'>
+		<div data-options="region:'west'" title='机构' style='width: 200px'>
+			<ul id="orgtree"></ul>
+		</div>
+		<div id="query-tools" data-options="region:'north'"
+			style='height: 40px; padding-top: 5px; padding-left: 5px; border: true; background-color: #E0ECFF;'>
+			<select id='select_type' class="easyui-combobox" name="state"
+				style="width: 400px;" data-options="onSelect:typechange">
+			</select> <a id="btn_remove" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-remove'"
+				onclick="javascript:showExport()">查询</a>
+		</div>
+		<div id="params_panel" class="easyui-dialog" title='参数'
+			style="width: 280px;"
+			data-options="iconCls:'icon-save',resizable:false,modal:false,closed:true,onClose:dialogClose">
+		</div>
+		<div id="window_panel" class="easyui-dialog" title='窗口'
+			data-options="modal:true,closed:true"></div>
+		<div class="easyui-layout" data-options="region:'center'">
+			<!-- <div style='height:26px;padding:5px 0 0 5px;background-color: #E0ECFF;' data-options="region:'north',border:false"><font bold id='orgname'>请选择机构</font></div> -->
+			<div data-options="region:'center',border:false">
+				<table id='querygrid'></table>
+			</div>
+		</div>
+	</div>
+	<script>
+		var g_options = null;
+		DataExportService.get_Export_Param(getParameterByName("type"), {
+			callback : function(data) {
+				g_options = data;
+			},
+			async : false
+		});
+		var colstart = 0;
+		var exportid = getParameterByName("exportid");
+		console.log(exportid);
+		var g_main = {};
+		if (exportid) {
+			for (var i = 0; i < g_options.main.length; i++) {
+				g_main["" + g_options.main[i][0]] = g_options.main[i];
+				if (g_options.main[i][0] + "" === exportid) {
+					$("#select_type").append(
+							" <option value=\""+g_options.main[i][0]+"\">"
+									+ g_options.main[i][1] + "</option>")
+				}
+			}
+		} else {
+			for (var i = 0; i < g_options.main.length; i++) {
+				g_main["" + g_options.main[i][0]] = g_options.main[i];
+				$("#select_type").append(
+						" <option value=\""+g_options.main[i][0]+"\">"
+								+ g_options.main[i][1] + "</option>")
+			}
+		}
+		var g_subs = {};
+		for (var i = 0; i < g_options.sub.length; i++) {
+			if (!g_subs[g_options.sub[i].mainid]) {
+				g_subs[g_options.sub[i].mainid] = {};
+			}
+			g_subs[g_options.sub[i].mainid][g_options.sub[i].id] = g_options.sub[i];
+		}
+	</script>
+</body>
+</html>
