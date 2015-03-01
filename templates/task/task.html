@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html style="height:100%;width:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="/js/easyui/themes/hc/easyui.css">
+<link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css">
+<script type="text/javascript" src="/js/easyui/jquery-1.8.0.min.js"></script>
+<script src='/js/angularjs/jquery/jquery.dateFormat-1.0.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
+<script type='text/javascript' src='/dwr/interface/DataExportService.js'></script>
+<script type='text/javascript' src='/dwr/interface/HealthFileService.js'></script>
+
+
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script src="/js/util/util.js"></script>
+<script src="/js/easyui/jquery.easyui.min.js"></script>
+<script src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<style>
+.tree-file {
+	background: url(../../resources/images/default/tree/leaf.gif) no-repeat;
+}
+
+.tree-node-selected {
+	background: #d9e8fb;
+	color: #000000;
+}
+
+.datagrid-row-selected {
+	background: #eaf2ff !important;
+	color: #000000;
+	font-weight: bold;
+}
+
+.datagrid-row-over,.datagrid-header td.datagrid-header-over {
+	background: #eaf2ff !important;
+	color: #000000;
+	cursor: default;
+}
+</style>
+<body>
+	<div class="easyui-panel easyui-layout" data-options='fit:true'>
+		<div data-options="region:'west'" title='机构' style='width: 200px'>
+			<ul id="orgtree"></ul>
+		</div>
+		<div id="query-tools" data-options="region:'north'"
+			style='height: 40px; padding-top: 5px; padding-left: 5px; border: true; background-color: #E0ECFF;'>
+			<a id="btn_remove" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-add'" onclick="javascript:showAdd()">新增</a>
+			<a id="btn_remove" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-edit'" onclick="javascript:showEdit()">修改</a>
+			<a id="btn_remove" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-remove'" onclick="javascript:showDel()">删除</a>
+			<a id="btn_remove" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-remove'"
+				onclick="javascript:showExport()">查询</a>
+		</div>
+		<div class="easyui-layout" data-options="region:'center'">
+			<div data-options="region:'center',border:false">
+				<table id='querygrid'></table>
+			</div>
+		</div>
+		<!-- 参数窗口 -->
+		<div id="params_panel" class="easyui-dialog" title='参数'
+			style="width: 280px;"
+			data-options="iconCls:'icon-save',resizable:false,modal:false,closed:true,onClose:dialogClose">
+		</div>
+		<!-- 参数窗口 -->
+		<div id="default_panel" class="easyui-dialog" title='默认值'
+			style="width: 380px; height: 500px; overflow: auto;"
+			data-options="iconCls:'icon-save',resizable:false,modal:true,closed:true,onClose:dialogClose">
+			<div data-options="region:'north'" class='buttons'  style='height: 30px; padding-top: 10px; border: true; background-color: #E0ECFF; text-align: center;position:fixed;width:366px;'>
+				<a class='savedefault_button' href='#'
+					onclick='javascript:savedefault(this)'>保存默认值</a> <a
+					class='defaultclose_button' href='#'
+					onclick='javascript:$("#default_panel").dialog("close");'>关闭</a>
+			</div>
+			<div data-options="region:'south'" style='padding-top:45px;' class='content'></div>
+			
+		</div>
+		<!-- 这里是窗口 -->
+		<div id="add_panel" class="easyui-dialog" title='增加任务'
+			data-options="modal:true,closed:true" style='width: 450px;'>
+			<form id="add_form" method="post">
+				<input type='hidden' id='id' name='id'>
+				<table data-options="region:'north'">
+					<tr>
+						<td>行政区划:</td>
+						<td><select id='districtid' name='districtid'></select></td>
+					</tr>
+					<tr>
+						<td>机构:</td>
+						<td><select id='orgid' name='orgid'
+							onchange='changeorg(this)'></select></td>
+					</tr>
+					<tr>
+						<td>录入人:</td>
+						<td><select id='inputpersonid' name='inputpersonid'></select></td>
+					</tr>
+					<tr>
+						<td>任务名称:</td>
+						<td><input id='taskname' name='taskname'
+							class="easyui-validatebox" data-options="required:true"></td>
+					</tr>
+					<tr>
+						<td>任务类型:</td>
+						<td><select id='taskid' name='taskid'
+							class="easyui-validatebox" data-options="required:true"></select><a
+							id="btn_remove" href="#" class="easyui-linkbutton"
+							data-options="iconCls:'icon-save'"
+							onclick="javascript:showdefault()">查看默认值</a></td>
+					</tr>
+					<tr>
+						<td>开始时间:</td>
+						<td><input id='startdate' name='startdate'
+							class="easyui-datebox " required="required"></td>
+					</tr>
+					<tr>
+						<td>结束时间:</td>
+						<td><input id='enddate' name='enddate' class="easyui-datebox"
+							required="required"></td>
+					</tr>
+					<tr>
+						<td>数量:</td>
+						<td><input id='num' name='num' maxlength=6;
+							class="easyui-numberbox easyui-validatebox"
+							data-options="required:true" data-options="precision:0"></td>
+					</tr>
+					<tr>
+						<td>是否自动执行:</td>
+						<td><input type='radio' id='autorun_1' name='autorun' value=1><label
+							for="autorun_1">是</label><input type='radio' id='autorun_0'
+							name='autorun' value=0 checked><label for="autorun_0">否</label><label
+							style='margin-left: 10px; color: red;'>注:自动执行将会根据选择的条件自动生成体检.</label></td>
+					</tr>
+				</table>
+				<div id="query-tools" data-options="region:'south'"
+					style='height: 30px; padding-top: 10px; border: true; background-color: #E0ECFF; text-align: center;'>
+					<a id="btn_remove" href="#" class="easyui-linkbutton"
+						data-options="iconCls:'icon-save'" onclick="javascript:dosave()">保存</a>
+					<a id="btn_remove" href="#" class="easyui-linkbutton"
+						data-options="iconCls:'icon-cancel'"
+						onclick="javascript:$('#add_panel').dialog('close');queryGrid('.query_button')">关闭</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		function examDwrLoader(pluginName) {
+			return function(param, success, error) {
+				var opts = $(this)[pluginName]('options');
+				if (!opts.url)
+					return false;
+				var dwrFunc = eval(opts.url);
+				param = genParam(param);
+				dwrFunc(param[0], param[1], param[2], param[3], {
+					callback : function(data) {
+						console.log(data);
+						success(data);
+					},
+					exceptionHandler : function() {
+						error.apply(this, arguments);
+					}
+				});
+			}
+		}
+		$.fn.datagrid.defaults.loader = examDwrLoader('datagrid');
+		function showExport() {
+			var id = getParameterByName("id");
+			$("#params_panel").html('');
+			var values = oldparam;
+			var html = "<table>";
+			if (g_subs[id]) {
+				for ( var key in g_subs[id]) {
+					html += ("<tr><td>" + g_subs[id][key].name + "：</td>");
+					console.log(g_subs[id][key]);
+					if (g_subs[id][key].type == 'select') {
+						var data = eval("(" + g_subs[id][key].colstr + ")");
+						html += ("<td><select id='"+g_subs[id][key].code+"'>");
+						for ( var opt in data) {
+							if (values && values[key] && values[key] == opt) {
+								html += "<option value=\""+opt+"\" selected>"
+										+ opt + "</option>";
+							} else {
+								html += "<option value=\""+opt+"\">" + opt
+										+ "</option>";
+							}
+						}
+						html += ("</select></td></tr>");
+					} else {
+						if (values && values[key]) {
+							html += ("<td><input id='"+g_subs[id][key].code+"' value='"+values[key]+"'></td></tr>");
+						} else {
+							html += ("<td><input id='"+g_subs[id][key].code+"'></td></tr>");
+						}
+					}
+				}
+			}
+			html += ("<tr><td colspan=2 ><a class='query_button'  href='#' onclick='javascript:queryGrid(this)'>查询</a></td></tr>");
+			html += ("</table>");
+			$("#params_panel").append(html);
+			$('.query_button').linkbutton({
+				iconCls : 'icon-search'
+			});
+			$('.export_button').linkbutton({
+				iconCls : 'icon-redo'
+			});
+			$('#params_panel').dialog();
+			$('#params_panel').dialog('open');
+			$('#params_panel').dialog('center');
+		}
+
+		function showdefault() {
+			var id = $("#taskid").val();
+			$("#default_panel .content").html('');
+			var values = oldparam;
+			var html = "<table>";
+			var items = task_code_detail[id];
+			console.log(task_code_detail);
+			for ( var key in items) {
+				html += ("<tr><td style='text-align:right;'>" + items[key].coltext + "：</td>");
+				if (values && values[key]) {
+					html += ("<td ><input id='"+items[key].col+"' value='"+values[key]+"'></td></tr>");
+				} else {
+					html += ("<td><input id='"+items[key].col+"'></td></tr>");
+				}
+			}
+			html += ("</table>");
+			$("#default_panel .content").append(html);
+			$('.savedefault_button').linkbutton({
+				iconCls : 'icon-save'
+			});
+			$('.defaultclose_button').linkbutton({
+				iconCls : 'icon-cancel'
+			});
+			$('#default_panel').dialog();
+			$('#default_panel').dialog('open');
+			$('#default_panel').dialog('center');
+		}
+
+		function showAdd() {
+			reset();
+			$('#add_panel').dialog();
+			$('#add_panel').dialog('open');
+			$('#add_panel').dialog('center');
+		}
+
+		function reset() {
+			$("#taskname,#num").val('');
+			$("#startdate,#enddate").datebox('setValue', null);
+			$("#autorun_0").attr("checked", true);
+		}
+
+		function showEdit(data) {
+			var row = null;
+			if (data) {
+				row = data;
+			} else {
+				row = $("#querygrid").datagrid('getSelected');
+			}
+			console.log(row);
+			if (row) {
+				$("#add_form").form("load", row);
+				$('#add_panel').dialog();
+				$('#add_panel').dialog('open');
+				$('#add_panel').dialog('center');
+			} else {
+				$.messager.alert('提示', "请选择要编辑的行!");
+			}
+		}
+		function showDel(data) {
+			var row = null;
+			if (data) {
+				row = data;
+			} else {
+				row = $("#querygrid").datagrid('getSelected');
+			}
+			console.log(row);
+			if (row) {
+				$.messager.confirm('确认', '确认删除选中记录吗?', function(r) {
+					if (r) {
+						DataExportService.delTask(row, {
+							callback : function(data) {
+								if (data && data.success) {
+									$.messager.alert('提示', "删除成功!");
+									queryGrid('.query_button');
+								}
+							}
+						});
+					}
+				});
+			} else {
+				$.messager.alert('提示', "请选择要删除的行!");
+			}
+		}
+		function dosave() {
+			var isValid = $("#add_form").form('validate');
+			if (isValid) {
+				var params = $("#add_form").serializeArray();
+				console.log(params);
+				var newparam = {};
+				for (var i = 0; i < params.length; i++) {
+					newparam[params[i].name] = params[i].value;
+				}
+				DataExportService.saveTask(newparam, {
+					callback : function(data) {
+						console.log(data);
+						if (data && data.msg) {
+							$.messager.alert('提示', data.msg);
+						}
+					},
+					async : false
+				});
+			}
+		}
+		var task_code = null;
+		var task_code_detail = null
+		DataExportService.get_task_Param({
+			callback : function(data) {
+				task_code = data['task_code'];
+				task_code_detail = data['task_code_detail'];
+				for (var i = 0; i < task_code.length; i++) {
+					$("#taskid").append(
+							" <option value=\""+task_code[i][0]+"\">"
+									+ task_code[i][1] + "</option>")
+				}
+			},
+			async : false
+		});
+		//初始化树
+		initeasytree("#orgtree");
+		//初始化机构
+		for (var i = 1; i < window.top.orgList.length; i++) {
+			$("#orgid").append(
+					" <option value=\""+window.top.orgList[i][0]+"\">"
+							+ window.top.orgList[i][1] + "</option>")
+		}
+		//初始化行政区划
+		var data = window.top.earyuitreedata;
+		function initdistrict(distdata, before) {
+			for (var i = 0; i < distdata.length; i++) {
+				$("#districtid").append(
+						" <option value=\""+distdata[i].id+"\">" + before
+								+ distdata[i].text + "</option>");
+				if (distdata[i].children && distdata[i].children.length
+						&& distdata[i].children.length > 0) {
+					initdistrict(distdata[i].children, before + '-|--')
+				}
+			}
+		}
+		initdistrict(data, '');
+		//处理机构的变更事件
+		function changeorg(obj) {
+			var id = $(obj).val();
+			$("#inputpersonid").html('');
+			if (window.top.orgPersonList[id]) {
+				for (var i = 0; i < window.top.orgPersonList[id].length; i++) {
+					$("#inputpersonid").append(
+							" <option value=\""+window.top.orgPersonList[id][i].loginname+"\">"
+									+ window.top.orgPersonList[id][i].username
+									+ "</option>");
+				}
+			}
+		}
+		changeorg("#orgid");
+		//处理列表
+		function initGrid() {
+			var columns = [ {
+				title : '任务名称',
+				field : 'taskname'
+			}, {
+				title : '任务类型',
+				field : 'n_taskid'
+			}, {
+				title : '行政区划',
+				field : 'n_districtid'
+			}, {
+				title : '机构',
+				field : 'n_orgid'
+			}, {
+				title : '录入人',
+				field : 'n_inputpersonid'
+			}, {
+				title : '开始时间',
+				field : 'startdate'
+			}, {
+				title : '结束时间',
+				field : 'enddate'
+			}, {
+				title : '数量',
+				field : 'num'
+			}, {
+				title : '已完成数',
+				field : 'completenum'
+			} ];
+
+			var pageable = true;
+			var pagesize = 20;
+			$("#querygrid").datagrid({
+				url : 'DataExportService.querytask',
+				columns : [ columns ],
+				rowStyler : gridStyle,
+				singleSelect : true,
+				pageSize : pagesize,
+				pageList : [ pagesize ],
+				pagination : pageable,
+				onDblClickRow : function(rowIndex, rowData) {
+					showEdit(rowData);
+				},
+				fit : true
+			});
+		}
+		function gridStyle(index, row) {
+			if (index % 2 == 0) {
+				return 'background-color:#fbfbfb;';
+			} else {
+				return ':hover {background-color:#eaf2ff}';
+			}
+		}
+		function datefomattor(value, row, index) {
+			return $.format.date(value, "yyyy-MM-dd")
+		}
+		initGrid();
+		function queryGrid(selector) {
+			$(selector).linkbutton('disable');
+			$("#querygrid").datagrid("reload");
+			$(selector).linkbutton('enable');
+		}
+
+		function genParam(param) {
+			var inputs = $("#params_panel").find("input,select");
+			var params = {};
+			$.each(inputs, function(i, v) {
+				var obj = $(v);
+				if (obj.val()) {
+					params[obj.attr('id')] = obj.val();
+				}
+			});
+			var pageable = true;
+			var pagesize = 20;
+			var pagenumber = param.page;
+			var pager = {
+				'pagesize' : (pagesize ? pagesize : 1000),
+				'pagenumber' : (pagenumber ? pagenumber : 1)
+			};
+			var dwrparams = [ $('#orgtree').tree('getSelected').id,
+					getParameterByName("id"), params, pager ];
+			return dwrparams;
+		}
+		//参数窗口
+		function dialogClose() {
+			saveparams();
+			$("#iframe").attr("src", "about:blank");
+		}
+
+		var oldparam = null;
+		function saveparams() {
+			var inputs = $("#params_panel").find("input,select");
+			var params = {};
+			$.each(inputs, function(i, v) {
+				var obj = $(v);
+				if (obj.val()) {
+					params[obj.attr('id')] = obj.val();
+				}
+			})
+			oldparam = params;
+		}
+		//处理查询
+		DataExportService.get_Export_ParamById(getParameterByName("id"), {
+			callback : function(data) {
+				g_options = data;
+			},
+			async : false
+		});
+		var colstart = 0;
+		var g_main = {};
+		for (var i = 0; i < g_options.main.length; i++) {
+			g_main["" + g_options.main[i][0]] = g_options.main[i];
+		}
+		var g_subs = {};
+		for (var i = 0; i < g_options.sub.length; i++) {
+			if (!g_subs[g_options.sub[i].mainid]) {
+				g_subs[g_options.sub[i].mainid] = {};
+			}
+			g_subs[g_options.sub[i].mainid][g_options.sub[i].id] = g_options.sub[i];
+		}
+	</script>
+</body>
+</html>

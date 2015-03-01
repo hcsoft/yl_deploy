@@ -5,9 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="expires" content="0">
-<title>彝良县公共卫生服务管理系统</title>
+<title>昆明市公共卫生服务管理系统</title>
 <script src="../js/angularjs/angular.min.js"></script>
 <script src="../js/angularjs/controllers/controllers.js"></script>
+<script src="../js/lib/q.js"></script>
 <!-- 
 <script type='text/javascript' src='http://web.jingoal.com/mgt/scripts/online/online.js?cid=306739&defalt=false&invd=1&position=bottomRight&version=20120926'></script>
 					
@@ -71,6 +72,7 @@
 <script type='text/javascript' src='/dwr/interface/OptionProvider.js'></script>
 <script type='text/javascript' src='/dwr/interface/UserService.js'></script>
 <script type='text/javascript' src='/dwr/interface/summaryService.js'></script>
+<script type='text/javascript' src='/dwr/interface/printerService.js'></script>
 <script type='text/javascript' src='/dwr/interface/loginOffService.js'></script>
 <script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
 <script type='text/javascript' src='/dwr/interface/healthfileMaternalService.js'></script>
@@ -84,10 +86,13 @@
 	src='/dwr/interface/VaccinationService.js'></script>
 <script type='text/javascript'
 	src='/dwr/interface/SmsService.js'></script>
+	<script type='text/javascript'
+	src='/dwr/interface/TaskService.js'></script>
 <script type='text/javascript' src='/dwr/interface/MetaProvider.js'></script>
 <script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
 
 <script type="text/javascript" src="../js/ext/dwrproxy.js"></script>
+<script type="text/javascript" src="../js/print-healthfile-exam.js"></script>
 <script type="text/javascript" src="../js/ext/DwrTreeLoader.js"></script>
 <script type="text/javascript" src="../js/jsLoader.js"></script>
 <script type="text/javascript" src="../js/FormSetValues.js"></script>
@@ -96,11 +101,13 @@
 <script type="text/javascript" src="../js/calculateTime.js"></script>
 <script type="text/javascript" src="../js/showInfo.js"></script>
 
+<script type="text/javascript" src="/dwr/interface/FileNumSearch.js?v=20131219"></script>
+
 <script type="text/javascript" src="../js/tf-template-component.js"></script>
 <script type="text/javascript" src="../js/tf-waitingthing-grid.js"></script>
 <script type="text/javascript" src="../js/tf-template-DiseaseAndHearScreen.js"></script>
 <script type="text/javascript" src="../js/tf-PregnancyRecord-health.js"></script>
-
+<script type="text/javascript" src="../js/tf-print-healthfile-exam.js"></script>
 <script type="text/javascript" src="../js/tf-health-books.js"></script>
 <script type="text/javascript" src="../js/ConstantUtils.js"></script>
 <script type="text/javascript" src="../js/tf-statistic-simple-detail.js"></script>
@@ -109,6 +116,7 @@
 <script type="text/javascript" src="../js/tf-statistic-district.js"></script>
 <script type="text/javascript" src="../js/tf-transfer-loginoff.js"></script>
 <script type="text/javascript" src="../js/tf-highRisk-simple.js"></script>
+<script type="text/javascript" src="../js/personalInfo.js"></script>
 <script type="text/javascript" src="../js/tf-health.js?v=1.0"></script>
 <script type="text/javascript" src="../js/tf-health-print.js"></script>
 <script type="text/javascript" src="../js/tf-health-printchild.js"></script>
@@ -132,7 +140,10 @@
     <script type="text/javascript" src="../js/jquery.blockUI.js"></script> 
 
 <script type="text/javascript" src="../js/jquery-1.5.min.js"></script>-->
+<script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
+<!-- 
 <script type="text/javascript" src="/js/easyui/jquery-1.8.0.min.js"></script>
+ -->
 <script type="text/javascript" src="/js/jquery-validation/jquery.validate.js"></script>
 <script type="text/javascript" src="/js/jquery-validation/localization/messages_zh.js"></script>
 
@@ -173,7 +184,7 @@
 <script type='text/javascript' src='/dwr/interface/repeatFileNoService.js'></script>
 
 <!-- 20131105 -->
-<script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
+
 <script type="text/javascript" src="/js/chart/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="/js/chart/FusionCharts.js"></script>
 <script type="text/javascript" src="/js/chart/chartsplot.js"></script>
@@ -304,7 +315,15 @@ table.x-date-inner {
 .c_add {
 	background-image: url(../resources/icons/fam/add.gif) !important;
 }
-
+.c_addsupply {
+	background-image: url(../resources/icons/fam/plugin.gif) !important;
+}
+.c_advancedF {
+	background-image: url(../resources/icons/fam/user.gif) !important;
+}
+.c_change{
+	background-image: url(../resources/icons/fam/folder_wrench.png) !important;
+}
 .c_del {
 	background-image: url(../resources/icons/fam/delete.gif) !important;
 }
@@ -337,6 +356,28 @@ table.x-date-inner {
 }
 .c_start1 {
     background-image: url(../image/start1.png) !important;
+}
+#_task_info{
+	padding:0;
+	margin:0;
+}
+#_task_info a{
+	text-decoration:none;
+}
+.badge {
+	display: inline-block;
+	min-width: 10px;
+	padding: 3px 7px;
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: red;
+	border-radius: 10px;
+	border:1px solid red;
 }
 </style>
 <script type="text/javascript" src="admin.js?v=20131222"></script>
@@ -399,11 +440,17 @@ table.x-date-inner {
 			<p style="float: right; color: gray;">
 				<a href="#" onclick="javascript:modifyPassword();">修改密码</a>
 			</p>
+			
 			<!-- 待办事宜 -->
 			<p style="float: right; color: gray;">
 				<a href="#" onclick="javascript:redderToPage();">待办事宜</a>
 			</p>
-
+			
+			<p style="float: right; color: gray;">
+				<a href="#" onclick="javascript:openhelp();">远程协助</a>
+			</p>
+			<p id="_task_info"
+				style="float: right; "></p>
 			<p id="_user_info"
 				style="float: right; color: gray; padding-right: 5px;"></p>
 
@@ -412,7 +459,7 @@ table.x-date-inner {
 			</p>
 			<p
 				style="margin-top: 10px 0 0 2px; font-weight: bold; font-size: 14px; color: #44454a;">
-				彝良县公共卫生服务管理系统</p>
+				昆明市公共卫生服务管理系统</p>
 		</div>
 	</div>
 	<div class="rc_box1">
@@ -429,7 +476,7 @@ table.x-date-inner {
 		Your browser does not support the audio element.
 	</audio> -->
 	<div id="center2"></div>
-	
+	<div id="printHealthFile" style="display:none;"></div>
 	<script type="text/javascript">
 ScoreService.basicInformationMap( {callback:function(data){
     window.meta = data;

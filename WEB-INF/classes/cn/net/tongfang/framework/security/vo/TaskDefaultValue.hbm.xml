@@ -1,0 +1,23 @@
+<?xml version='1.0' ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="cn.net.tongfang.framework.security.vo.TaskDefaultValue" table="Task_DefaultValue" >
+        <composite-id mapped="true" class="cn.net.tongfang.framework.security.vo.TaskDefaultValuePK">
+            <key-property name="empcode">
+                <column name="empcode" sql-type="nvarchar" not-null="true"/>
+            </key-property>
+            <key-property name="name">
+                <column name="name" sql-type="nvarchar" not-null="true"/>
+            </key-property>
+        </composite-id>
+        <property name="urlname">
+            <column name="urlname" sql-type="nvarchar"/>
+        </property>
+        <property name="content">
+            <column name="content" sql-type="nvarchar"/>
+        </property>
+    </class>
+</hibernate-mapping>

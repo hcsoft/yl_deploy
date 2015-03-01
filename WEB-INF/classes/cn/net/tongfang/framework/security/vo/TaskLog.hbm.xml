@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="cn.net.tongfang.framework.security.vo.TaskLog" table="Task_Log" >
+        <id name="id">
+            <column name="id" sql-type="varchar" length="36" not-null="true"/>
+        </id>
+        <property name="smsdate">
+            <column name="smsdate" sql-type="datetime" not-null="true"/>
+        </property>
+        <property name="examname">
+            <column name="examname" sql-type="varchar" length="100" not-null="true"/>
+        </property>
+        <property name="fileno">
+            <column name="fileno" sql-type="varchar" length="36" not-null="true"/>
+        </property>
+        <property name="tel">
+            <column name="tel" sql-type="varchar" length="50" not-null="true"/>
+        </property>
+        <property name="msg">
+            <column name="msg" sql-type="varchar" length="500" not-null="true"/>
+        </property>
+        <property name="status">
+            <column name="status" sql-type="int" not-null="true"/>
+        </property>
+        <property name="sendtime">
+            <column name="sendtime" sql-type="datetime"/>
+        </property>
+        <property name="error">
+            <column name="error" sql-type="varchar" length="50"/>
+        </property>
+        <property name="tablename">
+            <column name="tablename" sql-type="varchar" length="50"/>
+        </property>
+        <property name="tableidvalue">
+            <column name="tableidvalue" sql-type="varchar" length="50"/>
+        </property>
+        <property name="personname">
+            <column name="personname" sql-type="varchar" length="50"/>
+        </property>
+        <property name="querytype">
+            <column name="querytype" sql-type="varchar" length="2"/>
+        </property>
+        <property name="examid">
+            <column name="examid" sql-type="varchar" length="50"/>
+        </property>
+        <property name="parentid">
+            <column name="parentid" sql-type="varchar" length="50"/>
+        </property>
+    </class>
+</hibernate-mapping>

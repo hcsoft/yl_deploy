@@ -1,0 +1,27 @@
+<?xml version='1.0' ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="cn.net.tongfang.framework.security.vo.TaskDefaults" table="Task_Defaults" >
+        <id name="id">
+            <column name="id" sql-type="varchar" length="40" not-null="true"/>
+        </id>
+        <property name="urlname">
+            <column name="urlname" sql-type="varchar" length="20"/>
+        </property>
+        <property name="code">
+            <column name="code" sql-type="varchar" length="20"/>
+        </property>
+        <property name="value">
+            <column name="value" sql-type="varchar" length="100"/>
+        </property>
+        <property name="valuetype">
+            <column name="valuetype" sql-type="varchar" length="20"/>
+        </property>
+        <property name="valid">
+            <column name="valid" sql-type="bit"/>
+        </property>
+    </class>
+</hibernate-mapping>

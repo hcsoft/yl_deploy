@@ -39,23 +39,10 @@ function dwrExceptionHandler(errorString, error){
 									window.saving = false;
 									Ext.getCmp("relogin_form").getForm().submit({
 										method:'POST',
-	//									standardSubmit : true,
 										url:'/j_spring_security_check',
-	//									headers:{'Content-Type': 'application/json; charset=UTF-8'},
 										success:function(){
 											Ext.getCmp("relogin_message").setText("登录成功!");
 											Ext.getCmp("relogin_exceptionwin").close();
-//											Ext.Msg.show({
-//												   title:'登录成功!',
-//												   msg: '登录成功!点击【确定】返回操作界面!',
-//												   buttons: Ext.Msg.OK,
-//												   fn: function(btn, text){
-//													    if (btn == 'ok'){
-//													    	Ext.getCmp("relogin_exceptionwin").close();
-//													    }
-//													},
-//												   animEl: 'elId'
-//												});
 										},
 										failure:function(form, action){
 											Ext.Msg.alert('登录失败!',"登录失败!用户名或密码错误!");
@@ -110,7 +97,7 @@ function dwrExceptionHandler(errorString, error){
 									height:25
 								},{
 									xtype:'textfield',
-									//width:100,
+									// width:100,
 									style :'text-indent:5px;margin:4px 0px 4px 0px;width:90%',
 									fieldLabel : '密码',
 									inputType : 'password',
@@ -176,26 +163,6 @@ function dwrExceptionHandler(errorString, error){
 dwr.engine.setErrorHandler(dwrExceptionHandler);
 function denc(str){
 	return str;
-//	if(! str || !str.length){
-//		return "";
-//	}
-//	var denclist = '$&@*!.:=>}€‚ƒˆ‰Š‹ŒŽ‘’•–àáâãäæççèéêëìßÞÝÜÛÜÛÚÙØÖÕÔÓÒÑÐÏÊÉÇÆÄÃ£Á';
-//	var enclist =  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//	var result = "";
-//	var tmpStr = "";
-//	for (var i = 0; i < str.length; i++) {
-//		tmpStr = str.substr(i,1);
-//		if (tmpStr !== "%") {
-//			var index = denclist.indexOf(tmpStr);
-//			if (index<0) {
-//				tmpStr = String.fromCharCode(tmpStr.charCodeAt(0) ^ 'c'.charCodeAt(0));
-//			} else {
-//				tmpStr = enclist.substr(index,1);
-//			}
-//		}
-//		result = result + tmpStr;
-//	}
-//	return result;
 }
 Ext.ns('App','App.mainframe');
 Ext.override(Ext.form.Field,{
@@ -205,27 +172,27 @@ Ext.override(Ext.form.Field,{
 			if(this.el){
    			  Ext.Element.uncache(this.container);
    			  delete this.container.dom;
-			  //delete this.el.dom;
+			  // delete this.el.dom;
 			}
 		}
 	}
 });
 Ext.override(Ext.Panel,{
 	beforeDestroy:function(){
-	   if(this.header) {//remove header's listeners.
+	   if(this.header) {// remove header's listeners.
             this.header.removeAllListeners();
             if (this.headerAsText){
                 Ext.Element.uncache(this.header.child('span'));
             }
         }
-//^^^^^^^^^^^^^^^ add by guig
+// ^^^^^^^^^^^^^^^ add by guig
         Ext.Element.uncache(
             this.header,
             this.tbar,
             this.bbar,
             this.footer,
             this.body
-            ,this.bwrap //add by guig
+            ,this.bwrap // add by guig
         );
         if(this.tools){
             for(var k in this.tools){
@@ -305,8 +272,8 @@ Ext.override(Ext.form.DateField,{
 	      ul = this.menu.ul;
 	    }
 	    this.container.remove();
-	  //if(App.DateField.superclass)
-		//	App.DateField.superclass.onDestroy.call(this);
+	  // if(App.DateField.superclass)
+		// App.DateField.superclass.onDestroy.call(this);
 		if(this.trigger){
 	    	this.trigger.removeAllListeners();
  	  		this.trigger.dom=null;
@@ -371,7 +338,7 @@ Ext.override(Ext.form.TriggerField,{
 	 onDestroy : function(){
 	 	
         if(this.trigger && this.trigger.dom){
-        	//必须先删除此事件，否则控件销毁后还会执行triggerBlur事件导致JS报错
+        	// 必须先删除此事件，否则控件销毁后还会执行triggerBlur事件导致JS报错
         	
 		    Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur,this);
 		   	Ext.Element.uncache(this.trigger);
@@ -383,7 +350,7 @@ Ext.override(Ext.form.TriggerField,{
         	this.wrap.removeClass('x-trigger-wrap-focus');
         	Ext.Element.uncache(this.wrap);
             this.wrap.remove();
-            //delete this.wrap.dom;
+            // delete this.wrap.dom;
         }
         Ext.Element.uncache(this.el);
         Ext.form.TriggerField.superclass.onDestroy.call(this);
@@ -414,7 +381,8 @@ Ext.extend(App.PagingToolbar, Ext.PagingToolbar, {
         	
             this.beforeDestroy();
             var len =this.items.items.length;
-            if(this.rendered && !Ext.isIE){//if is ie then do this follow! //change by guig
+            if(this.rendered && !Ext.isIE){// if is ie then do this follow!
+											// //change by guig
                 this.el.removeAllListeners();
                 this.el.remove();
                 if(this.actionMode == "container"){
@@ -451,7 +419,7 @@ Ext.extend(App.PagingToolbar, Ext.PagingToolbar, {
                     this.container.remove();
                 }
            }
-	       if (this._parentDivForAutoEl) {//remove the parent div for autoEl
+	       if (this._parentDivForAutoEl) {// remove the parent div for autoEl
                 Ext.removeNode(this._parentDivForAutoEl);
                 this._parentDivForAutoEl = null;
             }
@@ -461,13 +429,13 @@ Ext.extend(App.PagingToolbar, Ext.PagingToolbar, {
 });
 Ext.override(Ext.form.BasicForm,{
 	destroy: function() {
-		//改变了BasicForm中的销毁顺序，先销毁ITEMS，此tems里的控件类型都是field的
+		// 改变了BasicForm中的销毁顺序，先销毁ITEMS，此tems里的控件类型都是field的
         this.items.each(function(f){
             Ext.destroy(f);
           
         });
-        //放在FormPanel中的button和label不能自动销毁，只能手动 
-        //以下是销毁按钮
+        // 放在FormPanel中的button和label不能自动销毁，只能手动
+        // 以下是销毁按钮
         if( this.el && this.el.dom && this.el.dom.length&& this.el.dom.length >0){
         	var btn;
         	while(this.el.dom[0] && this.el.dom[0].nodeName =='BUTTON'){
@@ -480,7 +448,7 @@ Ext.override(Ext.form.BasicForm,{
         	}
         }
         
-        //以下是销毁label
+        // 以下是销毁label
         
         if(this.el && this.el.dom){
 	        var labels = this.el.dom.getElementsByTagName("label");
@@ -517,7 +485,7 @@ Ext.override(Ext.grid.GridPanel,{
 	      reader.getId = null;
 	      reader.getJsonAccessor =null;
         }
-		//清除grid的模板产生的动态eval代码
+		// 清除grid的模板产生的动态eval代码
 		var tpl=this.view.templates;
 		tpl.body.compiled=null;
 		tpl.cell.compiled=null;
@@ -598,9 +566,9 @@ App.TabPagePanel=Ext.extend(Ext.Panel, {
     closable: true,
     autoScroll:true,
     destroy :function(){
-//    	$(this.el).panel("destroy");
+// $(this.el).panel("destroy");
     	App.TabPagePanel.superclass.destroy.call(this);
-//    	console.log($(this.el).panel("destroy"));
+// console.log($(this.el).panel("destroy"));
     	
     	if(!this || !this.items || !this.items.items || !this.items.items.length){
     		return;
@@ -714,7 +682,7 @@ App.TabPagePanel=Ext.extend(Ext.Panel, {
 
 
 var navigation = new Ext.Panel({
-//	width : 1000,
+// width : 1000,
 	height : 600,
 	id : 'navigateContainerPanel',
 	title : '当前位置：',
@@ -734,7 +702,7 @@ App.mainframe.MainPanel = function() {
   plugins : new Ext.ux.TabCloseMenu(),
   items : [ {
     contentEl : 'center2',
-    title : '彝良县公共卫生服务管理系统',
+    title : '昆明市公共卫生服务管理系统',
     closable : false,
     autoScroll : true,
     items : [navigation]
@@ -749,7 +717,7 @@ Ext.extend(App.mainframe.MainPanel, Ext.TabPanel, {
 			tab.layout.innerCt.dom.innerHTML = null;
 			delete tab.layout.innerCt;
 		}
-	  //debugger;
+	  // debugger;
 	  tab.doLayout();
 	  
   }
@@ -772,24 +740,24 @@ function checkSession() {
       },
       timeout: 120000,
       errorHandler: function(msg) {
-//        console.log(msg);
+// console.log(msg);
         Ext.Msg.alert('', '通讯中断，请退出重新登录！', logout);
       }
     }
   );
 };
 function stopTask() {
-//  Ext.TaskMgr.stop(taskCheckSession);
+// Ext.TaskMgr.stop(taskCheckSession);
 };
 function logout() {
   
   window.top.location.href = "/j_spring_security_logout";
-//  try{
-//  stopTask();
-//  }catch(ex){}
+// try{
+// stopTask();
+// }catch(ex){}
 }
 
-//待办事宜消息通知
+// 待办事宜消息通知
 var changeid = 0;
 function changeColor(){
 	if(changeid % 2 == 0){
@@ -839,6 +807,20 @@ function redderToPage(){
     	tabPanel.activate(p);
     }
 }
+
+
+function openhelp(){
+	if(window.chatwindow && !window.chatwindow.closed){
+		window.chatwindow.focus();
+	}else{
+		window.chatwindow = window.open(
+				"http://app.xt800.cn/chat/index.html?c=ADE6BF39373506DA",
+				"XT800",
+				"height=480, width=605, top=100, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+		window.chatwindow.document.cookie = 'webchat_token=123456&webchat_uid=abc';
+		
+	}
+}
 var tabPanel;
 
 Ext.onReady(function() {
@@ -848,7 +830,7 @@ Ext.onReady(function() {
 			$('.rc_box1').hide();
 		}else{
 			$('.rc_box1').show();
-			//待办事宜
+			// 待办事宜
 			$('.rc_box1').click(function(){
 				redderToPage();
 			});
@@ -862,31 +844,18 @@ Ext.onReady(function() {
 	});
 	
 	init = function(data) {
-  /* data的格式样例
-  var json = [ {
-    "text" : "登记信息管理",
-    "id" : 'regMgr',
-    "leaf" : false,
-    "cls" : "folder",
-    "children" : [ {
-      "text" : "个人预登记信息审核",
-      "id" : '/js/app/ireg.js',
-      "leaf" : true,
-      "cls" : "file"
-    }, {
-      "text" : "个人预登记信息查询",
-      "id" : 'individualQry.js',
-      "leaf" : true,
-      "cls" : "file"
-    } ]
-  } ];
-  */
+  /*
+	 * data的格式样例 var json = [ { "text" : "登记信息管理", "id" : 'regMgr', "leaf" :
+	 * false, "cls" : "folder", "children" : [ { "text" : "个人预登记信息审核", "id" :
+	 * '/js/app/ireg.js', "leaf" : true, "cls" : "file" }, { "text" :
+	 * "个人预登记信息查询", "id" : 'individualQry.js', "leaf" : true, "cls" : "file" } ] } ];
+	 */
   menu_tree = new Ext.tree.TreePanel( {
     animate : true,
     enableDD : false,
     icon : 'next.gif',
     loader : new Ext.tree.TreeLoader(),
-//    lines : false,
+// lines : false,
     autoScroll : true,
     border : false,
     root : new Ext.tree.AsyncTreeNode( {
@@ -907,32 +876,18 @@ Ext.onReady(function() {
         if (n.isLeaf()) {
           if (n.id.indexOf('.html') != -1) {
         	  /*
-            var iframeId = n.text + '_' + n.id;
-//            alert(iframeId);
-            if (!Ext.get(iframeId)) {
-              var newFrame = tabPanel.add( {
-                xtype : 'iframepanel',
-                id : iframeId,
-                //title : n.text,
-                loadMask : true,
-                // frameConfig: {{autoCreate:{id: 'frame1'}}, //optional, give
-                // the frame your own id and name
-                defaultSrc : n.id,
-                listeners : {
-                  domready : function(frame) { // only raised for "same-origin"
-                                                // documents
-                    // Set the tab Title to the Document Title
-                    var doc = frame.getDocument();
-                    if (doc) {
-                      frame.ownerCt.setTitle(doc.title);
-                    }
-                  }
-                }
-              });
-              tabPanel.doLayout(); // if TabPanel is already rendered
-              tabPanel.setActiveTab(newFrame);
-            }
-            */
+				 * var iframeId = n.text + '_' + n.id; // alert(iframeId); if
+				 * (!Ext.get(iframeId)) { var newFrame = tabPanel.add( { xtype :
+				 * 'iframepanel', id : iframeId, //title : n.text, loadMask :
+				 * true, // frameConfig: {{autoCreate:{id: 'frame1'}},
+				 * //optional, give // the frame your own id and name defaultSrc :
+				 * n.id, listeners : { domready : function(frame) { // only
+				 * raised for "same-origin" // documents // Set the tab Title to
+				 * the Document Title var doc = frame.getDocument(); if (doc) {
+				 * frame.ownerCt.setTitle(doc.title); } } } });
+				 * tabPanel.doLayout(); // if TabPanel is already rendered
+				 * tabPanel.setActiveTab(newFrame); }
+				 */
             var tab = null;
             var items = tabPanel.find('id', n.id);
             if (items.length > 0) {
@@ -941,7 +896,7 @@ Ext.onReady(function() {
             if (tab) {
               tabPanel.setActiveTab(tab);
             } else {
-            	//debugger;
+            	// debugger;
             	var autoLoad = {
 					url : "/"+n.id,
 					scripts : true,
@@ -954,25 +909,21 @@ Ext.onReady(function() {
 					title : n.text,
 					autoScroll : true,
 					closable : true,
-					//layout : "column",
+					// layout : "column",
 					border : false
 				});
 				var p = tabPanel.add(tab);
 				tabPanel.tabid = n.id;
 			    tabPanel.activate(p);
               /*
-              new Ext.ux.JSLoader( {
-                url : n.id,
-                onError : function(options, e) {
-                  console.log(e);
-                  alert(e.description);
-                  alert('模块加载失败[' + n.id + ']');
-                }
-              });*/
+				 * new Ext.ux.JSLoader( { url : n.id, onError :
+				 * function(options, e) { console.log(e); alert(e.description);
+				 * alert('模块加载失败[' + n.id + ']'); } });
+				 */
             }
             
           } else {
-//            console.log("loading " + n.id);
+// console.log("loading " + n.id);
             var tab = null;
             var items = tabPanel.find('id', n.id);
             if (items.length > 0) {
@@ -981,7 +932,7 @@ Ext.onReady(function() {
             if (tab) {
               tabPanel.setActiveTab(tab);
             } else {
-            	//debugger;
+            	// debugger;
             	var autoLoad = {
 								url : "/autoload.jsp?jsurl="+n.id,
 								scripts : true,
@@ -994,7 +945,7 @@ Ext.onReady(function() {
 								title : n.text,
 								autoScroll : true,
 								closable : true,
-								//layout : "column",
+								// layout : "column",
 								border : false
 							});
 							var p = tabPanel.add(tab);
@@ -1002,14 +953,10 @@ Ext.onReady(function() {
 						  tab.jscript=n.id;
 			       	tabPanel.activate(p);
               /*
-              new Ext.ux.JSLoader( {
-                url : n.id,
-                onError : function(options, e) {
-                  console.log(e);
-                  alert(e.description);
-                  alert('模块加载失败[' + n.id + ']');
-                }
-              });*/
+				 * new Ext.ux.JSLoader( { url : n.id, onError :
+				 * function(options, e) { console.log(e); alert(e.description);
+				 * alert('模块加载失败[' + n.id + ']'); } });
+				 */
             }
           }
         }
@@ -1022,7 +969,7 @@ Ext.onReady(function() {
   var viewport = null;  
   
   UserMenuTreeService.getUserCatInfo(function(data){
-//	  console.log(data);
+// console.log(data);
 	  var items = [{title : '功能模块',autoScroll : true,border : false,iconCls : 'settings'}];
 	  if(data != null){
 		  var catCount = 0;
@@ -1059,7 +1006,7 @@ Ext.onReady(function() {
 								  var url = mod.url;
 								  var modDefaultCls = '5.png';
 								  var modCls = mod.clsSetting;
-//								  console.log(modCls);
+// console.log(modCls);
 								  if(modCls != null && modCls != ''){
 									  modDefaultCls = modCls;
 								  }
@@ -1098,24 +1045,26 @@ Ext.onReady(function() {
 				  items[catCount] = {title : rootCatName,collapsed:true,autoScroll : true,border : false,iconCls : settings,
 						  listeners:{
 							  expand : function(){
-								  //console.log(this.body.dom.innerHTML)
+								  // console.log(this.body.dom.innerHTML)
 								  var c = $(this.body.dom.innerHTML).children('div').children('div').children('div').children('div');
 								  if($(c[0]) && $(c[0]).triggerHandler)
 									  $(c[0]).triggerHandler('click');
-//								  navigateContent($htmlContent,$templateId,rootCatName,$lastCatName);
+// navigateContent($htmlContent,$templateId,rootCatName,$lastCatName);
 							  }
 						  },
 						  items : [itemsPanel]};
-//				  items[catCount].expand(function(){
-//					 alert(1); 
-//				  });
+// items[catCount].expand(function(){
+// alert(1);
+// });
 				  catCount++;
 			  }
 		  }
 		  items[--catCount].collapsed = false;
 	  }
-//	  var items = [{title : data[0].category.name,autoScroll : true,border : false,iconCls : 'settings'}];
-//	  items[1] = {title : data[0].category.name,autoScroll : true,border : false,iconCls : 'settings'};
+// var items = [{title : data[0].category.name,autoScroll : true,border :
+// false,iconCls : 'settings'}];
+// items[1] = {title : data[0].category.name,autoScroll : true,border :
+// false,iconCls : 'settings'};
 	  
 	  viewport = new Ext.Viewport( {
 		    layout : 'border',
@@ -1133,30 +1082,30 @@ Ext.onReady(function() {
 		      maxSize : 400,
 		      collapseMode:'mini',
 		      collapsible : true,
-//		      margins : '0 0 0 5',
+// margins : '0 0 0 5',
 		      layout : 'accordion',
 		      margins:{left: 10, top: 0, right: 0, bottom: 0},
 		      layoutConfig : {
-//		        animate : true,
+// animate : true,
 		    	  titleCollapse: true
-//		    	  hideCollapseTool : true,
-//		    	  collapseFirst : true
+// hideCollapseTool : true,
+// collapseFirst : true
 		      },
 		      items : items
 		    }, tabPanel,{
 		    	region : 'south',
 		    	height : 30,
 		    	frame : true,
-		    	html : '<div style="width:100%;text-align: center;"><span>彝良县卫生信息中心</span><span style="margin-left:10px;">版权所有©2013-2015</span></div>'
+		    	html : '<div style="width:100%;text-align: center;"><span>昆明市卫生信息中心</span><span style="margin-left:10px;">版权所有©2013-2015</span></div>'
 		    } ]
 		  });
 	  navigateContent($lastHtmlContent,$lastTemplateId,$lastRootCatName,$lastCatName);
 	  $('.menu_second_div img').hover(function(){
 		$(this).attr('style','margin-top:0px;');
 		$(this).next('div').attr('style','margin-top:5px;');
-		//$(this).attr('style','margin-bottom:20x;');
+		// $(this).attr('style','margin-bottom:20x;');
 	  },function(){
-		//$(this).attr('style','margin-bottom:10px;');
+		// $(this).attr('style','margin-bottom:10px;');
 		$(this).attr('style','margin-top:5px;');
 		$(this).next('div').attr('style','margin-top:0px;');
 	  });
@@ -1175,7 +1124,7 @@ Ext.onReady(function() {
 
   UserMenuTreeService.genUserMenuTree(onGotMenuData);
   var showUserInfo = function(data) {
-//    console.log(data);
+// console.log(data);
     if ( ! data ) {
       logout();
       return;
@@ -1186,55 +1135,76 @@ Ext.onReady(function() {
   }
   UserService.getCurrentUser(showUserInfo);
 
-  //定时与server通讯，保存永久session哈 :0)
-//  taskCheckSession = {
-//      run: checkSession,//执行任务时执行的函数
-//      interval: 60*1000//任务间隔，毫秒为单位
-//  }
-//  Ext.TaskMgr.start(taskCheckSession);//初始化时就启动任务
+  // 定时与server通讯，保存永久session哈 :0)
+// taskCheckSession = {
+// run: checkSession,//执行任务时执行的函数
+// interval: 60*1000//任务间隔，毫秒为单位
+// }
+// Ext.TaskMgr.start(taskCheckSession);//初始化时就启动任务
+
+  TaskService.hasTaskAuth(function(data){
+	 if(data.hasauth){
+		 $("#_task_info").css("margin",3);
+		 TaskService.queryUncompleteTask('curmonth',1,function(data){
+			 Ext.get('_task_info').dom.innerHTML = "<a href='javascript:opentaskwindow()'>未完成任务：<span class='badge'>" + data.taskcount+"</span>";
+		 })
+	 } else{
+		 $("#_task_info").css({"margin":5,"color":'red'});
+		 Ext.get('_task_info').dom.innerHTML = "<span title='开通联系电话:15752013080!'>未开通任务功能!开通联系电话:15752013080</span>";
+	 }
+  });
 });
 
+function opentaskwindow(){
+	window.taskwindow = new Ext.Window({
+		closable:true,
+		layout :'fit',
+		modal:true,
+        html:"<iframe id='openwin' src='task.html' scrolling='auto' style='width:100%;height:100%;margin:0;padding:0;border:0;'></iframe>"
+	});
+	window.taskwindow.show();
+	window.taskwindow.maximize();
+}
 
 ModuleMgr.register = function(mod) {
 	
 	/*
-	var tab = Ext.getCmp(tabPanel.tabid);
-	tab.add(mod);
-	tab.doLayout();
-	*/
+	 * var tab = Ext.getCmp(tabPanel.tabid); tab.add(mod); tab.doLayout();
+	 */
 	if(mod.title)
 	mod.title = null;
 	if(mod.border)
 	mod.border=false;
-	//mod.height  = '100%';
-  //mod.width  = Ext.getCmp('tabbody').getActiveTab().getInnerWidth();
+	// mod.height = '100%';
+  // mod.width = Ext.getCmp('tabbody').getActiveTab().getInnerWidth();
   mod.height  = Ext.getCmp('tabbody').getActiveTab().getInnerHeight();
   
   
-  //mod.width = '99%';
+  // mod.width = '99%';
 		Ext.getCmp("tabbody").register(mod);
-//	if(mod.doLayout){
-//		mod.doLayout();
-//		console.log("height===="+mod.height);
-//	}
-	//tabPanel.setActiveTab(tab);
-  //var newCmp = tabPanel.add(mod);
-  //debugger;
+// if(mod.doLayout){
+// mod.doLayout();
+// console.log("height===="+mod.height);
+// }
+	// tabPanel.setActiveTab(tab);
+  // var newCmp = tabPanel.add(mod);
+  // debugger;
   // newCmp.autoScroll = true,
-  //tabPanel.doLayout();
-  //tabPanel.setActiveTab(newCmp);
-  //return newCmp;
+  // tabPanel.doLayout();
+  // tabPanel.setActiveTab(newCmp);
+  // return newCmp;
 }
 
 var treeArray = new Array();
 var count = 0;
 function findchildnode(node){
-    for(var i=0;i<node.length;i++){  //从节点中取出子节点依次遍历
+    for(var i=0;i<node.length;i++){  // 从节点中取出子节点依次遍历
         var rootnode = node[i];
         rootnode.expand(true);
-//        alert(rootnode.text + "---" + rootnode.id  + "---" + rootnode.childNodes.length);
-        if(rootnode.childNodes.length>0){  //判断子节点下是否存在子节点，个人觉得判断是否leaf不太合理，因为有时候不是leaf的节点也可能没有子节点
-//            findchildnode(rootnode);    //如果存在子节点  递归
+// alert(rootnode.text + "---" + rootnode.id + "---" +
+// rootnode.childNodes.length);
+        if(rootnode.childNodes.length>0){  // 判断子节点下是否存在子节点，个人觉得判断是否leaf不太合理，因为有时候不是leaf的节点也可能没有子节点
+// findchildnode(rootnode); //如果存在子节点 递归
         	for(var j = 0;j < rootnode.childNodes.length;j++){
         		var leafNode = rootnode.childNodes[j];
         		if(leafNode.isLeaf()){
@@ -1263,9 +1233,9 @@ function idIsExists(id){
 
 
 function navigateContent($htmlContent,$templateId,$lastRootCatName,$lastCatName){
-	//alert($templateId);
+	// alert($templateId);
 	Ext.getCmp('navigateContainerPanel').setTitle("<font color='red'>当前位置：" +　$lastRootCatName + ' >> ' + $lastCatName + '</font>');
-//	console.log($lastRootCatName + ':' + $lastCatName);
+// console.log($lastRootCatName + ':' + $lastCatName);
 	tabPanel.setActiveTab(0);
 	var $ArrayContent = $htmlContent.split(':');
 	var modItems = '';
@@ -1334,11 +1304,17 @@ function navigateContent($htmlContent,$templateId,$lastRootCatName,$lastCatName)
 		modItems = '<div class="div_mxb_container div_container">'+
 			'<div class="mod mxb_01 mod_disable"><img src="../image/menu/mxb_01.gif"/><div>高血压档案</div><div class="remarks"></div></div>'+
 			'<div class="mod mxb_02 mod_disable"><img src="../image/menu/mxb_02.gif"/><div>2型糖尿病档案</div><div class="remarks"></div></div>'+
-//			'<div class="mod mxb_03 mod_disable"><img src="../image/menu/mxb_03.gif"/><div>重性精神病档案</div><div class="remarks"></div></div>'+
+// '<div class="mod mxb_03 mod_disable"><img
+// src="../image/menu/mxb_03.gif"/><div>重性精神病档案</div><div
+// class="remarks"></div></div>'+
 			'<div class="mod mxb_04 mod_disable"><img src="../image/menu/mxb_04.gif"/><div>高血压患者随访</div><div class="remarks"></div></div>'+
 			'<div class="mod mxb_05 mod_disable"><img src="../image/menu/mxb_05.gif"/><div>2型糖尿病患者随访</div><div class="remarks"></div></div>'+
-//			'<div class="mod mxb_06 mod_disable"><img src="../image/menu/mxb_06.gif"/><div>重性精神病患者随访</div><div class="remarks"></div></div>'+
-//			'<div class="mod mxb_07 mod_disable"><img src="../image/menu/mxb_07.gif"/><div>重性精神病个人信息补充</div><div class="remarks"></div></div>'+
+// '<div class="mod mxb_06 mod_disable"><img
+// src="../image/menu/mxb_06.gif"/><div>重性精神病患者随访</div><div
+// class="remarks"></div></div>'+
+// '<div class="mod mxb_07 mod_disable"><img
+// src="../image/menu/mxb_07.gif"/><div>重性精神病个人信息补充</div><div
+// class="remarks"></div></div>'+
 		'</div>';
 	}else if($templateId == 'fun_zzjsb_template'){
 		flag = true;
@@ -1369,26 +1345,17 @@ function navigateContent($htmlContent,$templateId,$lastRootCatName,$lastCatName)
 			'<div class="mod personInfo_01 mod_disable"><img src="../image/menu/personInfo_01.gif"/><div>个人健康记录索引</div><div class="remarks"></div></div>'+
 		'</div>';
 	}
-	else if($templateId == 'fun_complex_template'){
-		flag = true;
-		modItems = '<div class="div_container">'+
-			'<div class="mod complex_01 mod_disable"><img src="../image/menu/complex_01.gif"/><div>出生医学证明查询</div><div class="remarks"></div></div>'+
-			'<div class="mod complex_02 mod_disable"><img src="../image/menu/complex_02.gif"/><div>高危儿童档案查询</div><div class="remarks"></div></div>'+
-			'<div class="mod complex_03 mod_disable"><img src="../image/menu/complex_03.gif"/><div>高危孕产妇档案查询</div><div class="remarks"></div></div>'+
-			'<div class="mod complex_04 mod_disable"><img src="../image/menu/complex_04.gif"/><div>HIV和梅毒项目统计</div><div class="remarks"></div></div>'+
-		'</div>';
-	}
+//	else if($templateId == 'fun_complex_template'){
+//		flag = true;
+//		modItems = '<div class="div_container">'+
+//			'<div class="mod complex_01 mod_disable"><img src="../image/menu/complex_01.gif"/><div>出生医学证明查询</div><div class="remarks"></div></div>'+
+//			'<div class="mod complex_02 mod_disable"><img src="../image/menu/complex_02.gif"/><div>高危儿童档案查询</div><div class="remarks"></div></div>'+
+//			'<div class="mod complex_03 mod_disable"><img src="../image/menu/complex_03.gif"/><div>高危孕产妇档案查询</div><div class="remarks"></div></div>'+
+//			'<div class="mod complex_04 mod_disable"><img src="../image/menu/complex_04.gif"/><div>HIV和梅毒项目统计</div><div class="remarks"></div></div>'+
+//		'</div>';
+//	}
 	
-	else if($templateId == 'fun_exam_template'){
-		flag = true;
-		modItems = '<div class="div_container">'+
-			'<div class="mod exam_01 mod_disable"><img src="../image/menu/exam_01.gif"/><div>健康体检记录</div><div class="remarks"></div></div>'+
-			'<div class="mod exam_02 mod_disable"><img src="../image/menu/exam_02.gif"/><div>老年人健康体检</div><div class="remarks"></div></div>'+
-			'<div class="mod exam_03 mod_disable"><img src="../image/menu/exam_03.gif"/><div>健康教育活动记录</div><div class="remarks"></div></div>'+
-			'<div class="mod exam_04 mod_disable"><img src="../image/menu/exam_04.gif"/><div>重复档案管理</div><div class="remarks"></div></div>'+
-			//'<div class="mod exam_05 mod_disable"><img src="../image/menu/exam_05.gif"/><div>导入修改档案</div><div class="remarks"></div></div>'+
-		'</div>';
-	}else if($templateId == 'fun_clinics_template'){
+	else if($templateId == 'fun_clinics_template'){
 		flag = true;
 		modItems = '<div class="div_container">'+
 			'<div class="mod clinics_01 mod_disable"><img src="../image/menu/clinics_01.gif"/><div>接诊记录</div><div class="remarks"></div></div>'+
@@ -1432,7 +1399,7 @@ function navigateContent($htmlContent,$templateId,$lastRootCatName,$lastCatName)
 		
 		for(var i=0;i<$ArrayContent.length;i++){
 			var str = $ArrayContent[i];
-			//console.log(str)
+			// console.log(str)
 			if(str.trim() != ''){
 				var arrayStr = str.split(',');	
 				modItems = modItems + '<div class="modContainer"><div class="modother" onclick="toUrl(\'' + arrayStr[1] 
@@ -1442,7 +1409,7 @@ function navigateContent($htmlContent,$templateId,$lastRootCatName,$lastCatName)
 		}
 		modItems = modItems + '</div>';
 	}
-	//alert(modItems)
+	// alert(modItems)
 	$('.navigateContainer').html(modItems);
 	if(flag){
 		for(var i=0;i<$ArrayContent.length;i++){
@@ -1460,7 +1427,7 @@ function navigateContent($htmlContent,$templateId,$lastRootCatName,$lastCatName)
 	}
 	$('.mod').hover(function(){
 		var attr = $(this).attr('class');
-//		console.log(attr.indexOf('mod_disable'));
+// console.log(attr.indexOf('mod_disable'));
 		if(attr.indexOf('mod_disable') < 0){
 			var X = parseInt( $(this).css('marginLeft') ) + 10;
 			var Y = parseInt( $(this).css('marginTop') ) - 10;
@@ -1476,7 +1443,7 @@ function navigateContent($htmlContent,$templateId,$lastRootCatName,$lastCatName)
 			$(this).removeClass('mod_hover');
 		}
 	});
-//	$('.navigateContainer').html(modItems);
+// $('.navigateContainer').html(modItems);
 	
 }
 
@@ -1500,7 +1467,7 @@ function toUrl(modId,modName,url){
         if (tab) {
           tabPanel.setActiveTab(tab);
         } else {
-        	//debugger;
+        	// debugger;
 			if(url.indexOf("easyui")==0){
 	    		url = url.substr(6);
 	    		tab = new Ext.ux.panel.ManagedIframe({
@@ -1522,7 +1489,8 @@ function toUrl(modId,modName,url){
 			         loadMask : true,
 			         defaultSrc : url,
 			         listeners : {
-			           domready : function(frame) { // only raised for "same-origin"
+			           domready : function(frame) { // only raised for
+													// "same-origin"
 			             var doc = frame.getDocument();
 			             if (doc) {
 			               frame.ownerCt.setTitle(doc.title);
@@ -1557,7 +1525,7 @@ function toUrl(modId,modName,url){
 			title : modName,
 			autoScroll : true,
 			closable : true,
-			//layout : "column",
+			// layout : "column",
 			border : false
 		});
 		var p = tabPanel.add(tab);
@@ -1567,14 +1535,10 @@ function toUrl(modId,modName,url){
 		window.global_modId =modId; 
        	tabPanel.activate(p);
         /*
-        new Ext.ux.JSLoader( {
-          url : n.id,
-          onError : function(options, e) {
-            console.log(e);
-            alert(e.description);
-            alert('模块加载失败[' + n.id + ']');
-          }
-        });*/
+		 * new Ext.ux.JSLoader( { url : n.id, onError : function(options, e) {
+		 * console.log(e); alert(e.description); alert('模块加载失败[' + n.id + ']'); }
+		 * });
+		 */
       }
     }
 }
@@ -1659,9 +1623,9 @@ function getTreeData(orgid,name){
 	var ret = {};
 	var nodes = [];
 	var nodemap = {};
-//	console.log('orgid',orgid);
+// console.log('orgid',orgid);
 	var data = AlldistrictMap[orgid];
-//	CommonExamService.getDistrict(orgid,{callback:function(data){
+// CommonExamService.getDistrict(orgid,{callback:function(data){
 		if(data){
 			for( var i=0 ; i< data.length;i++){
 				var treenode = {
@@ -1693,13 +1657,20 @@ function getTreeData(orgid,name){
 				treenodes[treenodes.length]=treenode;
 			}
 		}
-//	},async:false});
+// },async:false});
 	ret.nodes = nodes;
 	ret.nodemap = nodemap;
 	ret.treenodes = treenodes;
 	return ret;
 }
-
+function serializeObject(params){  
+	console.log(params);
+    var obj={};  
+    $.each(params,function(index,param){  
+       obj[param.name]=param.value;  
+    });  
+    return obj;  
+};  
 $(function(){
 	CommonExamService.getDistrictMap({callback:function(data){
 		window.districtMap = data;
@@ -1709,7 +1680,191 @@ $(function(){
 	},async:false});
 	CommonExamService.getAllDistrict({callback:function(data){
 		window.AlldistrictMap = data;
-		window.districtdata = getTreeData(currentid);
+		var ids = currentid.split(',');
+		window.districtdata = {nodemap: {},nodes: [],treenodes: []}
+		for(var i=0 ; i<ids.length;i++){
+			var nodedata = getTreeData(ids[i]);
+			window.districtdata.treenodes = window.districtdata.treenodes.concat( nodedata.treenodes);
+			window.districtdata.nodes = window.districtdata.nodes.concat( nodedata.nodes);
+			window.districtdata.nodemap = $.extend(window.districtdata.nodemap,  nodedata.nodemap);
+		}
 	},async:false});
 	window.earyuitreedata = window.districtdata.treenodes;
+	CommonExamService.getCurrentOrgList({callback:function(data){
+		window.orgList = data;
+	},async:false});
+	CommonExamService.getPersonMap({callback:function(data){
+		window.orgPersonList = data;
+	},async:false});
+	var needquest = true;
+	DataExportService.getQuestionsByOrg({callback:function(data){
+		console.log(data);
+		needquest = data.needquest;
+	},async:false});
+	if(needquest){
+		var questionswin = new Ext.Window({
+		    modal: true,
+		    title: '公卫平台网络情况问卷调查',
+		    width:600,
+		    height:540,
+		    border: false,
+		    closable :false,
+		    layout:'fit',
+		    items: [
+		            { 
+		            xtype:'form',
+		            id:'questionform',
+		    	    border: false,
+		    	    closable :false,
+		    	    layout:'table',
+		    	    baseCls :"question x-window",
+		    	    defaults: {
+		    	        // applied to each contained panel
+		    	    },
+		    	    layoutConfig: {
+		    	        // The total column count must be specified here
+		    	        columns: 2,
+		    	    },
+		    	    items: [
+						{
+						    html: '<b><font color="red">提示</font>：请认真填写以下内容，如有不清楚的地方请和您所在机构的系统管理员联系后填写，以下内容将汇报至卫生局。每个机构仅需1人填写，1人填写完毕后其他人将不再显示（已显示的刷新页面或重新登录即可）。</b>',
+						    baseCls :'texts x-panel',
+						    colspan:2
+						},
+			    	    {
+			    	        html: '<b>宽带运营商：</b>',
+			    	        baseCls :'head x-panel',
+			    	    },{
+			    	    	 baseCls :'texts x-panel',
+			    	        html:   '<input type="radio" id="nettype02" name="nettype" value="电信"><label for="nettype02">电信宽带</label>  '+
+					    	        '<input type="radio" id="nettype03" name="nettype" value="联通"><label for="nettype03">联通宽带</label>  '+
+					    	        '<input type="radio" id="nettype04" name="nettype" value="移动"><label for="nettype04">移动宽带</label>  '+
+					    	        '<input type="radio" id="nettype05" name="nettype" value="铁通"><label for="nettype05">铁通宽带</label>  '+
+			    	        		'<input type="radio" id="nettype06" name="nettype" value="爱普"><label for="nettype06" >爱普宽带</label>  '+
+			    	        		'<input type="radio" id="nettype07" name="nettype" value="长城"><label for="nettype07">长城宽带</label>  '
+			    	    },{
+			    	        html: '<b>宽带速度：</b>',
+			    	        baseCls :'head x-panel'
+			    	    },{
+			    	    	 baseCls :'texts x-panel',
+			    	    	layout:'fit',
+			    	        html:   '<input type="radio" id="netspeed02" name="netspeed" value="2"><label for="netspeed02">2M</label>  '+
+					    	        '<input type="radio" id="netspeed03" name="netspeed" value="4"><label for="netspeed03">4M</label>  '+
+					    	        '<input type="radio" id="netspeed04" name="netspeed" value="6"><label for="netspeed04">6M</label>  '+
+					    	        '<input type="radio" id="netspeed05" name="netspeed" value="8"><label for="netspeed05">8M</label>  '+
+			    	        		'<input type="radio" id="netspeed06" name="netspeed" value="10"><label for="netspeed06">10M</label>  '+
+			    	        		'<input type="radio" id="netspeed07" name="netspeed" value="20"><label for="netspeed07">20M</label>  '+
+			    	        		'<input type="radio" id="netspeed08" name="netspeed" value="40"><label for="netspeed08">40M</label>  '+
+			    	        		'<input type="radio" id="netspeed09" name="netspeed" value="60"><label for="netspeed09">60M</label>  '+
+			    	        		'<input type="radio" id="netspeed10" name="netspeed" value="80"><label for="netspeed10">80M</label>  '+
+			    	        		'<input type="radio" id="netspeed11" name="netspeed" value="100"><label for="netspeed11">100M</label>  '+
+			    	        		'<input type="radio" id="netspeed12" name="netspeed" value="150"><label for="netspeed12">大于100兆</label>  '
+			    	    },{
+			    	        html: '<b>宽带使用人数：</b>',
+			    	        baseCls :'head x-panel'
+			    	    },{
+			    	    	 baseCls :'texts x-panel',
+			    	    	layout:'fit',
+			    	        html:   '<input type="radio" id="usernum02" name="usernum" value="5"><label for="usernum02">少于10人</label>  '+
+					    	        '<input type="radio" id="usernum03" name="usernum" value="15"><label for="usernum03">10-20人</label>  '+
+					    	        '<input type="radio" id="usernum04" name="usernum" value="25"><label for="usernum04">20-30人</label>  '+
+					    	        '<input type="radio" id="usernum05" name="usernum" value="35"><label for="usernum05">30-40人</label>  '+
+			    	        		'<input type="radio" id="usernum06" name="usernum" value="75"><label for="usernum06">50-100人</label>  '+
+			    	        		'<input type="radio" id="usernum07" name="usernum" value="1000"><label for="usernum07">大于100人</label>  '
+			    	    },{
+			    	        html: '<b>公卫平台<br>使用速度：</b>',
+			    	        baseCls :'head x-panel'
+			    	    
+			    	    },{
+			    	    	baseCls :'texts x-panel',
+			    	    	layout:'fit',
+			    	        html:   '<input type="radio" id="usespeed02" name="usespeed" value="非常快"><label for="usespeed02">非常快</label>  '+
+					    	        '<input type="radio" id="usespeed03" name="usespeed" value="快"><label for="usespeed03">快</label>  '+
+					    	        '<input type="radio" id="usespeed04" name="usespeed" value="慢"><label for="usespeed04">慢</label>  '+
+					    	        '<input type="radio" id="usespeed05" name="usespeed" value="非常慢"><label for="usespeed05">非常慢</label>  '
+			    	    }],
+			    	buttons:[
+			    	         {
+								text:'提交',
+								style:{width:"200px"},
+								formBind: true,
+								id:"question_submit",
+								handler:function(){
+									if(valid.form()){
+										console.log(serializeObject($("#questionform form").serializeArray()));
+										DataExportService.saveQuestion(serializeObject($("#questionform form").serializeArray()) ,{callback:function(data){
+											console.log(data);
+											if(data && data.saved){
+												// 用户对话框，用一个回调函数处理结果:
+												Ext.Msg.alert('问卷调查', '提交成功!确定后关闭!', function(btn, text){
+												    if (btn == 'ok'){
+												    	questionswin.close();
+												    }
+												});
+											}else{
+												if(!data.saved && data.msg){
+													Ext.Msg.alert('问卷调查', '保存失败!'+data.msg);
+												}else{
+													Ext.Msg.alert('问卷调查', '保存失败!系统错误,请与系统管理员联系!');
+												}
+											}
+										},async:false});
+									}
+								}
+							},{
+								text:'稍后填写',
+								style:{width:"200px"},
+								formBind: true,
+								handler:function(){
+									if(valid.form()){
+										questionswin.close();
+									}
+								}
+							}]
+		          }
+		        ]
+		  });
+	
+		questionswin.show();
+		
+		var valid = $("#questionform form").validate({
+	        rules: {
+	        	nettype:{
+	        		required : true
+	        	},
+	        	netspeed:{
+	        		required : true
+	        	},
+	        	usernum:{
+	        		required : true
+	        	},
+	        	usespeed:{
+	        		required : true
+	        	}
+			  },
+	        messages: {
+	        	nettype: {
+	        		required : "请选择宽带运营商"
+	        	},
+	        	netspeed: {
+	        		required : "请选择宽带速度"
+	        	},
+	        	usernum: {
+	        		required : "请选择使用人数"
+	        	},
+	        	usespeed: {
+	        		required : "请选择公卫平台使用速度"
+	        	}
+			  },
+			  description : {
+				  nettype : {
+			            required : '<div class="error">Required</div>',
+			            pattern : '<div class="error">Pattern</div>',
+			            conditional : '<div class="error">Conditional</div>',
+			            valid : '<div class="success">Valid</div>'
+			        }
+			    }
+	    });
+	}
+	
 });
