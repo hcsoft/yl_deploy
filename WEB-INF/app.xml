@@ -53,6 +53,16 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 		<constructor-arg ref="ConfigUtils"/>
 	</bean>
 	-->
+	
+	<bean id="TaskUtil"
+		class="cn.net.tongfang.web.service.task.TaskUtil" scope="singleton"> 
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="host" ><value>127.0.0.1</value></property>
+		<property name="name" ><value>test</value></property>
+		<property name="pwd" ><value>test</value></property>
+		<property name="apiId" ><value>test</value></property>
+		<property name="dbName" ><value>mas</value></property>
+	</bean>
 	<!--定时短信相关任务 -->
 	<bean id="SmsUtil"
 		class="cn.net.tongfang.framework.util.SmsUtil" scope="singleton"> 

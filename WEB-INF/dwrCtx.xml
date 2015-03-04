@@ -158,6 +158,13 @@
 		<aop:scoped-proxy />
 	</bean>
 	
+	<bean id="TaskService" class="cn.net.tongfang.web.service.task.TaskService">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="taskUtil" ref="TaskUtil" />
+		<dwr:remote javascript="TaskService"> <dwr:filter class="cn.net.tongfang.web.util.DWRTimeoutFilter"/></dwr:remote>
+		<aop:scoped-proxy />
+	</bean>
+	
 	<bean id="CacheService" class="cn.net.tongfang.web.service.cache.CacheService">
 		<property name ='cacheList'>
 			<list> 
