@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <script src="../js/lib/q.js"></script>
+    <script src="../js/lib/jquery-2.1.3.min.js"></script>
+    <script src="../js/lib/jqueryui/jquery-ui.js"></script>
+    <script src="../js/lib/highchart/highcharts.js"></script>
+    <script src="../js/lib/highchart/highcharts-3d.js"></script>
+    <script src="../js/lib/bootstrap/js/bootstrap.min.js"></script>
+    <link href="../js/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link href="../js/lib/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen"/>
+    <style>
+        #tablelist table {
+            width: 100%;
+        }
+
+        #tablelist table th {
+            background-color: lightgray;
+            color: #0000ff;
+        }
+
+        #tablelist table td, #tablelist table th {
+            border: solid 1px #808080;
+            padding: 5px;
+        }
+
+        #tablelist table td:not(:first-child) {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div id="pie-0-1" class="span4" style="height:200px">
+
+        </div>
+        <div id="pie-0-2" class="span4" style="height:200px">
+
+        </div>
+        <div id="pie-0-3" class="span4" style="height:200px">
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div id="line-1-1" class="span12" style="height:200px">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12" id="tablelist">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        window.top.TaskService.queryChatData(function (data, a, b, c) {
+            console.log(data, a, b, c, this);
+            createpie('pie-0-1', '本月完成情况', [
+                ['已完成', data.monthcompelete],
+                ['未完成', data.monthuncompelete]
+            ], '{point.name}{percentage:.0f}%');
+            createpie('pie-0-2', '上周完成情况', [
+                ['已完成', data.lastweekcompelete],
+                ['未完成', data.lastweekuncompelete]
+            ], '{point.name}{percentage:.0f}%');
+            createpie('pie-0-3', '今日完成情况', [
+                ['已完成', data.daycompelete],
+                ['未完成', data.dayuncompelete]
+            ], '{point.name}{percentage:.0f}%');
+            createline('line-1-1', '本月任务完成情况', data.days,
+                    data.complete,
+                    data.uncomplete
+            );
+            createTable(data.catdata);
+        });
+
+    });
+
+    function createpie(id, piename, data, fomarter) {
+        new Highcharts.Chart({
+            chart: {
+                renderTo: id,
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">\u25CF</span>  <b>{point.y}项</b><br/>'
+            },
+            colors: ['#008000', '#ff0000', '#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
+            title: {
+                text: piename
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        distance: 10,
+                        format: fomarter
+                    }
+                }
+            },
+            series: [
+                {
+                    type: 'pie',
+                    name: piename,
+                    data: data
+                }
+            ]
+        });
+    }
+
+    function createline(id, name, categories, data1, data2) {
+        new Highcharts.Chart({
+            chart: {
+                renderTo: id,
+                type: 'line'
+            },
+            title: {
+                text: name,
+                x: -20 //center
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: '任务数'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '项'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '已完成',
+                data: data1
+            }, {
+                name: '未完成',
+                data: data2
+            }]
+        });
+    }
+    function createTable(data) {
+        console.log(data);
+        var str = "<table><tr><th>分类</th><th>未完成数</th><th>完成数</th></tr>";
+        for (var i = 0; i < data.length; i++) {
+            str += '<tr>';
+            for (var j = 0; j < data[i].length; j++) {
+                str += "<td>" + data[i][j] + "</td>";
+            }
+            str += '</tr>';
+        }
+        str += '</table>';
+        $("#tablelist").append(str);
+    }
+</script>
+</body>
+</html>
