@@ -104,4 +104,24 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	</bean>
 	-->
 	<!--短信定时任务-->
+	
+	
+	<bean id="taskDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	  <property name="targetObject" ref="TaskService" />
+	  <property name="targetMethod" value="sendMsgJob" />
+	</bean>
+	
+	<bean id="taskJob" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail" ref="taskDetail" />
+	    <!-- run every morning at 10 AM -->
+	    <property name="cronExpression" value="0 0 0 * * ?" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	            <ref bean="taskJob" />
+	        </list>
+	    </property>
+	</bean>
 </beans>
