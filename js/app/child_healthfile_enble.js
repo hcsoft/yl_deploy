@@ -51,7 +51,7 @@ app.childHealthFileEnblePanel = new Ext.tf.HealthBookRecordsPanel({
         mapping : 'status'
     },{
         name : 'inputdate',
-        mapping : 'children.inputDate'
+        mapping : 'children.buildDate'
     }  ],
 	gridCmConfig : [ {
         "header" : "状态",

@@ -39,10 +39,23 @@ function dwrExceptionHandler(errorString, error){
 									window.saving = false;
 									Ext.getCmp("relogin_form").getForm().submit({
 										method:'POST',
+	// standardSubmit : true,
 										url:'/j_spring_security_check',
+	// headers:{'Content-Type': 'application/json; charset=UTF-8'},
 										success:function(){
 											Ext.getCmp("relogin_message").setText("登录成功!");
 											Ext.getCmp("relogin_exceptionwin").close();
+// Ext.Msg.show({
+// title:'登录成功!',
+// msg: '登录成功!点击【确定】返回操作界面!',
+// buttons: Ext.Msg.OK,
+// fn: function(btn, text){
+// if (btn == 'ok'){
+// Ext.getCmp("relogin_exceptionwin").close();
+// }
+// },
+// animEl: 'elId'
+// });
 										},
 										failure:function(form, action){
 											Ext.Msg.alert('登录失败!',"登录失败!用户名或密码错误!");
@@ -163,6 +176,28 @@ function dwrExceptionHandler(errorString, error){
 dwr.engine.setErrorHandler(dwrExceptionHandler);
 function denc(str){
 	return str;
+// if(! str || !str.length){
+// return "";
+// }
+// var denclist =
+// '$&@*!.:=>}€‚ƒˆ‰Š‹ŒŽ‘’•–àáâãäæççèéêëìßÞÝÜÛÜÛÚÙØÖÕÔÓÒÑÐÏÊÉÇÆÄÃ£Á';
+// var enclist =
+// '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// var result = "";
+// var tmpStr = "";
+// for (var i = 0; i < str.length; i++) {
+// tmpStr = str.substr(i,1);
+// if (tmpStr !== "%") {
+// var index = denclist.indexOf(tmpStr);
+// if (index<0) {
+// tmpStr = String.fromCharCode(tmpStr.charCodeAt(0) ^ 'c'.charCodeAt(0));
+// } else {
+// tmpStr = enclist.substr(index,1);
+// }
+// }
+// result = result + tmpStr;
+// }
+// return result;
 }
 Ext.ns('App','App.mainframe');
 Ext.override(Ext.form.Field,{
@@ -810,16 +845,10 @@ function redderToPage(){
 
 
 function openhelp(){
-	if(window.chatwindow && !window.chatwindow.closed){
-		window.chatwindow.focus();
-	}else{
-		window.chatwindow = window.open(
-				"http://app.xt800.cn/chat/index.html?c=ADE6BF39373506DA",
-				"XT800",
-				"height=480, width=605, top=100, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
-		window.chatwindow.document.cookie = 'webchat_token=123456&webchat_uid=abc';
-		
-	}
+	window.open(
+			"http://app.xt800.cn/chat/index.html?c=ADE6BF39373506DA",
+			"XT800",
+			"height=480, width=605, top=100, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
 }
 var tabPanel;
 
@@ -1141,30 +1170,8 @@ Ext.onReady(function() {
 // interval: 60*1000//任务间隔，毫秒为单位
 // }
 // Ext.TaskMgr.start(taskCheckSession);//初始化时就启动任务
-
-  TaskService.hasTaskAuth(function(data){
-	 if(data.hasauth){
-		 $("#_task_info").css("margin",3);
-		 TaskService.queryUncompleteTask('curmonth',1,function(data){
-			 Ext.get('_task_info').dom.innerHTML = "<a href='javascript:opentaskwindow()'>未完成任务：<span class='badge'>" + data.taskcount+"</span>";
-		 })
-	 } else{
-		 $("#_task_info").css({"margin":5,"color":'red'});
-		 Ext.get('_task_info').dom.innerHTML = "<span title='开通联系电话:15752013080!'>未开通任务功能!开通联系电话:15752013080</span>";
-	 }
-  });
 });
 
-function opentaskwindow(){
-	window.taskwindow = new Ext.Window({
-		closable:true,
-		layout :'fit',
-		modal:true,
-        html:"<iframe id='openwin' src='task.html' scrolling='auto' style='width:100%;height:100%;margin:0;padding:0;border:0;'></iframe>"
-	});
-	window.taskwindow.show();
-	window.taskwindow.maximize();
-}
 
 ModuleMgr.register = function(mod) {
 	

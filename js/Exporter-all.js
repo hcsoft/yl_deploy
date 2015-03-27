@@ -401,7 +401,7 @@ Ext.ux.Exporter.ExcelFormatter.Workbook = Ext.extend(Object, {
   },
   
   tpl: new Ext.XTemplate(
-    '<?xml version="1.0" encoding="utf-8"?>',
+    '<?xml version="1.0" encoding="utf-8"?><?mso-application progid="Excel.Sheet"?>',
     '<ss:Workbook xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:o="urn:schemas-microsoft-com:office:office">',
       '<o:DocumentProperties>',
         '<o:Title>{title}</o:Title>',
@@ -804,7 +804,7 @@ Ext.ux.Exporter.ExcelFormatter.Cell = Ext.extend(Object, {
   
   tpl: new Ext.XTemplate(
     '<ss:Cell ss:StyleID="{style}">',
-      '<ss:Data ss:Type="{type}"><![CDATA[{value}]]></ss:Data>',
+      '<ss:Data ss:Type="{type}">{value}</ss:Data>',
     '</ss:Cell>'
   )
 });

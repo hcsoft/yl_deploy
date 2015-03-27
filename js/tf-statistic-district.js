@@ -134,7 +134,8 @@ Ext.tf.StatisticByDistrict = Ext.extend(Ext.Panel, {
 	},{
 		"header" : "老年人档案数",
 		"dataIndex" : "oldManHeathFileCount",
-		"id" : "oldManHeathFileCount"
+		"id" : "oldManHeathFileCount",
+		"hidden" : true
 	},{
 		"header" : "高血压档案数",
 		"dataIndex" : "hypertensionHealthFileCount",
@@ -253,11 +254,6 @@ Ext.tf.StatisticByDistrict = Ext.extend(Ext.Panel, {
 		var maternal = Ext.getCmp('maternal').getValue();
 		var chronicDisease = Ext.getCmp('chronicDisease').getValue();
 		var medicalexam = Ext.getCmp('medicalexam').getValue();
-		console.log(healthfile);
-		console.log(children);
-		console.log(maternal);
-		console.log(chronicDisease);
-		console.log(medicalexam);
 		if(healthfile || children || maternal || chronicDisease || medicalexam){
 			Ext.getCmp(this.gridId).getStore().reload();
 			this.doLayout(true);
@@ -267,14 +263,15 @@ Ext.tf.StatisticByDistrict = Ext.extend(Ext.Panel, {
 			if(healthfile){
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'vHealthFileCount'));
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'cHealthFileCount'));
-				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'oldManHeathFileCount'));
+				//colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'oldManHeathFileCount'));
 			}else{
 				colsVisibleTrue.push(Utils.getColumnsIndexDetail(this.gridId,'vHealthFileCount'));
 				colsVisibleTrue.push(Utils.getColumnsIndexDetail(this.gridId,'cHealthFileCount'));
-				colsVisibleTrue.push(Utils.getColumnsIndexDetail(this.gridId,'oldManHeathFileCount'));
+				//colsVisibleTrue.push(Utils.getColumnsIndexDetail(this.gridId,'oldManHeathFileCount'));
 			}
 			
-			if(healthfile || children){
+			//if(healthfile || children){
+			if(children){
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'chileHealthFileCount'));
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'childHighRiskHealthFileCount'));
 			}else{
@@ -296,7 +293,8 @@ Ext.tf.StatisticByDistrict = Ext.extend(Ext.Panel, {
 				colsVisibleTrue.push(Utils.getColumnsIndexDetail(this.gridId,'childrenMdeiExamTotals'));
 			}
 			
-			if(healthfile || maternal){
+			//if(healthfile || maternal){
+			if(maternal){
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'womanInitBirthHealthFileCount'));
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'womanAreadyBirthHealthFileCount'));
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'womanExceptionBirthHealthFileCount'));
@@ -326,7 +324,8 @@ Ext.tf.StatisticByDistrict = Ext.extend(Ext.Panel, {
 				colsVisibleTrue.push(Utils.getColumnsIndexDetail(this.gridId,'visitBeforeBornTotals'));
 			}
 			
-			if(healthfile || chronicDisease){
+			//if(healthfile || chronicDisease){
+			if(chronicDisease){
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'hypertensionHealthFileCount'));
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'diabetesHealthFileCount'));
 				colsVisibleFalse.push(Utils.getColumnsIndexDetail(this.gridId,'holergasiaHealthFileCount'));
@@ -359,84 +358,7 @@ Ext.tf.StatisticByDistrict = Ext.extend(Ext.Panel, {
 	},
 	
 	createPanel : function() {
-		var topPanel = new Ext.Panel({
-			layout : 'fit',
-			region : 'north',
-			height : 150,
-			tbar : [{
-				xtype : 'checkbox',
-				boxLabel : '报销统计数据',
-				id : 'isQryWipeOut',
-				name : 'isQryWipeOut'
-			},{
-				text : '查询',
-				iconCls : 'searchbg',
-				handler : function(){
-					this.load(true);
-				}.createDelegate(this)
-			},{
-				text : '打印',
-				iconCls : 'printbg',
-				handler : function(){
-					
-//					printDataExportObj.printGrid(grid,printDataExportObj.initDateRange('startDate','endDate'));
-				}.createDelegate(this)				
-			},{
-				text : '数据导出',
-				iconCls : 'dataExportbg',
-				handler : function(){
-//					this.load(true);
-				}.createDelegate(this)
-			},{
-				text : '刷新',
-				iconCls : 'c_refresh',
-				handler : function(){
-					this.load(true);
-				}.createDelegate(this)
-			}],
-			items : [{
-				xtype : 'panel',
-				layout : 'absolute',
-				frame : true,
-				items : [createFieldset('dateRange','dateRange',5,0,'统计查询日期范围',
-						 [createLabel('dateText','dateText',0,3,'起:'),
-						  createDatefield('district_startDate','district_startDate',20,0,'Y-m-d',120,new Date()),
-						  createLabel('dateTextSeparator','dateTextSeparator',0,43,'止:'),
-						  createDatefield('district_endDate','district_endDate',20,40,'Y-m-d',120,new Date())],140),
-				createFieldset('statisticRule','statisticRule',175,0,'查询规则',
-						 [createCheckBox('只显示本级数据',true,'statisticMe','statisticMe',0,0,3,function(obj,ischecked){
-							  if(ischecked){
-								  Ext.getCmp('statisticLower').setValue(false);
-								  Ext.getCmp('statisticLowerAll').setValue(false);
-								  Ext.getCmp('statisticAll').setValue(false);
-							  }
-						  }),createCheckBox('显示所有数据',false,'statisticAll','statisticAll',110,0,3,function(obj,ischecked){
-							  if(ischecked){
-								  Ext.getCmp('statisticMe').setValue(false);
-								  Ext.getCmp('statisticLower').setValue(false);
-								  Ext.getCmp('statisticLowerAll').setValue(false);
-							  }
-						  }),createCheckBox('显示直接下级数据',false,'statisticLower','statisticLower',0,25,3,function(obj,ischecked){
-							  if(ischecked){
-								  Ext.getCmp('statisticMe').setValue(false);
-								  Ext.getCmp('statisticLowerAll').setValue(false);
-								  Ext.getCmp('statisticAll').setValue(false);
-							  }
-						  }),createCheckBox('显示所有下级数据',false,'statisticLowerAll','statisticLowerAll',0,50,3,function(obj,ischecked){
-							  if(ischecked){
-								  Ext.getCmp('statisticMe').setValue(false);
-								  Ext.getCmp('statisticLower').setValue(false);
-								  Ext.getCmp('statisticAll').setValue(false);
-							  }
-						  })],200),		  
-				createFieldset('statisticResult','statisticResult',405,0,'统计数据显示',
-						 [createCheckBox('居民健康档案',true,'healthfile','healthfile',0,0,1,null),
-						  createCheckBox('儿童业务数据',false,'children','children',100,0,2,null),
-						  createCheckBox('孕产妇业务数据',false,'maternal','maternal',0,25,3,null),
-						  createCheckBox('健康体检数据',false,'medicalexam','medicalexam',110,25,3,null),
-						  createCheckBox('慢性病业务数据',false,'chronicDisease','chronicDisease',0,50,4,null)],200)]
-			}]
-		});
+		
 		this.westPanel = new Ext.tree.TreePanel({
 			region : 'west',
 			width : 200,
@@ -510,6 +432,85 @@ Ext.tf.StatisticByDistrict = Ext.extend(Ext.Panel, {
 			loadMask : true,
 			sm : sm
 		});
+		
+		var exportButton = new Ext.ux.Exporter.Button({
+			component : centerPanel,
+			text : "数据导出",
+			iconCls : 'dataExportbg'
+		});
+		var topPanel = new Ext.Panel({
+			layout : 'fit',
+			region : 'north',
+			height : 150,
+			tbar : [{
+				xtype : 'checkbox',
+				boxLabel : '报销统计数据',
+				id : 'isQryWipeOut',
+				name : 'isQryWipeOut'
+			},{
+				text : '查询',
+				iconCls : 'searchbg',
+				handler : function(){
+					this.load(true);
+				}.createDelegate(this)
+			},{
+				text : '打印',
+				iconCls : 'printbg',
+				handler : function(){
+					
+//					printDataExportObj.printGrid(grid,printDataExportObj.initDateRange('startDate','endDate'));
+				}.createDelegate(this)				
+			},exportButton,{
+				text : '刷新',
+				iconCls : 'c_refresh',
+				handler : function(){
+					this.load(true);
+				}.createDelegate(this)
+			}],
+			items : [{
+				xtype : 'panel',
+				layout : 'absolute',
+				frame : true,
+				items : [createFieldset('dateRange','dateRange',5,0,'统计查询日期范围',
+						 [createLabel('dateText','dateText',0,3,'起:'),
+						  createDatefield('district_startDate','district_startDate',20,0,'Y-m-d',120,new Date()),
+						  createLabel('dateTextSeparator','dateTextSeparator',0,43,'止:'),
+						  createDatefield('district_endDate','district_endDate',20,40,'Y-m-d',120,new Date())],140),
+				createFieldset('statisticRule','statisticRule',175,0,'查询规则',
+						 [createCheckBox('只显示本级数据',true,'statisticMe','statisticMe',0,0,3,function(obj,ischecked){
+							  if(ischecked){
+								  Ext.getCmp('statisticLower').setValue(false);
+								  Ext.getCmp('statisticLowerAll').setValue(false);
+								  Ext.getCmp('statisticAll').setValue(false);
+							  }
+						  }),createCheckBox('显示所有数据',false,'statisticAll','statisticAll',110,0,3,function(obj,ischecked){
+							  if(ischecked){
+								  Ext.getCmp('statisticMe').setValue(false);
+								  Ext.getCmp('statisticLower').setValue(false);
+								  Ext.getCmp('statisticLowerAll').setValue(false);
+							  }
+						  }),createCheckBox('显示直接下级数据',false,'statisticLower','statisticLower',0,25,3,function(obj,ischecked){
+							  if(ischecked){
+								  Ext.getCmp('statisticMe').setValue(false);
+								  Ext.getCmp('statisticLowerAll').setValue(false);
+								  Ext.getCmp('statisticAll').setValue(false);
+							  }
+						  }),createCheckBox('显示所有下级数据',false,'statisticLowerAll','statisticLowerAll',0,50,3,function(obj,ischecked){
+							  if(ischecked){
+								  Ext.getCmp('statisticMe').setValue(false);
+								  Ext.getCmp('statisticLower').setValue(false);
+								  Ext.getCmp('statisticAll').setValue(false);
+							  }
+						  })],200),		  
+				createFieldset('statisticResult','statisticResult',405,0,'统计数据显示',
+						 [createCheckBox('居民健康档案',true,'healthfile','healthfile',0,0,1,null),
+						  createCheckBox('儿童业务数据',false,'children','children',100,0,2,null),
+						  createCheckBox('孕产妇业务数据',false,'maternal','maternal',0,25,3,null),
+						  createCheckBox('健康体检数据',false,'medicalexam','medicalexam',110,25,3,null),
+						  createCheckBox('慢性病业务数据',false,'chronicDisease','chronicDisease',0,50,4,null)],200)]
+			}]
+		});
+		
 		var panel = new Ext.Panel({
 			layout : 'border',
 			autoScroll : true,

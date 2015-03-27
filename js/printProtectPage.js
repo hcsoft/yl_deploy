@@ -186,7 +186,7 @@
 //			LODOP.ADD_PRINT_TABLE(0,0,"20cm",height,html);
 			LODOP.SET_PRINT_STYLE("FontSize",12);
 			LODOP.SET_PRINT_STYLE("FontName",'宋体');
-			LODOP.ADD_PRINT_HTML(0,0,'20cm',height,html);
+			LODOP.ADD_PRINT_HTML(0,0,width,height,html);
 			LODOP.PREVIEW();	
 //			LODOP.PRINT_SETUP();
 		}

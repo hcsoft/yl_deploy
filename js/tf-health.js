@@ -352,12 +352,33 @@ Ext.tf.HealthPanel = Ext.extend(Ext.Panel, {
 			width : 100,
 			value : 'a.name'
 		});
+		
+		var orgCondition =  window.orgList;
+		var orgstore = new Ext.data.SimpleStore({
+			fields : [ 'type', 'display' ],
+			data : orgCondition
+		});
+		this.orgcombo = new Ext.form.ComboBox({
+			store : orgstore,
+			displayField : 'display',
+			valueField : 'type',
+			typeAhead : true,
+			mode : 'local',
+			triggerAction : 'all',
+			selectOnFocus : true,
+			editable : false,
+			minListWidth  : 250,
+			value : ''
+		});
 		this.onlySelfField = new Ext.form.Checkbox({
 			boxLabel  : '仅查询自己'
 		});
 		this.onlyOrgField = new Ext.form.Checkbox({
 			boxLabel  : '仅查询所在机构',
 			checked : true
+		});
+		this.noExamField = new Ext.form.Checkbox({
+			boxLabel  : '无体检'
 		});
 		this.filterField = new Ext.form.TextField({
 			fieldLabel : '',
@@ -392,6 +413,37 @@ Ext.tf.HealthPanel = Ext.extend(Ext.Panel, {
 			handler : this.editFn.createDelegate(this)
 		});
 		
+		this. waitnodeexpend = function(node,parent,time){
+			that = this;
+			if(time<20000){
+				if(!this.menu.getNodeById(node) ){
+					if(this.menu.getNodeById(parent)){
+						this.menu.expandPath(this.menu.getNodeById(parent).getPath());
+						setTimeout(function(){that.waitnodeexpend(node,node.substring(0,parent.length+3),time+500)},500);
+					}else{
+						setTimeout(function(){that.waitnodeexpend(node,parent,time+500)},500);
+					}
+				}else{
+					this.menu.selectPath(this.menu.getNodeById(node).getPath());
+				}
+			}
+		};
+		//档案关联行政区划
+		var linkbutton = new Ext.Action({
+			text : '区划',
+			iconCls : 'linkbg',
+			handler : function(){
+				var selections = this.grid.getSelections();
+				if(selections.length >= 1){
+					var fileNo = selections[0].data.fileNo;
+					var curentid = fileNo.substr(0,12);
+					var parentid = fileNo.substr(0,6);
+					var len = 6;
+					this.waitnodeexpend(curentid,parentid,0);
+//					this.menu.expandPath(this.menu.getNodeById(fileNo.substr(0,12)).getPath());
+				}
+			}.createDelegate(this)
+		});
 		var printHealthFile = '';
 		//打印档案
 		if(this.isPrintHealthFile){
@@ -402,7 +454,8 @@ Ext.tf.HealthPanel = Ext.extend(Ext.Panel, {
 					var selections = this.grid.getSelections();
 					if(selections.length == 1){
 						var fileNo = selections[0].data.fileNo;
-						PrintHealthFileAndExamClass.printHealthFile(fileNo);
+//						PrintHealthFileAndExamClass.printHealthFile(fileNo);
+						PrintHealthFileAndExamClass.printHealthFileOther(fileNo);
 					}else{
 						showInfoObj.Infor('请选择打印的档案！');
 					}
@@ -506,7 +559,7 @@ Ext.tf.HealthPanel = Ext.extend(Ext.Panel, {
 							this.combo,
 							this.filterField,
 							this.onlyOrgField,
-							this.onlySelfField,
+							this.orgcombo,
 							new Ext.Action({
 								text : '查询',
 								iconCls : 'c_query',
@@ -711,12 +764,17 @@ Ext.tf.HealthPanel = Ext.extend(Ext.Panel, {
 								}.createDelegate(this)
 							}));
 			funcAction.push(printHealthFile);
+			funcAction.push(linkbutton);
 			funcAction.push(printMedicalExam);
 			funcAction.push('-');
 			funcAction.push(this.combo);
 			funcAction.push(this.filterField);
 			funcAction.push(this.onlyOrgField);
 			funcAction.push(this.onlySelfField);
+			funcAction.push(this.noExamField);
+			funcAction.push('-');
+			funcAction.push(new Ext.form.Label({xtype:'lable',text:'选择机构'}));
+			funcAction.push(this.orgcombo);
 			funcAction.push(new Ext.Action({
 								text : '查询',
 								iconCls : 'c_query',
@@ -748,9 +806,15 @@ Ext.tf.HealthPanel = Ext.extend(Ext.Panel, {
 			if(this.onlySelfField && this.onlySelfField.getValue()){
 				params['onlyself'] = this.onlySelfField.getValue();
 			}
+			if(this.noExamField && this.noExamField.getValue()){
+				params['noexam'] = this.noExamField.getValue();
+			}
 			console.log("onlyorg ==" +this.onlyOrgField && this.onlyOrgField.getValue())
 			if(this.onlyOrgField && this.onlyOrgField.getValue()){
 				params['onlyorg'] = this.onlyOrgField.getValue();
+			}
+			if(this.orgcombo){
+				params['org_id'] = this.orgcombo.getValue();
 			}
 			var cond = {
 				district : selNode.id,

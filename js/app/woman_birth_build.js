@@ -51,7 +51,7 @@ app.womanBirthBuildPanel = new Ext.tf.HealthBookRecordsPanel({
 		mapping : 'duedate'
 	},{
         name : 'inputdate',
-        mapping : 'maternal.inputDate'
+        mapping : 'maternal.buildDate'
     }  ],
 	gridCmConfig : [ {
 		"header" : "状态",

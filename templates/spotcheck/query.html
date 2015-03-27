@@ -1,0 +1,758 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html style="height:100%;width:100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="/js/easyui/themes/hc/easyui.css">
+<link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css">
+<script type="text/javascript" src="/js/easyui/jquery-1.8.0.min.js"></script>
+<script src='/js/angularjs/jquery/jquery.dateFormat-1.0.js'></script>
+<script type='text/javascript' src='/dwr/engine.js'></script>
+<script type='text/javascript' src='/dwr/util.js'></script>
+<script type='text/javascript' src='/dwr/interface/CommonExamService.js'></script>
+<script type='text/javascript' src='/dwr/interface/DataExportService.js'></script>
+<script type='text/javascript'
+	src='/dwr/interface/UserMenuTreeService.js'></script>
+<script src="/js/easyui/jquery.easyui.min.js"></script>
+<script src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<style>
+.tree-file {
+	background: url(../../resources/images/default/tree/leaf.gif) no-repeat;
+}
+
+.tree-node-selected {
+	background: #d9e8fb;
+	color: #000000;
+}
+
+.datagrid-row-selected {
+	background: #eaf2ff !important;
+	color: #000000;
+	font-weight: bold;
+}
+
+.datagrid-row-over,.datagrid-header td.datagrid-header-over {
+	background: #eaf2ff !important;
+	color: #000000;
+	cursor: default;
+}
+</style>
+<script>
+	function showExport() {
+		var id = getselecttype();
+		$("#params_panel").html('');
+		var values = g_params[id];
+		var html = "<table>";
+		if (g_subs[id]) {
+			for ( var key in g_subs[id]) {
+				if (g_subs[id]) {
+					var item = g_subs[id][key];
+					if (item.display) {
+						html += ("<tr><td>" + item.name + "：</td>");
+						if (values && values[key]) {
+							html += ("<td><input id='"+item.code+"' value='"+values[key]+"'></td></tr>");
+						} else {
+							if (item.type && item.type.substr(0, 4) == "date") {
+								html += ("<td><input id='"+item.code+"' class='easyui-datebox'	style='width: 90px;'></td></tr>");
+							} else {
+								html += ("<td><input id='"+item.code+"'></td></tr>");
+							}
+						}
+					}
+				}
+			}
+		}
+		html += ("<tr><td colspan=2 ><a class='query_button' href='#' onclick='javascript:queryGrid()'>查询</a><!--<a class='export_button' href='#' onclick='javascript:export_data()'>导出</a>--></td></tr>");
+		html += ("</table>");
+		$("#params_panel").append(html);
+		$('.query_button').linkbutton({
+			iconCls : 'icon-search'
+		});
+		$('.export_button').linkbutton({
+			iconCls : 'icon-redo'
+		});
+		initEasyui("#params_panel");
+		$('#params_panel').dialog();
+		$('#params_panel').dialog('open');
+		$('#params_panel').dialog('center');
+	}
+	function getParameterByName(name) {
+		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex
+				.exec(location.search);
+		return results == null ? "" : decodeURIComponent(results[1].replace(
+				/\+/g, " "));
+	}
+	function examDwrLoader(pluginName) {
+		return function(param, success, error) {
+			var opts = $(this)[pluginName]('options');
+			if (!opts.url)
+				return false;
+			var dwrFunc = eval(opts.url);
+			param = genParam(param);
+			dwrFunc(param[0], param[1], param[2], param[3], {
+				callback : function(data) {
+					success(data);
+				},
+				exceptionHandler : function() {
+					error.apply(this, arguments);
+				}
+			});
+		}
+	}
+	$.fn.datagrid.defaults.loader = examDwrLoader('datagrid');
+	var g_params = {};
+	function saveparams() {
+		var inputs = $("#params_panel").find("input");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		})
+		g_params[getselecttype()] = params;
+	}
+	function gettreevalue() {
+		var orgparamtype = g_main[getselecttype()][2];
+		if ("in" == orgparamtype) {
+			var node = $('#orgtree').tree('getChecked');
+			var orgs = "";
+			for (var i = 0; i < node.length; i++) {
+				orgs += "," + node[i].id;
+			}
+			return orgs.substr(1);
+		} else {
+			return $('#orgtree').tree('getSelected').id;
+		}
+	}
+	function gettreeopt() {
+		var orgparamtype = g_main[getselecttype()][2];
+		if ("in" == orgparamtype) {
+			return "check";
+		} else {
+			return "select";
+		}
+	}
+	
+	function getselectval(){
+		return $("#select_type").combobox('getValue');
+	}
+	
+	function getselecttype(){
+		return g_spottype[$("#select_type").combobox('getValue')].mainid;
+	}
+
+	function export_data() {
+		var inputs = $("#params_panel").find("input");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		});
+		$('.export_button').linkbutton('disable');
+		DataExportService.sqlExport(gettreevalue(), getselecttype(), $("#select_type").combobox('getText'), params,
+				function(data) {
+					$('.export_button').linkbutton('enable');
+					window.location.href = data;
+				});
+	}
+
+	function dialogClose() {
+		saveparams();
+		$("#iframe").attr("src", "about:blank");
+	}
+	function gridStyle(index, row) {
+		if (index % 2 == 0) {
+			return 'background-color:#fbfbfb;';
+		} else {
+			return ':hover {background-color:#eaf2ff}';
+		}
+	}
+	function datefomattor(value, row, index) {
+		return $.format.date(value, "yyyy-MM-dd")
+	}
+
+	function genParam(param) {
+		var inputs = $("#params_panel").find("input");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		});
+		var startdate = ($('#base_startdate').datebox('getValue'));
+		var enddate = ($('#base_enddate').datebox('getValue'));
+		if (isDate(startdate))
+			params["startdate"] = startdate;
+		if (isDate(enddate))
+			params["enddate"] = enddate;
+		params["hascheck"] = $("#base_hascheck").combobox('getValue');
+		var pageable = g_main[getselecttype()][3];
+		var pagesize = g_main[getselecttype()][4];
+		var pagenumber = param.page;
+		var pager = {
+			'pagesize' : (pagesize ? pagesize : 1000),
+			'pagenumber' : (pagenumber ? pagenumber : 1)
+		};
+		var dwrparams = [ gettreevalue(),
+		                  getselecttype(), params, pager ];
+		return dwrparams;
+	}
+
+	function selectChild() {
+		var node = $('#orgtree').tree('getSelected');
+		//始终选择最后一层
+		if (!node.attributes.isDetail) {
+			var childs = $('#orgtree').tree('getChildren', node.target);
+			for (var i = 0; i < childs.length; i++) {
+				if (childs[i].attributes.isDetail) {
+					$('#orgtree').tree('expandTo', childs[i].target);
+					$('#orgtree').tree('select', childs[i].target);
+					break;
+				}
+			}
+		}
+	}
+
+	function dblclick(rowIndex, rowData) {
+		//var node = $('#orgtree').tree('getSelected');  
+		//var url = "marry_check_info.html#&opt=open&district="+node.id+"&id="+rowData["col0"];
+		//if(url != $("#iframe").attr("src")){
+		//$("#iframe").attr("src","about:blank");//释放iframe内存
+		//$("#iframe").attr("src",url);
+		//}
+		//$("#exam_addpanel").dialog("open");
+	}
+	function initColumn(data) {
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].format) {
+				data[i].formatter = eval(data[i].format);
+			}
+		}
+		return data;
+	}
+	
+	
+	function buttonColumn(value, row, index) {
+		var buttons = eval(spechar(value));
+		var retstr = "";
+		for (var i = 0; i < buttons.length; i++) {
+			retstr += "<button onclick='openwindow(this,"+index+")' jsondata=\""+ tospechar(JSON.stringify(buttons[i])) +"\" class='jsonbutton jsonbt"+index+"'>" + buttons[i].name
+					+ "</button><span></span>"
+		}
+		return retstr;
+	}
+	
+	
+	function openEdit(obj) {
+		var args = eval('('+spechar($(obj).attr("cfg"))+')');
+		var initdata = eval('('+spechar($(obj).attr("jsondata"))+')');
+		$("#window_panel").html('');
+		$("#window_panel").attr("title", args.name);
+		DataExportService.getDiv(args.id, function(data) {
+			var html = data.html.replace(/\\\"/g, "'");
+			$("#window_panel").attr("panelArgs", JSON.stringify(args));
+			$("#window_panel").append(html);
+			$('#window_panel').dialog({
+				width : 700,
+				title : args.name,
+				onClose: function(){
+					
+				}
+			});
+			$('#window_panel').dialog("open");
+			initEasyui('#window_panel');
+			$('#window_panel').dialog("refresh");
+			$('#window_panel').dialog('center');
+			$('#window_panel form').form('load', initdata);
+		});
+	}
+	
+	function openwindow(obj,i) {
+		var argsstr = $(obj).attr("jsondata");
+		var args = eval('('+spechar(argsstr.replace(/\#/g, "'")) +")");
+		$("#window_panel").html('');
+		$("#window_panel").attr("title", args.name);
+		$("#window_panel").attr("btnindex", i);
+		DataExportService.getDiv(args.id, function(data) {
+			var html = data.html.replace(/\\\"/g, "'");
+			$("#window_panel").attr("panelArgs", argsstr);
+			$("#window_panel").append(html);
+			$('#window_panel').dialog({
+				width : 700,
+				title : args.name,
+				onClose: function(){
+					//makelink(".jsonbt"+$("#window_panel").attr("btnindex"));
+				}
+			});
+			$('#window_panel').dialog("open");
+			initEasyui('#window_panel');
+			$('#window_panel').dialog("refresh");
+			$('#window_panel').dialog('center');
+			$('#window_panel form').form('load', args.writeback);
+		});
+	}
+	
+	function spechar(str){
+		return str.replace(/\#/g, "'").replace(/&pound1;/g, "#").replace(/&quot1;/g, "\\\"").replace(/&apos1;/g, "\\'");
+	}
+	
+	function tospechar(str){
+		return str.replace(/\#/g, "&pound1;").replace(/\\"/g, "&quot1;").replace(/'/g, "&apos1;").replace(/['"]/g, "#");
+	}
+
+	function savebtn(func, jsonid) {
+		var inputs = $("#window_panel form").serializeArray();
+		var params = {};
+		$.each(inputs, function(i, obj) {
+			if (obj.value && obj.name) {
+				params[obj.name] = obj.value;
+			}
+		});
+		if (func) {
+			func("spotcheck_main", params, jsonid, function(data) {
+				if (data) {
+					setTimeout(function(){makelink(".jsonbt"+$("#window_panel").attr("btnindex"));},0);
+					//makelink(".jsonbt"+$("#window_panel").attr("btnindex"));
+					$('#window_panel form').form('load', data);
+					$.messager.alert('提示', data.msg);
+				}
+			});
+		}
+	}
+
+	function isDate(dateval) {
+		var arr = new Array();
+		if (dateval.toString().indexOf("-") != -1) {
+			arr = dateval.toString().split("-");
+		} else if (dateval.indexOf("/") != -1) {
+			arr = dateval.toString().split("/");
+		} else {
+			return false;
+		}
+
+		//yyyy-mm-dd || yyyy/mm/dd
+		if (arr[0].length == 4) {
+			var date = new Date(arr[0], arr[1] - 1, arr[2]);
+			if (date.getFullYear() == arr[0] && date.getMonth() == arr[1] - 1
+					&& date.getDate() == arr[2]) {
+				return true;
+			}
+		}
+		//dd-mm-yyyy || dd/mm/yyyy
+		if (arr[2].length == 4) {
+			var date = new Date(arr[2], arr[1] - 1, arr[0]);
+			if (date.getFullYear() == arr[2] && date.getMonth() == arr[1] - 1
+					&& date.getDate() == arr[0]) {
+				return true;
+			}
+		}
+		//mm-dd-yyyy || mm/dd/yyyy
+		if (arr[2].length == 4) {
+			var date = new Date(arr[2], arr[0] - 1, arr[1]);
+			if (date.getFullYear() == arr[2] && date.getMonth() == arr[0] - 1
+					&& date.getDate() == arr[1]) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	function initEasyui(selector) {
+		$(selector).find(".easyui-layout").layout();
+		$(selector).find(".easyui-linkbutton").linkbutton();
+		$(selector).find(".easyui-datagrid").datagrid();
+		$(selector).find(".easyui-datebox").datebox();
+	}
+
+	$(function() {
+		//处理机构树
+		var nodedata = window.top.earyuitreedata;
+		var orgparamtype = g_main[getselecttype()][2];
+		$('#orgtree').tree(
+				{
+					data : nodedata,
+					checkbox : "in" == orgparamtype ? true : false,
+					onLoadSuccess : function() {
+						//选中第一节点
+						var node = $('#orgtree').tree('find',
+								parseInt(nodedata[0].id));
+						$('#orgtree').tree(gettreeopt(), node.target);
+					},
+					onSelect: function(){
+						setTimeout(function(){queryGrid();},0);
+						
+					}
+				});
+		initGrid();
+	});
+	function gridloaded(){
+		setTimeout(function(){makelink();},0);
+		
+	}
+	
+	function makelink(item){
+		var obj ;
+		if(item){
+			obj = $(item);
+		}else{
+			obj = $(".jsonbutton");
+		}
+		obj.each(function(i,v){
+			var cfg = eval("("+spechar($(v).attr('jsondata') )+")");
+			if(cfg[cfg.name]){
+				var btcfg = cfg[cfg.name];
+				DataExportService.getList(
+						btcfg.tablename,
+						btcfg.params,
+						btcfg.orderby, {
+							async : false,
+							callback :  function(data) {
+							var retstr = '';
+							for(var j = 0 ; j <data.length;j++){
+								retstr += "<a onclick='openEdit(this)' cfg='"+tospechar(JSON.stringify(cfg))+"' jsondata='"+tospechar(JSON.stringify(data[j]))+"' style='margin-left:3px;color:#00F;cursor:pointer;'>第" +(j+1)+"次"
+									+ "</a>"
+							}
+							$(v).next("span").html(retstr);
+							
+						}});
+				
+			}
+		});
+		$('#querygrid').datagrid('autoSizeColumn');
+		
+	}
+	
+	
+	function test(a,b,c,d){
+		console.log(a,b,c,d);
+	}
+
+	function initGrid() {
+		var columns = [];
+		DataExportService.sqlListHead(getselecttype(), {
+			async : false,
+			callback : function(data) {
+				columns = initColumn(data);
+			}
+		});
+		var id = getselecttype();
+		var pageable = g_main[getselecttype()][3];
+		var pagesize = g_main[getselecttype()][4];
+		$("#querygrid").datagrid({
+			url : 'DataExportService.sqlListnew',
+			columns : [ columns ],
+			rowStyler : gridStyle,
+			singleSelect : true,
+			onLoadSuccess: gridloaded,
+			onLoadFail : test,
+			pageSize : pagesize,
+			pageList : [ pagesize ],
+			pagination : pageable,
+			fit : true
+		});
+	}
+	function typechange() {
+		var columns = [];
+		DataExportService.sqlListHead(getselecttype(), {
+			async : false,
+			callback : function(data) {
+				columns = initColumn(data);
+			}
+		});
+		$("#querygrid").datagrid({
+			columns : [ columns ]
+		});
+	}
+	function queryGrid() {
+		$(".query_button").linkbutton('disable');
+		$("#querygrid").datagrid("reload");
+		$(".query_button").linkbutton('enable');
+	}
+
+	function quickQuery() {
+
+		$(".query_button").linkbutton('disable');
+		$("#querygrid").datagrid("reload");
+		$(".query_button").linkbutton('enable');
+	}
+
+	function initWindowGrid() {
+		var columns = [];
+		DataExportService.sqlListHead(getselecttype(), {
+			async : false,
+			callback : function(data) {
+				columns = initColumn(data);
+			}
+		});
+		var id = getselecttype();
+		var pageable = g_main[getselecttype()][3];
+		var pagesize = g_main[getselecttype()][4];
+		$("#querygrid").datagrid({
+			url : 'DataExportService.sqlListnew',
+			columns : [ columns ],
+			rowStyler : gridStyle,
+			singleSelect : true,
+			pageSize : pagesize,
+			pageList : [ pagesize ],
+			pagination : pageable,
+			fit : true
+		});
+	}
+	function windowListLoader(param, success, error) {
+		var opts = $(this)['datagrid']('options');
+		if (!opts.url)
+			return false;
+		eval("var args = " + spechar($("#window_panel").attr("panelArgs")));
+		var inputs = $("#window_panel").find("input");
+		var params = {};
+		$.each(inputs, function(i, v) {
+			var obj = $(v);
+			if (obj.val()) {
+				params[obj.attr('id')] = obj.val();
+			}
+		});
+		$.extend(params, args);
+		var pageable = g_main[$("#window_examid").val()][3];
+		var pagesize = g_main[$("#window_examid").val()][4];
+		var pagenumber = param.page;
+		var pager = {
+			'pagesize' : (pagesize ? pagesize : 1000),
+			'pagenumber' : (pagenumber ? pagenumber : 1)
+		};
+		var dwrparams = [ gettreevalue(),
+		                  getselecttype(), params, pager ];
+		var dwrFunc = eval(opts.url);
+		dwrFunc(null, $("#window_examid").val(), params, pager, {
+			callback : function(data) {
+				success(data);
+			},
+			exceptionHandler : function() {
+				error.apply(this, arguments);
+			}
+		});
+	}
+
+	function parseDate(datestr) {
+		return new Date(parseInt(datestr.substr(0, 4)), parseInt(datestr
+				.substr(5, 2)) - 1, parseInt(datestr.substr(8, 2)));
+	}
+	function DateAdd(interval, number, date) { // date 可以是时间对象也可以是字符串，如果是后者，形式必须为: yyyy-mm-dd hh:mm:ss 其中分隔符不定。"2006年12月29日 16点01分23秒" 也是合法的
+		number = parseInt(number);
+		var newdate = null;
+		if (typeof (date) == "string") {
+			newdate = parseDate(date);
+		} else {
+			newdate = date;
+		}
+		switch (interval) {
+		case "y":
+			newdate.setFullYear(newdate.getFullYear() + number);
+			break;
+		case "m":
+			newdate.setMonth(newdate.getMonth() + number);
+			break;
+		case "d":
+			newdate.setDate(newdate.getDate() + number);
+			break;
+		case "w":
+			newdate.setDate(newdate.getDate() + 7 * number);
+			break;
+		case "h":
+			newdate.setHours(newdate.getHour() + number);
+			break;
+		case "n":
+			newdate.setMinutes(newdate.getMinutes() + number);
+			break;
+		case "s":
+			newdate.setSeconds(newdate.getSeconds() + number);
+			break;
+		case "l":
+			newdate.setMilliseconds(newdate.getMilliseconds() + number);
+			break;
+		}
+		return date;
+	}
+
+	function endday(date) {
+		return DateAdd("d", -1, DateAdd("m", 1, parseDate($.format.date(date,
+				"yyyy-MM-01"))));
+	}
+
+	function changedate(type) {
+		var today = new Date();
+		var startdate = parseDate($('#base_startdate').datebox('getValue'));
+		var enddate = parseDate($('#base_enddate').datebox('getValue'));
+		var startdatestr = ($('#base_startdate').datebox('getValue'));
+		var enddatestr = ($('#base_enddate').datebox('getValue'));
+		if (type == "today") {
+			$('#base_startdate').datebox('setValue',
+					$.format.date(today, "yyyy-MM-dd"));
+			$('#base_enddate').datebox('setValue',
+					$.format.date(today, "yyyy-MM-dd"));
+		} else if (type == "thismonth") {
+			$('#base_startdate').datebox('setValue',
+					$.format.date(today, "yyyy-MM-01"));
+			$('#base_enddate').datebox('setValue',
+					$.format.date(endday(today), "yyyy-MM-dd"));
+		} else if (type == "currmonth") {
+			if (isDate(startdatestr))
+				$('#base_startdate').datebox('setValue',
+						$.format.date(startdate, "yyyy-MM-01"));
+			if (isDate(enddatestr))
+				$('#base_enddate').datebox('setValue',
+						$.format.date(endday(startdate), "yyyy-MM-dd"));
+		} else if (type == "preday") {
+			if (isDate(startdatestr))
+				$('#base_startdate')
+						.datebox(
+								'setValue',
+								$.format.date(DateAdd('d', -1, startdate),
+										"yyyy-MM-dd"));
+			if (isDate(enddatestr))
+				$('#base_enddate').datebox('setValue',
+						$.format.date(DateAdd('d', -1, enddate), "yyyy-MM-dd"));
+		} else if (type == "nextday") {
+			if (isDate(startdatestr))
+				$('#base_startdate')
+						.datebox(
+								'setValue',
+								$.format.date(DateAdd('d', 1, startdate),
+										"yyyy-MM-dd"));
+			if (isDate(enddatestr))
+				$('#base_enddate').datebox('setValue',
+						$.format.date(DateAdd('d', 1, enddate), "yyyy-MM-dd"));
+		} else if (type == "premonth") {
+			if (isDate(startdatestr))
+				$('#base_startdate')
+						.datebox(
+								'setValue',
+								$.format.date(DateAdd('m', -1, startdate),
+										"yyyy-MM-dd"));
+			if (isDate(enddatestr))
+				$('#base_enddate').datebox('setValue',
+						$.format.date(DateAdd('m', -1, enddate), "yyyy-MM-dd"));
+		} else if (type == "nextmonth") {
+			if (isDate(startdatestr))
+				$('#base_startdate')
+						.datebox(
+								'setValue',
+								$.format.date(DateAdd('m', 1, startdate),
+										"yyyy-MM-dd"));
+			if (isDate(enddatestr))
+				$('#base_enddate').datebox('setValue',
+						$.format.date(DateAdd('m', 1, enddate), "yyyy-MM-dd"));
+		} else if (type == "clear") {
+			$('#base_startdate').datebox('setValue', "");
+			$('#base_enddate').datebox('setValue', "");
+		}
+	}
+</script>
+<body>
+	<div class="easyui-panel easyui-layout" data-options='fit:true'>
+		<div data-options="region:'west'" title='机构' style='width: 200px'>
+			<ul id="orgtree"></ul>
+		</div>
+		<div id="query-tools" data-options="region:'north'"
+			style='height: 40px; padding-top: 5px; padding-left: 5px; border: true; background-color: #E0ECFF;'>
+			选择回访类型： <select id='select_type' class="easyui-combobox" name="state"
+				style="width: 150px;" data-options="onSelect:typechange">
+			</select> <a href="javascript:void(0)" id="mb" class="easyui-menubutton"
+				data-options="menu:'#datechanger'">选择时间</a>
+			<div id="datechanger" style="width: 150px;">
+				<div onclick="javascript:changedate('today')">今天</div>
+				<div onclick="javascript:changedate('thismonth')">本月</div>
+				<div onclick="javascript:changedate('currmonth')">当月</div>
+				<div class="menu-sep"></div>
+				<div onclick="javascript:changedate('preday')"
+					data-options="iconCls:'icon-undo'">前一天</div>
+				<div onclick="javascript:changedate('nextday')"
+					data-options="iconCls:'icon-redo'">后一天</div>
+				<div class="menu-sep"></div>
+				<div onclick="javascript:changedate('premonth')"
+					data-options="iconCls:'icon-remove'">前一个月</div>
+				<div onclick="javascript:changedate('nextmonth')">后一个月</div>
+				<div class="menu-sep"></div>
+				<div onclick="javascript:changedate('clear')">清除</div>
+			</div>
+			开始时间： <input id="base_startdate" type="text" class="easyui-datebox"
+				style='width: 90px;'></input> 结束时间： <input id="base_enddate"
+				type="text" class="easyui-datebox" style='width: 90px;'></input>
+				回访情况：
+				<select id="base_hascheck" class="easyui-combobox" name="state"
+								style="width: 70px;" >
+					<option value="0">全部</option>
+					<option value="1">未回访</option>
+					<option value="2">已回访</option>
+				</select>
+				 <a
+				id="btn_remove" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-remove'"
+				
+				onclick="javascript:queryGrid()">查询</a> <a id="btn_remove" href="#"
+				class="easyui-linkbutton" data-options="iconCls:'icon-remove'"
+				onclick="javascript:showExport()">高级查询</a>
+		</div>
+		<div id="params_panel" class="easyui-dialog" title='参数'
+			style="width: 280px;"
+			data-options="iconCls:'icon-save',resizable:false,modal:false,closed:true,onClose:dialogClose">
+		</div>
+		<div id="window_panel" class="easyui-dialog" title='窗口'
+			data-options="modal:true,closed:true"></div>
+		<div class="easyui-layout" data-options="region:'center'">
+			<!-- <div style='height:26px;padding:5px 0 0 5px;background-color: #E0ECFF;' data-options="region:'north',border:false"><font bold id='orgname'>请选择机构</font></div> -->
+			<div data-options="region:'center',border:false">
+				<table id='querygrid'></table>
+			</div>
+		</div>
+	</div>
+	<script>
+		var g_options = null;
+		DataExportService.get_Export_Param(getParameterByName("type"), {
+			callback : function(data) {
+				g_options = data;
+			},
+			async : false
+		});
+		var exportid = getParameterByName("exportid");
+		var g_main = {};
+		if (exportid) {
+			for (var i = 0; i < g_options.main.length; i++) {
+				g_main["" + g_options.main[i][0]] = g_options.main[i];
+				/*if (g_options.main[i][0] + "" === exportid) {
+					$("#select_type").append(
+							" <option value=\""+g_options.main[i][0]+"\">"
+									+ g_options.main[i][1] + "</option>")
+				}*/
+			}
+		} else {
+			for (var i = 0; i < g_options.main.length; i++) {
+				g_main["" + g_options.main[i][0]] = g_options.main[i];
+				/*
+				$("#select_type").append(
+						" <option value=\""+g_options.main[i][0]+"\">"
+								+ g_options.main[i][1] + "</option>")*/
+			}
+		}
+		var g_spottype = {};
+		for (var i = 0; i < g_options.spottype.length; i++) {
+			g_spottype["" + g_options.spottype[i].code] = g_options.spottype[i];
+			$("#select_type").append(
+					" <option value=\""+g_options.spottype[i].code+"\">"
+							+ g_options.spottype[i].value + "</option>")
+		}
+		var g_subs = {};
+		for (var i = 0; i < g_options.sub.length; i++) {
+			if (!g_subs[g_options.sub[i].mainid]) {
+				g_subs[g_options.sub[i].mainid] = {};
+			}
+			g_subs[g_options.sub[i].mainid][g_options.sub[i].id] = g_options.sub[i];
+		}
+	</script>
+</body>
+</html>

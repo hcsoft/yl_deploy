@@ -7,6 +7,7 @@ app.medicalPanel = new Ext.tf.HealthPanel({
     recordId : 'medicalExam.id',
     recordPk : 'id',
     detailUrl: '/medicalExam.html',
+    dataExportUrl : '健康体检记录导出',
     panelId : 'app.medicalPanel',
     isPrintMedicalExam : true,
 //    Select B.FileNo 编号,B.Name 姓名,C.Sex 性别,C.Birthday 出生日期,A.ExamDate 体检日期,

@@ -193,13 +193,14 @@ Ext.tf.SummaryStatisticPanel = Ext.extend(Ext.Panel,{
 			if(healthfile){
 				colsVisibleFalse.push(getColumnsIndex('vhealthCount'));
 				colsVisibleFalse.push(getColumnsIndex('chealthCount'));
-				colsVisibleFalse.push(getColumnsIndex('oldManHeathFileCount'));
+				//colsVisibleFalse.push(getColumnsIndex('oldManHeathFileCount'));
 			}else{
 				colsVisibleTrue.push(getColumnsIndex('vhealthCount'));
 				colsVisibleTrue.push(getColumnsIndex('chealthCount'));
-				colsVisibleTrue.push(getColumnsIndex('oldManHeathFileCount'));
+				//colsVisibleTrue.push(getColumnsIndex('oldManHeathFileCount'));
 			}
-			if(healthfile || children){
+			//if(healthfile || children){
+			if(children){
 				colsVisibleFalse.push(getColumnsIndex('babyHealthCount'));
 				colsVisibleFalse.push(getColumnsIndex('childHighRiskHealthFileCount'));
 			}else{
@@ -219,7 +220,8 @@ Ext.tf.SummaryStatisticPanel = Ext.extend(Ext.Panel,{
 				colsVisibleTrue.push(getColumnsIndex('children36count'));
 				colsVisibleTrue.push(getColumnsIndex('babyAllVisitCount'));
 			}
-			if(healthfile || maternal){
+			//if(healthfile || maternal){
+			if(maternal){
 				colsVisibleFalse.push(getColumnsIndex('womanInitBirthHealthFileCount'));
 				colsVisibleFalse.push(getColumnsIndex('womanAreadyBirthHealthFileCount'));
 				colsVisibleFalse.push(getColumnsIndex('womanExceptionBirthHealthFileCount'));
@@ -247,7 +249,8 @@ Ext.tf.SummaryStatisticPanel = Ext.extend(Ext.Panel,{
 				colsVisibleTrue.push(getColumnsIndex('visitAfterBornCount'));
 				colsVisibleTrue.push(getColumnsIndex('visitAfterBorn42count'));
 			}
-			if(healthfile || chronicDisease){
+			//if(healthfile || chronicDisease){
+			if(chronicDisease){
 				colsVisibleFalse.push(getColumnsIndex('hypertensionHealthCount'));
 				colsVisibleFalse.push(getColumnsIndex('diabetesHealthCount'));
 				colsVisibleFalse.push(getColumnsIndex('furiousHealthCount'));

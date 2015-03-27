@@ -129,6 +129,10 @@ div#ballisticForm_new td{
 	background-image: url(../image/print_16_16.png) !important;
 	background-repeat: no-repeat;
 }
+.linkbg{
+	background-image: url(../image/arrow_switch.png) !important;
+	background-repeat: no-repeat;
+}
 .dataExportbg{
 	background-image: url(../image/dataExport_16_16.png) !important;
 	background-repeat: no-repeat;
@@ -232,3 +236,80 @@ border-bottom:6px solid transparent;}
 }
 .float-left{float:left;clear:none!important;}
 .color-gray{color:GRAY}
+
+
+.x-window.question form table{
+	width:100%;
+	font-size:14px;
+	line-height:20px;
+}
+.x-window.question form table *{
+-webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+     -o-box-sizing: border-box;
+        box-sizing: border-box;
+}
+
+.x-window.question form table td {
+   height:10px;
+}
+   
+        
+.x-window.question form table label{
+	cursor:pointer;
+	margin-right:13px;
+	min-width:100px;
+}
+.x-window.question form table .head{
+	color:green;
+	width:120px;
+	height:100%;
+}
+
+.x-window.question form table .texts{
+	height:100%;
+	width:100%;
+}
+
+.x-window.question form table .texts .x-panel-body,.x-window.question form table .head .x-panel-body{
+	padding:20px 20px 30px 20px;
+	height:100%;
+}
+
+.x-window.question form table .red{
+	color:red;
+}
+
+.x-window.question form table .yellow{
+	color:yellow;
+}
+.x-window.question form table td  {
+}
+.x-window.question form table td div.row {
+	height:100%;
+}
+
+.x-window.question form table td div.row  div.x-panel-bwrap{
+	height:100%;
+}
+
+.x-window.question form table td div.row  div.x-panel-body{
+	height:auto;
+}
+
+.x-window.question form  table tr,.x-window.question form table td{
+	postion:relative;
+}
+.x-window.question .x-btn-text{
+	color:rgb(0, 64, 201);
+}
+
+.x-window.question label.error{
+	border:solid 1px #333;
+	padding: 2px 10px ;
+	background-color:#fff;
+	position:absolute;
+	color:red;
+	bottom:3px;
+}
