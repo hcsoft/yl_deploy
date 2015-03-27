@@ -46,5 +46,11 @@
         <property name="querytype" type="java.lang.String">
             <column name="querytype" length="2" />
         </property>
+        <property name="examid" type="java.lang.String">
+            <column name="examid" length="50" />
+        </property>
+        <property name="parentid" type="java.lang.String">
+            <column name="parentid" length="50" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -29,7 +29,7 @@
             <column name="msg" not-null="true" />
         </property>
         <property name="wherestr" type="java.lang.String">
-            <column name="wherestr" not-null="true" />
+            <column name="wherestr" />
         </property>
         <property name="tableidname" type="java.lang.String">
             <column name="tableidname" />
@@ -38,7 +38,7 @@
             <column name="type" length="10" />
         </property>
         <property name="rulestr" type="java.lang.String">
-            <column name="rulestr" length="500" />
+            <column name="rulestr" length="2000" />
         </property>
         <property name="teltable" type="java.lang.String">
             <column name="teltable" length="50" />
@@ -51,6 +51,18 @@
         </property>
         <property name="idtype" type="java.lang.String">
             <column name="idtype" length="50" />
+        </property>
+        <property name="inputpage" type="java.lang.String">
+            <column name="inputpage" />
+        </property>
+        <property name="parent" type="java.lang.String">
+            <column name="parent" length="50" />
+        </property>
+        <property name="ord" type="java.lang.Integer">
+            <column name="ord" />
+        </property>
+        <property name="taskdatecol" type="java.lang.String">
+            <column name="taskdatecol" />
         </property>
     </class>
 </hibernate-mapping>
