@@ -737,7 +737,7 @@ App.mainframe.MainPanel = function() {
   plugins : new Ext.ux.TabCloseMenu(),
   items : [ {
     contentEl : 'center2',
-    title : '昆明市公共卫生服务管理系统',
+    title : '宜良县公共卫生服务管理系统',
     closable : false,
     autoScroll : true,
     items : [navigation]
@@ -1125,7 +1125,7 @@ Ext.onReady(function() {
 		    	region : 'south',
 		    	height : 30,
 		    	frame : true,
-		    	html : '<div style="width:100%;text-align: center;"><span>昆明市卫生信息中心</span><span style="margin-left:10px;">版权所有©2013-2015</span></div>'
+		    	html : '<div style="width:100%;text-align: center;"><span>恒辰科技有限公司</span><span style="margin-left:10px;">版权所有©2013-2015</span></div>'
 		    } ]
 		  });
 	  navigateContent($lastHtmlContent,$lastTemplateId,$lastRootCatName,$lastCatName);
