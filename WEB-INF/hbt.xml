@@ -34,7 +34,7 @@
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
 		<property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
-		<property name="url" value="jdbc:sqlserver://hcsoft2014.sqlserver.rds.aliyuncs.com:3433;databaseName=yilianghealth" />       
+		<property name="url" value="jdbc:jtds://hcsoft2014.sqlserver.rds.aliyuncs.com:3433;databaseName=yilianghealth" /> 
 		<property name="username" value="hcsoft" />       
 		<property name="password" value="hcsoft2015" /> 
 		<property name="initialSize" value="1"/>
